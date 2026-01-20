@@ -1,0 +1,45 @@
+services:
+  # 1. Base de datos (Persistencia de precios)
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pricedb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # 2. Redis (Cola de tareas)
+  redis:
+    image: redis:alpine
+
+  # 3. Tu Worker (El código Python)
+  worker:
+    build: .
+    command: celery -A app.celery_app worker --loglevel=info
+    volumes:
+      - .:/code # Montamos el código para desarrollar sin reconstruir
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - DATABASE_URL=postgresql://user:password@db:5432/pricedb
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    depends_on:
+      - redis
+      - db
+
+  # 4. Beat (El cron que agenda las revisiones)
+  beat:
+    build: .
+    command: celery -A app.celery_app beat --loglevel=info
+    volumes:
+      - .:/code
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+
+volumes:
+  pgdata:
