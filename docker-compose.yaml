@@ -41,5 +41,19 @@ services:
     depends_on:
       - redis
 
+  # 5. API (Homepage Integration)
+  api:
+    build: .
+    command: uvicorn app.api:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/code
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/pricedb
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db
+      - redis
+
 volumes:
   pgdata:
