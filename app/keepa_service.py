@@ -76,41 +76,36 @@ def get_keepa_deals():
 
     logger.info(f"📡 Enviando payload limpio a Keepa API...")
 
-    try:
-        # 2. ENVÍO (Usamos json=... para que requests lo maneje igual que en el debug)
-        response = requests.post(url_post, json=final_payload, timeout=15)
-        logger.debug(f"HTTP Status: {response.status_code}")
+    # 2. ENVÍO (Usamos json=... para que requests lo maneje igual que en el debug)
+    response = requests.post(url_post, json=final_payload, timeout=15)
+    logger.debug(f"HTTP Status: {response.status_code}")
+    
+    if response.status_code == 200:
+        data = response.json()
         
-        if response.status_code == 200:
-            data = response.json()
-            
-            if "error" in data:
-                logger.error(f"❌ Error API Keepa: {data['error']}")
-                return []
+        if "error" in data:
+            logger.error(f"❌ Error API Keepa: {data['error']}")
+            # Aunque la API responda 200 con error, podríamos considerarlo fallo lógico o return []
+            # Si retorna error explícito, quizás mejor devolver [] pero loguear error.
+            # O raise Exception(data['error'])
+            raise Exception(f"API Keepa Error: {data['error']}")
 
-            tokens_left = data.get("tokensLeft", 0)
-            logger.info(f"💰 Tokens restantes en Keepa: {tokens_left}")
-            
-            if "deals" in data and "dr" in data["deals"]:
-                deals_count = len(data["deals"]["dr"])
-                logger.info(f"📊 Se encontraron {deals_count} deals en Keepa")
-                parsed = parse_deals(data["deals"]["dr"])
-                logger.info(f"✅ Se parsearon {len(parsed)} deals que pasaron filtros")
-                return parsed
-            else:
-                logger.info("✅ Éxito (200 OK) - No hay ofertas >60% ahora mismo.")
-                return []
+        tokens_left = data.get("tokensLeft", 0)
+        logger.info(f"💰 Tokens restantes en Keepa: {tokens_left}")
+        
+        if "deals" in data and "dr" in data["deals"]:
+            deals_count = len(data["deals"]["dr"])
+            logger.info(f"📊 Se encontraron {deals_count} deals en Keepa")
+            parsed = parse_deals(data["deals"]["dr"])
+            logger.info(f"✅ Se parsearon {len(parsed)} deals que pasaron filtros")
+            return parsed
         else:
-            logger.error(f"❌ Error HTTP {response.status_code}")
-            logger.debug(f"Response: {response.text[:500]}")
+            logger.info("✅ Éxito (200 OK) - No hay ofertas >60% ahora mismo.")
             return []
-
-    except requests.exceptions.Timeout:
-        logger.error("❌ Timeout al conectar con Keepa")
-        return []
-    except Exception as e:
-        logger.exception(f"❌ Excepción inesperada en Keepa: {e}")
-        return []
+    else:
+        logger.error(f"❌ Error HTTP {response.status_code}")
+        logger.debug(f"Response: {response.text[:500]}")
+        raise requests.exceptions.HTTPError(f"HTTP {response.status_code}")
 
 def parse_deals(deals_list, min_discount=70):
     clean_deals = []

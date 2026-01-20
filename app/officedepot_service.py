@@ -27,7 +27,7 @@ SEARCH_CONFIG = {
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Muebles-y-Decoraci%C3%B3n/Sillas/c/06-084-0-0?q=%3Arelevance&page=2",
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Muebles-y-Decoraci%C3%B3n/Sillas/c/06-084-0-0?q=%3Arelevance&page=3"
     ],
-    "min_price_drop_percent": 10,
+    "min_price_drop_percent": 50,
     "min_price_drop_amount": 500,
     "keywords_include": [],
     "keywords_exclude": [],
@@ -46,116 +46,111 @@ def fetch_officedepot_products(url):
 
     products = []
     
-    try:
-        response = requests.get(url, headers=headers, timeout=20)
-        response.raise_for_status()
-        
-        soup = BeautifulSoup(response.text, 'lxml')
-        
-        # --- ESTRATEGIA 1: DataLayer (Más completa y con sale_price) ---
-        scripts = soup.find_all('script')
-        found_datalayer = None
-        
-        # Buscar script que contenga dataLayer.push y impressions
-        for script in scripts:
-            # .string a veces es None si hay comentarios complejos o estructura, usar text o get_text
-            txt = script.get_text() or ''
-            if 'dataLayer.push' in txt and 'impressions' in txt:
-                found_datalayer = txt
-                break
+    response = requests.get(url, headers=headers, timeout=20)
+    response.raise_for_status()
+    
+    soup = BeautifulSoup(response.text, 'lxml')
+    
+    # --- ESTRATEGIA 1: DataLayer (Más completa y con sale_price) ---
+    scripts = soup.find_all('script')
+    found_datalayer = None
+    
+    # Buscar script que contenga dataLayer.push y impressions
+    for script in scripts:
+        # .string a veces es None si hay comentarios complejos o estructura, usar text o get_text
+        txt = script.get_text() or ''
+        if 'dataLayer.push' in txt and 'impressions' in txt:
+            found_datalayer = txt
+            break
+            
+    if found_datalayer:
+        try:
+            # Extraer el bloque 'impressions': [ ... ]
+            match = re.search(r"'impressions'\s*:\s*\[(.*?)\]", found_datalayer, re.DOTALL)
+            if match:
+                impressions_str = match.group(1)
                 
-        if found_datalayer:
-            try:
-                # Extraer el bloque 'impressions': [ ... ]
-                match = re.search(r"'impressions'\s*:\s*\[(.*?)\]", found_datalayer, re.DOTALL)
-                if match:
-                    impressions_str = match.group(1)
+                # Iterar sobre objetos { ... }
+                # Regex para capturar bloques entre llaves
+                # Nota: esto asume que no hay llaves anidadas complejas dentro de los valores
+                item_matches = re.findall(r"\{[^{}]*\}", impressions_str)
+                
+                logger.info(f"🔍 Encontrados {len(item_matches)} items en dataLayer")
+                
+                for item_str in item_matches:
+                    # Extraer campos con regex
+                    id_match = re.search(r"'id'\s*:\s*'([^']*)'", item_str)
+                    name_match = re.search(r"'name'\s*:\s*'([^']*)'", item_str)
+                    price_match = re.search(r"'price'\s*:\s*'([^']*)'", item_str)
+                    sale_price_match = re.search(r"'sale_price'\s*:\s*'([^']*)'", item_str)
                     
-                    # Iterar sobre objetos { ... }
-                    # Regex para capturar bloques entre llaves
-                    # Nota: esto asume que no hay llaves anidadas complejas dentro de los valores
-                    item_matches = re.findall(r"\{[^{}]*\}", impressions_str)
-                    
-                    logger.info(f"🔍 Encontrados {len(item_matches)} items en dataLayer")
-                    
-                    for item_str in item_matches:
-                        # Extraer campos con regex
-                        id_match = re.search(r"'id'\s*:\s*'([^']*)'", item_str)
-                        name_match = re.search(r"'name'\s*:\s*'([^']*)'", item_str)
-                        price_match = re.search(r"'price'\s*:\s*'([^']*)'", item_str)
-                        sale_price_match = re.search(r"'sale_price'\s*:\s*'([^']*)'", item_str)
+                    if id_match and name_match:
+                        pid = id_match.group(1)
+                        name = name_match.group(1)
+                        price_raw = price_match.group(1) if price_match else "0"
+                        sale_price_raw = sale_price_match.group(1) if sale_price_match else None
                         
-                        if id_match and name_match:
-                            pid = id_match.group(1)
-                            name = name_match.group(1)
-                            price_raw = price_match.group(1) if price_match else "0"
-                            sale_price_raw = sale_price_match.group(1) if sale_price_match else None
+                        # Determinar el precio real (el menor)
+                        try:
+                            p_val = float(price_raw)
+                        except:
+                            p_val = 0.0
                             
-                            # Determinar el precio real (el menor)
-                            try:
-                                p_val = float(price_raw)
-                            except:
-                                p_val = 0.0
-                                
-                            try:
-                                if sale_price_raw:
-                                    sp_val = float(sale_price_raw)
-                                    # Usar sale_price si es válido y menor que precio normal
-                                    if sp_val > 0 and sp_val < p_val:
-                                        p_val = sp_val
-                            except:
-                                pass
-                                
-                            if p_val > 0:
-                                product_obj = {
-                                    "@type": "Product",
-                                    "name": name,
-                                    "sku": pid,
-                                    "url": f"https://www.officedepot.com.mx/officedepot/en/p/{pid}", # Construir URL
-                                    "offers": {
-                                        "price": p_val,
-                                        "priceCurrency": "MXN"
-                                    },
-                                    "image": "" # No viene en dataLayer, dejamos vacio
-                                }
-                                products.append(product_obj)
-            except Exception as e:
-                logger.error(f"Error parseando dataLayer: {e}")
+                        try:
+                            if sale_price_raw:
+                                sp_val = float(sale_price_raw)
+                                # Usar sale_price si es válido y menor que precio normal
+                                if sp_val > 0 and sp_val < p_val:
+                                    p_val = sp_val
+                        except:
+                            pass
+                            
+                        if p_val > 0:
+                            product_obj = {
+                                "@type": "Product",
+                                "name": name,
+                                "sku": pid,
+                                "url": f"https://www.officedepot.com.mx/officedepot/en/p/{pid}", # Construir URL
+                                "offers": {
+                                    "price": p_val,
+                                    "priceCurrency": "MXN"
+                                },
+                                "image": "" # No viene en dataLayer, dejamos vacio
+                            }
+                            products.append(product_obj)
+        except Exception as e:
+            logger.error(f"Error parseando dataLayer: {e}")
 
-        # --- ESTRATEGIA 2: JSON-LD (Fallback o suplemento) ---
-        # Si dataLayer falló o queremos asegurar, buscamos JSON-LD
-        # Pero priorizamos dataLayer porque tiene sale_price
-        
-        if not products:
-            logger.info("⚠️ DataLayer no encontrado o vacío, intentando JSON-LD...")
-            json_ld_matches = re.findall(r'<script.*?type="application/ld\+json".*?>(.*?)</script>', response.text, re.DOTALL)
-            for script_content in json_ld_matches:
-                try:
-                    data = json.loads(script_content)
-                    if isinstance(data, list): items_list = data
-                    else: items_list = [data]
-                    
-                    for item in items_list:
-                        if item.get("mainEntity", {}).get("@type") == "ItemList":
-                             for element in item["mainEntity"].get("itemListElement", []):
-                                 if element.get("@type") == "Product":
-                                     products.append(element)
-                        elif item.get("@type") == "ItemList":
-                             for element in item.get("itemListElement", []):
-                                 if element.get("@type") == "Product":
-                                     products.append(element)
-                except:
-                    continue
-        
-        # Eliminar duplicados por SKU/URL si mezclamos estrategias (aunque aquí es if/else implícito)
-        # Dejamos tal cual por ahora
-        
-        logger.info(f"✅ Total productos extraídos: {len(products)}")
-        return products
-
-    except Exception as e:
-        logger.error(f"❌ Error escaneando {url}: {e}")
-        return []
+    # --- ESTRATEGIA 2: JSON-LD (Fallback o suplemento) ---
+    # Si dataLayer falló o queremos asegurar, buscamos JSON-LD
+    # Pero priorizamos dataLayer porque tiene sale_price
+    
+    if not products:
+        logger.info("⚠️ DataLayer no encontrado o vacío, intentando JSON-LD...")
+        json_ld_matches = re.findall(r'<script.*?type="application/ld\+json".*?>(.*?)</script>', response.text, re.DOTALL)
+        for script_content in json_ld_matches:
+            try:
+                data = json.loads(script_content)
+                if isinstance(data, list): items_list = data
+                else: items_list = [data]
+                
+                for item in items_list:
+                    if item.get("mainEntity", {}).get("@type") == "ItemList":
+                            for element in item["mainEntity"].get("itemListElement", []):
+                                if element.get("@type") == "Product":
+                                    products.append(element)
+                    elif item.get("@type") == "ItemList":
+                            for element in item.get("itemListElement", []):
+                                if element.get("@type") == "Product":
+                                    products.append(element)
+            except:
+                continue
+    
+    # Eliminar duplicados por SKU/URL si mezclamos estrategias (aunque aquí es if/else implícito)
+    # Dejamos tal cual por ahora
+    
+    logger.info(f"✅ Total productos extraídos: {len(products)}")
+    return products
 
 def process_products(products):
     """
