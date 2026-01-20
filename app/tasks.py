@@ -11,6 +11,10 @@ from datetime import datetime
 # Configurar logging
 logger = logging.getLogger(__name__)
 
+# Monitor system
+from app.monitoring import Monitor
+monitor = Monitor()
+
 # Usamos Redis para no repetir alertas del mismo producto cada 10 min
 redis_client = redis.Redis(host='redis', port=6379, db=1)
 
@@ -78,10 +82,13 @@ def scan_amazon_deals():
         
         if not deals:
             logger.warning("❌ No se encontraron ofertas en Keepa")
+            monitor.record_no_deals('keepa')
             return
         
+        monitor.record_found_deals('keepa')
+        
         # --- FILTRO ANTI-SPAM ---
-        deals = deals[:5]  # Top 5 ofertas
+        deals = deals[:10]  # Top 10 ofertas
         
         logger.info(f"📊 Procesando TOP {len(deals)} ofertas de Keepa...")
 
@@ -115,6 +122,7 @@ def scan_amazon_deals():
         
     except Exception as e:
         logger.exception(f"❌ Error en scan_amazon_deals: {e}")
+        monitor.record_failure('keepa', str(e))
     finally:
         logger.info("=" * 60)
 
@@ -130,7 +138,10 @@ def scan_promodescuentos_deals():
         
         if not deals:
             logger.warning("❌ No se encontraron ofertas en PromoDescuentos")
+            monitor.record_no_deals('promodescuentos')
             return
+        
+        monitor.record_found_deals('promodescuentos')
         
         # Tomar solo los mejores (por temperatura/popularidad)
         deals = deals[:10]
@@ -162,6 +173,7 @@ def scan_promodescuentos_deals():
         
     except Exception as e:
         logger.exception(f"❌ Error en scan_promodescuentos_deals: {e}")
+        monitor.record_failure('promodescuentos', str(e))
     finally:
         logger.info("=" * 60)
 
@@ -177,7 +189,10 @@ def scan_officedepot_deals():
         
         if not deals:
             logger.info("ℹ️ No se detectaron bajadas de precio significativas en Office Depot")
+            monitor.record_no_deals('officedepot')
             return
+
+        monitor.record_found_deals('officedepot')
         
         logger.info(f"📊 Procesando {len(deals)} alertas de precio de Office Depot...")
         
@@ -204,6 +219,7 @@ def scan_officedepot_deals():
         
     except Exception as e:
         logger.exception(f"❌ Error en scan_officedepot_deals: {e}")
+        monitor.record_failure('officedepot', str(e))
     finally:
         logger.info("=" * 60)
 

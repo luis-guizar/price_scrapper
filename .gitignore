@@ -51,3 +51,5 @@ deploy.zip
 deploy_payload.zip
 
 deploy.zip
+test_system_alert.py
+verify_monitoring.py

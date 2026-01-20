@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 # ==================== PARÁMETROS DE FILTRACIÓN ====================
 # Puedes ajustar estos valores según tus necesidades
 FILTER_CONFIG = {
-    "min_discount": 50,           # Descuento mínimo (%) - bajado de 30
+    "min_discount": 60,           # Descuento mínimo (%) - bajado de 30
     "min_price": 100,              # Precio mínimo (MXN) - bajado de 100
     "max_price": 100000,          # Precio máximo (MXN) - subido de 50000
     "excluded_keywords": [
@@ -38,45 +38,37 @@ def fetch_promodescuentos_deals(page=1):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     }
     
-    try:
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
-        logger.debug(f"HTTP Status: {response.status_code}")
-        
-        logger.debug("Buscando datos de ofertas en atributos data-vue3...")
-        
-        deals = []
-        # Expresión regular para encontrar el contenido de data-vue3
-        vue3_data_matches = re.findall(r"data-vue3='(.*?)'", response.text)
-        
-        for vue3_data_str in vue3_data_matches:
-            try:
-                # El contenido de data-vue3 es un JSON
-                vue3_json = json.loads(vue3_data_str)
-                
-                # Nos interesan los componentes que normalizan la data de cada 'thread'
-                if vue3_json.get('name') == 'ThreadMainListItemNormalizer':
-                    thread_data = vue3_json.get('props', {}).get('thread')
-                    if thread_data:
-                        deals.append(thread_data)
-            except json.JSONDecodeError:
-                # Ignorar si el contenido del atributo no es un JSON válido
-                logger.debug(f"No se pudo parsear un atributo data-vue3 a JSON: {vue3_data_str[:100]}...")
-                continue
-        
-        if deals:
-            logger.info(f"✅ Se extrajeron {len(deals)} ofertas crudas de PromoDescuentos")
-        else:
-            logger.warning("❌ No se encontraron ofertas con el nuevo método de extracción (data-vue3).")
-
-        return deals
+    response = requests.get(url, headers=headers, timeout=10)
+    response.raise_for_status()
+    logger.debug(f"HTTP Status: {response.status_code}")
+    
+    logger.debug("Buscando datos de ofertas en atributos data-vue3...")
+    
+    deals = []
+    # Expresión regular para encontrar el contenido de data-vue3
+    vue3_data_matches = re.findall(r"data-vue3='(.*?)'", response.text)
+    
+    for vue3_data_str in vue3_data_matches:
+        try:
+            # El contenido de data-vue3 es un JSON
+            vue3_json = json.loads(vue3_data_str)
             
-    except requests.exceptions.Timeout:
-        logger.error("❌ Timeout conectando a PromoDescuentos (>10s)")
-        return []
-    except requests.exceptions.RequestException as e:
-        logger.error(f"❌ Error de conexión con PromoDescuentos: {e}")
-        return []
+            # Nos interesan los componentes que normalizan la data de cada 'thread'
+            if vue3_json.get('name') == 'ThreadMainListItemNormalizer':
+                thread_data = vue3_json.get('props', {}).get('thread')
+                if thread_data:
+                    deals.append(thread_data)
+        except json.JSONDecodeError:
+            # Ignorar si el contenido del atributo no es un JSON válido
+            logger.debug(f"No se pudo parsear un atributo data-vue3 a JSON: {vue3_data_str[:100]}...")
+            continue
+    
+    if deals:
+        logger.info(f"✅ Se extrajeron {len(deals)} ofertas crudas de PromoDescuentos")
+    else:
+        logger.warning("❌ No se encontraron ofertas con el nuevo método de extracción (data-vue3).")
+
+    return deals
 
 def filter_deals(deals_raw):
     """
