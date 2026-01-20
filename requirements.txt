@@ -7,4 +7,5 @@ sqlalchemy
 psycopg2-binary
 python-dotenv
 lxml
-
+fastapi
+uvicorn
