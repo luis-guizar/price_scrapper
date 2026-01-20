@@ -1,94 +1,94 @@
-# Price Tracker Bot 📈
+# Price Tracker Bot
 
-A powerful, automated price tracking system that monitors products on Amazon (via Keepa), Promodescuentos, and Office Depot, sending real-time alerts to Telegram when significant price drops or deals are detected.
+Un sistema automatizado de seguimiento de precios que monitorea productos en Amazon (vía Keepa), Promodescuentos y Office Depot, enviando alertas en tiempo real a Telegram cuando se detectan bajas de precio significativas o promociones destacadas.
 
-## 🚀 Features
+## Características
 
-- **Multi-Source Tracking**: 
-  - **Amazon**: Uses Keepa API to track price history and drops.
-  - **Promodescuentos**: Scrapes hot deals and new postings.
-  - **Office Depot**: Monitors specific product pages for price changes.
-- **Telegram Notifications**: Immediate alerts with product details, price history, and direct links.
-- **Automated Scanning**: Scheduled tasks using Celery and Celery Beat.
-- **Data Persistence**: Stores price history and detected deals in PostgreSQL.
-- **Dockerized**: Easy deployment using Docker and Docker Compose.
+- Monitoreo de Múltiples Fuentes:
+    - Amazon: Utiliza la API de Keepa para rastrear el historial de precios y caídas.
+    - Promodescuentos: Analiza las ofertas más destacadas y nuevas publicaciones.
+    - Office Depot: Monitorea páginas de productos específicos para detectar cambios de precio.
+- Notificaciones por Telegram: Alertas inmediatas con detalles del producto, historial de precios y enlaces directos.
+- Escaneo Automatizado: Tareas programadas utilizando Celery y Celery Beat.
+- Persistencia de Datos: Almacena el historial de precios y las ofertas detectadas en PostgreSQL.
+- Contenedores con Docker: Fácil despliegue utilizando Docker y Docker Compose.
 
-## 🛠 Tech Stack
+## Tecnologías Utilizadas
 
-- **Language**: Python 3.11+
-- **Task Queue**: Celery with Redis
-- **Database**: PostgreSQL (SQLAlchemy ORM)
-- **Scraping**: BeautifulSoup4, HTTPX
-- **APIs**: Keepa API, Telegram Bot API
-- **Containerization**: Docker & Docker Compose
+- Lenguaje: Python 3.11+
+- Cola de Tareas: Celery con Redis
+- Base de Datos: PostgreSQL (SQLAlchemy ORM)
+- Extracción de Datos (Scraping): BeautifulSoup4, HTTPX
+- APIs: Keepa API, Telegram Bot API
+- Infraestructura: Docker & Docker Compose
 
-## 📋 Prerequisites
+## Requisitos Previos
 
-- Docker and Docker Compose installed.
-- A Telegram Bot token (from [@BotFather](https://t.me/botfather)).
-- A Keepa API Key (from [Keepa.com](https://keepa.com/#!api)).
+- Docker y Docker Compose instalados.
+- Un token de Bot de Telegram (obtenido de @BotFather).
+- Una clave de API de Keepa (obtenida de Keepa.com).
 
-## ⚙️ Setup & Installation
+## Configuración e Instalación
 
-1. **Clone the repository**:
+1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/yourusername/price-tracker.git
-   cd price-tracker
+   git clone https://github.com/luis-guizar/price_scrapper.git
+   cd price_scrapper
    ```
 
-2. **Configure Environment Variables**:
-   Copy the example environment file and fill in your credentials:
+2. Configurar Variables de Entorno:
+   Copia el archivo de ejemplo y completa tus credenciales:
    ```bash
    cp .env.example .env
    ```
-   Edit `.env` with your `KEEPA_API_KEY`, `TELEGRAM_TOKEN`, and `TELEGRAM_CHAT_ID`.
+   Edita el archivo .env con tus valores para KEEPA_API_KEY, TELEGRAM_TOKEN y TELEGRAM_CHAT_ID.
 
-3. **Deploy with Docker**:
+3. Desplegar con Docker:
    ```bash
    docker-compose up --build -d
    ```
 
-## 📂 Project Structure
+## Estructura del Proyecto
 
-- `app/`: Main application code.
-  - `tasks.py`: Celery task definitions for scanning.
-  - `keepa_service.py`: Amazon/Keepa integration logic.
-  - `promodescuentos_service.py`: Web scraping for Promodescuentos.
-  - `officedepot_service.py`: Web scraping for Office Depot.
-  - `models.py`: SQLAlchemy database models.
-  - `celery_app.py`: Celery configuration and schedule.
-- `docker-compose.yaml`: Orchestration for Worker, Beat, Redis, and Postgres.
-- `Dockerfile`: Production-ready image configuration.
+- app/: Código principal de la aplicación.
+    - tasks.py: Definición de las tareas de Celery para el escaneo.
+    - keepa_service.py: Lógica de integración con Amazon/Keepa.
+    - promodescuentos_service.py: Extracción de datos de Promodescuentos.
+    - officedepot_service.py: Extracción de datos de Office Depot.
+    - models.py: Modelos de base de datos SQLAlchemy.
+    - celery_app.py: Configuración de Celery y cronograma de tareas.
+- docker-compose.yaml: Orquestación para el Worker, Beat, Redis y Postgres.
+- Dockerfile: Configuración de la imagen para producción.
 
-## 🛠 Development
+## Desarrollo
 
-### Local Setup (without Docker)
+### Configuración Local (sin Docker)
 
-1. Create a virtual environment:
+1. Crear un entorno virtual:
    ```bash
    python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   source .venv/bin/activate  # En Windows: .venv\Scripts\activate
    ```
 
-2. Install dependencies:
+2. Instalar dependencias:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Ensure you have Redis and Postgres running locally, then start the worker:
+3. Asegúrate de tener Redis y Postgres funcionando localmente e inicia el worker:
    ```bash
    celery -A app.celery_app worker --loglevel=info
    ```
 
-4. Start the scheduler (Beat):
+4. Inicia el programador (Beat):
    ```bash
    celery -A app.celery_app beat --loglevel=info
    ```
 
-## 📝 License
+## Licencia
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
 
-## 🤝 Contributing
+## Contribuciones
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Las contribuciones son bienvenidas. Por favor, siéntete libre de enviar un Pull Request.
