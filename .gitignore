@@ -12,6 +12,7 @@ __pycache__/
 
 # Virtual environments
 venv/
+.venv/
 ENV/
 env/
 
@@ -33,6 +34,11 @@ env/
 # Celery
 celerybeat-schedule
 
+# Artifacts/Deployment
+deploy.zip
+opc@*
+
 # OS
 .DS_Store
 Thumbs.db
+
