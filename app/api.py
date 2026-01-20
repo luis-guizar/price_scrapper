@@ -11,13 +11,20 @@ def get_db():
     finally:
         db.close()
 
+from app.monitoring import Monitor
+
+monitor = Monitor()
+
 @app.get("/stats")
 def read_stats(db: Session = Depends(get_db)):
     try:
         product_count = db.query(Product).count()
+        services_status = monitor.get_services_status()
+        
         return {
-            "status": "running.2",
-            "products_count": product_count
+            "status": "running",
+            "products_count": product_count,
+            "services": services_status
         }
     except Exception as e:
         return {

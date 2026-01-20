@@ -135,7 +135,28 @@ class Monitor:
         limit = self.THRESHOLDS.get(service_name, {}).get('empty', 20)
         
         if count == limit:
-             self.send_system_alert(
+            self.send_system_alert(
                 f"Sin resultados en {service_name}",
                 f"El servicio lleva {count} ejecuciones sin encontrar NADA.\nPosible cambio de layout, bloqueo o IP baneada."
             )
+
+    def get_services_status(self):
+        """Devuelve el estado actual de los servicios monitoreados"""
+        status = {}
+        for service in self.THRESHOLDS.keys():
+            f_key = self._get_key(service, 'failures')
+            e_key = self._get_key(service, 'empty')
+            
+            failures = int(redis_client.get(f_key) or 0)
+            empty = int(redis_client.get(e_key) or 0)
+            
+            status[service] = {
+                "failures": failures,
+                "consecutive_empty": empty,
+                "status": "ok" if failures == 0 and empty < self.THRESHOLDS[service]['empty'] else "warning"
+            }
+            # Si supera umbral, poner status 'critical'
+            if failures >= self.THRESHOLDS[service]['failures'] or empty >= self.THRESHOLDS[service]['empty']:
+                status[service]['status'] = 'critical'
+                
+        return status
