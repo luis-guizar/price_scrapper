@@ -36,9 +36,17 @@ celerybeat-schedule
 
 # Artifacts/Deployment
 deploy.zip
+deploy_payload.zip
+deploy.ps1
+docker-compose.prod.yaml
 opc@*
 
 # OS
 .DS_Store
 Thumbs.db
+
+opc@159.54.128.157
+.agent/
+deploy.zip
+deploy_payload.zip
 
