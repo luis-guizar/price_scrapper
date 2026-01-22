@@ -29,6 +29,10 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_officedepot_deals',
         'schedule': 300,
     },
+    'scan-walmart-every-30-mins': {
+        'task': 'app.tasks.scan_walmart_deals',
+        'schedule': 1800,  # 30 minutos
+    },
 }
 
 app.conf.timezone = 'UTC' # type: ignore

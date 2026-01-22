@@ -2,6 +2,7 @@ from app.celery_app import app
 from app.keepa_service import get_keepa_deals
 from app.promodescuentos_service import get_promodescuentos_deals
 from app.officedepot_service import get_officedepot_deals
+from app.walmart_service import get_walmart_deals
 import requests
 import os
 import redis
@@ -220,6 +221,25 @@ def scan_officedepot_deals():
     except Exception as e:
         logger.exception(f"❌ Error en scan_officedepot_deals: {e}")
         monitor.record_failure('officedepot', str(e))
+    finally:
+        logger.info("=" * 60)
+
+@app.task
+def scan_walmart_deals():
+    logger.info("=" * 60)
+    logger.info("▶️ TAREA INICIADA: scan_walmart_deals")
+    logger.info("=" * 60)
+    try:
+        deals = get_walmart_deals()
+        if deals:
+            logger.info(f"Encontradas {len(deals)} ofertas en Walmart")
+            for deal in deals:
+                send_telegram_alert(deal)
+        else:
+            logger.info("No se encontraron ofertas nuevas en Walmart")
+    except Exception as e:
+        logger.exception(f"❌ Error en scan_walmart_deals: {e}")
+        # monitor.record_failure('walmart', str(e)) # Uncomment when we add walmart to monitor
     finally:
         logger.info("=" * 60)
 
