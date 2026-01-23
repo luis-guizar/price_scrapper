@@ -31,7 +31,7 @@ app.conf.beat_schedule = {
     },
     'scan-walmart-every-30-mins': {
         'task': 'app.tasks.scan_walmart_deals',
-        'schedule': 1800,  # 30 minutos
+        'schedule': 1200,  # 20 minutos
     },
 }
 

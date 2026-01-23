@@ -15,7 +15,7 @@ redis_client = redis.Redis(host='redis', port=6379, db=1)
 class Monitor:
     def __init__(self):
         self.telegram_token = os.getenv('TELEGRAM_TOKEN')
-        self.chat_id = os.getenv('TELEGRAM_CHAT_ID')
+        self.chat_id = os.getenv('TELEGRAM_ALERTS_CHAT_ID')
         
         # Umbrales
         self.THRESHOLDS = {

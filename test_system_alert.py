@@ -1,5 +1,8 @@
 import logging
 from app.monitoring import Monitor
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
