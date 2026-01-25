@@ -1,7 +1,7 @@
 celery
 redis
 requests
-httpx
+httpx[http2]
 beautifulsoup4
 sqlalchemy
 psycopg2-binary

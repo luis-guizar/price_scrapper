@@ -31,7 +31,16 @@ app.conf.beat_schedule = {
     },
     'scan-walmart-every-30-mins': {
         'task': 'app.tasks.scan_walmart_deals',
-        'schedule': 1200,  # 20 minutos
+        'schedule': 1800,  # 30 minutos
+    },
+    'scan-mercadolibre-monitoring-every-30-mins': {
+        'task': 'app.tasks.scan_mercadolibre_monitoring',
+        'schedule': 1800,  # 30 minutos
+    },
+    'scan-mercadolibre-discovery-daily': {
+        'task': 'app.tasks.scan_mercadolibre_discovery',
+        'schedule': 86400,  # 24 horas (diario)
+        'args': (["laptop gamer", "rtx 4060", "silla ergonómica", "monitor 144hz","smart tv", "iPhone","logitech", "macbook", "Samsung Galaxy"], 'relevancia', True)
     },
 }
 
