@@ -1,3 +1,4 @@
+import httpx
 import requests
 import json
 import logging
@@ -27,135 +28,172 @@ SEARCH_CONFIG = {
 
 def fetch_walmart_products(url):
     """
-    Obtiene productos de Walmart MX parseando el script data id="__NEXT_DATA__".
-    Soporta páginas de categorías y búsquedas (Tempo modules).
+    Obtiene productos de Walmart MX mediante HTML parsing (prioridad) o script parsing (fallback).
     """
     logger.info(f"Escaneando Walmart: {url}")
     
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
         "Accept-Language": "es-MX,es;q=0.9,en-US;q=0.8,en;q=0.7",
         "Referer": "https://www.google.com/",
+        "Sec-Ch-Ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": '"Windows"',
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "cross-site",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "Cache-Control": "max-age=0",
     }
 
     products = []
-    seen_ids = set()
     
     try:
-        response = requests.get(url, headers=headers, timeout=30)
+        # Usar HTTPX con HTTP/2 para evadir bloqueos básicos
+        with httpx.Client(http2=True, timeout=30.0) as client:
+            response = client.get(url, headers=headers)
+        
         response.raise_for_status()
         
         soup = BeautifulSoup(response.text, 'html.parser')
-        next_data_script = soup.find("script", id="__NEXT_DATA__")
+
+        # ---------------------------------------------------------
+        # ESTRATEGIA 1: Parsing HTML (Selectores CSS) - Prioridad
+        # ---------------------------------------------------------
+        # Buscamos contenedores de productos. 
+        # Observado en dump: div[role="group"] o data-testid="product-tile-..."
+        product_tiles = soup.find_all("div", role="group")
         
-        if next_data_script:
-            try:
-                data = json.loads(next_data_script.string)
-                props = data.get('props', {}).get('pageProps', {})
-                
-                # 1. Estrategia: Producto Individual (Página de producto)
-                # ... (Mantener lógica si el usuario pone URL directa) ...
-                initial_state = props.get('initialState', {})
-                product_data = initial_state.get('product', {}).get('selectedProduct', {})
-                # Si encontramos un producto único, lo agregamos y retornamos
-                if product_data:
-                     # (Lógica simplificada para producto único, similar a antes)
-                     # Pero priorizamos la lógica de lista si es una categoría
-                     pass
+        if not product_tiles:
+            logger.info("ℹ️ No se encontraron items con role='group', intentando data-testid='product-tile'...")
+            product_tiles = soup.select("div[data-testid^='product-tile']")
 
-                # 2. Estrategia: Lista de productos (Tempo Data para Categorías/Búsqueda)
-                tempo_data = props.get('initialTempoData', {})
-                modules = tempo_data.get('contentLayout', {}).get('modules', [])
-                
-                logger.info(f"Analizando {len(modules)} módulos en la página...")
-                
-                candidates = []
-                
-                for mod in modules:
-                    configs = mod.get('configs', {})
+        if product_tiles:
+            logger.info(f"✅ Encontrados {len(product_tiles)} tiles de productos vía HTML.")
+            for tile in product_tiles:
+                try:
+                    # Título: span[data-automation-id="product-title"]
+                    title_tag = tile.select_one("span[data-automation-id='product-title']")
+                    if not title_tag: continue
+                    title = title_tag.get_text(strip=True)
+
+                    # Precio: div[data-automation-id="product-price"]
+                    price_tag = tile.select_one("div[data-automation-id='product-price']")
+                    price_text = price_tag.get_text(" ", strip=True) if price_tag else "0"
                     
-                    # Buscar en itemsSelection
-                    if 'itemsSelection' in configs:
-                         items_sel = configs['itemsSelection']
-                         if isinstance(items_sel, dict) and 'products' in items_sel:
-                              candidates.extend(items_sel['products'])
+                    # Limpieza de precio "$5,299.00" -> 5299.00
+                    # Extraemos números, puntos y comas
+                    price_digits = re.findall(r'[0-9,.]+', price_text)
+                    if price_digits:
+                        # Usamos el primer match
+                        price_val = float(price_digits[0].replace(',', ''))
+                    else:
+                        price_val = 0.0
 
-                    # Buscar en productsConfig
-                    if 'productsConfig' in configs:
-                         prod_conf = configs['productsConfig']
-                         if isinstance(prod_conf, dict) and 'products' in prod_conf:
-                              pl = prod_conf['products']
-                              if isinstance(pl, list):
-                                  candidates.extend(pl)
-                
-                logger.info(f"Candidatos encontrados crudos: {len(candidates)}")
+                    # Link: tag <a>
+                    link_tag = tile.find("a")
+                    link = link_tag['href'] if link_tag else ""
+                    if link and not link.startswith("http"):
+                        link = "https://www.walmart.com.mx" + link
 
-                for p in candidates:
-                    try:
-                        pid = p.get('id') or p.get('usItemId')
-                        if not pid or pid in seen_ids:
-                            continue
-                        
-                        seen_ids.add(pid)
-                        
-                        name = p.get('name')
-                        
-                        # Determinar precio
-                        price = 0.0
-                        if 'price' in p and isinstance(p['price'], (int, float)):
-                            price = float(p['price'])
-                        elif 'priceInfo' in p:
-                             p_info = p['priceInfo']
-                             if 'currentPrice' in p_info:
-                                  curr = p_info['currentPrice']
-                                  if 'price' in curr:
-                                       price = float(curr['price'])
-                        
-                        # URL
-                        canonical = p.get('canonicalUrl', '')
-                        if canonical:
-                            if canonical.startswith('http'):
-                                p_url = canonical
-                            else:
-                                p_url = f"https://www.walmart.com.mx{canonical}"
-                        else:
-                            # Fallback con ID
-                            p_url = f"https://www.walmart.com.mx/ip/{pid}"
-                            
-                        # Imagen
-                        image = p.get('image', '')
-                        
-                        if name and price > 0:
-                            products.append({
-                                "@type": "Product",
-                                "name": name,
-                                "sku": pid,
-                                "url": p_url,
-                                "offers": {
-                                    "price": price,
-                                    "priceCurrency": "MXN"
-                                },
-                                "image": image
-                            })
-                    except Exception as e:
-                        continue
-                        
-                if not products and product_data:
-                     # Fallback a producto único si no hallamos lista
-                     # ... (Lógica de producto único simplificada aquí por brevedad)
-                     pass
-                     
-                logger.info(f"✅ Total productos válidos extraídos: {len(products)}")
+                    # Imagen: img[data-testid="productTileImage"]
+                    img_tag = tile.select_one("img[data-testid='productTileImage']")
+                    image_url = img_tag['src'] if img_tag else ""
 
-            except json.JSONDecodeError:
-                logger.error("Error decodificando JSON de __NEXT_DATA__")
-        else:
-            logger.warning("Tag <script id='__NEXT_DATA__'> no encontrado.")
+                    if title and price_val > 0:
+                        products.append({
+                            "name": title,
+                            "url": link,
+                            "sku": link.split('/')[-1].split('?')[0] if link else "",
+                            "image": image_url,
+                            "offers": {
+                                "price": price_val,
+                                "priceCurrency": "MXN"
+                            }
+                        })
+                except Exception as e:
+                    continue
+
+        # ---------------------------------------------------------
+        # ESTRATEGIA 2: Fallback a JSON Parsing (Scripts)
+        # ---------------------------------------------------------
+        if not products:
+             logger.info("⚠️ Parsing HTML retornó 0 productos. Intentando fallback scripts...")
+             
+             data = None
+             # Intento 1: ID explícito
+             next_data_script = soup.find("script", id="__NEXT_DATA__")
+             if next_data_script:
+                 try:
+                     data = json.loads(next_data_script.string)
+                 except: pass
             
-    except Exception as e:
-        logger.error(f"Error parseando Walmart: {e}")
+             # Intento 2: Buscar en todos los scripts
+             if not data:
+                scripts = soup.find_all("script")
+                for script in scripts:
+                    if script.get("src"): continue
+                    content = script.string
+                    if content and 'initialState' in content and 'pageProps' in content:
+                        try:
+                            possible_data = json.loads(content)
+                            if 'props' in possible_data and 'pageProps' in possible_data:
+                                data = possible_data
+                                break
+                        except: continue
 
+             if data:
+                 try:
+                     # Path común: props -> pageProps -> initialData -> searchResult -> itemStacks -> [0] -> items
+                     initial_data = data.get('props', {}).get('pageProps', {}).get('initialData', {})
+                     search_result = initial_data.get('searchResult', {})
+                     item_stacks = search_result.get('itemStacks', [])
+                     if item_stacks:
+                         items = item_stacks[0].get('items', [])
+                         for item in items:
+                             p_title = item.get('name', '')
+                             p_price = float(item.get('price', 0))
+                             canonical = item.get('canonicalUrl', '')
+                             p_url = f"https://www.walmart.com.mx{canonical}" if canonical else ""
+                             p_image = item.get('image', '')
+                             p_id = item.get('id', '')
+
+                             if p_title and p_price > 0:
+                                 products.append({
+                                    "name": p_title,
+                                    "url": p_url,
+                                    "sku": p_id,
+                                    "image": p_image,
+                                    "offers": {
+                                        "price": p_price,
+                                        "priceCurrency": "MXN"
+                                    }
+                                 })
+                 except Exception as e:
+                     logger.error(f"Error en JSON fallback: {e}")
+
+        # ---------------------------------------------------------
+        # Verificamos Bloqueo REAL (Solo si no hay productos)
+        # ---------------------------------------------------------
+        if not products:
+            text_lower = response.text.lower()
+            # Chequeo estricto: debe haber keywords de bloqueo Y 0 productos
+            if "robot check" in text_lower or "captcha" in text_lower or "perimeterx" in text_lower:
+                logger.warning(f"⚠️ BLOQUEO DETECTADO CONFIRMADO EN: {url}")
+            else:
+                logger.warning(f"❌ Parsing falló en {url}. 0 productos encontrados. Guardando dump.")
+            
+            try:
+                with open("failed_dump.html", "w", encoding="utf-8") as f:
+                    f.write(response.text)
+            except: pass
+
+    except Exception as e:
+        logger.error(f"Error general en fetch_walmart_products: {e}")
+
+    logger.info(f"✅ Total productos válidos extraídos: {len(products)}")
     return products
 
 def process_products(products):
