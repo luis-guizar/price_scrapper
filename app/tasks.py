@@ -58,6 +58,14 @@ def send_telegram_alert(deal):
             f"❌ Antes: {old_price_str} (Original: {original_price_str})\n"
             f"🔗 {deal['url']}"
         )
+    elif source == 'walmart':
+        msg = (
+            f"📉 ¡BAJADA DE PRECIO EN WALMART! ({deal['discount_pct']}% OFF)\n\n"
+            f"📦 {deal['title']}\n"
+            f"💰 Nuevo Precio: ${deal['price']}\n"
+            f"❌ Antes: ${deal['old_price']}\n"
+            f"🔗 {deal['url']}"
+        )
     else:  # keepa
         msg = (
             f"🔥 ¡OFERTA REAL DETECTADA EN AMAZON! ({deal['discount_pct']}% OFF)\n\n"

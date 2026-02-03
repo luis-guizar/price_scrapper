@@ -80,7 +80,7 @@ def filter_deals(deals_raw):
                 f"min_temp={FILTER_CONFIG['min_temperature']}")
     
     filtered = []
-    rejected_reasons = {"type": 0, "keywords": 0, "discount": 0, "price": 0, "temperature": 0}
+    rejected_reasons = {"type": 0, "keywords": 0, "discount": 0, "price": 0, "temperature": 0, "isLocal": 0}
     
     for i, deal in enumerate(deals_raw):
         title = deal.get('title', '').lower()
@@ -95,6 +95,11 @@ def filter_deals(deals_raw):
         if any(keyword in title for keyword in FILTER_CONFIG['excluded_keywords']):
             logger.debug(f"  [{i}] Rechazado por palabra clave: {title[:50]}")
             rejected_reasons["keywords"] += 1
+            continue
+
+        if deal.get('isLocal', False):
+            logger.debug(f"  [{i}] Rechazado por ser oferta física (isLocal): {title[:50]}")
+            rejected_reasons["isLocal"] += 1
             continue
 
         # --- Validaciones de oferta ---
@@ -133,7 +138,8 @@ def filter_deals(deals_raw):
                 f"keywords={rejected_reasons['keywords']}, "
                 f"discount={rejected_reasons['discount']}, "
                 f"price={rejected_reasons['price']}, "
-                f"temp={rejected_reasons['temperature']}")
+                f"temp={rejected_reasons['temperature']}, "
+                f"isLocal={rejected_reasons['isLocal']}")
     
     return filtered
 
