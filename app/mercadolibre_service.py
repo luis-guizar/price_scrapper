@@ -184,7 +184,7 @@ def search_products(keywords, sort_by='relevancia', free_shipping=False):
 
                         # ID: Extraer de la URL o input hidden
                         # https://articulo.mercadolibre.com.mx/MLM-123456-...
-                        # ID suele ser MLM-123456
+                        # ID suele ser   MLM-123456
                         ml_id = None
                         if 'MLM' in permalink:
                             import re

@@ -97,6 +97,10 @@ def fetch_walmart_products(url):
                     link = link_tag['href'] if link_tag else ""
                     if link and not link.startswith("http"):
                         link = "https://www.walmart.com.mx" + link
+                    
+                    # Clean URL query params to ensure stable product tracking
+                    if link:
+                        link = link.split('?')[0]
 
                     # Imagen: img[data-testid="productTileImage"]
                     img_tag = tile.select_one("img[data-testid='productTileImage']")
@@ -106,7 +110,7 @@ def fetch_walmart_products(url):
                         products.append({
                             "name": title,
                             "url": link,
-                            "sku": link.split('/')[-1].split('?')[0] if link else "",
+                            "sku": link.split('/')[-1], # Simplified SKU extraction
                             "image": image_url,
                             "offers": {
                                 "price": price_val,
@@ -156,9 +160,10 @@ def fetch_walmart_products(url):
                              p_title = item.get('name', '')
                              p_price = float(item.get('price', 0))
                              canonical = item.get('canonicalUrl', '')
-                             p_url = f"https://www.walmart.com.mx{canonical}" if canonical else ""
                              p_image = item.get('image', '')
                              p_id = item.get('id', '')
+                             
+                             p_url = f"https://www.walmart.com.mx{canonical}" if canonical else ""
 
                              if p_title and p_price > 0:
                                  products.append({
@@ -198,13 +203,16 @@ def fetch_walmart_products(url):
 
 def process_products(products):
     """
-    Compara los productos encontrados con la DB para detectar bajadas.
-    Reutiliza lógica similar a Office Depot.
+    Compara los productos encontrados con la DB para detectar bajadas de precio.
+    Solo reporta si hay una bajada respecto al precio previamente registrado (publicado).
+    Igual que Office Depot.
     """
     alerts = []
     session = SessionLocal()
     
     try:
+        seen_urls = set()
+
         for p in products:
             try:
                 name = p.get("name")
@@ -218,6 +226,10 @@ def process_products(products):
                 
                 if not url or price <= 0:
                     continue
+                
+                if url in seen_urls:
+                    continue
+                seen_urls.add(url)
 
                 # Verificar DB
                 db_product = session.query(Product).filter(Product.url == url).first()
@@ -225,7 +237,7 @@ def process_products(products):
                 if db_product:
                     old_price = db_product.current_price
                     
-                    # Detectar bajada
+                    # Detectar bajada (Solo si el precio NUEVO es menor que el VIEJO)
                     if price < old_price:
                         drop_amount = old_price - price
                         drop_pct = (drop_amount / old_price) * 100
@@ -243,17 +255,19 @@ def process_products(products):
                                 "sku": sku
                             })
                     
-                    # Actualizar precio
+                    # Actualizar precio en DB para la próxima comparación
                     if abs(price - db_product.current_price) > 0.1:
                         db_product.current_price = price
                     
                     db_product.last_checked = datetime.utcnow()
                     
                 else:
-                    # Nuevo producto
+                    # Nuevo producto: Lo guardamos para tener referencia futura, 
+                    # pero NO enviamos alerta porque no hay "precio anterior".
                     new_product = Product(
                         name=name,
                         url=url,
+                        sku=sku,
                         current_price=price,
                         last_checked=datetime.utcnow()
                     )

@@ -21,21 +21,21 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_amazon_deals',
         'schedule': 600,  # 10 minutos
     },
-    'scan-promodescuentos-every-10-mins': {
+    'scan-promodescuentos-every-5-mins': {
         'task': 'app.tasks.scan_promodescuentos_deals',
-        'schedule': 60,  # 1 minuto
+        'schedule': 300,  # 5 minutos
     },
     'scan-officedepot-every-10-mins': {
         'task': 'app.tasks.scan_officedepot_deals',
-        'schedule': 300,
+        'schedule': 600,
     },
-    'scan-walmart-every-30-mins': {
+    'scan-walmart-every-10-mins': {
         'task': 'app.tasks.scan_walmart_deals',
-        'schedule': 1800,  # 30 minutos
+        'schedule': 600,  # 10 minutos
     },
-    'scan-mercadolibre-monitoring-every-30-mins': {
+    'scan-mercadolibre-monitoring-every-10-mins': {
         'task': 'app.tasks.scan_mercadolibre_monitoring',
-        'schedule': 1800,  # 30 minutos
+        'schedule': 600,  # 10 minutos
     },
     'scan-mercadolibre-discovery-daily': {
         'task': 'app.tasks.scan_mercadolibre_discovery',
