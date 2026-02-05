@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
 import os
 
@@ -15,6 +15,18 @@ class Product(Base):
     current_price = Column(Float)
     original_price = Column(Float, nullable=True)
     last_checked = Column(DateTime, default=datetime.utcnow)
+    
+    # Relationship to history
+    history = relationship("PriceHistory", back_populates="product", cascade="all, delete-orphan")
+
+class PriceHistory(Base):
+    __tablename__ = 'price_history'
+    id = Column(Integer, primary_key=True)
+    product_id = Column(Integer, ForeignKey('products.id'))
+    price = Column(Float)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    
+    product = relationship("Product", back_populates="history")
 
 # Conexión
 DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://user:password@db:5432/pricedb')

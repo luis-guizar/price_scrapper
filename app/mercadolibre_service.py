@@ -4,7 +4,7 @@ import logging
 import redis
 import time
 from datetime import datetime
-from app.models import SessionLocal, Product
+from app.models import SessionLocal, Product, PriceHistory
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 
@@ -206,6 +206,10 @@ def search_products(keywords, sort_by='relevancia', free_shipping=False):
                              # logger.debug(f"Item existente: {ml_id} - ${price_val}")
                              if abs(db_product.current_price - price_val) > 0.1 and price_val > 0:
                                  db_product.current_price = price_val
+                                 # Add history
+                                 history = PriceHistory(product_id=db_product.id, price=price_val)
+                                 session.add(history)
+
                              if not db_product.sku:
                                  db_product.sku = ml_id
                              db_product.last_checked = datetime.utcnow()
@@ -221,6 +225,10 @@ def search_products(keywords, sort_by='relevancia', free_shipping=False):
                                     last_checked=datetime.utcnow()
                                 )
                                 session.add(new_product)
+                                session.flush() # get id
+                                # Add history
+                                history = PriceHistory(product_id=new_product.id, price=price_val)
+                                session.add(history)
                              else:
                                 # logger.debug(f"⚠️ Saltando item {ml_id} con precio 0")
                                 pass
@@ -368,6 +376,9 @@ def update_tracked_products():
                             # Actualizar precio si varía
                             if abs(new_price - old_price) > 0.1:
                                 db_prod.current_price = new_price
+                                # Add history
+                                history = PriceHistory(product_id=db_prod.id, price=new_price)
+                                session.add(history)
                                 if new_price < old_price and old_price > 0:
                                     drop_pct = ((old_price - new_price) / old_price) * 100
                                     updates.append({

@@ -40,6 +40,21 @@ def run_migration():
             except Exception as e:
                 logger.warning(f"⚠️ Aviso al agregar 'original_price' (puede que ya exista): {e}")
 
+            # 3. Crear tabla 'price_history'
+            logger.info("Probando crear tabla 'price_history'...")
+            try:
+                connection.execute(text("""
+                    CREATE TABLE IF NOT EXISTS price_history (
+                        id SERIAL PRIMARY KEY,
+                        product_id INTEGER REFERENCES products(id),
+                        price FLOAT,
+                        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+                """))
+                logger.info("✅ Tabla 'price_history' verificada/creada.")
+            except Exception as e:
+                logger.error(f"❌ Error creando tabla 'price_history': {e}")
+
     except Exception as e:
         logger.error(f"❌ Error crítico conectando o migrando: {e}")
         logger.info("💡 Asegúrate de que la base de datos esté corriendo y la URL sea correcta.")
