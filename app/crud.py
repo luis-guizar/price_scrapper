@@ -15,6 +15,17 @@ def get_products(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Product).offset(skip).limit(limit).all()
 
 def create_product(db: Session, product_data: dict):
+    # Auto-detect source
+    url = product_data.get("url", "")
+    if "mercadolibre.com.mx" in url:
+        product_data["source"] = "mercadolibre"
+    elif "walmart.com.mx" in url:
+        product_data["source"] = "walmart"
+    elif "officedepot.com.mx" in url:
+        product_data["source"] = "officedepot"
+    else:
+        product_data["source"] = "other"
+
     db_product = Product(**product_data)
     db.add(db_product)
     db.commit()

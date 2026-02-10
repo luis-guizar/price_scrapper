@@ -49,6 +49,8 @@ services:
       - .:/code
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/pricedb
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
     ports:
       - "8001:8000"
     depends_on:
@@ -61,11 +63,20 @@ services:
     working_dir: /app
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     ports:
       - "3000:3000"
     command: sh -c "npm install && npm run dev -- --host"
     depends_on:
       - api
+
+  # 7. Adminer (Database UI)
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
 
 volumes:
   pgdata:

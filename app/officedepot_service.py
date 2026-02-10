@@ -268,3 +268,91 @@ def get_officedepot_deals():
             all_alerts.extend(alerts)
             
     return all_alerts
+
+def update_tracked_products_officedepot():
+    """
+    Actualiza productos individuales de OfficeDepot (source='officedepot')
+    """
+    logger.info("🔄 Actualizando productos rastreados de Office Depot...")
+    session = SessionLocal()
+    alerts = []
+    
+    try:
+        products = session.query(Product).filter(Product.source == 'officedepot').all()
+        logger.info(f"   -> {len(products)} productos a revisar.")
+        
+        for product in products:
+            try:
+                headers = {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+                }
+                
+                response = requests.get(product.url, headers=headers, timeout=20)
+                if response.status_code != 200:
+                     continue
+                     
+                soup = BeautifulSoup(response.text, 'lxml')
+                price = 0.0
+                
+                # Intentar buscar precio en JSON-LD (Product)
+                json_ld_scripts = soup.find_all('script', type="application/ld+json")
+                for script in json_ld_scripts:
+                     try:
+                         data = json.loads(script.string)
+                         # Puede ser una lista o dict
+                         if isinstance(data, list): 
+                             items = data
+                         else:
+                             items = [data]
+                             
+                         for item in items:
+                             if item.get('@type') == 'Product':
+                                 offers = item.get('offers', {})
+                                 price = float(offers.get('price', 0))
+                                 if price > 0: break
+                     except: pass
+                     if price > 0: break
+
+                # Fallback: Meta tags
+                if price == 0:
+                     # <meta property="product:price:amount" content="1234.56" />
+                     meta = soup.find('meta', property="product:price:amount")
+                     if meta:
+                         try: price = float(meta['content'])
+                         except: pass
+
+                if price > 0:
+                    old_price = product.current_price
+                    
+                    if abs(price - old_price) > 0.1:
+                        product.current_price = price
+                        # History
+                        from app.models import PriceHistory
+                        history = PriceHistory(product_id=product.id, price=price, timestamp=datetime.utcnow())
+                        session.add(history)
+                        
+                        if price < old_price and old_price > 0:
+                             drop_amount = old_price - price
+                             drop_pct = (drop_amount / old_price) * 100
+                             if drop_pct > 5:
+                                 alerts.append({
+                                    "source": "officedepot",
+                                    "title": product.name,
+                                    "price": price,
+                                    "old_price": old_price,
+                                    "discount_pct": round(drop_pct, 1),
+                                    "url": product.url
+                                })
+                    
+                    product.last_checked = datetime.utcnow()
+                    session.commit()
+                    
+            except Exception as e:
+                logger.error(f"Error actualizando producto {product.name}: {e}")
+                
+    except Exception as e:
+         logger.error(f"Error general en update_tracked_products_officedepot: {e}")
+    finally:
+         session.close()
+
+    return alerts

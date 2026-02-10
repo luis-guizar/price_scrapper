@@ -301,3 +301,101 @@ def get_walmart_deals():
             all_alerts.extend(alerts)
             
     return all_alerts
+
+def update_tracked_products_walmart():
+    """
+    Actualiza productos individuales de Walmart (source='walmart')
+    """
+    logger.info("🔄 Actualizando productos rastreados de Walmart...")
+    session = SessionLocal()
+    alerts = []
+    
+    try:
+        products = session.query(Product).filter(Product.source == 'walmart').all()
+        logger.info(f"   -> {len(products)} productos a revisar.")
+        
+        for product in products:
+            try:
+                # Reutilizamos fetch_walmart_products si es una lista, 
+                # PERO si es un producto individual, necesitamos logica de PDP.
+                # Por ahora, intentamos usar una logica simplificada para PDP.
+                
+                # Fetch page
+                headers = {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                    "Accept-Language": "es-MX,es;q=0.9",
+                }
+                
+                with httpx.Client(http2=True, timeout=20.0) as client:
+                    response = client.get(product.url, headers=headers)
+                
+                if response.status_code != 200:
+                    logger.error(f"Error {response.status_code} al acceder a {product.url}")
+                    continue
+                    
+                soup = BeautifulSoup(response.text, 'html.parser')
+                
+                # Intentar sacar precio de JSON-LD o meta props
+                price = 0.0
+                
+                # 1. JSON-LD
+                scripts = soup.find_all('script', type='application/ld+json')
+                for script in scripts:
+                    try:
+                        data = json.loads(script.string)
+                        if data.get('@type') == 'Product':
+                            offers = data.get('offers', {})
+                            if isinstance(offers, list): offers = offers[0]
+                            price = float(offers.get('price', 0))
+                            if price > 0: break
+                    except: pass
+                
+                # 2. Meta tags
+                if price == 0:
+                    p_meta = soup.find("meta", property="product:price:amount")
+                    if p_meta:
+                        try: price = float(p_meta["content"])
+                        except: pass
+                        
+                # 3. Fallback HTML (itemprop=price)
+                if price == 0:
+                     price_span = soup.find(itemprop="price")
+                     if price_span:
+                         try: price = float(price_span["content"])
+                         except: pass
+
+                if price > 0:
+                    old_price = product.current_price
+                    
+                    if abs(price - old_price) > 0.1:
+                        product.current_price = price
+                        # History
+                        from app.models import PriceHistory
+                        history = PriceHistory(product_id=product.id, price=price, timestamp=datetime.utcnow())
+                        session.add(history)
+                        
+                        if price < old_price and old_price > 0:
+                             drop_amount = old_price - price
+                             drop_pct = (drop_amount / old_price) * 100
+                             if drop_pct > 5: # Alerta si baja > 5%
+                                 alerts.append({
+                                    "source": "walmart",
+                                    "title": product.name,
+                                    "price": price,
+                                    "old_price": old_price,
+                                    "discount_pct": round(drop_pct, 1),
+                                    "url": product.url
+                                })
+                    
+                    product.last_checked = datetime.utcnow()
+                    session.commit()
+            except Exception as e:
+                logger.error(f"Error actualizando producto {product.name}: {e}")
+                
+    except Exception as e:
+        logger.error(f"Error general en update_tracked_products_walmart: {e}")
+    finally:
+        session.close()
+        
+    return alerts

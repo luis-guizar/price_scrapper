@@ -12,6 +12,7 @@ class Product(Base):
     name = Column(String)
     url = Column(String, unique=True)
     sku = Column(String, unique=True, nullable=True)
+    source = Column(String, nullable=True)
     current_price = Column(Float)
     original_price = Column(Float, nullable=True)
     last_checked = Column(DateTime, default=datetime.utcnow)

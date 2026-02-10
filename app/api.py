@@ -1,3 +1,5 @@
+import requests
+import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.models import SessionLocal, Product, PriceHistory
@@ -12,11 +14,33 @@ app = FastAPI()
 # Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For dev purposes, restrict in prod
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+class TelegramNotification(BaseModel):
+    message: str
+
+@app.post("/notifications/telegram")
+def send_telegram_notification(notification: TelegramNotification):
+    token = os.getenv('TELEGRAM_TOKEN')
+    chat_id = os.getenv('TELEGRAM_CHAT_ID')
+    
+    if not token or not chat_id:
+        raise HTTPException(status_code=500, detail="Telegram credentials not configured")
+        
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    formatted_message = f"📢 ACTUALIZACIÓN MANUAL\n\n{notification.message}"
+    
+    try:
+        response = requests.post(url, json={"chat_id": chat_id, "text": formatted_message}, timeout=10)
+        if response.status_code != 200:
+            raise HTTPException(status_code=502, detail=f"Telegram API Error: {response.text}")
+        return {"status": "sent"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 def get_db():
     db = SessionLocal()
@@ -33,6 +57,7 @@ class ProductBase(BaseModel):
     name: str
     url: str
     sku: Optional[str] = None
+    source: Optional[str] = None
     current_price: Optional[float] = None
     original_price: Optional[float] = None
 

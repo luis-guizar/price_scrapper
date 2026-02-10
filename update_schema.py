@@ -55,6 +55,19 @@ def run_migration():
             except Exception as e:
                 logger.error(f"❌ Error creando tabla 'price_history': {e}")
 
+            # 4. Agregar columna 'source'
+            logger.info("Probando agregar columna 'source'...")
+            try:
+                # Force commit before alter
+                connection.commit()
+                connection.execute(text("ALTER TABLE products ADD COLUMN IF NOT EXISTS source VARCHAR;"))
+                connection.commit()
+                logger.info("✅ Columna 'source' verificada/agregada CORRECTAMENTE.")
+            except Exception as e:
+                logger.warning(f"⚠️ Aviso al agregar 'source': {e}")
+                # Sometimes it fails if transaction is aborted
+                connection.rollback()
+
     except Exception as e:
         logger.error(f"❌ Error crítico conectando o migrando: {e}")
         logger.info("💡 Asegúrate de que la base de datos esté corriendo y la URL sea correcta.")
