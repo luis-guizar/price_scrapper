@@ -241,7 +241,7 @@ def scan_officedepot_deals():
                         redis_client.setex(cache_key, 86400, "1")
                         alerted_count += 1
                 else:
-                    logger.debug(f"  ✋ {unique_id}: Ya alertado recientemente")
+                    logger.info(f"  ✋ {deal['title']} ({unique_id}): Ya alertado recientemente - SKIPPING")
                     skipped_count += 1
 
             except Exception as e:
