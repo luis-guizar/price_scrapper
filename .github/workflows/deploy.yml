@@ -1,0 +1,46 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          # We can create the .env dynamically from GitHub Secrets
+          # Or simply ensure the existing one is preserved if we are careful.
+          # For a self-hosted runner, usually, we just write the secrets to a file.
+          echo "${{ secrets.ENV_FILE }}" > .env
+
+      - name: Build and Start Services
+        run: |
+          # Check for docker compose v2 vs v1
+          if command -v docker-compose &> /dev/null; then
+              DC_CMD="docker-compose"
+          else
+              DC_CMD="docker compose"
+          fi
+          
+          echo "Deploying with $DC_CMD..."
+          $DC_CMD -f docker-compose.prod.yaml up -d --build
+
+      - name: Database Maintenance
+        run: |
+          if command -v docker-compose &> /dev/null; then
+              DC_CMD="docker-compose"
+          else
+              DC_CMD="docker compose"
+          fi
+
+          echo "Running Schema Updates..."
+          $DC_CMD -f docker-compose.prod.yaml exec -T worker python update_schema.py
+          
+          echo "Running Data Backfill..."
+          $DC_CMD -f docker-compose.prod.yaml exec -T worker python scripts/backfill_data.py
