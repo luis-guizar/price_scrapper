@@ -60,3 +60,12 @@ jobs:
           
           echo "Running Data Backfill..."
           $DC_CMD -f docker-compose.yaml exec -T worker python scripts/backfill_data.py
+
+      - name: Verify Deployment
+        run: |
+          if docker compose version &> /dev/null; then
+              DC_CMD="docker compose"
+          else
+              DC_CMD="docker-compose"
+          fi
+          $DC_CMD -f docker-compose.yaml ps

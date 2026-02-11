@@ -1,4 +1,5 @@
 from celery import Celery
+from celery.schedules import crontab
 import os
 import logging
 
@@ -17,30 +18,36 @@ app = Celery('price_tracker', broker=broker_url, include=['app.tasks'])
 # -----------------------
 
 app.conf.beat_schedule = {
-    'scan-keepa-every-10-mins': {
-        'task': 'app.tasks.scan_amazon_deals',
-        'schedule': 600,  # 10 minutos
-    },
+    # Ejecutar cada 5 minutos exactos (0, 5, 10, ...)
     'scan-promodescuentos-every-5-mins': {
         'task': 'app.tasks.scan_promodescuentos_deals',
-        'schedule': 300,  # 5 minutos
+        'schedule': crontab(minute='*/5'),
     },
-    'scan-officedepot-every-10-mins': {
-        'task': 'app.tasks.scan_officedepot_deals',
-        'schedule': 600,
+    # Ejecutar cada 10 minutos, con offset (minuto 1, 11, 21...)
+    'scan-keepa-every-10-mins': {
+        'task': 'app.tasks.scan_amazon_deals',
+        'schedule': crontab(minute='1,11,21,31,41,51'),
     },
+    # Ejecutar cada 10 minutos, con offset (minuto 3, 13, 23...)
     'scan-walmart-every-10-mins': {
         'task': 'app.tasks.scan_walmart_deals',
-        'schedule': 600,  # 10 minutos
+        'schedule': crontab(minute='3,13,23,33,43,53'),
     },
+    # Ejecutar cada 10 minutos, con offset (minuto 6, 16, 26...)
+    'scan-officedepot-every-10-mins': {
+        'task': 'app.tasks.scan_officedepot_deals',
+        'schedule': crontab(minute='6,16,26,36,46,56'),
+    },
+    # Ejecutar cada 10 minutos, con offset (minuto 8, 18, 28...)
     'scan-mercadolibre-monitoring-every-10-mins': {
         'task': 'app.tasks.scan_mercadolibre_monitoring',
-        'schedule': 600,  # 10 minutos
+        'schedule': crontab(minute='8,18,28,38,48,58'),
     },
+    # Ejecutar diariamente a las 4:00 AM UTC
     'scan-mercadolibre-discovery-daily': {
         'task': 'app.tasks.scan_mercadolibre_discovery',
-        'schedule': 86400,  # 24 horas (diario)
-        'args': (["laptop gamer", "rtx 4060", "silla ergonómica", "monitor 144hz","smart tv", "iPhone","logitech", "macbook", "Samsung Galaxy"], 'relevancia', True)
+        'schedule': crontab(hour=4, minute=0),
+        'args': (["laptop gamer", "rtx 4060", "silla ergonómica", "monitor 144hz", "smart tv", "iPhone", "logitech", "macbook", "Samsung Galaxy"], 'relevancia', True)
     },
 }
 

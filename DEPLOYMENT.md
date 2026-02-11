@@ -75,7 +75,15 @@ After the containers are running, you must initialize the database schema and ba
    docker compose -f docker-compose.prod.yaml exec -T worker python scripts/backfill_data.py
    ```
 
-## 6. Access the App
-- **Frontend**: http://your-server-ip:3000
-- **Adminer (DB UI)**: http://your-server-ip:8080
-- **API Docs**: http://your-server-ip:8001/docs
+## 6. Access the App & Logs (Self-Hosted Runner)
+Since you are using a self-hosted runner, the active application is located in the runner's work directory.
+
+**Location:**
+```bash
+cd ~/actions-runner/_work/price_scrapper/price_scrapper
+```
+
+**View Logs:**
+```bash
+docker compose -f docker-compose.yaml logs -f worker
+```
