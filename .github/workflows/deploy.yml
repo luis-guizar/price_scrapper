@@ -14,9 +14,10 @@ jobs:
 
       - name: Create .env file
         run: |
-          # We can create the .env dynamically from GitHub Secrets
-          # Or simply ensure the existing one is preserved if we are careful.
-          # For a self-hosted runner, usually, we just write the secrets to a file.
+          if [ -z "${{ secrets.ENV_FILE }}" ]; then
+            echo "Error: ENV_FILE secret is empty!"
+            exit 1
+          fi
           echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Build and Start Services
@@ -29,7 +30,7 @@ jobs:
           fi
           
           echo "Deploying with $DC_CMD..."
-          $DC_CMD -f docker-compose.prod.yaml up -d --build
+          $DC_CMD -f docker-compose.yaml up -d --build
 
       - name: Database Maintenance
         run: |
