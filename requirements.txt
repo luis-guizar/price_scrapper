@@ -9,3 +9,5 @@ python-dotenv
 lxml
 fastapi
 uvicorn
+playwright
+playwright-stealth

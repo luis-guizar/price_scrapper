@@ -2,7 +2,7 @@ from app.celery_app import app
 from app.keepa_service import get_keepa_deals
 from app.promodescuentos_service import get_promodescuentos_deals
 from app.officedepot_service import get_officedepot_deals, update_tracked_products_officedepot
-from app.walmart_service import get_walmart_deals, update_tracked_products_walmart
+
 from app.mercadolibre_service import update_tracked_products, search_products
 import requests
 import os
@@ -256,29 +256,6 @@ def scan_officedepot_deals():
     finally:
         logger.info("=" * 60)
 
-@app.task
-def scan_walmart_deals():
-    logger.info("=" * 60)
-    logger.info("▶️ TAREA INICIADA: scan_walmart_deals")
-    logger.info("=" * 60)
-    try:
-        deals = get_walmart_deals()
-        
-        # Add targeted products
-        targeted_deals = update_tracked_products_walmart()
-        if targeted_deals:
-             deals.extend(targeted_deals)
-        if deals:
-            logger.info(f"Encontradas {len(deals)} ofertas en Walmart")
-            for deal in deals:
-                send_telegram_alert(deal)
-        else:
-            logger.info("No se encontraron ofertas nuevas en Walmart")
-    except Exception as e:
-        logger.exception(f"❌ Error en scan_walmart_deals: {e}")
-        # monitor.record_failure('walmart', str(e)) # Uncomment when we add walmart to monitor
-    finally:
-        logger.info("=" * 60)
 
 
 @app.task

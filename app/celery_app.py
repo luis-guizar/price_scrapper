@@ -28,11 +28,7 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_amazon_deals',
         'schedule': crontab(minute='1,11,21,31,41,51'),
     },
-    # Ejecutar cada 10 minutos, con offset (minuto 3, 13, 23...)
-    'scan-walmart-every-10-mins': {
-        'task': 'app.tasks.scan_walmart_deals',
-        'schedule': crontab(minute='3,13,23,33,43,53'),
-    },
+
     # Ejecutar cada 10 minutos, con offset (minuto 6, 16, 26...)
     'scan-officedepot-every-10-mins': {
         'task': 'app.tasks.scan_officedepot_deals',
