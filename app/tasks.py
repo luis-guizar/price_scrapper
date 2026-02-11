@@ -206,10 +206,10 @@ def scan_officedepot_deals():
     start_time = datetime.now()
     
     try:
-        deals = get_officedepot_deals()
+        deals, processed_urls = get_officedepot_deals()
         
-        # Add targeted products
-        targeted_deals = update_tracked_products_officedepot()
+        # Add targeted products, skipping ones already processed
+        targeted_deals = update_tracked_products_officedepot(exclude_urls=processed_urls)
         if targeted_deals:
              deals.extend(targeted_deals)
         
