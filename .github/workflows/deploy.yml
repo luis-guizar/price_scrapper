@@ -9,6 +9,14 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
+      - name: Fix Permissions (Pre-Cleanup)
+        run: |
+          # Force delete the work directory in case root-owned files exist
+          # This requires the runner user to have passwordless sudo for rm, or ownership fix
+          # A safer approach is to just claim ownership
+          echo "Fixing permissions..."
+          sudo chown -R $USER:$USER . || true
+
       - name: Checkout Code
         uses: actions/checkout@v3
 
