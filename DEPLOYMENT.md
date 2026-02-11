@@ -26,7 +26,7 @@ scp -r c:\Users\lopez\Documents\price_tracker user@your-server-ip:~/price_tracke
 ## 2.1 Packaging (Zip Method)
 If you prefer to zip your files, use this PowerShell command to include only the necessary component (excluding local `node_modules`):
 ```powershell
-Compress-Archive -Path "app", "frontend", "Dockerfile", "docker-compose.yaml", "requirements.txt", ".env", "update_schema.py", "send_update.py", "DEPLOYMENT.md", ".dockerignore" -DestinationPath "deploy.zip" -Force
+Compress-Archive -Path "app", "frontend", "scripts", "Dockerfile", "docker-compose.prod.yaml", "requirements.txt", ".env", "update_schema.py" -DestinationPath "deploy.zip" -Force
 ```
 Then send it:
 ```bash
@@ -59,20 +59,21 @@ Create a `.env` file in the project directory on your server to store your secre
 ## 4. Start Services
 Run Docker Compose to build and start the containers.
 ```bash
-docker compose up -d --build
+docker compose -f docker-compose.prod.yaml up -d --build
 ```
 
-## 5. Update Database Schema (CRITICAL)
-Once the containers are running, you must apply the schema changes (adding the `source` column and `price_history` table) to your server's database.
+## 5. Post-Deployment Setup (Database)
+After the containers are running, you must initialize the database schema and backfill existing data.
 
-Run this command:
-```bash
-docker compose exec -T worker python update_schema.py
-```
+1. **Update Schema**:
+   ```bash
+   docker compose -f docker-compose.prod.yaml exec -T worker python update_schema.py
+   ```
 
-You should see logs indicating success:
-> ✅ Columna 'source' verificada/agregada CORRECTAMENTE.
-> ✅ Tabla 'price_history' verificada/creada.
+2. **Backfill Data sources** (Fixes null 'source' fields):
+   ```bash
+   docker compose -f docker-compose.prod.yaml exec -T worker python scripts/backfill_data.py
+   ```
 
 ## 6. Access the App
 - **Frontend**: http://your-server-ip:3000

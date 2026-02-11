@@ -44,11 +44,15 @@ function App() {
     const fetchHistory = async (id) => {
         try {
             const res = await axios.get(`/api/products/${id}/history`)
-            const data = res.data.map(item => ({
-                ...item,
-                date: new Date(item.timestamp).toLocaleDateString() + ' ' + new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            }))
-            setHistory(data)
+            if (Array.isArray(res.data)) {
+                const data = res.data.map(item => ({
+                    ...item,
+                    date: new Date(item.timestamp).toLocaleDateString() + ' ' + new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                }))
+                setHistory(data)
+            } else {
+                setHistory([])
+            }
         } catch (error) {
             console.error("Error history", error)
         }

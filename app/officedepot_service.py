@@ -197,9 +197,17 @@ def process_products(products):
                     if any(k.lower() in name.lower() for k in SEARCH_CONFIG["keywords_exclude"]):
                         continue
 
-                # Verificar DB
+                # Verificar DB por URL primero
                 db_product = session.query(Product).filter(Product.url == url).first()
                 
+                # Si no existe por URL, intentar buscar por SKU para evitar duplicados y errores de unicidad
+                if not db_product and sku:
+                    db_product = session.query(Product).filter(Product.sku == sku).first()
+                    if db_product:
+                        # Actualizar URL si ha cambiado para el mismo SKU
+                        logger.info(f"Actualizando URL para SKU {sku}: {db_product.url} -> {url}")
+                        db_product.url = url
+
                 if db_product:
                     # Producto existe, comparar precio
                     old_price = db_product.current_price
@@ -234,7 +242,9 @@ def process_products(products):
                     new_product = Product(
                         name=name,
                         url=url,
+                        sku=sku,
                         current_price=price,
+                        source="officedepot",
                         last_checked=datetime.utcnow()
                     )
                     session.add(new_product)
@@ -243,8 +253,14 @@ def process_products(products):
                 # logger.error(f"Error procesando item: {e}")
                 continue
         
-        session.commit()
-        
+        try:
+            session.commit()
+        except Exception as e:
+            logger.error(f"Error haciendo commit en process_products: {e}")
+            session.rollback()
+            # Si commit falla, no enviamos alertas porque se volverán a generar como duplicados
+            alerts = []
+
     except Exception as e:
         logger.error(f"Error general en process_products: {e}")
         session.rollback()
@@ -331,10 +347,19 @@ def update_tracked_products_officedepot():
                         history = PriceHistory(product_id=product.id, price=price, timestamp=datetime.utcnow())
                         session.add(history)
                         
+                        # Ensure source
+                        if not product.source:
+                            product.source = "officedepot"
+                        
                         if price < old_price and old_price > 0:
                              drop_amount = old_price - price
                              drop_pct = (drop_amount / old_price) * 100
-                             if drop_pct > 5:
+                             
+                             # Usar configuración global en lugar de hardcode
+                             min_pct = SEARCH_CONFIG.get("min_price_drop_percent", 50) # Fallback to 50 if somehow missing
+                             min_amount = SEARCH_CONFIG.get("min_price_drop_amount", 5000)
+                             
+                             if drop_pct >= min_pct or drop_amount >= min_amount:
                                  alerts.append({
                                     "source": "officedepot",
                                     "title": product.name,

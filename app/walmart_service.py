@@ -3,6 +3,9 @@ import requests
 import json
 import logging
 import re
+import re
+import time
+import random
 from datetime import datetime
 from sqlalchemy.orm import Session
 from bs4 import BeautifulSoup
@@ -26,18 +29,13 @@ SEARCH_CONFIG = {
     "min_price_drop_amount": 5000, 
 }
 
-def fetch_walmart_products(url):
-    """
-    Obtiene productos de Walmart MX mediante HTML parsing (prioridad) o script parsing (fallback).
-    """
-    logger.info(f"Escaneando Walmart: {url}")
-    
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+def get_common_headers():
+    return {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
         "Accept-Language": "es-MX,es;q=0.9,en-US;q=0.8,en;q=0.7",
         "Referer": "https://www.google.com/",
-        "Sec-Ch-Ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+        "Sec-Ch-Ua": '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
         "Sec-Ch-Ua-Mobile": "?0",
         "Sec-Ch-Ua-Platform": '"Windows"',
         "Sec-Fetch-Dest": "document",
@@ -46,13 +44,22 @@ def fetch_walmart_products(url):
         "Sec-Fetch-User": "?1",
         "Upgrade-Insecure-Requests": "1",
         "Cache-Control": "max-age=0",
+        "Connection": "keep-alive",
     }
+
+def fetch_walmart_products(url):
+    """
+    Obtiene productos de Walmart MX mediante HTML parsing (prioridad) o script parsing (fallback).
+    """
+    logger.info(f"Escaneando Walmart: {url}")
+    
+    headers = get_common_headers()
 
     products = []
     
     try:
-        # Usar HTTPX con HTTP/2 para evadir bloqueos básicos
-        with httpx.Client(http2=True, timeout=30.0) as client:
+        # Usar HTTPX con HTTP/1.1 (HTTP/2 puede ser detectado más fácilmente si el fingerprint no es perfecto)
+        with httpx.Client(http2=False, timeout=30.0, follow_redirects=True) as client:
             response = client.get(url, headers=headers)
         
         response.raise_for_status()
@@ -269,6 +276,7 @@ def process_products(products):
                         url=url,
                         sku=sku,
                         current_price=price,
+                        source="walmart",
                         last_checked=datetime.utcnow()
                     )
                     session.add(new_product)
@@ -314,24 +322,41 @@ def update_tracked_products_walmart():
         products = session.query(Product).filter(Product.source == 'walmart').all()
         logger.info(f"   -> {len(products)} productos a revisar.")
         
+        consecutive_failures = 0
+        
         for product in products:
+            if consecutive_failures >= 5:
+                logger.error("🛑 Abortando actualización de Walmart por bloqueos persistentes (5 seguidos).")
+                break
+
             try:
+                time.sleep(random.uniform(2, 5)) 
+                
                 # Reutilizamos fetch_walmart_products si es una lista, 
                 # PERO si es un producto individual, necesitamos logica de PDP.
                 # Por ahora, intentamos usar una logica simplificada para PDP.
                 
                 # Fetch page
-                headers = {
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-                    "Accept-Language": "es-MX,es;q=0.9",
-                }
+                headers = get_common_headers()
                 
-                with httpx.Client(http2=True, timeout=20.0) as client:
-                    response = client.get(product.url, headers=headers)
+                # Limpiar URL de parametros de seguimiento para evitar 307
+                target_url = product.url.split('?')[0] if product.url else ""
+
+                with httpx.Client(http2=False, timeout=20.0, follow_redirects=True) as client:
+                    response = client.get(target_url, headers=headers)
                 
+                # Check for block
+                if "blocked" in str(response.url) or "robot check" in response.text.lower():
+                    logger.warning(f"⚠️ Bloqueo detectado en {target_url}")
+                    consecutive_failures += 1
+                    continue
+                else:
+                    # If we got a valid page but maybe price 0, it's not necessarily a block, 
+                    # but if we successfully extract price, reset counter.
+                    pass
+
                 if response.status_code != 200:
-                    logger.error(f"Error {response.status_code} al acceder a {product.url}")
+                    logger.error(f"Error {response.status_code} al acceder a {target_url}")
                     continue
                     
                 soup = BeautifulSoup(response.text, 'html.parser')
@@ -366,14 +391,23 @@ def update_tracked_products_walmart():
                          except: pass
 
                 if price > 0:
+                    # Success - reset block counter
+                    consecutive_failures = 0
+                    
                     old_price = product.current_price
                     
                     if abs(price - old_price) > 0.1:
                         product.current_price = price
+                        
                         # History
                         from app.models import PriceHistory
                         history = PriceHistory(product_id=product.id, price=price, timestamp=datetime.utcnow())
                         session.add(history)
+                        
+                        # Ensure source
+                        if not product.source:
+                            product.source = "walmart"
+
                         
                         if price < old_price and old_price > 0:
                              drop_amount = old_price - price
