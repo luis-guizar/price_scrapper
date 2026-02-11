@@ -41,7 +41,7 @@ jobs:
           fi
 
           echo "Running Schema Updates..."
-          $DC_CMD -f docker-compose.prod.yaml exec -T worker python update_schema.py
+          $DC_CMD -f docker-compose.yaml exec -T worker python update_schema.py
           
           echo "Running Data Backfill..."
-          $DC_CMD -f docker-compose.prod.yaml exec -T worker python scripts/backfill_data.py
+          $DC_CMD -f docker-compose.yaml exec -T worker python scripts/backfill_data.py
