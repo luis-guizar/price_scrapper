@@ -1,0 +1,25 @@
+# Version Control
+.git/
+.gitignore
+
+# Dependencies
+**/node_modules/
+frontend/node_modules/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+.env.example
+
+# Logs and DB
+*.log
+logs/
+*.sqlite3
+
+# Deployment
+deploy.zip
+deploy.ps1

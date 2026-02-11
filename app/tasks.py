@@ -1,8 +1,8 @@
 from app.celery_app import app
 from app.keepa_service import get_keepa_deals
 from app.promodescuentos_service import get_promodescuentos_deals
-from app.officedepot_service import get_officedepot_deals
-from app.walmart_service import get_walmart_deals
+from app.officedepot_service import get_officedepot_deals, update_tracked_products_officedepot
+from app.walmart_service import get_walmart_deals, update_tracked_products_walmart
 from app.mercadolibre_service import update_tracked_products, search_products
 import requests
 import os
@@ -208,6 +208,11 @@ def scan_officedepot_deals():
     try:
         deals = get_officedepot_deals()
         
+        # Add targeted products
+        targeted_deals = update_tracked_products_officedepot()
+        if targeted_deals:
+             deals.extend(targeted_deals)
+        
         if not deals:
             logger.info("ℹ️ No se detectaron bajadas de precio significativas en Office Depot")
             monitor.record_no_deals('officedepot')
@@ -218,25 +223,32 @@ def scan_officedepot_deals():
         logger.info(f"📊 Procesando {len(deals)} alertas de precio de Office Depot...")
         
         alerted_count = 0
+        skipped_count = 0
         
         for deal in deals:
             try:
-                # Usar el SKU o URL como clave única para no alertar lo mismo repetidamente en corto tiempo
-                # Aunque para bajadas de precio, queremos saber cada vez que baja, pero quizás no cada 10 mins si no cambió más.
-                # La lógica de process_products ya filtra, solo devuelve si *acaba* de bajar.
-                # Sin embargo, si falla el envío a Telegram, querriamos reintentar? 
-                # Por ahora asumimos que process_products actualizó la DB, así que "ya bajó".
-                # Si enviamos alerta y falla, tal vez perdamos la notificación.
-                # Pero está bien.
-                
-                logger.info(f"  🔔 Alertando: {deal['title']}")
-                send_telegram_alert(deal)
-                alerted_count += 1
+                # Usar el SKU o URL como clave única para no alertar lo mismo repetidamente
+                unique_id = deal.get('sku') or deal.get('url')
+                if not unique_id:
+                    continue
+
+                cache_key = f"alerted:officedepot:{unique_id}"
+
+                if not redis_client.get(cache_key):
+                    logger.info(f"  🔔 Alertando: {deal['title']}")
+                    if send_telegram_alert(deal):
+                        # Cachear por 24 horas para evitar repeticiones
+                        redis_client.setex(cache_key, 86400, "1")
+                        alerted_count += 1
+                else:
+                    logger.debug(f"  ✋ {unique_id}: Ya alertado recientemente")
+                    skipped_count += 1
+
             except Exception as e:
                 logger.error(f"Error enviando alerta individual: {e}")
         
         elapsed = (datetime.now() - start_time).total_seconds()
-        logger.info(f"✅ Tarea completada en {elapsed:.2f}s - {alerted_count} alertas enviadas")
+        logger.info(f"✅ Tarea completada en {elapsed:.2f}s - {alerted_count} alertas enviadas, {skipped_count} saltadas")
         
     except Exception as e:
         logger.exception(f"❌ Error en scan_officedepot_deals: {e}")
@@ -251,6 +263,11 @@ def scan_walmart_deals():
     logger.info("=" * 60)
     try:
         deals = get_walmart_deals()
+        
+        # Add targeted products
+        targeted_deals = update_tracked_products_walmart()
+        if targeted_deals:
+             deals.extend(targeted_deals)
         if deals:
             logger.info(f"Encontradas {len(deals)} ofertas en Walmart")
             for deal in deals:

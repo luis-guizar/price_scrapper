@@ -4,7 +4,7 @@ import logging
 import redis
 import time
 from datetime import datetime
-from app.models import SessionLocal, Product
+from app.models import SessionLocal, Product, PriceHistory
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 
@@ -206,6 +206,10 @@ def search_products(keywords, sort_by='relevancia', free_shipping=False):
                              # logger.debug(f"Item existente: {ml_id} - ${price_val}")
                              if abs(db_product.current_price - price_val) > 0.1 and price_val > 0:
                                  db_product.current_price = price_val
+                                 # Add history
+                                 history = PriceHistory(product_id=db_product.id, price=price_val)
+                                 session.add(history)
+
                              if not db_product.sku:
                                  db_product.sku = ml_id
                              db_product.last_checked = datetime.utcnow()
@@ -217,10 +221,15 @@ def search_products(keywords, sort_by='relevancia', free_shipping=False):
                                     sku=ml_id,
                                     url=permalink,
                                     current_price=price_val,
-                                    original_price=None, # Dificil sacar orig price facil sin entrar al item
+                                    original_price=None, 
+                                    source="mercadolibre",
                                     last_checked=datetime.utcnow()
                                 )
                                 session.add(new_product)
+                                session.flush() # get id
+                                # Add history
+                                history = PriceHistory(product_id=new_product.id, price=price_val)
+                                session.add(history)
                              else:
                                 # logger.debug(f"⚠️ Saltando item {ml_id} con precio 0")
                                 pass
@@ -309,14 +318,31 @@ def update_tracked_products():
                              try: new_price = float(txt)
                              except: pass
                 
+                # 3. Intentar Original Price (Tachado)
                 if new_price > 0:
-                    return {
+                     # Buscar precio anterior/original
+                     # <s class="andes-money-amount ...">
+                     original_price_val = 0.0
+                     # ... lógica simple para original price ...
+                     # En ML suele estar en la misma estructura o ui-pdp-price__original-value
+                     
+                     # Intento genérico
+                     del_tag = soup.find("del", class_="ui-pdp-price__original-value")
+                     if del_tag:
+                         span_amt = del_tag.find("span", class_="andes-money-amount__fraction")
+                         if span_amt:
+                             try: original_price_val = float(span_amt.get_text().replace(',', '').replace('.', ''))
+                             except: pass
+                     
+                     # Si no, buscar cualquier 'del' o 's' cerca
+                     
+                     return {
                         "id": product_id,
                         "new_price": new_price,
                         "old_price": old_price,
                         "name": product_name,
                         "url": url,
-                        "original_price": current_original_price
+                        "original_price": original_price_val if original_price_val > 0 else current_original_price
                     }
             except Exception as e:
                 # logger.error(f"Error scraping {product_id}: {e}")
@@ -368,6 +394,18 @@ def update_tracked_products():
                             # Actualizar precio si varía
                             if abs(new_price - old_price) > 0.1:
                                 db_prod.current_price = new_price
+                                # Add history
+                                history = PriceHistory(product_id=db_prod.id, price=new_price)
+                                session.add(history)
+
+                                # Update original price if found
+                                if res["original_price"] and res["original_price"] > 0:
+                                    db_prod.original_price = res["original_price"]
+                                
+                                # Ensure source
+                                if not db_prod.source:
+                                    db_prod.source = "mercadolibre"
+
                                 if new_price < old_price and old_price > 0:
                                     drop_pct = ((old_price - new_price) / old_price) * 100
                                     updates.append({

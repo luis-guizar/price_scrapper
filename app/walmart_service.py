@@ -3,6 +3,9 @@ import requests
 import json
 import logging
 import re
+import re
+import time
+import random
 from datetime import datetime
 from sqlalchemy.orm import Session
 from bs4 import BeautifulSoup
@@ -26,18 +29,13 @@ SEARCH_CONFIG = {
     "min_price_drop_amount": 5000, 
 }
 
-def fetch_walmart_products(url):
-    """
-    Obtiene productos de Walmart MX mediante HTML parsing (prioridad) o script parsing (fallback).
-    """
-    logger.info(f"Escaneando Walmart: {url}")
-    
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+def get_common_headers():
+    return {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
         "Accept-Language": "es-MX,es;q=0.9,en-US;q=0.8,en;q=0.7",
         "Referer": "https://www.google.com/",
-        "Sec-Ch-Ua": '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+        "Sec-Ch-Ua": '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
         "Sec-Ch-Ua-Mobile": "?0",
         "Sec-Ch-Ua-Platform": '"Windows"',
         "Sec-Fetch-Dest": "document",
@@ -46,13 +44,22 @@ def fetch_walmart_products(url):
         "Sec-Fetch-User": "?1",
         "Upgrade-Insecure-Requests": "1",
         "Cache-Control": "max-age=0",
+        "Connection": "keep-alive",
     }
+
+def fetch_walmart_products(url):
+    """
+    Obtiene productos de Walmart MX mediante HTML parsing (prioridad) o script parsing (fallback).
+    """
+    logger.info(f"Escaneando Walmart: {url}")
+    
+    headers = get_common_headers()
 
     products = []
     
     try:
-        # Usar HTTPX con HTTP/2 para evadir bloqueos básicos
-        with httpx.Client(http2=True, timeout=30.0) as client:
+        # Usar HTTPX con HTTP/1.1 (HTTP/2 puede ser detectado más fácilmente si el fingerprint no es perfecto)
+        with httpx.Client(http2=False, timeout=30.0, follow_redirects=True) as client:
             response = client.get(url, headers=headers)
         
         response.raise_for_status()
@@ -269,6 +276,7 @@ def process_products(products):
                         url=url,
                         sku=sku,
                         current_price=price,
+                        source="walmart",
                         last_checked=datetime.utcnow()
                     )
                     session.add(new_product)
@@ -301,3 +309,127 @@ def get_walmart_deals():
             all_alerts.extend(alerts)
             
     return all_alerts
+
+def update_tracked_products_walmart():
+    """
+    Actualiza productos individuales de Walmart (source='walmart')
+    """
+    logger.info("🔄 Actualizando productos rastreados de Walmart...")
+    session = SessionLocal()
+    alerts = []
+    
+    try:
+        products = session.query(Product).filter(Product.source == 'walmart').all()
+        logger.info(f"   -> {len(products)} productos a revisar.")
+        
+        consecutive_failures = 0
+        
+        for product in products:
+            if consecutive_failures >= 5:
+                logger.error("🛑 Abortando actualización de Walmart por bloqueos persistentes (5 seguidos).")
+                break
+
+            try:
+                time.sleep(random.uniform(2, 5)) 
+                
+                # Reutilizamos fetch_walmart_products si es una lista, 
+                # PERO si es un producto individual, necesitamos logica de PDP.
+                # Por ahora, intentamos usar una logica simplificada para PDP.
+                
+                # Fetch page
+                headers = get_common_headers()
+                
+                # Limpiar URL de parametros de seguimiento para evitar 307
+                target_url = product.url.split('?')[0] if product.url else ""
+
+                with httpx.Client(http2=False, timeout=20.0, follow_redirects=True) as client:
+                    response = client.get(target_url, headers=headers)
+                
+                # Check for block
+                if "blocked" in str(response.url) or "robot check" in response.text.lower():
+                    logger.warning(f"⚠️ Bloqueo detectado en {target_url}")
+                    consecutive_failures += 1
+                    continue
+                else:
+                    # If we got a valid page but maybe price 0, it's not necessarily a block, 
+                    # but if we successfully extract price, reset counter.
+                    pass
+
+                if response.status_code != 200:
+                    logger.error(f"Error {response.status_code} al acceder a {target_url}")
+                    continue
+                    
+                soup = BeautifulSoup(response.text, 'html.parser')
+                
+                # Intentar sacar precio de JSON-LD o meta props
+                price = 0.0
+                
+                # 1. JSON-LD
+                scripts = soup.find_all('script', type='application/ld+json')
+                for script in scripts:
+                    try:
+                        data = json.loads(script.string)
+                        if data.get('@type') == 'Product':
+                            offers = data.get('offers', {})
+                            if isinstance(offers, list): offers = offers[0]
+                            price = float(offers.get('price', 0))
+                            if price > 0: break
+                    except: pass
+                
+                # 2. Meta tags
+                if price == 0:
+                    p_meta = soup.find("meta", property="product:price:amount")
+                    if p_meta:
+                        try: price = float(p_meta["content"])
+                        except: pass
+                        
+                # 3. Fallback HTML (itemprop=price)
+                if price == 0:
+                     price_span = soup.find(itemprop="price")
+                     if price_span:
+                         try: price = float(price_span["content"])
+                         except: pass
+
+                if price > 0:
+                    # Success - reset block counter
+                    consecutive_failures = 0
+                    
+                    old_price = product.current_price
+                    
+                    if abs(price - old_price) > 0.1:
+                        product.current_price = price
+                        
+                        # History
+                        from app.models import PriceHistory
+                        history = PriceHistory(product_id=product.id, price=price, timestamp=datetime.utcnow())
+                        session.add(history)
+                        
+                        # Ensure source
+                        if not product.source:
+                            product.source = "walmart"
+
+                        
+                        if price < old_price and old_price > 0:
+                             drop_amount = old_price - price
+                             drop_pct = (drop_amount / old_price) * 100
+                             if drop_pct > 5: # Alerta si baja > 5%
+                                 alerts.append({
+                                    "source": "walmart",
+                                    "title": product.name,
+                                    "price": price,
+                                    "old_price": old_price,
+                                    "discount_pct": round(drop_pct, 1),
+                                    "url": product.url
+                                })
+                    
+                    product.last_checked = datetime.utcnow()
+                    session.commit()
+            except Exception as e:
+                logger.error(f"Error actualizando producto {product.name}: {e}")
+                
+    except Exception as e:
+        logger.error(f"Error general en update_tracked_products_walmart: {e}")
+    finally:
+        session.close()
+        
+    return alerts
