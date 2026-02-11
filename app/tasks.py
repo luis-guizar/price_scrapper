@@ -214,7 +214,7 @@ def scan_officedepot_deals():
              deals.extend(targeted_deals)
         
         if not deals:
-            logger.info("ℹ️ No se detectaron bajadas de precio significativas en Office Depot")
+            logger.info("ℹ️ No se detectaron bajadas de precio significativas en Office Depot!!")
             monitor.record_no_deals('officedepot')
             return
 
