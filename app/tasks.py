@@ -3,7 +3,7 @@ from app.keepa_service import get_keepa_deals
 from app.promodescuentos_service import get_promodescuentos_deals
 from app.officedepot_service import get_officedepot_deals, update_tracked_products_officedepot
 
-from app.mercadolibre_service import update_tracked_products, search_products
+
 import requests
 import os
 import redis
@@ -47,17 +47,7 @@ def send_telegram_alert(deal):
             f"❌ Antes: ${deal['old_price']}\n"
             f"🔗 {deal['url']}"
         )
-    elif source == 'mercadolibre':
-        old_price_str = f"${deal['old_price']}" if deal.get('old_price') else "N/A"
-        original_price_str = f"${deal['original_price']}" if deal.get('original_price') else "N/A"
-        
-        msg = (
-            f"📉 ¡BAJADA DE PRECIO EN MERCADO LIBRE! ({deal['discount_pct']}% OFF)\n\n"
-            f"📦 {deal['title']}\n"
-            f"💰 Nuevo Precio: ${deal['price']}\n"
-            f"❌ Antes: {old_price_str} (Original: {original_price_str})\n"
-            f"🔗 {deal['url']}"
-        )
+
     elif source == 'walmart':
         msg = (
             f"📉 ¡BAJADA DE PRECIO EN WALMART! ({deal['discount_pct']}% OFF)\n\n"
@@ -258,61 +248,6 @@ def scan_officedepot_deals():
 
 
 
-@app.task
-def scan_mercadolibre_monitoring():
-    logger.info("=" * 60)
-    logger.info("▶️ TAREA INICIADA: scan_mercadolibre_monitoring")
-    logger.info("=" * 60)
-    start_time = datetime.now()
-    
-    try:
-        deals = update_tracked_products()
-        
-        if not deals:
-            monitor.record_no_deals('mercadolibre')
-            logger.info("ℹ️ No se detectaron cambios de precio en Mercado Libre")
-            return
 
-        # Filtrar alertas por umbral
-        min_discount = float(os.getenv('ALERT_MIN_DISCOUNT_PCT', 10))
-        
-        filtered_deals = [d for d in deals if d.get('discount_pct', 0) >= min_discount]
-        
-        if not filtered_deals:
-            logger.info(f"ℹ️ {len(deals)} cambios detectados, pero ninguno supera el umbral del {min_discount}%")
-            return
-
-        monitor.record_found_deals('mercadolibre')
-        logger.info(f"📊 Detectados {len(filtered_deals)} cambios de precio RELEVANTES (>{min_discount}%)")
-        
-        for deal in filtered_deals:
-            send_telegram_alert(deal)
-            
-        elapsed = (datetime.now() - start_time).total_seconds()
-        logger.info(f"✅ Tarea completada en {elapsed:.2f}s - {len(filtered_deals)} alertas enviadas")
-        
-    except Exception as e:
-        logger.exception(f"❌ Error en scan_mercadolibre_monitoring: {e}")
-        monitor.record_failure('mercadolibre', str(e))
-    finally:
-         logger.info("=" * 60)
-
-
-@app.task
-def scan_mercadolibre_discovery(keywords, sort_by='relevancia', free_shipping=False):
-    """
-    Tarea bajo demanda o programada para buscar nuevos productos.
-    """
-    logger.info("=" * 60)
-    logger.info(f"▶️ TAREA INICIADA: scan_mercadolibre_discovery (kw={keywords})")
-    logger.info("=" * 60)
-    
-    try:
-        products = search_products(keywords, sort_by, free_shipping)
-        logger.info(f"✅ Descubrimiento completado: {len(products)} productos procesados/actualizados.")
-    except Exception as e:
-        logger.exception(f"❌ Error en scan_mercadolibre_discovery: {e}")
-    finally:
-        logger.info("=" * 60)
 
 

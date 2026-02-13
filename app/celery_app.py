@@ -35,16 +35,7 @@ app.conf.beat_schedule = {
         'schedule': crontab(minute='6,16,26,36,46,56'),
     },
     # Ejecutar cada 10 minutos, con offset (minuto 8, 18, 28...)
-    'scan-mercadolibre-monitoring-every-10-mins': {
-        'task': 'app.tasks.scan_mercadolibre_monitoring',
-        'schedule': crontab(minute='8,18,28,38,48,58'),
-    },
-    # Ejecutar diariamente a las 4:00 AM UTC
-    'scan-mercadolibre-discovery-daily': {
-        'task': 'app.tasks.scan_mercadolibre_discovery',
-        'schedule': crontab(hour=4, minute=0),
-        'args': (["laptop gamer", "rtx 4060", "silla ergonómica", "monitor 144hz", "smart tv", "iPhone", "logitech", "macbook", "Samsung Galaxy"], 'relevancia', True)
-    },
+
 }
 
 app.conf.timezone = 'UTC' # type: ignore
