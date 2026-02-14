@@ -15,6 +15,8 @@ function App() {
     const [showTelegramModal, setShowTelegramModal] = useState(false)
     const [newUrl, setNewUrl] = useState('')
     const [viewMode, setViewMode] = useState('dashboard') // 'dashboard' | 'list'
+    const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0, limit: 20 })
+    const [activeFilters, setActiveFilters] = useState({ search: '', source: '' })
 
     useEffect(() => {
         fetchData()
@@ -26,19 +28,57 @@ function App() {
         }
     }, [selectedProduct])
 
-    const fetchData = async () => {
+    const fetchData = async (params = {}) => {
+        setLoading(true)
         try {
+            // Default to limit 20 if not specified (for initial load)
+            const queryParams = { limit: 20, ...params }
+
             const [productsRes, statsRes] = await Promise.all([
-                axios.get('/api/products'),
+                axios.get('/api/products', { params: queryParams }),
                 axios.get('/api/stats')
             ])
-            setProducts(productsRes.data)
+
+            // Handle paginated response
+            if (productsRes.data.data) {
+                setProducts(productsRes.data.data)
+                setPagination({
+                    page: productsRes.data.page,
+                    pages: productsRes.data.pages,
+                    total: productsRes.data.total,
+                    limit: productsRes.data.limit
+                })
+            } else {
+                // Fallback for array response if API hasn't updated or cached
+                setProducts(productsRes.data)
+            }
+
             setStats(statsRes.data)
-            setLoading(false)
         } catch (error) {
             console.error("Error fetching data:", error)
+        } finally {
             setLoading(false)
         }
+    }
+
+    const handleSearch = (search, source, page = 1) => {
+        // Update active filters
+        setActiveFilters({ search, source })
+
+        // Calculate skip based on page
+        const limit = pagination.limit
+        const skip = (page - 1) * limit
+
+        fetchData({
+            search: search || undefined,
+            source: source || undefined,
+            limit: limit,
+            skip: skip
+        })
+    }
+
+    const handlePageChange = (newPage, search, source) => {
+        handleSearch(search, source, newPage)
     }
 
     const fetchHistory = async (id) => {
@@ -75,7 +115,8 @@ function App() {
         if (!confirm("Stop tracking this item?")) return
         try {
             await axios.delete(`/api/products/${id}`)
-            fetchData()
+            // Refresh current view
+            handleSearch(activeFilters.search, activeFilters.source, pagination.page)
             if (selectedProduct?.id === id) setSelectedProduct(null)
         } catch (e) {
             alert("Error deleting")
@@ -245,7 +286,13 @@ function App() {
                 ) : (
                     // Product List View
                     <div className="h-[800px]">
-                        <ProductTable products={products} onDelete={handleDelete} />
+                        <ProductTable
+                            products={products}
+                            onDelete={handleDelete}
+                            onSearch={handleSearch}
+                            pagination={pagination}
+                            onPageChange={handlePageChange}
+                        />
                     </div>
                 )}
 

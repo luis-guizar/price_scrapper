@@ -11,8 +11,21 @@ def get_product(db: Session, product_id: int):
 def get_product_by_url(db: Session, url: str):
     return db.query(Product).filter(Product.url == url).first()
 
-def get_products(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Product).offset(skip).limit(limit).all()
+def get_products(db: Session, skip: int = 0, limit: int = 100, search: str = None, source: str = None):
+    query = db.query(Product)
+    
+    if source:
+        query = query.filter(Product.source == source)
+        
+    if search:
+        search_term = f"%{search}%"
+        query = query.filter((Product.name.ilike(search_term)) | (Product.sku.ilike(search_term)))
+    
+    
+    total = query.count()
+    items = query.order_by(Product.id.desc()).offset(skip).limit(limit).all()
+    
+    return items, total
 
 def create_product(db: Session, product_data: dict):
     # Auto-detect source
