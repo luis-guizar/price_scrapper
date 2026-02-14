@@ -7,6 +7,8 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from app.models import SessionLocal, Product, PriceHistory
 
+import re
+
 # Configurar logging
 logger = logging.getLogger(__name__)
 
@@ -22,69 +24,74 @@ class CyberpuertaScraper:
         self.collected_ids = []
         self.products = []
 
+    def _discover_single_url(self, url):
+        """Discover all product IDs from a single filter URL (all pages)."""
+        ids = []
+        try:
+            logger.info(f"Checking filter URL: {url[:80]}...")
+            response = self.session.get(url)
+            response.raise_for_status()
+            data = response.json()
+            
+            total_pages = data.get("data", {}).get("totalPages", 0)
+            total_items = data.get("data", {}).get("total", 0)
+            
+            if not total_pages or total_pages == 0:
+                logger.warning(f"No pages found for {url[:80]}")
+                return ids
+                
+            logger.info(f"Found {total_items} items across {total_pages} pages.")
+            
+            # Extract IDs from page 0 (initial call) response
+            initial_ids = data.get("data", {}).get("articleIds", [])
+            ids.extend(initial_ids)
+            
+            # Paginate remaining pages (start from 1 since we already have page 0)
+            for page in range(1, total_pages):
+                page_url = re.sub(r'page=\d+', f'page={page}', url)
+                
+                try:
+                    resp = self.session.get(page_url)
+                    resp.raise_for_status()
+                    page_data = resp.json()
+                    
+                    article_ids = page_data.get("data", {}).get("articleIds", [])
+                    ids.extend(article_ids)
+                    
+                    time.sleep(0.5)  # Rate limit per page
+                    
+                except Exception as e:
+                    logger.error(f"Error fetching page {page}: {e}")
+                    
+        except Exception as e:
+            logger.error(f"Error initializing discovery for {url[:80]}: {e}")
+        
+        return ids
+
     def discover_ids(self):
-        """Step 1: Dynamic Discovery (Index Phase)"""
+        """Step 1: Dynamic Discovery (Index Phase) — concurrent across URLs."""
         logger.info(f"🔍 Starting discovery phase for {len(self.filter_urls)} filter URLs.")
         
-        for url in self.filter_urls:
-            try:
-                # Initial call to get pagination info
-                logger.info(f"Checking filter URL: {url}")
-                response = self.session.get(url)
-                response.raise_for_status()
-                data = response.json()
-                
-                total_pages = data.get("data", {}).get("totalPages", 0)
-                total_items = data.get("data", {}).get("total", 0)
-                
-                if not total_pages or total_pages == 0:
-                    logger.warning(f"No pages found for {url}")
-                    continue
-                    
-                logger.info(f"Found {total_items} items across {total_pages} pages.")
-                
-                # Pagination Loop
-                # Note: Assuming 'page' parameter in URL can be replaced or appended. 
-                # The provided example URL has &page=1. We'll handle this by parsing or replacing.
-                base_url = url
-                if "page=" in base_url:
-                    # Remove existing page param to append cleanly in loop, or just replace
-                    # Simple strategy: use regex or string replacement if we know the format
-                    pass 
-                
-                for page in range(1, total_pages + 1):
-                    # Construct URL for specific page
-                    # If URL already has page=1, replace it. 
-                    # If not, append it. 
-                    if "page=" in base_url:
-                        page_url = base_url.replace(f"page=1", f"page={page}") # Simple replacement for now if starts with 1
-                        # If the original URL had page=XY, this simple replace might fail if not page=1 initially.
-                        # A more robust way:
-                        import re
-                        page_url = re.sub(r'page=\d+', f'page={page}', base_url)
-                    else:
-                        page_url = f"{base_url}&page={page}"
-                    
-                    logger.debug(f"Scanning page {page}/{total_pages}...")
-                    
-                    try:
-                        resp = self.session.get(page_url)
-                        resp.raise_for_status()
-                        page_data = resp.json()
-                        
-                        article_ids = page_data.get("data", {}).get("articleIds", [])
-                        self.collected_ids.extend(article_ids)
-                        
-                        time.sleep(1) # Resilience: 1-second delay
-                        
-                    except Exception as e:
-                        logger.error(f"Error fetching page {page}: {e}")
-                        
-            except Exception as e:
-                logger.error(f"Error initializing discovery for {url}: {e}")
+        all_ids = []
+        
+        # Process multiple filter URLs concurrently
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            future_to_url = {
+                executor.submit(self._discover_single_url, url): url 
+                for url in self.filter_urls
+            }
+            
+            for future in concurrent.futures.as_completed(future_to_url):
+                url = future_to_url[future]
+                try:
+                    ids = future.result()
+                    all_ids.extend(ids)
+                    logger.info(f"  ✓ {len(ids)} IDs from {url[:60]}...")
+                except Exception as e:
+                    logger.error(f"Discovery thread failed for {url[:60]}: {e}")
         
         # Deduplicate IDs
-        self.collected_ids = list(set(self.collected_ids))
+        self.collected_ids = list(set(all_ids))
         logger.info(f"✅ Discovery complete. Collected {len(self.collected_ids)} unique IDs.")
 
     def fetch_details(self):
@@ -155,90 +162,104 @@ class CyberpuertaScraper:
 def process_products(products, db_session: Session):
     """
     Save products to DB and check for alerts.
+    Commits in batches of BATCH_SIZE to limit blast radius on failures.
     """
     alerts = []
     processed_count = 0
+    failed_count = 0
+    BATCH_SIZE = 50
     
-    # Configuration for alerts (hardcoded or from config)
+    # Configuration for alerts
     MIN_DROP_PCT = 20
     MIN_DROP_AMOUNT = 500
     
-    for p in products:
-        try:
-            sku = p['sku']
-            url = p['url']
-            price = p['price']
-            name = p['name']
-            
-            # Skip products without valid URL
-            if not url or not url.startswith('http'):
-                continue
-            
-            # Find existing product
-            # Prefer SKU match for Cyberpuerta as URL might change or be constructed
-            db_product = db_session.query(Product).filter(Product.sku == sku).first()
-            
-            if not db_product:
-                # Try URL
-                db_product = db_session.query(Product).filter(Product.url == url).first()
-            
-            if db_product:
-                # Existing product
-                old_price = db_product.current_price
+    for i in range(0, len(products), BATCH_SIZE):
+        batch = products[i:i + BATCH_SIZE]
+        batch_ok = True
+        
+        for p in batch:
+            try:
+                sku = p['sku']
+                url = p['url']
+                price = p['price']
+                name = p['name']
                 
-                # Check for price drop
-                if price < old_price:
-                    drop = old_price - price
-                    pct = (drop / old_price) * 100
+                # Skip products without valid URL
+                if not url or not url.startswith('http'):
+                    continue
+                
+                # Find existing product
+                db_product = db_session.query(Product).filter(Product.sku == sku).first()
+                
+                if not db_product:
+                    db_product = db_session.query(Product).filter(Product.url == url).first()
+                
+                if db_product:
+                    old_price = db_product.current_price
                     
-                    if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
-                        alerts.append({
-                            "source": "cyberpuerta",
-                            "title": name,
-                            "price": price,
-                            "old_price": old_price,
-                            "discount_pct": round(pct, 1),
-                            "url": url,
-                            "sku": sku
-                        })
-                
-                # Update price if changed
-                if abs(price - old_price) > 0.1:
-                    db_product.current_price = price
-                    history = PriceHistory(product=db_product, price=price)
+                    # Check for price drop
+                    if price < old_price:
+                        drop = old_price - price
+                        pct = (drop / old_price) * 100
+                        
+                        if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
+                            alerts.append({
+                                "source": "cyberpuerta",
+                                "title": name,
+                                "price": price,
+                                "old_price": old_price,
+                                "discount_pct": round(pct, 1),
+                                "url": url,
+                                "sku": sku
+                            })
+                    
+                    # Update price if changed
+                    if abs(price - old_price) > 0.1:
+                        db_product.current_price = price
+                        history = PriceHistory(product=db_product, price=price)
+                        db_session.add(history)
+                    
+                    db_product.last_checked = datetime.utcnow()
+                    db_product.url = url
+                    
+                else:
+                    # New Product
+                    new_prod = Product(
+                        name=name,
+                        sku=sku,
+                        url=url,
+                        current_price=price,
+                        source="cyberpuerta",
+                        last_checked=datetime.utcnow()
+                    )
+                    db_session.add(new_prod)
+                    db_session.flush()
+                    
+                    history = PriceHistory(product=new_prod, price=price)
                     db_session.add(history)
                 
-                db_product.last_checked = datetime.utcnow()
-                db_product.url = url # Update URL just in case
+                processed_count += 1
                 
+            except Exception as e:
+                logger.error(f"Error processing product {p.get('sku')}: {e}")
+                batch_ok = False
+                break  # Stop this batch, rollback and continue
+        
+        # Commit this batch
+        try:
+            if batch_ok:
+                db_session.commit()
             else:
-                # New Product
-                new_prod = Product(
-                    name=name,
-                    sku=sku,
-                    url=url,
-                    current_price=price,
-                    source="cyberpuerta",
-                    last_checked=datetime.utcnow()
-                )
-                db_session.add(new_prod)
-                # Flush to get ID for history
-                db_session.flush()
-                
-                history = PriceHistory(product=new_prod, price=price)
-                db_session.add(history)
-            
-            processed_count += 1
-            
+                db_session.rollback()
+                failed_count += len(batch)
         except Exception as e:
-            logger.error(f"Error processing product {p.get('sku')}: {e}")
-            continue
-            
-    try:
-        db_session.commit()
-    except Exception as e:
-        logger.error(f"DB Commit error: {e}")
-        db_session.rollback()
+            logger.error(f"DB Commit error on batch {i // BATCH_SIZE + 1}: {e}")
+            db_session.rollback()
+            failed_count += len(batch)
+    
+    if failed_count:
+        logger.warning(f"⚠️ {failed_count} products failed to commit.")
+    logger.info(f"✅ Processed {processed_count} products successfully.")
         
     return alerts, processed_count
 
