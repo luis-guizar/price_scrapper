@@ -46,6 +46,11 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_chedraui_deals',
         'schedule': crontab(minute='8,18,28,38,48,58'),
     },
+    # Ejecutar cada 10 minutos, con offset (minuto 4, 14, 24...)
+    'scan-elektra-every-10-mins': {
+        'task': 'app.tasks.scan_elektra_deals',
+        'schedule': crontab(minute='4,14,24,34,44,54'),
+    },
 }
 
 app.conf.timezone = 'UTC' # type: ignore
