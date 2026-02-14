@@ -290,6 +290,8 @@ def scan_cyberpuerta_deals():
                     if send_telegram_alert(deal):
                         redis_client.setex(cache_key, 86400, "1")  # 24 horas
                         alerted_count += 1
+                        import time
+                        time.sleep(1)  # Rate limit Telegram API
                 else:
                     logger.info(f"  ✋ {deal['title']} ({unique_id}): Ya alertado recientemente - SKIPPING")
                     skipped_count += 1

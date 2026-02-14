@@ -102,54 +102,27 @@ class CyberpuertaScraper:
         
         def process_chunk(chunk_ids):
             try:
-                # requests.get params handles list as key=value&key=value if passed as list of tuples or similar
-                # But example shows articles[]=ID
-                # requests supports key w/ [] if we construct it right or pass dict with list
-                
                 params = [('articles[]', pid) for pid in chunk_ids]
                 
                 resp = self.session.get(url, params=params)
                 resp.raise_for_status()
                 data = resp.json()
                 
-                # Extract product data from response
-                # Structure needs verification, assuming data -> returned articles
-                # Based on typical API: data might be a dict or list
-                
-                # Let's assume the response 'data' contains the articles directly or inside a key
-                # Looking at typical cyberpuerta responses or inferring:
-                # usually { "data": { "123": { ... }, "456": { ... } } } or list
-                # For now, we'll assume 'data' holds the map or list.
-                
-                items = data.get("data", {})
-                processed_items = []
-                
-                # If items is a dict keyed by ID
+                # API returns: { "data": [ { "id": "...", "title": "...", "price": 30355, "link": "https://...", "picture": "https://...", "sku": "ABC-123", ... }, ... ] }
+                items = data.get("data", [])
                 if isinstance(items, dict):
-                    processed_items = items.values()
-                elif isinstance(items, list):
-                    processed_items = items
+                    items = list(items.values())
                 
                 results = []
-                for item in processed_items:
-                    # Normalize data
-                    # Need: name, price, url, sku/id, image
-                    
-                    # Extract fields (Guessing typical fields, adjusting based on debugging if needed)
-                    pid = str(item.get("articleId", "")) or str(item.get("id", ""))
-                    title = item.get("title", "") or item.get("name", "")
+                for item in items:
+                    pid = str(item.get("id", ""))
+                    title = item.get("title", "")
                     price = float(item.get("price", 0))
+                    product_url = item.get("link", "")
+                    image = item.get("picture", "")
+                    sku = item.get("sku", "") or pid
                     
-                    # URL construction if not provided
-                    # Cyberpuerta usually has 'url' or 'slug'
-                    slug = item.get("slug", "")
-                    product_url = item.get("url", "")
-                    if not product_url and slug:
-                        product_url = f"https://www.cyberpuerta.mx/{slug}" # Guessing base
-                    
-                    image = item.get("image", "") or item.get("picture", "")
-                    
-                    if pid and title and price > 0:
+                    if pid and title and price > 0 and product_url:
                         results.append({
                             "name": title,
                             "sku": pid,
@@ -196,6 +169,10 @@ def process_products(products, db_session: Session):
             url = p['url']
             price = p['price']
             name = p['name']
+            
+            # Skip products without valid URL
+            if not url or not url.startswith('http'):
+                continue
             
             # Find existing product
             # Prefer SKU match for Cyberpuerta as URL might change or be constructed
