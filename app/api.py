@@ -111,10 +111,18 @@ def read_products(
     limit: int = 100, 
     search: Optional[str] = None, 
     source: Optional[str] = None, 
+    min_price: Optional[float] = None,
+    max_price: Optional[float] = None,
+    sort_by: Optional[str] = "newest",
+    exclude: Optional[str] = None,
     db: Session = Depends(get_db)
 ):
-    items, total = crud.get_products(db, skip=skip, limit=limit, search=search, source=source)
-    page = (skip // limit) + 1
+    items, total = crud.get_products(
+        db, skip=skip, limit=limit, search=search, source=source,
+        min_price=min_price, max_price=max_price, sort_by=sort_by, exclude=exclude
+    )
+    
+    page = (skip // limit) + 1 if limit > 0 else 1
     pages = (total + limit - 1) // limit if limit > 0 else 0
     
     return {

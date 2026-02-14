@@ -16,7 +16,14 @@ function App() {
     const [newUrl, setNewUrl] = useState('')
     const [viewMode, setViewMode] = useState('dashboard') // 'dashboard' | 'list'
     const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0, limit: 20 })
-    const [activeFilters, setActiveFilters] = useState({ search: '', source: '' })
+    const [activeFilters, setActiveFilters] = useState({
+        search: '',
+        source: '',
+        minPrice: '',
+        maxPrice: '',
+        sortBy: 'newest',
+        exclude: ''
+    })
 
     useEffect(() => {
         fetchData()
@@ -31,11 +38,22 @@ function App() {
     const fetchData = async (params = {}) => {
         setLoading(true)
         try {
-            // Default to limit 20 if not specified (for initial load)
-            const queryParams = { limit: 20, ...params }
+            // Construct query params explicitly to match backend expectation
+            const apiParams = {
+                limit: params.limit || 20,
+                skip: params.skip || 0,
+                search: params.search || undefined,
+                source: params.source || undefined,
+                min_price: params.minPrice || undefined,
+                max_price: params.maxPrice || undefined,
+                sort_by: params.sortBy || undefined,
+                exclude: params.exclude || undefined
+            }
+
+            console.log("Fetching with params:", apiParams) // Debug for user
 
             const [productsRes, statsRes] = await Promise.all([
-                axios.get('/api/products', { params: queryParams }),
+                axios.get('/api/products', { params: apiParams }),
                 axios.get('/api/stats')
             ])
 
@@ -61,24 +79,29 @@ function App() {
         }
     }
 
-    const handleSearch = (search, source, page = 1) => {
-        // Update active filters
-        setActiveFilters({ search, source })
+    const handleSearch = (filters = {}, page = 1) => {
+        // Update active filters logic
+        const newFilters = { ...activeFilters, ...filters }
+        setActiveFilters(newFilters)
 
         // Calculate skip based on page
         const limit = pagination.limit
         const skip = (page - 1) * limit
 
         fetchData({
-            search: search || undefined,
-            source: source || undefined,
+            search: newFilters.search || undefined,
+            source: newFilters.source || undefined,
+            minPrice: newFilters.minPrice || undefined,
+            maxPrice: newFilters.maxPrice || undefined,
+            sortBy: newFilters.sortBy || undefined,
+            exclude: newFilters.exclude || undefined,
             limit: limit,
             skip: skip
         })
     }
 
-    const handlePageChange = (newPage, search, source) => {
-        handleSearch(search, source, newPage)
+    const handlePageChange = (newPage) => {
+        handleSearch({}, newPage)
     }
 
     const fetchHistory = async (id) => {
@@ -116,7 +139,15 @@ function App() {
         try {
             await axios.delete(`/api/products/${id}`)
             // Refresh current view
-            handleSearch(activeFilters.search, activeFilters.source, pagination.page)
+            const limit = pagination.limit
+            const skip = (pagination.page - 1) * limit
+
+            fetchData({
+                ...activeFilters,
+                limit: limit,
+                skip: skip
+            })
+
             if (selectedProduct?.id === id) setSelectedProduct(null)
         } catch (e) {
             alert("Error deleting")
@@ -290,6 +321,7 @@ function App() {
                             products={products}
                             onDelete={handleDelete}
                             onSearch={handleSearch}
+                            activeFilters={activeFilters}
                             pagination={pagination}
                             onPageChange={handlePageChange}
                         />

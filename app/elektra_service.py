@@ -129,7 +129,8 @@ class ElektraService:
         logger.info(f"Starting Elektra scrape for {len(self.urls)} URLs.")
         all_products = []
         
-        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        # Optimize: Increased workers to 10 since we have multiple search URLs
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
             future_to_url = {executor.submit(self._fetch_products_from_api, url): url for url in self.urls}
             for future in concurrent.futures.as_completed(future_to_url):
                 try:
@@ -142,16 +143,14 @@ class ElektraService:
         return all_products
 
 def process_products(products, db_session: SessionLocal):
-    # Re-use logic or similar to other services? 
-    # Let's keep it self-contained for now to avoid circular imports or messy refactors
-    # but strictly this could be a shared helper.
-    
     alerts = []
     processed_count = 0
     failed_count = 0
     BATCH_SIZE = 50
     
-    MIN_DROP_PCT = 15 # Elektra discounts might be smaller but frequent?
+    # Parámetros de Alerta
+    MIN_DROP_PCT = 35      # 35% de descuento
+    MIN_DROP_AMOUNT = 5000  # O 5000 pesos de bajada directa
     
     for i in range(0, len(products), BATCH_SIZE):
         batch = products[i:i + BATCH_SIZE]
@@ -176,7 +175,8 @@ def process_products(products, db_session: SessionLocal):
                         drop = old_price - price
                         pct = (drop / old_price) * 100
                         
-                        if pct >= MIN_DROP_PCT:
+                        # Alerta si supera el % o el monto fijo
+                        if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
                             alerts.append({
                                 "source": "elektra",
                                 "title": name,

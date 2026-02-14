@@ -1,1 +1,25 @@
 https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49
+# Motocicletas (Urbanas)
+https://www.elektra.mx/api/catalog_system/pub/products/search?fq=C:158947&_from=0&_to=49
+# iPhones (Solo Smartphones)
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=iphone
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=moto
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=computadora
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=macbook
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=laptop
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=tablet
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=secadora
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=lavadora
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=sala
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=comedor
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=smartv
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=television
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=estufa
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=camara
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=xbox
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=playstation
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=gaming
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=tenis
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=bicicleta
+https://www.elektra.mx/api/catalog_system/pub/products/search?_from=0&_to=49&ft=ciclismo
+

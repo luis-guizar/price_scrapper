@@ -11,19 +11,42 @@ def get_product(db: Session, product_id: int):
 def get_product_by_url(db: Session, url: str):
     return db.query(Product).filter(Product.url == url).first()
 
-def get_products(db: Session, skip: int = 0, limit: int = 100, search: str = None, source: str = None):
+def get_products(db: Session, skip: int = 0, limit: int = 100, 
+                 search: str = None, source: str = None,
+                 min_price: float = None, max_price: float = None,
+                 sort_by: str = "newest", exclude: str = None):
     query = db.query(Product)
     
+    # Filters
     if source:
         query = query.filter(Product.source == source)
         
     if search:
         search_term = f"%{search}%"
         query = query.filter((Product.name.ilike(search_term)) | (Product.sku.ilike(search_term)))
-    
+        
+    if min_price is not None:
+        query = query.filter(Product.current_price >= min_price)
+        
+    if max_price is not None:
+        query = query.filter(Product.current_price <= max_price)
+        
+    if exclude:
+        exclude_terms = exclude.split()
+        for term in exclude_terms:
+            term_clean = f"%{term}%"
+            query = query.filter(~Product.name.ilike(term_clean))
+            
+    # Sorting
+    if sort_by == 'price_asc':
+        query = query.order_by(Product.current_price.asc())
+    elif sort_by == 'price_desc':
+        query = query.order_by(Product.current_price.desc())
+    else: # default newest
+        query = query.order_by(Product.id.desc())
     
     total = query.count()
-    items = query.order_by(Product.id.desc()).offset(skip).limit(limit).all()
+    items = query.offset(skip).limit(limit).all()
     
     return items, total
 
