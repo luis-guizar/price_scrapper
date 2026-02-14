@@ -79,6 +79,13 @@ class PriceHistoryResponse(BaseModel):
     class Config:
         orm_mode = True
 
+class PaginatedResponse(BaseModel):
+    data: List[ProductResponse]
+    total: int
+    page: int
+    limit: int
+    pages: int
+
 # --- Endpoints ---
 
 @app.get("/stats")
@@ -98,10 +105,25 @@ def read_stats(db: Session = Depends(get_db)):
             "error": str(e)
         }
 
-@app.get("/products", response_model=List[ProductResponse])
-def read_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    products = crud.get_products(db, skip=skip, limit=limit)
-    return products
+@app.get("/products", response_model=PaginatedResponse)
+def read_products(
+    skip: int = 0, 
+    limit: int = 100, 
+    search: Optional[str] = None, 
+    source: Optional[str] = None, 
+    db: Session = Depends(get_db)
+):
+    items, total = crud.get_products(db, skip=skip, limit=limit, search=search, source=source)
+    page = (skip // limit) + 1
+    pages = (total + limit - 1) // limit if limit > 0 else 0
+    
+    return {
+        "data": items,
+        "total": total,
+        "page": page,
+        "limit": limit,
+        "pages": pages
+    }
 
 @app.post("/products", response_model=ProductResponse)
 def create_product(product: ProductCreate, db: Session = Depends(get_db)):
