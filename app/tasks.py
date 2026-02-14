@@ -2,6 +2,7 @@ from app.celery_app import app
 from app.keepa_service import get_keepa_deals
 from app.promodescuentos_service import get_promodescuentos_deals
 from app.officedepot_service import get_officedepot_deals, update_tracked_products_officedepot
+from app.cyberpuerta_service import get_cyberpuerta_deals
 
 
 import requests
@@ -42,6 +43,14 @@ def send_telegram_alert(deal):
     elif source == 'officedepot':
         msg = (
             f"📉 ¡BAJADA DE PRECIO EN OFFICE DEPOT! ({deal['discount_pct']}% OFF)\n\n"
+            f"📦 {deal['title']}\n"
+            f"💰 Nuevo Precio: ${deal['price']}\n"
+            f"❌ Antes: ${deal['old_price']}\n"
+            f"🔗 {deal['url']}"
+        )
+    elif source == 'cyberpuerta':
+        msg = (
+            f"📉 ¡BAJADA DE PRECIO EN CYBERPUERTA! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Nuevo Precio: ${deal['price']}\n"
             f"❌ Antes: ${deal['old_price']}\n"
@@ -246,8 +255,53 @@ def scan_officedepot_deals():
     finally:
         logger.info("=" * 60)
 
+@app.task
+def scan_cyberpuerta_deals():
+    logger.info("=" * 60)
+    logger.info("▶️ TAREA INICIADA: scan_cyberpuerta_deals")
+    logger.info("=" * 60)
+    start_time = datetime.now()
+    
+    try:
+        alerts, count = get_cyberpuerta_deals()
+        
+        if not alerts:
+            logger.info(f"ℹ️ No se detectaron bajadas de precio significativas en Cyberpuerta ({count} productos procesados)")
+            monitor.record_no_deals('cyberpuerta')
+            return
 
+        monitor.record_found_deals('cyberpuerta')
+        
+        logger.info(f"📊 Procesando {len(alerts)} alertas de precio de Cyberpuerta...")
+        
+        alerted_count = 0
+        skipped_count = 0
+        
+        for deal in alerts:
+            try:
+                unique_id = deal.get('sku') or deal.get('url')
+                if not unique_id:
+                    continue
 
+                cache_key = f"alerted:cyberpuerta:{unique_id}"
 
+                if not redis_client.get(cache_key):
+                    logger.info(f"  🔔 Alertando: {deal['title']}")
+                    if send_telegram_alert(deal):
+                        redis_client.setex(cache_key, 86400, "1")  # 24 horas
+                        alerted_count += 1
+                else:
+                    logger.info(f"  ✋ {deal['title']} ({unique_id}): Ya alertado recientemente - SKIPPING")
+                    skipped_count += 1
 
-
+            except Exception as e:
+                logger.error(f"Error enviando alerta individual Cyberpuerta: {e}")
+        
+        elapsed = (datetime.now() - start_time).total_seconds()
+        logger.info(f"✅ Tarea completada en {elapsed:.2f}s - {alerted_count} alertas enviadas, {skipped_count} saltadas")
+        
+    except Exception as e:
+        logger.exception(f"❌ Error en scan_cyberpuerta_deals: {e}")
+        monitor.record_failure('cyberpuerta', str(e))
+    finally:
+        logger.info("=" * 60)

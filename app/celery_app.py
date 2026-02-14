@@ -36,6 +36,11 @@ app.conf.beat_schedule = {
     },
     # Ejecutar cada 10 minutos, con offset (minuto 8, 18, 28...)
 
+    # Ejecutar cada 10 minutos, con offset (minuto 3, 13, 23...)
+    'scan-cyberpuerta-every-10-mins': {
+        'task': 'app.tasks.scan_cyberpuerta_deals',
+        'schedule': crontab(minute='3,13,23,33,43,53'),
+    },
 }
 
 app.conf.timezone = 'UTC' # type: ignore
