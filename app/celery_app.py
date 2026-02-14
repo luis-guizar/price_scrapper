@@ -41,6 +41,11 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_cyberpuerta_deals',
         'schedule': crontab(minute='3,13,23,33,43,53'),
     },
+    # Ejecutar cada 10 minutos, con offset (minuto 8, 18, 28...)
+    'scan-chedraui-every-10-mins': {
+        'task': 'app.tasks.scan_chedraui_deals',
+        'schedule': crontab(minute='8,18,28,38,48,58'),
+    },
 }
 
 app.conf.timezone = 'UTC' # type: ignore

@@ -170,8 +170,8 @@ def process_products(products, db_session: Session):
     BATCH_SIZE = 50
     
     # Configuration for alerts
-    MIN_DROP_PCT = 20
-    MIN_DROP_AMOUNT = 500
+    MIN_DROP_PCT = 35
+    MIN_DROP_AMOUNT = 5000
     
     for i in range(0, len(products), BATCH_SIZE):
         batch = products[i:i + BATCH_SIZE]

@@ -23,6 +23,8 @@ def create_product(db: Session, product_data: dict):
         product_data["source"] = "walmart"
     elif "officedepot.com.mx" in url:
         product_data["source"] = "officedepot"
+    elif "cyberpuerta.mx" in url:
+        product_data["source"] = "cyberpuerta"
     else:
         product_data["source"] = "other"
 
