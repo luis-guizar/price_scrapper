@@ -51,6 +51,11 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_elektra_deals',
         'schedule': crontab(minute='4,14,24,34,44,54'),
     },
+    # Ejecutar cada 10 minutos, con offset (minuto 9, 19, 29...)
+    'scan-meli-every-10-mins': {
+        'task': 'app.tasks.scan_meli_deals',
+        'schedule': crontab(minute='9,19,29,39,49,59'),
+    },
 }
 
 app.conf.timezone = 'UTC' # type: ignore

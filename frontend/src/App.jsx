@@ -13,7 +13,6 @@ function App() {
     const [history, setHistory] = useState([])
     const [showAddModal, setShowAddModal] = useState(false)
     const [showTelegramModal, setShowTelegramModal] = useState(false)
-    const [newUrl, setNewUrl] = useState('')
     const [viewMode, setViewMode] = useState('dashboard') // 'dashboard' | 'list'
     const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0, limit: 20 })
     const [activeFilters, setActiveFilters] = useState({
@@ -25,6 +24,14 @@ function App() {
         exclude: ''
     })
 
+    // Add modal state
+    const [newUrl, setNewUrl] = useState('')
+    const [addSource, setAddSource] = useState(null)
+    const [addPreview, setAddPreview] = useState(null)
+    const [addLoading, setAddLoading] = useState(false)
+    const [addError, setAddError] = useState('')
+    const [addStep, setAddStep] = useState('url') // 'url' | 'preview' | 'success'
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -35,10 +42,36 @@ function App() {
         }
     }, [selectedProduct])
 
+    // Auto-detect source from URL
+    useEffect(() => {
+        if (!newUrl) {
+            setAddSource(null)
+            setAddError('')
+            return
+        }
+        const lc = newUrl.toLowerCase()
+        if (lc.includes('mercadolibre.com') || lc.includes('articulo.mercadolibre')) {
+            setAddSource('mercadolibre')
+        } else if (lc.includes('elektra.com') || lc.includes('elektra.mx')) {
+            setAddSource('elektra')
+        } else if (lc.includes('walmart.com.mx')) {
+            setAddSource('walmart')
+        } else if (lc.includes('cyberpuerta.mx')) {
+            setAddSource('cyberpuerta')
+        } else if (lc.includes('chedraui.com.mx')) {
+            setAddSource('chedraui')
+        } else if (lc.includes('officedepot.com.mx')) {
+            setAddSource('officedepot')
+        } else if (lc.startsWith('http')) {
+            setAddSource('other')
+        } else {
+            setAddSource(null)
+        }
+    }, [newUrl])
+
     const fetchData = async (params = {}) => {
         setLoading(true)
         try {
-            // Construct query params explicitly to match backend expectation
             const apiParams = {
                 limit: params.limit || 20,
                 skip: params.skip || 0,
@@ -50,14 +83,11 @@ function App() {
                 exclude: params.exclude || undefined
             }
 
-            console.log("Fetching with params:", apiParams) // Debug for user
-
             const [productsRes, statsRes] = await Promise.all([
                 axios.get('/api/products', { params: apiParams }),
                 axios.get('/api/stats')
             ])
 
-            // Handle paginated response
             if (productsRes.data.data) {
                 setProducts(productsRes.data.data)
                 setPagination({
@@ -67,7 +97,6 @@ function App() {
                     limit: productsRes.data.limit
                 })
             } else {
-                // Fallback for array response if API hasn't updated or cached
                 setProducts(productsRes.data)
             }
 
@@ -80,11 +109,9 @@ function App() {
     }
 
     const handleSearch = (filters = {}, page = 1) => {
-        // Update active filters logic
         const newFilters = { ...activeFilters, ...filters }
         setActiveFilters(newFilters)
 
-        // Calculate skip based on page
         const limit = pagination.limit
         const skip = (page - 1) * limit
 
@@ -121,16 +148,54 @@ function App() {
         }
     }
 
-    const handleAddProduct = async (e) => {
-        e.preventDefault()
+    // --- New smart track handlers ---
+
+    const handlePreview = async () => {
+        if (!newUrl) return
+        setAddLoading(true)
+        setAddError('')
+        setAddPreview(null)
+
         try {
-            await axios.post('/api/products', { name: "New Product", url: newUrl })
-            setNewUrl('')
-            setShowAddModal(false)
-            fetchData()
-        } catch (error) {
-            alert("Error adding product")
+            const res = await axios.post('/api/products/preview-url', { url: newUrl })
+            setAddPreview(res.data)
+            setAddStep('preview')
+        } catch (err) {
+            const msg = err.response?.data?.detail || 'Could not fetch product info. Check the URL.'
+            setAddError(msg)
+        } finally {
+            setAddLoading(false)
         }
+    }
+
+    const handleTrackConfirm = async () => {
+        setAddLoading(true)
+        setAddError('')
+
+        try {
+            await axios.post('/api/products/track-url', { url: newUrl })
+            setAddStep('success')
+            fetchData()
+            // Auto-close after a moment
+            setTimeout(() => {
+                closeAddModal()
+            }, 1500)
+        } catch (err) {
+            const msg = err.response?.data?.detail || 'Error adding product.'
+            setAddError(msg)
+        } finally {
+            setAddLoading(false)
+        }
+    }
+
+    const closeAddModal = () => {
+        setShowAddModal(false)
+        setNewUrl('')
+        setAddSource(null)
+        setAddPreview(null)
+        setAddLoading(false)
+        setAddError('')
+        setAddStep('url')
     }
 
     const handleDelete = async (id, e) => {
@@ -138,7 +203,6 @@ function App() {
         if (!confirm("Stop tracking this item?")) return
         try {
             await axios.delete(`/api/products/${id}`)
-            // Refresh current view
             const limit = pagination.limit
             const skip = (pagination.page - 1) * limit
 
@@ -152,6 +216,17 @@ function App() {
         } catch (e) {
             alert("Error deleting")
         }
+    }
+
+    // Source badge helpers
+    const sourceConfig = {
+        mercadolibre: { label: 'MercadoLibre', color: 'from-yellow-500 to-yellow-600', icon: '🛒', bg: 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400' },
+        elektra: { label: 'Elektra', color: 'from-purple-500 to-purple-600', icon: '⚡', bg: 'bg-purple-500/10 border-purple-500/30 text-purple-400' },
+        walmart: { label: 'Walmart', color: 'from-blue-500 to-blue-600', icon: '🏪', bg: 'bg-blue-500/10 border-blue-500/30 text-blue-400' },
+        cyberpuerta: { label: 'CyberPuerta', color: 'from-green-500 to-green-600', icon: '💻', bg: 'bg-green-500/10 border-green-500/30 text-green-400' },
+        chedraui: { label: 'Chedraui', color: 'from-red-500 to-red-600', icon: '🏬', bg: 'bg-red-500/10 border-red-500/30 text-red-400' },
+        officedepot: { label: 'Office Depot', color: 'from-red-400 to-red-500', icon: '🖨️', bg: 'bg-red-500/10 border-red-500/30 text-red-400' },
+        other: { label: 'Other', color: 'from-slate-500 to-slate-600', icon: '🔗', bg: 'bg-slate-500/10 border-slate-500/30 text-slate-400' },
     }
 
     return (
@@ -199,14 +274,14 @@ function App() {
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto p-4 md:p-8">
 
-                {/* Header (Mobile optimized) */}
+                {/* Header */}
                 <header className="flex justify-between items-center mb-8">
                     <h2 className="text-xl font-semibold text-slate-200">
                         {viewMode === 'dashboard' ? 'Overview' : 'Product Inventory'}
                     </h2>
                     <button
                         onClick={() => setShowAddModal(true)}
-                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg font-medium transition-all shadow-lg shadow-blue-900/20">
+                        className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-lg shadow-blue-900/30 hover:shadow-blue-800/40 hover:scale-[1.02] active:scale-[0.98]">
                         <Plus size={18} />
                         Track New Item
                     </button>
@@ -265,7 +340,10 @@ function App() {
                                                     <span className="text-xs text-slate-500 block mb-1">Current Price</span>
                                                     <span className="text-lg font-bold text-white">${p.current_price?.toLocaleString()}</span>
                                                 </div>
-                                                {p.sku && <span className={`text-[10px] text-slate-600 bg-slate-900 px-1.5 py-0.5 rounded uppercase tracking-wider ${p.source === 'mercadolibre' ? 'text-yellow-600' : ''}`}>{p.source || 'Other'}</span>}
+                                                {p.sku && <span className={`text-[10px] bg-slate-900 px-1.5 py-0.5 rounded uppercase tracking-wider ${p.source === 'mercadolibre' ? 'text-yellow-500 border border-yellow-500/20' :
+                                                        p.source === 'elektra' ? 'text-purple-400 border border-purple-500/20' :
+                                                            'text-slate-600'
+                                                    }`}>{p.source || 'Other'}</span>}
                                             </div>
                                         </div>
                                     ))}
@@ -328,37 +406,206 @@ function App() {
                     </div>
                 )}
 
-                {/* Modals */}
+                {/* ===== SMART ADD MODAL ===== */}
                 {showAddModal && (
-                    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                        <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md shadow-2xl">
-                            <h3 className="text-xl font-bold mb-4">Track New Product</h3>
-                            <form onSubmit={handleAddProduct}>
-                                <label className="block text-sm text-slate-400 mb-2">Product URL</label>
-                                <input
-                                    type="url"
-                                    required
-                                    placeholder="https://articulo.mercadolibre.com.mx/..."
-                                    className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors mb-6"
-                                    value={newUrl}
-                                    onChange={e => setNewUrl(e.target.value)}
-                                />
-                                <div className="flex justify-end gap-3">
+                    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeAddModal}>
+                        <div
+                            className="bg-slate-900/95 border border-slate-700/80 rounded-2xl w-full max-w-lg shadow-2xl shadow-black/50 overflow-hidden"
+                            onClick={e => e.stopPropagation()}
+                            style={{ animation: 'modalSlideIn 0.25s ease-out' }}
+                        >
+                            {/* Modal Header */}
+                            <div className="px-6 pt-6 pb-4 border-b border-slate-800/80">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <h3 className="text-xl font-bold text-white">Track New Product</h3>
+                                        <p className="text-sm text-slate-500 mt-1">Paste a product URL to start tracking its price</p>
+                                    </div>
                                     <button
-                                        type="button"
-                                        onClick={() => setShowAddModal(false)}
-                                        className="px-4 py-2 text-slate-400 hover:text-white transition-colors"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg font-medium"
-                                    >
-                                        Start Tracking
-                                    </button>
+                                        onClick={closeAddModal}
+                                        className="p-2 text-slate-500 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+                                    >×</button>
                                 </div>
-                            </form>
+                            </div>
+
+                            {/* Modal Body */}
+                            <div className="p-6">
+
+                                {/* Step 1: URL Input */}
+                                {addStep === 'url' && (
+                                    <div>
+                                        {/* URL Input with source badge */}
+                                        <label className="block text-sm font-medium text-slate-300 mb-2">Product URL</label>
+                                        <div className="relative">
+                                            <input
+                                                type="url"
+                                                required
+                                                autoFocus
+                                                placeholder="https://articulo.mercadolibre.com.mx/MLM-..."
+                                                className="w-full bg-slate-950/80 border border-slate-700 rounded-xl p-3.5 pr-12 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all"
+                                                value={newUrl}
+                                                onChange={e => { setNewUrl(e.target.value); setAddError('') }}
+                                                onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handlePreview() } }}
+                                            />
+                                            {addSource && (
+                                                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                                                    <span className="text-lg">{sourceConfig[addSource]?.icon}</span>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Source detection badge */}
+                                        {addSource && (
+                                            <div className="mt-3 flex items-center gap-2" style={{ animation: 'fadeIn 0.2s ease-out' }}>
+                                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border ${sourceConfig[addSource]?.bg}`}>
+                                                    {sourceConfig[addSource]?.icon} {sourceConfig[addSource]?.label}
+                                                </span>
+                                                {addSource === 'mercadolibre' && (
+                                                    <span className="text-xs text-emerald-500 flex items-center gap-1">
+                                                        ✓ Auto-fill supported
+                                                    </span>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {/* Supported sources info */}
+                                        <div className="mt-4 p-3 bg-slate-800/40 rounded-lg border border-slate-700/50">
+                                            <p className="text-xs font-medium text-slate-400 mb-2">Supported sources with auto-fill:</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                <span className="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-2 py-0.5 rounded-md">🛒 MercadoLibre</span>
+                                                <span className="text-xs bg-slate-700/50 text-slate-500 border border-slate-600/20 px-2 py-0.5 rounded-md">⚡ Elektra (coming soon)</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Error */}
+                                        {addError && (
+                                            <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-sm text-red-400" style={{ animation: 'fadeIn 0.2s ease-out' }}>
+                                                ⚠️ {addError}
+                                            </div>
+                                        )}
+
+                                        {/* Actions */}
+                                        <div className="flex justify-end gap-3 mt-6">
+                                            <button
+                                                type="button"
+                                                onClick={closeAddModal}
+                                                className="px-4 py-2.5 text-slate-400 hover:text-white transition-colors rounded-lg"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                onClick={handlePreview}
+                                                disabled={!newUrl || addLoading}
+                                                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:from-slate-700 disabled:to-slate-700 disabled:text-slate-500 text-white px-5 py-2.5 rounded-xl font-medium transition-all flex items-center gap-2"
+                                            >
+                                                {addLoading ? (
+                                                    <>
+                                                        <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                                                        Fetching...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Search size={16} />
+                                                        Fetch Product
+                                                    </>
+                                                )}
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Step 2: Preview */}
+                                {addStep === 'preview' && addPreview && (
+                                    <div style={{ animation: 'fadeIn 0.3s ease-out' }}>
+                                        {/* Product Preview Card */}
+                                        <div className="bg-slate-800/60 rounded-xl border border-slate-700/60 p-4">
+                                            <div className="flex gap-4">
+                                                {/* Thumbnail */}
+                                                {addPreview.thumbnail && (
+                                                    <div className="w-20 h-20 flex-shrink-0 rounded-lg bg-white/5 border border-slate-700/50 overflow-hidden flex items-center justify-center">
+                                                        <img
+                                                            src={addPreview.thumbnail}
+                                                            alt=""
+                                                            className="w-full h-full object-contain"
+                                                            onError={e => { e.target.style.display = 'none' }}
+                                                        />
+                                                    </div>
+                                                )}
+                                                {/* Info */}
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="flex items-start justify-between gap-2">
+                                                        <h4 className="font-semibold text-white text-sm leading-snug line-clamp-2">
+                                                            {addPreview.name || 'Unknown Product'}
+                                                        </h4>
+                                                        <span className={`flex-shrink-0 inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full border ${sourceConfig[addPreview.source]?.bg}`}>
+                                                            {sourceConfig[addPreview.source]?.icon} {sourceConfig[addPreview.source]?.label}
+                                                        </span>
+                                                    </div>
+
+                                                    {addPreview.price != null && (
+                                                        <div className="mt-2">
+                                                            <span className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">
+                                                                ${addPreview.price?.toLocaleString()}
+                                                            </span>
+                                                            <span className="text-xs text-slate-500 ml-1">{addPreview.currency}</span>
+                                                        </div>
+                                                    )}
+
+                                                    {addPreview.sku && (
+                                                        <p className="text-xs text-slate-500 mt-1 font-mono">{addPreview.sku}</p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Error */}
+                                        {addError && (
+                                            <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-sm text-red-400">
+                                                ⚠️ {addError}
+                                            </div>
+                                        )}
+
+                                        {/* Actions */}
+                                        <div className="flex justify-between mt-6">
+                                            <button
+                                                onClick={() => { setAddStep('url'); setAddPreview(null); setAddError('') }}
+                                                className="px-4 py-2.5 text-slate-400 hover:text-white transition-colors rounded-lg flex items-center gap-1"
+                                            >
+                                                ← Back
+                                            </button>
+                                            <button
+                                                onClick={handleTrackConfirm}
+                                                disabled={addLoading}
+                                                className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 disabled:from-slate-700 disabled:to-slate-700 disabled:text-slate-500 text-white px-6 py-2.5 rounded-xl font-medium transition-all flex items-center gap-2 shadow-lg shadow-emerald-900/20"
+                                            >
+                                                {addLoading ? (
+                                                    <>
+                                                        <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                                                        Adding...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Plus size={16} />
+                                                        Start Tracking
+                                                    </>
+                                                )}
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Step 3: Success */}
+                                {addStep === 'success' && (
+                                    <div className="text-center py-6" style={{ animation: 'fadeIn 0.3s ease-out' }}>
+                                        <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/20">
+                                            <span className="text-3xl">✓</span>
+                                        </div>
+                                        <h4 className="text-lg font-bold text-emerald-400">Product Added!</h4>
+                                        <p className="text-sm text-slate-500 mt-1">Price tracking has started</p>
+                                    </div>
+                                )}
+
+                            </div>
                         </div>
                     </div>
                 )}
