@@ -152,3 +152,112 @@ def read_product_history(product_id: int, db: Session = Depends(get_db)):
     history = crud.get_product_history(db, product_id)
     return history
 
+
+# --- Smart URL Tracking ---
+
+class TrackUrlRequest(BaseModel):
+    url: str
+
+def _detect_source(url: str) -> str:
+    url_lower = url.lower()
+    if "mercadolibre.com" in url_lower or "articulo.mercadolibre" in url_lower:
+        return "mercadolibre"
+    elif "walmart.com.mx" in url_lower:
+        return "walmart"
+    elif "officedepot.com.mx" in url_lower:
+        return "officedepot"
+    elif "cyberpuerta.mx" in url_lower:
+        return "cyberpuerta"
+    elif "chedraui.com.mx" in url_lower:
+        return "chedraui"
+    elif "elektra.com.mx" in url_lower or "elektra.mx" in url_lower:
+        return "elektra"
+    return "other"
+
+
+@app.post("/products/preview-url")
+def preview_url(req: TrackUrlRequest):
+    """Scrape a URL and return product info without saving."""
+    source = _detect_source(req.url)
+
+    if source == "mercadolibre":
+        from app.meli_service import MeliService
+        svc = MeliService()
+        item_id = svc.extract_id_from_url(req.url)
+        if not item_id:
+            raise HTTPException(status_code=400, detail="Could not extract MercadoLibre item ID from URL")
+
+        original_url = req.url if req.url.startswith("http") else None
+        data = svc.scrape_item(item_id, original_url=original_url)
+        if not data:
+            raise HTTPException(status_code=404, detail="Could not scrape product. The listing may be unavailable or rate-limited.")
+
+        return {
+            "source": source,
+            "name": data["title"],
+            "price": data["price"],
+            "sku": data["id"],
+            "url": data["permalink"],
+            "thumbnail": data.get("thumbnail", ""),
+            "currency": data.get("currency_id", "MXN"),
+        }
+
+    # For other sources, return basic info
+    return {
+        "source": source,
+        "name": "",
+        "price": None,
+        "sku": None,
+        "url": req.url,
+        "thumbnail": "",
+        "currency": "MXN",
+    }
+
+
+@app.post("/products/track-url", response_model=ProductResponse)
+def track_url(req: TrackUrlRequest, db: Session = Depends(get_db)):
+    """
+    Smart tracking: accepts a URL, auto-detects source,
+    and for supported sources (MercadoLibre), scrapes product info automatically.
+    """
+    source = _detect_source(req.url)
+
+    if source == "mercadolibre":
+        from app.meli_service import MeliService
+        svc = MeliService()
+        item_id = svc.extract_id_from_url(req.url)
+        if not item_id:
+            raise HTTPException(status_code=400, detail="Could not extract MercadoLibre item ID from URL")
+
+        # Check if already tracked
+        existing = db.query(Product).filter(
+            Product.sku == item_id, Product.source == "mercadolibre"
+        ).first()
+        if existing:
+            raise HTTPException(status_code=400, detail="This product is already being tracked")
+
+        original_url = req.url if req.url.startswith("http") else None
+        data = svc.scrape_item(item_id, original_url=original_url)
+        if not data:
+            raise HTTPException(status_code=404, detail="Could not scrape product. The listing may be unavailable or rate-limited.")
+
+        product_data = {
+            "name": data["title"],
+            "url": data["permalink"],
+            "sku": data["id"],
+            "source": "mercadolibre",
+            "current_price": data["price"],
+        }
+        return crud.create_product(db, product_data)
+
+    # For other sources, create a basic entry
+    existing = crud.get_product_by_url(db, url=req.url)
+    if existing:
+        raise HTTPException(status_code=400, detail="This product is already being tracked")
+
+    product_data = {
+        "name": "New Product",
+        "url": req.url,
+        "source": source,
+    }
+    return crud.create_product(db, product_data)
