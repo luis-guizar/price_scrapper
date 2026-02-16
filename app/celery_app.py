@@ -46,15 +46,10 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_chedraui_deals',
         'schedule': crontab(minute='8,18,28,38,48,58'),
     },
-    # Ejecutar cada 10 minutos, con offset (minuto 4, 14, 24...)
-    'scan-elektra-every-10-mins': {
+    # Ejecutar cada 15 minutos
+    'scan-elektra-every-15-mins': {
         'task': 'app.tasks.scan_elektra_deals',
-        'schedule': crontab(minute='4,14,24,34,44,54'),
-    },
-    # Ejecutar cada 10 minutos, con offset (minuto 9, 19, 29...)
-    'scan-meli-every-10-mins': {
-        'task': 'app.tasks.scan_meli_deals',
-        'schedule': crontab(minute='9,19,29,39,49,59'),
+        'schedule': crontab(minute='4,19,34,49'),
     },
 }
 

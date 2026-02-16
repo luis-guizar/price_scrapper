@@ -5,7 +5,6 @@ from app.officedepot_service import get_officedepot_deals, update_tracked_produc
 from app.cyberpuerta_service import get_cyberpuerta_deals
 from app.chedraui_service import get_chedraui_deals
 from app.elektra_service import get_elektra_deals
-from app.meli_service import get_meli_deals
 
 
 
@@ -32,7 +31,6 @@ def send_telegram_alert(deal):
     if not token or not chat_id:
         logger.error("❌ Variables de entorno TELEGRAM_TOKEN o TELEGRAM_CHAT_ID no configuradas")
         return False
-    
     source = deal.get('source', 'keepa')
     
     # Formato diferente según la fuente
@@ -443,57 +441,5 @@ def scan_elektra_deals():
     finally:
         logger.info("=" * 60)
 
-@app.task
-def scan_meli_deals():
-    logger.info("=" * 60)
-    logger.info("▶️ TAREA INICIADA: scan_meli_deals")
-    logger.info("=" * 60)
-    start_time = datetime.now()
-    
-    try:
-        # Update tracked items instead of searching new ones
-        query = "update_tracked" 
-        alerts, count = get_meli_deals(query)
-        
-        if not alerts:
-            logger.info(f"ℹ️ No se detectaron bajadas de precio significativas en MercadoLibre ({count} productos procesados)")
-            monitor.record_no_deals('mercadolibre')
-            return
 
-        monitor.record_found_deals('mercadolibre')
-        
-        logger.info(f"📊 Procesando {len(alerts)} alertas de precio de MercadoLibre...")
-        
-        alerted_count = 0
-        skipped_count = 0
-        
-        for deal in alerts:
-            try:
-                unique_id = deal.get('sku') or deal.get('url')
-                if not unique_id:
-                    continue
 
-                cache_key = f"alerted:meli:{unique_id}"
-
-                if not redis_client.get(cache_key):
-                    logger.info(f"  🔔 Alertando: {deal['title']}")
-                    if send_telegram_alert(deal):
-                        redis_client.setex(cache_key, 86400, "1")  # 24 horas
-                        alerted_count += 1
-                        import time
-                        time.sleep(1)  # Rate limit Telegram API
-                else:
-                    logger.info(f"  ✋ {deal['title']} ({unique_id}): Ya alertado recientemente - SKIPPING")
-                    skipped_count += 1
-
-            except Exception as e:
-                logger.error(f"Error enviando alerta individual Meli: {e}")
-        
-        elapsed = (datetime.now() - start_time).total_seconds()
-        logger.info(f"✅ Tarea completada en {elapsed:.2f}s - {alerted_count} alertas enviadas, {skipped_count} saltadas")
-        
-    except Exception as e:
-        logger.exception(f"❌ Error en scan_meli_deals: {e}")
-        monitor.record_failure('mercadolibre', str(e))
-    finally:
-        logger.info("=" * 60)

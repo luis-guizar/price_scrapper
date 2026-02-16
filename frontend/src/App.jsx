@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu } from 'lucide-react'
+import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X } from 'lucide-react'
 import ProductTable from './components/ProductTable'
 import TelegramModal from './components/TelegramModal'
 
@@ -32,6 +32,14 @@ function App() {
     const [addError, setAddError] = useState('')
     const [addStep, setAddStep] = useState('url') // 'url' | 'preview' | 'success'
 
+    // Dashboard search state
+    const [dashboardSearch, setDashboardSearch] = useState('')
+    const [dashboardSourceFilter, setDashboardSourceFilter] = useState('')
+    const [dashboardMinPrice, setDashboardMinPrice] = useState('')
+    const [dashboardMaxPrice, setDashboardMaxPrice] = useState('')
+    const [dashboardProducts, setDashboardProducts] = useState([])
+    const [dashboardLoading, setDashboardLoading] = useState(false)
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -41,6 +49,11 @@ function App() {
             fetchHistory(selectedProduct.id)
         }
     }, [selectedProduct])
+
+    // Fetch dashboard products when filters change
+    useEffect(() => {
+        handleDashboardSearch()
+    }, [dashboardSearch, dashboardSourceFilter, dashboardMinPrice, dashboardMaxPrice])
 
     // Auto-detect source from URL
     useEffect(() => {
@@ -129,6 +142,44 @@ function App() {
 
     const handlePageChange = (newPage) => {
         handleSearch({}, newPage)
+    }
+
+    // Fetch dashboard products from API with search filters
+    const handleDashboardSearch = async () => {
+        setDashboardLoading(true)
+        try {
+            const apiParams = {
+                limit: 1000, // Get all items for dashboard display
+                skip: 0,
+                search: dashboardSearch || undefined,
+                source: dashboardSourceFilter || undefined,
+                min_price: dashboardMinPrice ? parseFloat(dashboardMinPrice) : undefined,
+                max_price: dashboardMaxPrice ? parseFloat(dashboardMaxPrice) : undefined,
+            }
+
+            // Remove undefined values
+            Object.keys(apiParams).forEach(key => apiParams[key] === undefined && delete apiParams[key])
+
+            const res = await axios.get('/api/products', { params: apiParams })
+            
+            if (res.data.data) {
+                setDashboardProducts(res.data.data)
+            } else {
+                setDashboardProducts(res.data)
+            }
+        } catch (error) {
+            console.error("Error fetching dashboard products:", error)
+            setDashboardProducts([])
+        } finally {
+            setDashboardLoading(false)
+        }
+    }
+
+    const handleDashboardClearFilters = () => {
+        setDashboardSearch('')
+        setDashboardSourceFilter('')
+        setDashboardMinPrice('')
+        setDashboardMaxPrice('')
     }
 
     const fetchHistory = async (id) => {
@@ -316,12 +367,81 @@ function App() {
 
                             {/* Product List */}
                             <div className="lg:col-span-1 bg-slate-900/50 rounded-2xl border border-slate-800 flex flex-col overflow-hidden">
-                                <div className="p-4 border-b border-slate-800 flex justify-between items-center">
-                                    <h3 className="font-semibold">Tracked Items</h3>
-                                    <span className="text-xs bg-slate-800 px-2 py-1 rounded text-slate-400">{products.length}</span>
+                                <div className="p-4 border-b border-slate-800 flex flex-col gap-3">
+                                    <div className="flex justify-between items-center">
+                                        <h3 className="font-semibold">Tracked Items</h3>
+                                        <span className="text-xs bg-slate-800 px-2 py-1 rounded text-slate-400">{dashboardProducts.length}</span>
+                                    </div>
+                                    
+                                    {/* Search & Filter Controls */}
+                                    <div className="flex gap-2 items-center">
+                                        <div className="relative flex-1">
+                                            <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
+                                            <input
+                                                type="text"
+                                                placeholder="Search..."
+                                                className="bg-slate-950 border border-slate-700 rounded-lg pl-7 pr-3 py-1.5 text-xs focus:outline-none focus:border-blue-500 w-full text-white"
+                                                value={dashboardSearch}
+                                                onChange={e => setDashboardSearch(e.target.value)}
+                                                onKeyDown={e => e.key === 'Enter' && e.currentTarget.blur()}
+                                            />
+                                        </div>
+                                        
+                                        {(dashboardSearch || dashboardSourceFilter || dashboardMinPrice || dashboardMaxPrice) && (
+                                            <button
+                                                onClick={handleDashboardClearFilters}
+                                                className="p-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-950 border border-slate-700 rounded hover:bg-slate-800 transition-colors"
+                                                title="Clear filters"
+                                            >
+                                                <X size={14} />
+                                            </button>
+                                        )}
+                                    </div>
+
+                                    {/* Source & Price Filters (Compact) */}
+                                    <div className="grid grid-cols-3 gap-2 text-xs">
+                                        <select
+                                            value={dashboardSourceFilter}
+                                            onChange={e => setDashboardSourceFilter(e.target.value)}
+                                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-300 focus:outline-none focus:border-blue-500"
+                                        >
+                                            <option value="">All Sources</option>
+                                            <option value="mercadolibre">MercadoLibre</option>
+                                            <option value="elektra">Elektra</option>
+                                            <option value="walmart">Walmart</option>
+                                            <option value="cyberpuerta">CyberPuerta</option>
+                                            <option value="chedraui">Chedraui</option>
+                                            <option value="officedepot">Office Depot</option>
+                                            <option value="other">Other</option>
+                                        </select>
+
+                                        <input
+                                            type="number"
+                                            placeholder="Min $"
+                                            value={dashboardMinPrice}
+                                            onChange={e => setDashboardMinPrice(e.target.value)}
+                                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-300 focus:outline-none focus:border-blue-500"
+                                        />
+
+                                        <input
+                                            type="number"
+                                            placeholder="Max $"
+                                            value={dashboardMaxPrice}
+                                            onChange={e => setDashboardMaxPrice(e.target.value)}
+                                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-300 focus:outline-none focus:border-blue-500"
+                                        />
+                                    </div>
                                 </div>
                                 <div className="overflow-y-auto flex-1 p-2 space-y-2">
-                                    {products.map(p => (
+                                    {dashboardLoading ? (
+                                        <div className="h-full flex flex-col items-center justify-center text-slate-500 py-8">
+                                            <div className="animate-spin mb-2">
+                                                <Search size={32} className="opacity-50" />
+                                            </div>
+                                            <p className="text-sm">Searching...</p>
+                                        </div>
+                                    ) : dashboardProducts.length > 0 ? (
+                                        dashboardProducts.map(p => (
                                         <div
                                             key={p.id}
                                             onClick={() => setSelectedProduct(p)}
@@ -346,7 +466,13 @@ function App() {
                                                     }`}>{p.source || 'Other'}</span>}
                                             </div>
                                         </div>
-                                    ))}
+                                    ))
+                                    ) : (
+                                        <div className="h-full flex flex-col items-center justify-center text-slate-500 py-8">
+                                            <Search size={32} className="mb-2 opacity-50" />
+                                            <p className="text-sm">No items match your filters</p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 

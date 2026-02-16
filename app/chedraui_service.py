@@ -3,9 +3,12 @@ import logging
 import json
 import urllib.parse
 import concurrent.futures
+import time
 from datetime import datetime
 from sqlalchemy.orm import Session
 from app.models import SessionLocal, Product, PriceHistory
+import re
+from bs4 import BeautifulSoup
 
 # Configurar logging
 logger = logging.getLogger(__name__)
@@ -280,22 +283,27 @@ def process_products(products, db_session: Session):
                         pct = (drop / old_price) * 100
                         
                         if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
-                            alerts.append({
-                                "source": "chedraui",
-                                "title": name,
-                                "price": price,
-                                "old_price": old_price,
-                                "discount_pct": round(pct, 1),
-                                "url": url,
-                                "sku": sku
-                            })
+                            # Validate price drop before alerting
+                            logger.info(f"📍 Potential deal detected: {name} (${old_price} → ${price}). Validating...")
+                            if validate_price_drop(url, price, old_price):
+                                alerts.append({
+                                    "source": "chedraui",
+                                    "title": name,
+                                    "price": price,
+                                    "old_price": old_price,
+                                    "discount_pct": round(pct, 1),
+                                    "url": url,
+                                    "sku": sku
+                                })
+                            else:
+                                logger.info(f"🚫 Precio drop falso positivo descartado: {name}")
                     
                     if abs(price - old_price) > 0.1:
                         db_product.current_price = price
                         history = PriceHistory(product=db_product, price=price)
                         db_session.add(history)
                         
-                    db_product.last_checked = datetime.utcnow()
+                    db_product.last_checked = datetime.utcnow() # type: ignore
                     db_product.url = url # Update URL just in case
                     
                 else:
@@ -335,6 +343,120 @@ def process_products(products, db_session: Session):
         logger.warning(f"⚠️ {failed_count} products failed to commit.")
     
     return alerts, processed_count
+
+def fetch_single_product_price(product_url):
+    """
+    Fetch the price of a single product directly from its product page.
+    This is used to validate if a price drop is real (not a temporary API glitch).
+    
+    Returns: float price if found, None if error
+    """
+    if not product_url:
+        return None
+        
+    try:
+        session = requests.Session()
+        session.headers.update({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        })
+        
+        response = session.get(product_url, timeout=10)
+        response.raise_for_status()
+        
+        # Strategy 1: Look for JSON-LD structured data (most reliable)
+        try:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            json_ld = soup.find('script', {'type': 'application/ld+json'})
+            if json_ld:
+                data = json.loads(json_ld.string) # type: ignore
+                if isinstance(data, dict) and 'offers' in data:
+                    offers = data['offers']
+                    
+                    # Handle AggregateOffer (highPrice/lowPrice)
+                    if isinstance(offers, dict):
+                        # Try highPrice first (lista price)
+                        if 'highPrice' in offers:
+                            price = float(offers['highPrice'])
+                            if price > 0:
+                                logger.info(f"✅ Extracted price from JSON-LD highPrice: ${price}")
+                                return price
+                        # Try price as fallback
+                        if 'price' in offers:
+                            price = float(offers['price'])
+                            if price > 0:
+                                logger.info(f"✅ Extracted price from JSON-LD price: ${price}")
+                                return price
+                    
+                    # Handle array of offers
+                    elif isinstance(offers, list) and len(offers) > 0:
+                        offer = offers[0]
+                        if isinstance(offer, dict):
+                            for key in ['highPrice', 'price']:
+                                if key in offer:
+                                    price = float(offer[key])
+                                    if price > 0:
+                                        logger.info(f"✅ Extracted price from JSON-LD {key}: ${price}")
+                                        return price
+        except Exception as e:
+            logger.debug(f"Could not extract price from JSON-LD: {e}")
+        
+        # Strategy 2: Look for meta og:price (Open Graph)
+        try:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            meta_price = soup.find('meta', {'property': 'product:price:amount'})
+            if meta_price and meta_price.get('content'):
+                price = float(meta_price['content']) # type: ignore
+                if price > 0:
+                    logger.info(f"✅ Extracted price from meta tag: ${price}")
+                    return price
+        except Exception as e:
+            logger.debug(f"Could not extract from meta tags: {e}")
+        
+        logger.warning(f"Could not extract price from {product_url}")
+        return None
+        
+    except Exception as e:
+        logger.error(f"Error fetching single product price from {product_url}: {e}")
+        return None
+
+
+def validate_price_drop(url, detected_new_price, original_db_price):
+    """
+    Validate if a detected price drop is real by re-fetching after a delay.
+    
+    Returns: True if drop is confirmed, False if it was a temporary glitch
+    """
+    try:
+        # Esperar un poco para asegurar que no es un glitch de cache
+        time.sleep(1)
+        
+        # Re-fetch el precio del producto
+        refetched_price = fetch_single_product_price(url)
+        
+        if refetched_price is None:
+            logger.warning(f"Could not re-fetch price for {url}, assuming glitch")
+            return False
+        
+        logger.info(f"Price validation for {url}: original=${original_db_price} → detected=${detected_new_price} → re-fetched=${refetched_price}")
+        
+        # Si el precio se recuperó, fue un falso positivo
+        if abs(refetched_price - original_db_price) < 100:  # Tolerancia de $100
+            logger.info(f"⚠️ FALSE POSITIVE: Precio se recuperó de ${detected_new_price} a ${refetched_price}")
+            return False
+        
+        # Si el precio sigue bajo, es una bajada real
+        if refetched_price < original_db_price:
+            logger.info(f"✅ CONFIRMED: Precio bajó a ${refetched_price} (de ${original_db_price})")
+            return True
+        
+        logger.info(f"Price validation: bajada temporal detectada pero precio se recuperó")
+        return False
+        
+    except Exception as e:
+        logger.error(f"Error validating price drop: {e}")
+        return False
+
 
 def get_chedraui_deals():
     urls = []
