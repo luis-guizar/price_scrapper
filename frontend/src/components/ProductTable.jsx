@@ -116,6 +116,7 @@ export default function ProductTable({ products, onDelete, onSearch, pagination,
                                     <option value="elektra">Elektra</option>
                                     <option value="chedraui">Chedraui</option>
                                     <option value="soriana">Soriana</option>
+                                    <option value="coppel">Coppel</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
@@ -222,7 +223,8 @@ export default function ProductTable({ products, onDelete, onSearch, pagination,
                                                 p.source === 'officedepot' ? 'bg-red-500/10 text-red-500' :
                                                     p.source === 'cyberpuerta' ? 'bg-green-500/10 text-green-500' :
                                                         p.source === 'soriana' ? 'bg-red-500/10 text-red-500' :
-                                                            p.source === 'elektra' ? 'bg-purple-600/10 text-purple-600' : 'bg-slate-700 text-slate-300'}`}>
+                                                            p.source === 'coppel' ? 'bg-blue-500/10 text-blue-500' :
+                                                                p.source === 'elektra' ? 'bg-purple-600/10 text-purple-600' : 'bg-slate-700 text-slate-300'}`}>
                                         {p.source || 'Unknown'}
                                     </span>
                                 </td>
