@@ -23,35 +23,37 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_promodescuentos_deals',
         'schedule': crontab(minute='*/5'),
     },
-    # Ejecutar cada 10 minutos, con offset (minuto 1, 11, 21...)
+    # Ejecutar cada 10 minutos (minuto 0, 10, 20, 30, 40, 50)
     'scan-keepa-every-10-mins': {
         'task': 'app.tasks.scan_amazon_deals',
-        'schedule': crontab(minute='1,11,21,31,41,51'),
+        'schedule': crontab(minute='0,10,20,30,40,50'),
     },
 
-    # Ejecutar cada 10 minutos, con offset (minuto 6, 16, 26...)
-    'scan-officedepot-every-10-mins': {
+    # Ejecutar cada 15 minutos, con offset (minuto 6, 21, 36, 51)
+    'scan-officedepot-every-15-mins': {
         'task': 'app.tasks.scan_officedepot_deals',
-        'schedule': crontab(minute='6,16,26,36,46,56'),
+        'schedule': crontab(minute='6,21,36,51'),
     },
-    # Ejecutar cada 10 minutos, con offset (minuto 8, 18, 28...)
 
-    # Ejecutar cada 10 minutos, con offset (minuto 3, 13, 23...)
-    'scan-cyberpuerta-every-10-mins': {
+    # Ejecutar cada 15 minutos, con offset (minuto 3, 18, 33, 48)
+    'scan-cyberpuerta-every-15-mins': {
         'task': 'app.tasks.scan_cyberpuerta_deals',
-        'schedule': crontab(minute='3,13,23,33,43,53'),
+        'schedule': crontab(minute='3,18,33,48'),
     },
-    # Ejecutar cada 10 minutos, con offset (minuto 8, 18, 28...)
-    'scan-chedraui-every-10-mins': {
+
+    # Ejecutar cada 15 minutos, con offset (minuto 8, 23, 38, 53)
+    'scan-chedraui-every-15-mins': {
         'task': 'app.tasks.scan_chedraui_deals',
-        'schedule': crontab(minute='8,18,28,38,48,58'),
+        'schedule': crontab(minute='8,23,38,53'),
     },
-    # Ejecutar cada 15 minutos
+
+    # Ejecutar cada 15 minutos, con offset (minuto 4, 19, 34, 49)
     'scan-elektra-every-15-mins': {
         'task': 'app.tasks.scan_elektra_deals',
         'schedule': crontab(minute='4,19,34,49'),
     },
-    # Ejecutar cada 15 minutos, con offset
+
+    # Ejecutar cada 15 minutos, con offset (minuto 9, 24, 39, 54)
     'scan-soriana-every-15-mins': {
         'task': 'app.tasks.scan_soriana_deals',
         'schedule': crontab(minute='9,24,39,54'),
