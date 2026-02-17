@@ -58,6 +58,12 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_soriana_deals',
         'schedule': crontab(minute='9,24,39,54'),
     },
+
+    # Ejecutar cada 15 minutos, con offset (minuto 10, 25, 40, 55)
+    'scan-coppel-every-15-mins': {
+        'task': 'app.tasks.scan_coppel_deals',
+        'schedule': crontab(minute='10,25,40,55'),
+    },
 }
 
 app.conf.timezone = 'UTC' # type: ignore

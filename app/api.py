@@ -168,6 +168,8 @@ def _detect_source(url: str) -> str:
         return "chedraui"
     elif "elektra.com.mx" in url_lower or "elektra.mx" in url_lower:
         return "elektra"
+    elif "coppel.com" in url_lower:
+        return "coppel"
     return "other"
 
 
