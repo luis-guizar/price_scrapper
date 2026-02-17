@@ -609,101 +609,42 @@ def check_coppel_alerts(products, db):
         try:
             current_price = deal.get('price', 0)
             sku = deal.get('sku')
-            url = deal.get('url')
             
-            if current_price <= 0: continue
+            if current_price <= 0:
+                continue
             
             # Find existing product in DB to compare price
-            # We look for the product BEFORE the update (or we assume process_products updated it? 
-            # actually process_products updates it. 
-            # We need to rely on the fact that process_products updates history.
-            # BUT simpler: check the PriceHistory or just check if it's significantly lower than "original_price" 
-            # IF we want like other services, we usually check:
-            # 1. Is new price lower than stored price? 
-            # BUT process_products ALREADY updated the price in step 559.
-            # So we can't easily compare "previous" price unless we fetch it before update OR check the logic intentionally.
-            
-            # Wait, standard pattern in this project seems to be:
-            # The 'deal' dict usually comes with 'original_price' from the site, OR we check DB.
-            # Let's check how officesepot does it: `update_tracked_products_officedepot` finds changes.
-            
-            # Since process_products ran, the DB now has the NEW price. 
-            # We should probably check the PriceHistory table for the *previous* entry?
-            # Or simpler: The user wants "stored price" comparison.
-            
-            # Let's assume we want to alert if the price ON SITE (original_price if available, or just valid discount logic)
-            # Actually, most reliable "Drop" alert needs the OLD price.
-            # If process_products already ran, we lost the old price in the Product table.
-            
-            # REVISION: To do this correctly without changing `process_products`, 
-            # we should rely on `process_products` returning the "changes" or we query PriceHistory.
-            
-            # However, looking at the code structure provided: 
-            # `scan_officedepot_deals` calls `update_tracked_products_officedepot` which does its own logic.
-            
-            # OPTION: We query the DB for the product. The Product table has `current_price` (which is now the NEW price).
-            # We can check the `price_history` for the LAST price.
-            
-            # Efficient way:
             p_db = db.query(Product).filter(Product.sku == sku).first()
             if not p_db:
-                # New product, maybe alert if it has a big site discount
-                 orig_price = deal.get('original_price', 0)
-                 if orig_price > 0 and current_price < orig_price:
-                     discount = int(((orig_price - current_price) / orig_price) * 100)
-                     if discount >= 40: # New product high discount
-                         deal['discount_pct'] = discount
-                         deal['old_price'] = orig_price
-                         # Proceed to alert
-                     else:
-                         continue
-                 else:
-                     continue
+                # User Requested: NO ALERTS for new products to avoid spam.
+                continue
+
+            # Correct logic: Query PriceHistory for the last 2 records.
+            from app.models import PriceHistory
+            history = db.query(PriceHistory).filter(PriceHistory.product_id == p_db.id).order_by(PriceHistory.timestamp.desc()).limit(2).all()
+            
+            if len(history) >= 2:
+                # We have history! Compare with the PREVIOUS price (history[1])
+                # history[0] is the current price we just saved
+                previous_price = history[1].price
+                current_price = float(current_price)
+                
+                if previous_price > current_price:
+                    # REAL PRICE DROP DETECTED
+                    drop_pct = int(((previous_price - current_price) / previous_price) * 100)
+                    
+                    if drop_pct >= 50:  # Alert only on >50% real drops
+                        deal['discount_pct'] = drop_pct
+                        deal['old_price'] = previous_price
+                        # Proceed to alert
+                    else:
+                        continue
+                else:
+                    # Price same or increased
+                    continue
             else:
-                 # Product exists. 
-                 # We just updated it. So PriceHistory should have an entry from "just now" and "previous".
-                 # This is getting complicated to query efficiently for 1000s of products.
-                 
-                 # SIMPLER APPROACH requested by User "like the other services":
-                 # Most services in this repo seem to filter alerts *before* DB update or return "deals" list.
-                 # But here `service.run()` returns all products.
-                 
-                 # Let's use the 'original_price' from the SITE for now if we can't easily get history,
-                 # UNLESS we change how we call `process_products`.
-                 
-                 # Wait, the user specifically asked: "checking discounts against the current price in the database"
-                 
-                 # Okay, I will implement a check against the DB *before* the huge batch update? 
-                 # No, `process_products` is called at line 559. `check_coppel_alerts` at 563.
-                 # The DB is already updated.
-                 
-                 # Correct logic: Query PriceHistory for the last 2 records.
-                 from app.models import PriceHistory
-                 history = db.query(PriceHistory).filter(PriceHistory.product_id == p_db.id).order_by(PriceHistory.timestamp.desc()).limit(2).all()
-                 
-                 if len(history) >= 2:
-                     # We have history! Compare with the PREVIOUS price (history[1])
-                     # history[0] is the current price we just saved
-                     previous_price = history[1].price
-                     current_price = float(current_price)
-                     
-                     if previous_price > current_price:
-                         # REAL PRICE DROP DETECTED
-                         drop_pct = int(((previous_price - current_price) / previous_price) * 100)
-                         
-                         if drop_pct >= 50:  # Alert on >50% real drops
-                            deal['discount_pct'] = drop_pct
-                            deal['old_price'] = previous_price
-                            # Proceed to alert
-                         else:
-                            continue
-                     else:
-                         # Price same or increased
-                         continue
-                 else:
-                     # New product (only 1 history record)
-                     # User Requested: NO ALERTS for new products to avoid spam.
-                     continue
+                # New product (only 1 history record)
+                continue
 
             unique_id = deal.get('sku') or deal.get('url')
             if not unique_id: continue
