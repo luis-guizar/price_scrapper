@@ -23,6 +23,11 @@ logger = logging.getLogger(__name__)
 from app.monitoring import Monitor
 monitor = Monitor()
 
+# DB Imports
+from app.crud import create_alert
+from app.models import SessionLocal
+
+
 # Usamos Redis para no repetir alertas del mismo producto cada 10 min
 redis_client = redis.Redis(host='redis', port=6379, db=1)
 
@@ -119,6 +124,24 @@ def send_telegram_alert(deal):
             
             if response.status_code == 200:
                 logger.info(f"✅ Alerta enviada a Telegram: {deal['title'][:50]}")
+                
+                # Guardar alerta en DB
+                try:
+                    db = SessionLocal()
+                    alert_data = {
+                        "price": deal.get('price'),
+                        "previous_price": deal.get('old_price'),
+                        "change_pct": deal.get('discount_pct'),
+                        "source": source,
+                        "url": deal.get('url'),
+                        "title": deal.get('title'),
+                        # "product_id": deal.get('product_id') # Si lo tenemos
+                    }
+                    create_alert(db, alert_data)
+                    db.close()
+                except Exception as db_e:
+                    logger.error(f"Error guardando alerta en DB: {db_e}")
+                    
                 return True
             elif response.status_code == 429:
                 # Rate limited by Telegram

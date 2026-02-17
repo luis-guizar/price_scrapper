@@ -4,6 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X } from 'lucide-react'
 import ProductTable from './components/ProductTable'
 import TelegramModal from './components/TelegramModal'
+import AlertHistory from './components/AlertHistory'
 
 function App() {
     const [products, setProducts] = useState([])
@@ -13,7 +14,7 @@ function App() {
     const [history, setHistory] = useState([])
     const [showAddModal, setShowAddModal] = useState(false)
     const [showTelegramModal, setShowTelegramModal] = useState(false)
-    const [viewMode, setViewMode] = useState('dashboard') // 'dashboard' | 'list'
+    const [viewMode, setViewMode] = useState('dashboard') // 'dashboard' | 'list' | 'alerts'
     const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0, limit: 20 })
     const [activeFilters, setActiveFilters] = useState({
         search: '',
@@ -323,6 +324,16 @@ function App() {
                             API Online
                         </div>
                     </div>
+
+                    <button
+                        onClick={() => setViewMode('alerts')}
+                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'alerts' ? 'bg-blue-600/10 text-blue-400 border-blue-600/20' : 'text-slate-400 border-transparent hover:bg-slate-800'}`}>
+                        <div className="relative">
+                            <TrendingDown size={20} />
+                            {stats?.alerts_count > 0 && <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>}
+                        </div>
+                        Alert History
+                    </button>
                 </div>
             </aside>
 
@@ -332,7 +343,7 @@ function App() {
                 {/* Header */}
                 <header className="flex justify-between items-center mb-8">
                     <h2 className="text-xl font-semibold text-slate-200">
-                        {viewMode === 'dashboard' ? 'Overview' : 'Product Inventory'}
+                        {viewMode === 'dashboard' ? 'Overview' : viewMode === 'list' ? 'Product Inventory' : 'Alert History'}
                     </h2>
                     <button
                         onClick={() => setShowAddModal(true)}
@@ -356,14 +367,17 @@ function App() {
                                 <p className="text-3xl font-bold text-white mt-1">{stats?.products_count || 0}</p>
                             </div>
 
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 backdrop-blur-sm">
+                            <div
+                                className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 backdrop-blur-sm cursor-pointer hover:bg-slate-800/50 transition-colors group"
+                                onClick={() => setViewMode('alerts')}
+                            >
                                 <div className="flex justify-between items-start mb-4">
-                                    <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400">
+                                    <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 group-hover:scale-110 transition-transform">
                                         <TrendingDown size={24} />
                                     </div>
                                 </div>
                                 <h3 className="text-slate-400 text-sm font-medium">Deals Found</h3>
-                                <p className="text-3xl font-bold text-white mt-1">--</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats?.alerts_count || 0}</p>
                             </div>
                         </div>
 
@@ -534,6 +548,12 @@ function App() {
                             pagination={pagination}
                             onPageChange={handlePageChange}
                         />
+                    </div>
+                )}
+
+                {viewMode === 'alerts' && (
+                    <div className="h-[800px]">
+                        <AlertHistory onBack={() => setViewMode('dashboard')} />
                     </div>
                 )}
 

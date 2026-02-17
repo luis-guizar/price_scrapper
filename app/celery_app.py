@@ -29,44 +29,37 @@ app.conf.beat_schedule = {
         'schedule': crontab(minute='0,10,20,30,40,50'),
     },
 
-    # Ejecutar cada 15 minutos, con offset (minuto 6, 21, 36, 51)
+    # --- SERVICIOS PESADOS (Playwright/Chrome) cada 15 min ---
+    # Compensados para que nunca se solapen
     'scan-officedepot-every-15-mins': {
         'task': 'app.tasks.scan_officedepot_deals',
-        'schedule': crontab(minute='6,21,36,51'),
+        'schedule': crontab(minute='0,15,30,45'),
     },
-
-    # Ejecutar cada 15 minutos, con offset (minuto 3, 18, 33, 48)
-    'scan-cyberpuerta-every-15-mins': {
-        'task': 'app.tasks.scan_cyberpuerta_deals',
-        'schedule': crontab(minute='3,18,33,48'),
-    },
-
-    # Ejecutar cada 15 minutos, con offset (minuto 8, 23, 38, 53)
-    'scan-chedraui-every-15-mins': {
-        'task': 'app.tasks.scan_chedraui_deals',
-        'schedule': crontab(minute='8,23,38,53'),
-    },
-
-    # Ejecutar cada 15 minutos, con offset (minuto 4, 19, 34, 49)
-    'scan-elektra-every-15-mins': {
-        'task': 'app.tasks.scan_elektra_deals',
-        'schedule': crontab(minute='4,19,34,49'),
-    },
-
-    # Ejecutar cada 15 minutos, con offset (minuto 9, 24, 39, 54)
-    'scan-soriana-every-15-mins': {
-        'task': 'app.tasks.scan_soriana_deals',
-        'schedule': crontab(minute='9,24,39,54'),
-    },
-
-    # Ejecutar cada 15 minutos, con offset (minuto 10, 25, 40, 55)
     'scan-coppel-every-15-mins': {
         'task': 'app.tasks.scan_coppel_deals',
-        'schedule': crontab(minute='10,25,40,55'),
+        'schedule': crontab(minute='7,22,37,52'),
+    },
+
+    # --- SERVICIOS LIGEROS (API/HTML) cada 10 min ---
+    'scan-cyberpuerta-every-10-mins': {
+        'task': 'app.tasks.scan_cyberpuerta_deals',
+        'schedule': crontab(minute='3,13,23,33,43,53'),
+    },
+    'scan-elektra-every-10-mins': {
+        'task': 'app.tasks.scan_elektra_deals',
+        'schedule': crontab(minute='6,16,26,36,46,56'),
+    },
+    'scan-chedraui-every-10-mins': {
+        'task': 'app.tasks.scan_chedraui_deals',
+        'schedule': crontab(minute='9,19,29,39,49,59'),
+    },
+    'scan-soriana-every-10-mins': {
+        'task': 'app.tasks.scan_soriana_deals',
+        'schedule': crontab(minute='2,12,22,32,42,52'),
     },
 }
 
-app.conf.timezone = 'UTC' # type: ignore
+app.conf.timezone = 'America/Mexico_City' # type: ignore
 
 # Configuración de logging para Celery
 app.conf.update(

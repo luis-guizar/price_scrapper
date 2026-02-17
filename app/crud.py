@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models import Product, PriceHistory
+from app.models import Product, PriceHistory, Alert
 from datetime import datetime
 import logging
 
@@ -94,7 +94,7 @@ def delete_product(db: Session, product_id: int):
     return False
 
 def add_price_history(db: Session, product_id: int, price: float):
-    history = PriceHistory(product_id=product_id, price=price, timestamp=datetime.utcnow())
+    history = PriceHistory(product_id=product_id, price=price, timestamp=datetime.now())
     db.add(history)
     db.commit()
     return history
@@ -104,7 +104,7 @@ def update_product_price(db: Session, product: Product, new_price: float):
     Updates the product price and records it in history if it changed (or if forced).
     """
     product.current_price = new_price
-    product.last_checked = datetime.utcnow()
+    product.last_checked = datetime.now()
     
     # Add to history
     add_price_history(db, product.id, new_price)
@@ -150,7 +150,7 @@ def process_products(products: list, db: Session):
                         update_product_price(db, product, new_price)
                         
                 # Update other fields
-                product.last_checked = datetime.utcnow()
+                product.last_checked = datetime.now()
                 if p_data.get('original_price'):
                     product.original_price = p_data.get('original_price')
                 
@@ -171,3 +171,20 @@ def process_products(products: list, db: Session):
             continue
             
     return count
+
+def create_alert(db: Session, alert_data: dict):
+    # Filter valid keys
+    valid_keys = ['product_id', 'price', 'previous_price', 'change_pct', 'source', 'url', 'title', 'created_at']
+    filtered_data = {k: v for k, v in alert_data.items() if k in valid_keys}
+    
+    db_alert = Alert(**filtered_data)
+    db.add(db_alert)
+    db.commit()
+    return db_alert
+
+def get_alerts(db: Session, skip: int = 0, limit: int = 50):
+    return db.query(Alert).order_by(Alert.created_at.desc()).offset(skip).limit(limit).all()
+
+def get_alerts_count(db: Session):
+    return db.query(Alert).count()
+

@@ -120,7 +120,7 @@ class CoppelService:
                                 pagination_urls.append(f"{base_url}?beginIndex={begin_index}")
                             
                             # Process in batches of N parallel tasks
-                            batch_size = 5
+                            batch_size = 3
                             for i in range(0, len(pagination_urls), batch_size):
                                 chunk = pagination_urls[i:i + batch_size]
                                 logger.info(f"    Fetching batch {i//batch_size + 1} ({len(chunk)} pages)...")

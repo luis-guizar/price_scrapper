@@ -12,3 +12,4 @@ uvicorn
 playwright
 playwright-stealth
 pytest
+pytz

@@ -2,7 +2,7 @@ import requests
 import os
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.models import SessionLocal, Product
+from app.models import SessionLocal, Product, Alert
 from app import crud
 from typing import List, Optional
 from pydantic import BaseModel
@@ -86,6 +86,21 @@ class PaginatedResponse(BaseModel):
     limit: int
     pages: int
 
+class AlertResponse(BaseModel):
+    id: int
+    product_id: Optional[int]
+    price: float
+    previous_price: Optional[float]
+    change_pct: Optional[int]
+    source: str
+    url: Optional[str]
+    title: Optional[str]
+    created_at: datetime
+    
+    class Config:
+        orm_mode = True
+
+
 # --- Endpoints ---
 
 @app.get("/stats")
@@ -97,6 +112,7 @@ def read_stats(db: Session = Depends(get_db)):
         return {
             "status": "running",
             "products_count": product_count,
+            "alerts_count": crud.get_alerts_count(db),
             "services": services_status
         }
     except Exception as e:
@@ -151,6 +167,12 @@ def delete_product(product_id: int, db: Session = Depends(get_db)):
 def read_product_history(product_id: int, db: Session = Depends(get_db)):
     history = crud.get_product_history(db, product_id)
     return history
+
+@app.get("/alerts", response_model=List[AlertResponse])
+def read_alerts(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
+    alerts = crud.get_alerts(db, skip=skip, limit=limit)
+    return alerts
+
 
 
 # --- Smart URL Tracking ---

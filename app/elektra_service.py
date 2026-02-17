@@ -189,10 +189,10 @@ def process_products(products, db_session: SessionLocal):
                     
                     if abs(price - old_price) > 0.1:
                         db_product.current_price = price
-                        history = PriceHistory(product_id=db_product.id, price=price, timestamp=datetime.utcnow())
+                        history = PriceHistory(product_id=db_product.id, price=price, timestamp=datetime.now())
                         db_session.add(history)
                         
-                    db_product.last_checked = datetime.utcnow()
+                    db_product.last_checked = datetime.now()
                     db_product.url = url
                     
                 else:
@@ -202,11 +202,11 @@ def process_products(products, db_session: SessionLocal):
                         url=url,
                         current_price=price,
                         source="elektra",
-                        last_checked=datetime.utcnow()
+                        last_checked=datetime.now()
                     )
                     db_session.add(new_prod)
                     db_session.flush() # Get ID
-                    history = PriceHistory(product_id=new_prod.id, price=price, timestamp=datetime.utcnow())
+                    history = PriceHistory(product_id=new_prod.id, price=price, timestamp=datetime.now())
                     db_session.add(history)
                 
                 processed_count += 1

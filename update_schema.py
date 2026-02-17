@@ -54,6 +54,28 @@ def run_migration():
                 logger.info("✅ Tabla 'price_history' verificada/creada.")
             except Exception as e:
                 logger.error(f"❌ Error creando tabla 'price_history': {e}")
+            except Exception as e:
+                logger.error(f"❌ Error creando tabla 'price_history': {e}")
+
+            # 3.5. Crear tabla 'alerts'
+            logger.info("Probando crear tabla 'alerts'...")
+            try:
+                connection.execute(text("""
+                    CREATE TABLE IF NOT EXISTS alerts (
+                        id SERIAL PRIMARY KEY,
+                        product_id INTEGER,
+                        price FLOAT,
+                        previous_price FLOAT,
+                        change_pct INTEGER,
+                        source VARCHAR,
+                        url VARCHAR,
+                        title VARCHAR,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+                """))
+                logger.info("✅ Tabla 'alerts' verificada/creada.")
+            except Exception as e:
+                logger.error(f"❌ Error creando tabla 'alerts': {e}")
 
             # 4. Agregar columna 'source'
             logger.info("Probando agregar columna 'source'...")
