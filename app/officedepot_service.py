@@ -26,7 +26,7 @@ SEARCH_CONFIG = {
     "keywords_include": [],
     "keywords_exclude": [],
     "max_pages": 10,  # Safety limit for pagination
-    "concurrency": 3  # Number of concurrent categories to scrape
+    "concurrency": 2  # Number of concurrent categories to scrape
 }
 
 async def fetch_products_from_page(page, url):
@@ -279,10 +279,10 @@ def process_products(products):
                     if abs(price - db_product.current_price) > 0.1:
                         db_product.current_price = price
                         # Add to history
-                        history = PriceHistory(product=db_product, price=price, timestamp=datetime.utcnow())
+                        history = PriceHistory(product=db_product, price=price, timestamp=datetime.now())
                         session.add(history)
                     
-                    db_product.last_checked = datetime.utcnow()
+                    db_product.last_checked = datetime.now()
                     
                 else:
                     # Nuevo producto
@@ -293,12 +293,12 @@ def process_products(products):
                         sku=sku,
                         current_price=price,
                         source="officedepot",
-                        last_checked=datetime.utcnow()
+                        last_checked=datetime.now()
                     )
                     session.add(new_product)
                     
                     # Add initial history
-                    history = PriceHistory(product=new_product, price=price, timestamp=datetime.utcnow())
+                    history = PriceHistory(product=new_product, price=price, timestamp=datetime.now())
                     session.add(history)
             
             except Exception as e:

@@ -303,7 +303,7 @@ def process_products(products, db_session: Session):
                         history = PriceHistory(product=db_product, price=price)
                         db_session.add(history)
                         
-                    db_product.last_checked = datetime.utcnow() # type: ignore
+                    db_product.last_checked = datetime.now() # type: ignore
                     db_product.url = url # Update URL just in case
                     
                 else:
@@ -313,7 +313,7 @@ def process_products(products, db_session: Session):
                         url=url,
                         current_price=price,
                         source="chedraui",
-                        last_checked=datetime.utcnow()
+                        last_checked=datetime.now()
                     )
                     db_session.add(new_prod)
                     db_session.flush()

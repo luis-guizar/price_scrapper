@@ -6,8 +6,10 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: pricedb
+      TZ: America/Mexico_City
     volumes:
       - pgdata:/var/lib/postgresql/data
+    command: postgres -c timezone=America/Mexico_City
 
   # 2. Redis (Cola de tareas)
   redis:
@@ -16,7 +18,7 @@ services:
   # 3. Tu Worker (El código Python)
   worker:
     build: .
-    command: celery -A app.celery_app worker --loglevel=info
+    command: celery -A app.celery_app worker --loglevel=info --concurrency=3
     volumes:
       - .:/code # Montamos el código para desarrollar sin reconstruir
     environment:
@@ -25,6 +27,7 @@ services:
       - DATABASE_URL=postgresql://user:password@db:5432/pricedb
       - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TZ=America/Mexico_City
     depends_on:
       - redis
       - db
@@ -38,6 +41,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - CELERY_BROKER_URL=redis://redis:6379/0
+      - TZ=America/Mexico_City
     depends_on:
       - redis
 
@@ -51,6 +55,7 @@ services:
       - DATABASE_URL=postgresql://user:password@db:5432/pricedb
       - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TZ=America/Mexico_City
     ports:
       - "8001:8000"
     depends_on:
@@ -65,8 +70,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
     ports:
-      - "3001:3000"
-    command: sh -c "npm install && npm run dev -- --host"
+      - "3001:4173"
+    command: sh -c "npm install && npm run build && npm run preview -- --host --port 4173"
     depends_on:
       - api
 
