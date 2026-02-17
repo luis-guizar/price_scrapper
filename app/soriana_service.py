@@ -168,8 +168,8 @@ def process_products(products, db_session: Session):
     processed_count = 0
     
     # Configuration for alerts
-    MIN_DROP_PCT = 15 # Lowered for Soriana to catch more deals
-    MIN_DROP_AMOUNT = 500
+    MIN_DROP_PCT = 40 # Lowered for Soriana to catch more deals
+    MIN_DROP_AMOUNT = 5000
     
     for p in products:
         try:

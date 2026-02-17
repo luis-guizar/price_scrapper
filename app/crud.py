@@ -63,10 +63,18 @@ def create_product(db: Session, product_data: dict):
         product_data["source"] = "chedraui"
     elif "elektra.com.mx" in url:
         product_data["source"] = "elektra"
+    elif "coppel.com" in url:
+        product_data["source"] = "coppel"
     else:
-        product_data["source"] = "other"
+        # Only set to 'other' if source isn't already provided
+        if "source" not in product_data:
+            product_data["source"] = "other"
 
-    db_product = Product(**product_data)
+    # Filter keys to match Product model
+    valid_keys = ['name', 'url', 'sku', 'source', 'current_price', 'original_price', 'last_checked']
+    filtered_data = {k: v for k, v in product_data.items() if k in valid_keys}
+
+    db_product = Product(**filtered_data)
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
@@ -107,3 +115,59 @@ def update_product_price(db: Session, product: Product, new_price: float):
 
 def get_product_history(db: Session, product_id: int):
     return db.query(PriceHistory).filter(PriceHistory.product_id == product_id).order_by(PriceHistory.timestamp.asc()).all()
+
+def process_products(products: list, db: Session):
+    """
+    Process a list of products: create or update them in the database.
+    Does not return alerts, just processes storage.
+    """
+    count = 0
+    for p_data in products:
+        try:
+            sku = p_data.get('sku')
+            url = p_data.get('url')
+            source = p_data.get('source')
+            price = p_data.get('price')
+            
+            # Map 'price' to 'current_price' 
+            if 'current_price' not in p_data and price is not None:
+                p_data['current_price'] = price
+                
+            # Try to find existing product
+            product = None
+            if sku and source:
+                product = db.query(Product).filter(Product.sku == sku, Product.source == source).first()
+            
+            if not product and url:
+                product = db.query(Product).filter(Product.url == url).first()
+                
+            if product:
+                # Update
+                new_price = p_data.get('current_price')
+                if new_price is not None:
+                    # Check for price change
+                    if abs(product.current_price - new_price) > 0.1:
+                        update_product_price(db, product, new_price)
+                        
+                # Update other fields
+                product.last_checked = datetime.utcnow()
+                if p_data.get('original_price'):
+                    product.original_price = p_data.get('original_price')
+                
+                # Check if we should update name or sku if it was missing?
+                if not product.sku and sku:
+                    product.sku = sku
+
+                db.commit()
+
+            else:
+                # Create using create_product
+                create_product(db, p_data)
+            
+            count += 1
+        except Exception as e:
+            logger.error(f"Error processing product {p_data.get('sku', 'unknown')}: {e}")
+            db.rollback()
+            continue
+            
+    return count
