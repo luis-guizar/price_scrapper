@@ -53,14 +53,16 @@ def get_products(db: Session, skip: int = 0, limit: int = 100,
 def create_product(db: Session, product_data: dict):
     # Auto-detect source
     url = product_data.get("url", "")
-    if "mercadolibre.com.mx" in url:
-        product_data["source"] = "mercadolibre"
-    elif "walmart.com.mx" in url:
-        product_data["source"] = "walmart"
-    elif "officedepot.com.mx" in url:
+    if "officedepot.com.mx" in url:
         product_data["source"] = "officedepot"
     elif "cyberpuerta.mx" in url:
         product_data["source"] = "cyberpuerta"
+    elif "soriana.com" in url:
+        product_data["source"] = "soriana"
+    elif "chedraui.com.mx" in url:
+        product_data["source"] = "chedraui"
+    elif "elektra.com.mx" in url:
+        product_data["source"] = "elektra"
     else:
         product_data["source"] = "other"
 
@@ -93,8 +95,6 @@ def update_product_price(db: Session, product: Product, new_price: float):
     """
     Updates the product price and records it in history if it changed (or if forced).
     """
-    old_price = product.current_price
-    
     product.current_price = new_price
     product.last_checked = datetime.utcnow()
     

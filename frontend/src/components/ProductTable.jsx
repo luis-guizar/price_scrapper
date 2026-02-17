@@ -109,12 +109,13 @@ export default function ProductTable({ products, onDelete, onSearch, pagination,
                                     onChange={(e) => setSourceFilter(e.target.value)}
                                 >
                                     <option value="">All Sources</option>
-                                    <option value="mercadolibre">MercadoLibre</option>
-                                    <option value="walmart">Walmart</option>
+                                    <option value="keepa">Amazon</option>
+                                    <option value="promodescuentos">PromoDescuentos</option>
                                     <option value="officedepot">Office Depot</option>
                                     <option value="cyberpuerta">Cyberpuerta</option>
                                     <option value="elektra">Elektra</option>
-                                    <option value="amazon">Amazon</option>
+                                    <option value="chedraui">Chedraui</option>
+                                    <option value="soriana">Soriana</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
@@ -216,11 +217,12 @@ export default function ProductTable({ products, onDelete, onSearch, pagination,
                                 </td>
                                 <td className="p-4">
                                     <span className={`px-2 py-1 rounded text-xs uppercase font-bold tracking-wider 
-                                    ${p.source === 'mercadolibre' ? 'bg-yellow-500/10 text-yellow-500' :
-                                            p.source === 'walmart' ? 'bg-blue-500/10 text-blue-500' :
+                                    ${p.source === 'keepa' ? 'bg-orange-500/10 text-orange-500' :
+                                            p.source === 'promodescuentos' ? 'bg-red-600/10 text-red-600' :
                                                 p.source === 'officedepot' ? 'bg-red-500/10 text-red-500' :
-                                                    p.source === 'cyberpuerta' ? 'bg-purple-500/10 text-purple-500' :
-                                                        p.source === 'elektra' ? 'bg-red-600/10 text-red-600' : 'bg-slate-700 text-slate-300'}`}>
+                                                    p.source === 'cyberpuerta' ? 'bg-green-500/10 text-green-500' :
+                                                        p.source === 'soriana' ? 'bg-red-500/10 text-red-500' :
+                                                            p.source === 'elektra' ? 'bg-purple-600/10 text-purple-600' : 'bg-slate-700 text-slate-300'}`}>
                                         {p.source || 'Unknown'}
                                     </span>
                                 </td>

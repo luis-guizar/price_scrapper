@@ -6,7 +6,9 @@ from datetime import datetime
 def test_read_products_empty(client, db):
     response = client.get("/products")
     assert response.status_code == 200
-    assert response.json() == []
+    json_data = response.json()
+    assert json_data["data"] == []
+    assert json_data["total"] == 0
 
 def test_read_products_with_data(client, db):
     # Add product
@@ -16,7 +18,8 @@ def test_read_products_with_data(client, db):
     
     response = client.get("/products")
     assert response.status_code == 200
-    data = response.json()
+    json_data = response.json()
+    data = json_data["data"]
     assert len(data) == 1
     assert data[0]["name"] == "Test API"
 

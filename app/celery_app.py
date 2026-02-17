@@ -51,6 +51,11 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_elektra_deals',
         'schedule': crontab(minute='4,19,34,49'),
     },
+    # Ejecutar cada 15 minutos, con offset
+    'scan-soriana-every-15-mins': {
+        'task': 'app.tasks.scan_soriana_deals',
+        'schedule': crontab(minute='9,24,39,54'),
+    },
 }
 
 app.conf.timezone = 'UTC' # type: ignore

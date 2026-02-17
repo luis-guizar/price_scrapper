@@ -5,6 +5,7 @@ from app.officedepot_service import get_officedepot_deals, update_tracked_produc
 from app.cyberpuerta_service import get_cyberpuerta_deals
 from app.chedraui_service import get_chedraui_deals
 from app.elektra_service import get_elektra_deals
+from app.soriana_service import get_soriana_deals
 
 
 
@@ -59,15 +60,6 @@ def send_telegram_alert(deal):
             f"🔗 {deal['url']}"
         )
 
-    elif source == 'walmart':
-        msg = (
-            f"📉 ¡BAJADA DE PRECIO EN WALMART! ({deal['discount_pct']}% OFF)\n\n"
-            f"📦 {deal['title']}\n"
-            f"💰 Nuevo Precio: ${deal['price']}\n"
-            f"❌ Antes: ${deal['old_price']}\n"
-            f"🔗 {deal['url']}"
-            f"🔗 {deal['url']}"
-        )
     elif source == 'chedraui':
         msg = (
             f"📉 ¡BAJADA DE PRECIO EN CHEDRAUI! ({deal['discount_pct']}% OFF)\n\n"
@@ -84,9 +76,9 @@ def send_telegram_alert(deal):
             f"❌ Antes: ${deal['old_price']}\n"
             f"🔗 {deal['url']}"
         )
-    elif source == 'mercadolibre':
+    elif source == 'soriana':
         msg = (
-            f"📉 ¡BAJADA DE PRECIO EN MERCADOLIBRE! ({deal['discount_pct']}% OFF)\n\n"
+            f"📉 ¡BAJADA DE PRECIO EN SORIANA! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Nuevo Precio: ${deal['price']}\n"
             f"❌ Antes: ${deal['old_price']}\n"
@@ -443,3 +435,55 @@ def scan_elektra_deals():
 
 
 
+@app.task
+def scan_soriana_deals():
+    logger.info("=" * 60)
+    logger.info("▶️ TAREA INICIADA: scan_soriana_deals")
+    logger.info("=" * 60)
+    start_time = datetime.now()
+    
+    try:
+        alerts, count = get_soriana_deals()
+        
+        if not alerts:
+            logger.info(f"ℹ️ No se detectaron bajadas de precio significativas en Soriana ({count} productos procesados)")
+            monitor.record_no_deals('soriana')
+            return
+
+        monitor.record_found_deals('soriana')
+        
+        logger.info(f"📊 Procesando {len(alerts)} alertas de precio de Soriana...")
+        
+        alerted_count = 0
+        skipped_count = 0
+        
+        for deal in alerts:
+            try:
+                unique_id = deal.get('sku') or deal.get('url')
+                if not unique_id:
+                    continue
+
+                cache_key = f"alerted:soriana:{unique_id}"
+
+                if not redis_client.get(cache_key):
+                    logger.info(f"  🔔 Alertando: {deal['title']}")
+                    if send_telegram_alert(deal):
+                        redis_client.setex(cache_key, 86400, "1")  # 24 horas
+                        alerted_count += 1
+                        import time
+                        time.sleep(1)  # Rate limit Telegram API
+                else:
+                    logger.info(f"  ✋ {deal['title']} ({unique_id}): Ya alertado recientemente - SKIPPING")
+                    skipped_count += 1
+
+            except Exception as e:
+                logger.error(f"Error enviando alerta individual Soriana: {e}")
+        
+        elapsed = (datetime.now() - start_time).total_seconds()
+        logger.info(f"✅ Tarea completada en {elapsed:.2f}s - {alerted_count} alertas enviadas, {skipped_count} saltadas")
+        
+    except Exception as e:
+        logger.exception(f"❌ Error en scan_soriana_deals: {e}")
+        monitor.record_failure('soriana', str(e))
+    finally:
+        logger.info("=" * 60)

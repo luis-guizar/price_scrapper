@@ -1,8 +1,8 @@
 import requests
 import os
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.models import SessionLocal, Product, PriceHistory
+from app.models import SessionLocal, Product
 from app import crud
 from typing import List, Optional
 from pydantic import BaseModel
@@ -40,7 +40,7 @@ def send_telegram_notification(notification: TelegramNotification):
             raise HTTPException(status_code=502, detail=f"Telegram API Error: {response.text}")
         return {"status": "sent"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 def get_db():
     db = SessionLocal()
@@ -160,11 +160,7 @@ class TrackUrlRequest(BaseModel):
 
 def _detect_source(url: str) -> str:
     url_lower = url.lower()
-    if "mercadolibre.com" in url_lower or "articulo.mercadolibre" in url_lower:
-        return "mercadolibre"
-    elif "walmart.com.mx" in url_lower:
-        return "walmart"
-    elif "officedepot.com.mx" in url_lower:
+    if "officedepot.com.mx" in url_lower:
         return "officedepot"
     elif "cyberpuerta.mx" in url_lower:
         return "cyberpuerta"
@@ -180,27 +176,7 @@ def preview_url(req: TrackUrlRequest):
     """Scrape a URL and return product info without saving."""
     source = _detect_source(req.url)
 
-    if source == "mercadolibre":
-        from app.meli_service import MeliService
-        svc = MeliService()
-        item_id = svc.extract_id_from_url(req.url)
-        if not item_id:
-            raise HTTPException(status_code=400, detail="Could not extract MercadoLibre item ID from URL")
 
-        original_url = req.url if req.url.startswith("http") else None
-        data = svc.scrape_item(item_id, original_url=original_url)
-        if not data:
-            raise HTTPException(status_code=404, detail="Could not scrape product. The listing may be unavailable or rate-limited.")
-
-        return {
-            "source": source,
-            "name": data["title"],
-            "price": data["price"],
-            "sku": data["id"],
-            "url": data["permalink"],
-            "thumbnail": data.get("thumbnail", ""),
-            "currency": data.get("currency_id", "MXN"),
-        }
 
     # For other sources, return basic info
     return {
@@ -222,33 +198,7 @@ def track_url(req: TrackUrlRequest, db: Session = Depends(get_db)):
     """
     source = _detect_source(req.url)
 
-    if source == "mercadolibre":
-        from app.meli_service import MeliService
-        svc = MeliService()
-        item_id = svc.extract_id_from_url(req.url)
-        if not item_id:
-            raise HTTPException(status_code=400, detail="Could not extract MercadoLibre item ID from URL")
 
-        # Check if already tracked
-        existing = db.query(Product).filter(
-            Product.sku == item_id, Product.source == "mercadolibre"
-        ).first()
-        if existing:
-            raise HTTPException(status_code=400, detail="This product is already being tracked")
-
-        original_url = req.url if req.url.startswith("http") else None
-        data = svc.scrape_item(item_id, original_url=original_url)
-        if not data:
-            raise HTTPException(status_code=404, detail="Could not scrape product. The listing may be unavailable or rate-limited.")
-
-        product_data = {
-            "name": data["title"],
-            "url": data["permalink"],
-            "sku": data["id"],
-            "source": "mercadolibre",
-            "current_price": data["price"],
-        }
-        return crud.create_product(db, product_data)
 
     # For other sources, create a basic entry
     existing = crud.get_product_by_url(db, url=req.url)

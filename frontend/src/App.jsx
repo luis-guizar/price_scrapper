@@ -63,12 +63,12 @@ function App() {
             return
         }
         const lc = newUrl.toLowerCase()
-        if (lc.includes('mercadolibre.com') || lc.includes('articulo.mercadolibre')) {
-            setAddSource('mercadolibre')
+        if (lc.includes('soriana.com')) {
+            setAddSource('soriana')
+        } else if (lc.includes('amazon.com.mx') || lc.includes('amzn.to')) {
+            setAddSource('keepa')
         } else if (lc.includes('elektra.com') || lc.includes('elektra.mx')) {
             setAddSource('elektra')
-        } else if (lc.includes('walmart.com.mx')) {
-            setAddSource('walmart')
         } else if (lc.includes('cyberpuerta.mx')) {
             setAddSource('cyberpuerta')
         } else if (lc.includes('chedraui.com.mx')) {
@@ -161,7 +161,7 @@ function App() {
             Object.keys(apiParams).forEach(key => apiParams[key] === undefined && delete apiParams[key])
 
             const res = await axios.get('/api/products', { params: apiParams })
-            
+
             if (res.data.data) {
                 setDashboardProducts(res.data.data)
             } else {
@@ -271,12 +271,13 @@ function App() {
 
     // Source badge helpers
     const sourceConfig = {
-        mercadolibre: { label: 'MercadoLibre', color: 'from-yellow-500 to-yellow-600', icon: '🛒', bg: 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400' },
-        elektra: { label: 'Elektra', color: 'from-purple-500 to-purple-600', icon: '⚡', bg: 'bg-purple-500/10 border-purple-500/30 text-purple-400' },
-        walmart: { label: 'Walmart', color: 'from-blue-500 to-blue-600', icon: '🏪', bg: 'bg-blue-500/10 border-blue-500/30 text-blue-400' },
-        cyberpuerta: { label: 'CyberPuerta', color: 'from-green-500 to-green-600', icon: '💻', bg: 'bg-green-500/10 border-green-500/30 text-green-400' },
-        chedraui: { label: 'Chedraui', color: 'from-red-500 to-red-600', icon: '🏬', bg: 'bg-red-500/10 border-red-500/30 text-red-400' },
+        keepa: { label: 'Amazon', color: 'from-orange-500 to-orange-600', icon: '📦', bg: 'bg-orange-500/10 border-orange-500/30 text-orange-400' },
+        promodescuentos: { label: 'PromoDescuentos', color: 'from-red-600 to-red-700', icon: '🔥', bg: 'bg-red-600/10 border-red-600/30 text-red-400' },
         officedepot: { label: 'Office Depot', color: 'from-red-400 to-red-500', icon: '🖨️', bg: 'bg-red-500/10 border-red-500/30 text-red-400' },
+        cyberpuerta: { label: 'CyberPuerta', color: 'from-green-500 to-green-600', icon: '💻', bg: 'bg-green-500/10 border-green-500/30 text-green-400' },
+        chedraui: { label: 'Chedraui', color: 'from-orange-400 to-orange-500', icon: '🏬', bg: 'bg-orange-500/10 border-orange-500/30 text-orange-400' },
+        elektra: { label: 'Elektra', color: 'from-purple-500 to-purple-600', icon: '⚡', bg: 'bg-purple-500/10 border-purple-500/30 text-purple-400' },
+        soriana: { label: 'Soriana', color: 'from-red-500 to-red-600', icon: '🛒', bg: 'bg-red-500/10 border-red-500/30 text-red-400' },
         other: { label: 'Other', color: 'from-slate-500 to-slate-600', icon: '🔗', bg: 'bg-slate-500/10 border-slate-500/30 text-slate-400' },
     }
 
@@ -372,7 +373,7 @@ function App() {
                                         <h3 className="font-semibold">Tracked Items</h3>
                                         <span className="text-xs bg-slate-800 px-2 py-1 rounded text-slate-400">{dashboardProducts.length}</span>
                                     </div>
-                                    
+
                                     {/* Search & Filter Controls */}
                                     <div className="flex gap-2 items-center">
                                         <div className="relative flex-1">
@@ -386,7 +387,7 @@ function App() {
                                                 onKeyDown={e => e.key === 'Enter' && e.currentTarget.blur()}
                                             />
                                         </div>
-                                        
+
                                         {(dashboardSearch || dashboardSourceFilter || dashboardMinPrice || dashboardMaxPrice) && (
                                             <button
                                                 onClick={handleDashboardClearFilters}
@@ -406,12 +407,13 @@ function App() {
                                             className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-300 focus:outline-none focus:border-blue-500"
                                         >
                                             <option value="">All Sources</option>
-                                            <option value="mercadolibre">MercadoLibre</option>
-                                            <option value="elektra">Elektra</option>
-                                            <option value="walmart">Walmart</option>
+                                            <option value="keepa">Amazon</option>
+                                            <option value="promodescuentos">PromoDescuentos</option>
+                                            <option value="officedepot">Office Depot</option>
                                             <option value="cyberpuerta">CyberPuerta</option>
                                             <option value="chedraui">Chedraui</option>
-                                            <option value="officedepot">Office Depot</option>
+                                            <option value="elektra">Elektra</option>
+                                            <option value="soriana">Soriana</option>
                                             <option value="other">Other</option>
                                         </select>
 
@@ -442,31 +444,30 @@ function App() {
                                         </div>
                                     ) : dashboardProducts.length > 0 ? (
                                         dashboardProducts.map(p => (
-                                        <div
-                                            key={p.id}
-                                            onClick={() => setSelectedProduct(p)}
-                                            className={`group p-4 rounded-xl border cursor-pointer transition-all hover:bg-slate-800 ${selectedProduct?.id === p.id ? 'bg-slate-800 border-blue-500/50' : 'bg-transparent border-transparent'}`}
-                                        >
-                                            <div className="flex justify-between items-start">
-                                                <h4 className="font-medium text-sm line-clamp-2 leading-snug mb-2">{p.name || "Loading..."}</h4>
-                                                <button
-                                                    onClick={(e) => handleDelete(p.id, e)}
-                                                    className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-500/20 hover:text-red-400 rounded text-slate-500 transition-all">
-                                                    <Trash2 size={14} />
-                                                </button>
-                                            </div>
-                                            <div className="flex justify-between items-end mt-2">
-                                                <div>
-                                                    <span className="text-xs text-slate-500 block mb-1">Current Price</span>
-                                                    <span className="text-lg font-bold text-white">${p.current_price?.toLocaleString()}</span>
+                                            <div
+                                                key={p.id}
+                                                onClick={() => setSelectedProduct(p)}
+                                                className={`group p-4 rounded-xl border cursor-pointer transition-all hover:bg-slate-800 ${selectedProduct?.id === p.id ? 'bg-slate-800 border-blue-500/50' : 'bg-transparent border-transparent'}`}
+                                            >
+                                                <div className="flex justify-between items-start">
+                                                    <h4 className="font-medium text-sm line-clamp-2 leading-snug mb-2">{p.name || "Loading..."}</h4>
+                                                    <button
+                                                        onClick={(e) => handleDelete(p.id, e)}
+                                                        className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-500/20 hover:text-red-400 rounded text-slate-500 transition-all">
+                                                        <Trash2 size={14} />
+                                                    </button>
                                                 </div>
-                                                {p.sku && <span className={`text-[10px] bg-slate-900 px-1.5 py-0.5 rounded uppercase tracking-wider ${p.source === 'mercadolibre' ? 'text-yellow-500 border border-yellow-500/20' :
-                                                        p.source === 'elektra' ? 'text-purple-400 border border-purple-500/20' :
-                                                            'text-slate-600'
-                                                    }`}>{p.source || 'Other'}</span>}
+                                                <div className="flex justify-between items-end mt-2">
+                                                    <div>
+                                                        <span className="text-xs text-slate-500 block mb-1">Current Price</span>
+                                                        <span className="text-lg font-bold text-white">${p.current_price?.toLocaleString()}</span>
+                                                    </div>
+                                                    <span className={`text-[10px] bg-slate-900 px-1.5 py-0.5 rounded uppercase tracking-wider ${sourceConfig[p.source]?.bg || 'text-slate-600'}`}>
+                                                        {sourceConfig[p.source]?.label || p.source || 'Other'}
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))
+                                        ))
                                     ) : (
                                         <div className="h-full flex flex-col items-center justify-center text-slate-500 py-8">
                                             <Search size={32} className="mb-2 opacity-50" />
@@ -598,8 +599,10 @@ function App() {
                                         <div className="mt-4 p-3 bg-slate-800/40 rounded-lg border border-slate-700/50">
                                             <p className="text-xs font-medium text-slate-400 mb-2">Supported sources with auto-fill:</p>
                                             <div className="flex flex-wrap gap-2">
-                                                <span className="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-2 py-0.5 rounded-md">🛒 MercadoLibre</span>
-                                                <span className="text-xs bg-slate-700/50 text-slate-500 border border-slate-600/20 px-2 py-0.5 rounded-md">⚡ Elektra (coming soon)</span>
+                                                <span className="text-xs bg-red-600/10 text-red-400 border border-red-600/20 px-2 py-0.5 rounded-md">🛒 Soriana</span>
+                                                <span className="text-xs bg-red-500/10 text-red-500 border border-red-500/20 px-2 py-0.5 rounded-md">🖨️ Office Depot</span>
+                                                <span className="text-xs bg-green-500/10 text-green-500 border border-green-500/20 px-2 py-0.5 rounded-md">💻 CyberPuerta</span>
+                                                <span className="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded-md">⚡ Elektra</span>
                                             </div>
                                         </div>
 
