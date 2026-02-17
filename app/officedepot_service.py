@@ -1,13 +1,11 @@
-import requests
-import json
+import asyncio
 import logging
 import re
+import random
 from datetime import datetime
 from sqlalchemy.orm import Session
 from app.models import SessionLocal, Product, PriceHistory
-from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
-import time
+from playwright.async_api import async_playwright
 
 # Configurar logging
 logger = logging.getLogger(__name__)
@@ -16,139 +14,194 @@ logger = logging.getLogger(__name__)
 SEARCH_CONFIG = {
     "urls": [
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/computadoras-de-escritorio/c/04-037-0-0",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/computadoras-de-escritorio/c/04-037-0-0?q=%3Arelevance&page=1",
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Electr%C3%B3nica/Celulares/c/03-1-0-0",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Electr%C3%B3nica/Celulares/c/03-1-0-0?q=%3Arelevance&page=1",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Electr%C3%B3nica/Celulares/c/03-1-0-0?q=%3Arelevance&page=2",
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/laptops-y-macbook/c/04-039-0-0",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/laptops-y-macbook/c/04-039-0-0?q=%3Arelevance&page=1",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/laptops-y-macbook/c/04-039-0-0?q=%3Arelevance&page=2",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/laptops-y-macbook/c/04-039-0-0?q=%3Arelevance&page=3",
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Muebles-y-Decoraci%C3%B3n/Sillas/c/06-084-0-0",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Muebles-y-Decoraci%C3%B3n/Sillas/c/06-084-0-0?q=%3Arelevance&page=1",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Muebles-y-Decoraci%C3%B3n/Sillas/c/06-084-0-0?q=%3Arelevance&page=2",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Muebles-y-Decoraci%C3%B3n/Sillas/c/06-084-0-0?q=%3Arelevance&page=3",
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Impresi%C3%B3n/Impresoras%2C-Multifuncionales-y-Esc%C3%A1neres/c/07-100-0-0",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Impresi%C3%B3n/Impresoras%2C-Multifuncionales-y-Esc%C3%A1neres/c/07-100-0-0?q=%3Arelevance&page=1",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Impresi%C3%B3n/Impresoras%2C-Multifuncionales-y-Esc%C3%A1neres/c/07-100-0-0?q=%3Arelevance&page=2",
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Electr%C3%B3nica/Pantallas/c/03-027-0-0",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Electr%C3%B3nica/Pantallas/c/03-027-0-0?q=%3Arelevance&page=1",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Electr%C3%B3nica/Pantallas/c/03-027-0-0?q=%3Arelevance&page=2",
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/ipad-y-tablets/tablets/c/04-041-906-0",
-        "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/ipad-y-tablets/tablets/c/04-041-906-0?q=%3Arelevance&page=1"
     ],
-    "min_price_drop_percent": 50,
-    "min_price_drop_amount": 5000,
+    "min_price_drop_percent": 30,
+    "min_price_drop_amount": 500,
     "keywords_include": [],
     "keywords_exclude": [],
+    "max_pages": 10,  # Safety limit for pagination
+    "concurrency": 3  # Number of concurrent categories to scrape
 }
 
-def fetch_officedepot_products(url):
+async def fetch_products_from_page(page, url):
     """
-    Obtiene productos usando Playwright para renderizar JS y acceder a dataLayer.
-    Estrategia unica: DataLayer 'impressions' en catalogo.
+    Extracts products from a single page using Playwright.
+    Returns a list of product dictionaries.
     """
-    logger.info(f"Escaneando Office Depot (Playwright): {url}")
     products = []
-    
     try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            context = browser.new_context(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
-            )
-            page = context.new_page()
+        # Go to URL with a reasonable timeout
+        try:
+            await page.goto(url, timeout=60000, wait_until="domcontentloaded")
+            # Wait a bit for dataLayer/JS to populate
+            await page.wait_for_timeout(3000) 
+        except Exception as e:
+            logger.error(f"Playwright navigation error for {url}: {e}")
+            return []
+
+        # Strategy: Extract from HTML Source (Regex) - Most reliable for Catalog
+        try:
+            content = await page.content()
             
-            # Go to URL
-            try:
-                page.goto(url, timeout=60000, wait_until="domcontentloaded")
-                # Wait for dataLayer population
-                page.wait_for_timeout(5000)
-            except Exception as e:
-                logger.error(f"Playwright navigation error (ignorable): {e}")
-
-            # Strategy: Extract from HTML Source (Regex) - Most reliable for Catalog
-            try:
-                content = page.content()
-                import re
+            # Regex for 'impressions' : [ ... ]
+            match = re.search(r"'impressions'\s*:\s*\[(.*?)\]", content, re.DOTALL)
+            if match:
+                impressions_str = match.group(1)
+                item_matches = re.findall(r"\{[^{}]*\}", impressions_str)
                 
-                # Regex for 'impressions' : [ ... ]
-                match = re.search(r"'impressions'\s*:\s*\[(.*?)\]", content, re.DOTALL)
-                if match:
-                    impressions_str = match.group(1)
-                    item_matches = re.findall(r"\{[^{}]*\}", impressions_str)
-                    
-                    if item_matches:
-                        # logger.info(f"🔍 Found {len(item_matches)} items via Regex.")
-                        for item_str in item_matches:
-                            try:
-                                id_match = re.search(r"'id'\s*:\s*'([^']*)'", item_str)
-                                name_match = re.search(r"'name'\s*:\s*'([^']*)'", item_str)
-                                price_match = re.search(r"'price'\s*:\s*'([^']*)'", item_str)
+                if item_matches:
+                    for item_str in item_matches:
+                        try:
+                            id_match = re.search(r"'id'\s*:\s*'([^']*)'", item_str)
+                            name_match = re.search(r"'name'\s*:\s*'([^']*)'", item_str)
+                            price_match = re.search(r"'price'\s*:\s*'([^']*)'", item_str)
+                            
+                            if id_match and name_match:
+                                pid = id_match.group(1)
+                                name = name_match.group(1)
+                                price_raw = price_match.group(1) if price_match else "0"
                                 
-                                if id_match and name_match:
-                                    pid = id_match.group(1)
-                                    name = name_match.group(1)
-                                    price_raw = price_match.group(1) if price_match else "0"
-                                    
-                                    if isinstance(price_raw, str):
-                                        price_raw = price_raw.replace(',', '')
-                                    
-                                    try: price_val = float(price_raw)
-                                    except: price_val = 0.0
-                                    
-                                    product_url = f"https://www.officedepot.com.mx/officedepot/en/p/{pid}"
-                                    
-                                    if pid and name and price_val > 0:
-                                        products.append({
-                                            "@type": "Product",
-                                            "name": name,
-                                            "sku": pid,
-                                            "url": product_url,
-                                            "offers": {"price": price_val, "priceCurrency": "MXN"},
-                                            "image": ""
-                                        })
-                            except: pass
-                
-                # Check results
-                if not products:
-                     # Check dataLayer as fallback if Regex failed (unlikely but possible)
-                     data_layer = page.evaluate("() => window.dataLayer")
-                     if data_layer and isinstance(data_layer, list):
-                        for item in data_layer:
-                            if isinstance(item, dict) and 'impressions' in item:
-                                impressions = item['impressions']
-                                if isinstance(impressions, list):
-                                    for prod in impressions:
-                                        try:
-                                            pid = prod.get('id')
-                                            name = prod.get('name')
-                                            price_raw = prod.get('price', '0')
-                                            if isinstance(price_raw, str): price_raw = price_raw.replace(',', '')
-                                            try: price_val = float(price_raw)
-                                            except: price_val = 0.0
-                                            product_url = f"https://www.officedepot.com.mx/officedepot/en/p/{pid}"
-                                            if pid and name and price_val > 0:
-                                                products.append({
-                                                    "@type": "Product",
-                                                    "name": name,
-                                                    "sku": pid,
-                                                    "url": product_url,
-                                                    "offers": {"price": price_val, "priceCurrency": "MXN"},
-                                                    "image": ""
-                                                })
-                                        except: pass
+                                if isinstance(price_raw, str):
+                                    price_raw = price_raw.replace(',', '')
+                                
+                                try: price_val = float(price_raw)
+                                except: price_val = 0.0
+                                
+                                product_url = f"https://www.officedepot.com.mx/officedepot/en/p/{pid}"
+                                
+                                if pid and name and price_val > 0:
+                                    products.append({
+                                        "@type": "Product",
+                                        "name": name,
+                                        "sku": pid,
+                                        "url": product_url,
+                                        "offers": {"price": price_val, "priceCurrency": "MXN"},
+                                        "image": ""
+                                    })
+                        except: pass
+            
+            # Fallback: Check dataLayer if Regex failed
+            if not products:
+                data_layer = await page.evaluate("() => window.dataLayer")
+                if data_layer and isinstance(data_layer, list):
+                    for item in data_layer:
+                        if isinstance(item, dict) and 'impressions' in item:
+                            impressions = item['impressions']
+                            if isinstance(impressions, list):
+                                for prod in impressions:
+                                    try:
+                                        pid = prod.get('id')
+                                        name = prod.get('name')
+                                        price_raw = prod.get('price', '0')
+                                        if isinstance(price_raw, str): price_raw = price_raw.replace(',', '')
+                                        try: price_val = float(price_raw)
+                                        except: price_val = 0.0
+                                        product_url = f"https://www.officedepot.com.mx/officedepot/en/p/{pid}"
+                                        if pid and name and price_val > 0:
+                                            products.append({
+                                                "@type": "Product",
+                                                "name": name,
+                                                "sku": pid,
+                                                "url": product_url,
+                                                "offers": {"price": price_val, "priceCurrency": "MXN"},
+                                                "image": ""
+                                            })
+                                    except: pass
 
-            except Exception as e:
-                logger.error(f"Extraction error: {e}")
-            finally:
-                browser.close()
+        except Exception as e:
+            logger.error(f"Extraction error on {url}: {e}")
 
     except Exception as e:
-        logger.error(f"Error initializing Playwright for {url}: {e}")
+        logger.error(f"General error on {url}: {e}")
     
-    logger.info(f"✅ Total productos extraídos: {len(products)}")
     return products
+
+async def scrape_category(context, base_url, semaphore):
+    """
+    Scrapes a single category, handling pagination until no more products are found
+    or max_pages is reached.
+    """
+    async with semaphore:
+        category_products = []
+        page_num = 0
+        
+        while page_num < SEARCH_CONFIG["max_pages"]:
+            # Construct URL with pagination
+            # Office Depot uses ?q=%3Arelevance&page=X where X starts at 0 or 1.
+            # Base URL might not have query params yet.
+            # Standard pattern saw in config: .../c/ID?q=%3Arelevance&page=1
+            
+            if "?" in base_url:
+                c_url = f"{base_url}&page={page_num}"
+            else:
+                c_url = f"{base_url}?q=%3Arelevance&page={page_num}"
+            
+            logger.info(f"Scraping {c_url}...")
+            
+            page = await context.new_page()
+            try:
+                products = await fetch_products_from_page(page, c_url)
+                
+                if not products:
+                    logger.info(f"No products found on page {page_num} for {base_url}. Stopping.")
+                    await page.close()
+                    break
+                
+                # Check for duplicates within this scrape session to avoid infinite loops 
+                # if the site redirects or shows same content.
+                new_products = [p for p in products if p['url'] not in [ep['url'] for ep in category_products]]
+                if not new_products:
+                     logger.info(f"No NEW products found on page {page_num}. Likely end of list.")
+                     await page.close()
+                     break
+
+                category_products.extend(new_products)
+                logger.info(f"Found {len(new_products)} new products on page {page_num}.")
+                
+                page_num += 1
+                
+                # Random delay between pages
+                await asyncio.sleep(random.uniform(2, 5))
+                
+            finally:
+                await page.close()
+
+        return category_products
+
+async def runner():
+    """
+    Main async runner to coordinate scraping.
+    """
+    all_products = []
+    
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        # Create a single context (like a browser session)
+        context = await browser.new_context(
+             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+        )
+        
+        # Determine concurrency
+        semaphore = asyncio.Semaphore(SEARCH_CONFIG["concurrency"])
+        
+        tasks = []
+        for url in SEARCH_CONFIG["urls"]:
+            tasks.append(scrape_category(context, url, semaphore))
+        
+        results = await asyncio.gather(*tasks)
+        
+        for res in results:
+            all_products.extend(res)
+            
+        await browser.close()
+        
+    return all_products
 
 def process_products(products):
     """
@@ -275,17 +328,34 @@ def get_officedepot_deals():
     except:
         pass
 
-    all_alerts = []
-    all_processed_urls = set()
-    
-    for url in SEARCH_CONFIG["urls"]:
-        products = fetch_officedepot_products(url)
-        if products:
-            alerts, processed = process_products(products)
-            all_alerts.extend(alerts)
-            all_processed_urls.update(processed)
+    # Run the async scraper
+    try:
+        # Check if there is an existing loop (e.g. if called from inside another async function, though unlikely for Celery)
+        try:
+            loop = asyncio.get_event_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
             
-    return all_alerts, all_processed_urls
+        if loop.is_running():
+            # If we are already in an async loop, we should use create_task or similar, 
+            # but since this is expected to be called from Celery (sync), this path is rare.
+             logger.warning("get_officedepot_deals called from running async loop. This might not work as expected with asyncio.run")
+             # Try to schedule it
+             future = asyncio.ensure_future(runner())
+             products = loop.run_until_complete(future)
+        else:
+            products = loop.run_until_complete(runner())
+            
+        logger.info(f"✅ Total officedepot products extracted: {len(products)}")
+        
+        if products:
+            return process_products(products)
+        
+    except Exception as e:
+        logger.error(f"Error running async Office Depot scraper: {e}")
+        
+    return [], set()
 
 def check_single_officedepot_product(product_id):
     """
