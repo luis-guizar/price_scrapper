@@ -1,0 +1,43 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model alerts {
+  id             Int       @id @default(autoincrement())
+  product_id     Int?
+  price          Float?
+  previous_price Float?
+  change_pct     Int?
+  source         String?   @db.VarChar
+  url            String?   @db.VarChar
+  title          String?   @db.VarChar
+  created_at     DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model price_history {
+  id         Int       @id @default(autoincrement())
+  product_id Int?
+  price      Float?
+  timestamp  DateTime? @db.Timestamp(6)
+  products   products? @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model products {
+  id             Int             @id @default(autoincrement())
+  name           String?         @db.VarChar
+  url            String?         @unique @db.VarChar
+  current_price  Float?
+  last_checked   DateTime?       @db.Timestamp(6)
+  sku            String?         @unique @db.VarChar
+  original_price Float?
+  source         String?         @db.VarChar
+  external_id    String?         @db.VarChar
+  price_history  price_history[]
+}
