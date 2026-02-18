@@ -70,6 +70,10 @@ def create_product(db: Session, product_data: dict):
         if "source" not in product_data:
             product_data["source"] = "other"
 
+    # Set original_price as anchor if not explicitly provided
+    if 'original_price' not in product_data or not product_data['original_price']:
+        product_data['original_price'] = product_data.get('current_price')
+
     # Filter keys to match Product model
     valid_keys = ['name', 'url', 'sku', 'source', 'current_price', 'original_price', 'last_checked']
     filtered_data = {k: v for k, v in product_data.items() if k in valid_keys}
@@ -151,8 +155,10 @@ def process_products(products: list, db: Session):
                         
                 # Update other fields
                 product.last_checked = datetime.now()
-                if p_data.get('original_price'):
-                    product.original_price = p_data.get('original_price')
+                # NEVER overwrite original_price — it's our historical anchor
+                # Only set it if it was previously NULL (backfill)
+                if not product.original_price and product.current_price:
+                    product.original_price = product.current_price
                 
                 # Check if we should update name or sku if it was missing?
                 if not product.sku and sku:
@@ -161,7 +167,7 @@ def process_products(products: list, db: Session):
                 db.commit()
 
             else:
-                # Create using create_product
+                # Create using create_product (will auto-set original_price)
                 create_product(db, p_data)
             
             count += 1

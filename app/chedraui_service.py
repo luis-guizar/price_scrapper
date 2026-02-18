@@ -276,21 +276,23 @@ def process_products(products, db_session: Session):
                      db_product = db_session.query(Product).filter(Product.url == url).first()
                 
                 if db_product:
+                    anchor_price = db_product.original_price or db_product.current_price
                     old_price = db_product.current_price
                     
-                    if price < old_price:
-                        drop = old_price - price
-                        pct = (drop / old_price) * 100
+                    # Only alert if price JUST dropped AND cumulative drop exceeds threshold
+                    if price < old_price and price < anchor_price:
+                        drop = anchor_price - price
+                        pct = (drop / anchor_price) * 100
                         
                         if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
                             # Validate price drop before alerting
-                            logger.info(f"📍 Potential deal detected: {name} (${old_price} → ${price}). Validating...")
-                            if validate_price_drop(url, price, old_price):
+                            logger.info(f"📍 Potential deal detected: {name} (original ${anchor_price} → ${price}). Validating...")
+                            if validate_price_drop(url, price, anchor_price):
                                 alerts.append({
                                     "source": "chedraui",
                                     "title": name,
                                     "price": price,
-                                    "old_price": old_price,
+                                    "old_price": anchor_price,
                                     "discount_pct": round(pct, 1),
                                     "url": url,
                                     "sku": sku
@@ -302,6 +304,10 @@ def process_products(products, db_session: Session):
                         db_product.current_price = price
                         history = PriceHistory(product=db_product, price=price)
                         db_session.add(history)
+                    
+                    # Backfill original_price if NULL
+                    if not db_product.original_price:
+                        db_product.original_price = old_price
                         
                     db_product.last_checked = datetime.now() # type: ignore
                     db_product.url = url # Update URL just in case
@@ -312,6 +318,7 @@ def process_products(products, db_session: Session):
                         sku=sku,
                         url=url,
                         current_price=price,
+                        original_price=price,
                         source="chedraui",
                         last_checked=datetime.now()
                     )

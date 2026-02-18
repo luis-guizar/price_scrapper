@@ -621,16 +621,20 @@ def scrape_single_coppel_category(url):
 def check_coppel_alerts(products, db):
     """
     Helper to send alerts for a batch of products.
-    Compares scraping price vs stored DB price to find REAL drops.
+    Compares scraping price vs original_price (anchor) to find REAL drops.
     """
     from app.models import Product
     
     alerted_count = 0
     skipped_count = 0
     
+    # Configuration for alerts
+    MIN_DROP_PCT = 35
+    MIN_DROP_AMOUNT = 5000
+    
     for deal in products:
         try:
-            current_price = deal.get('price', 0)
+            current_price = float(deal.get('price', 0))
             sku = deal.get('sku')
             
             if current_price <= 0:
@@ -639,34 +643,26 @@ def check_coppel_alerts(products, db):
             # Find existing product in DB to compare price
             p_db = db.query(Product).filter(Product.sku == sku).first()
             if not p_db:
-                # User Requested: NO ALERTS for new products to avoid spam.
+                # NO ALERTS for new products to avoid spam.
                 continue
 
-            # Correct logic: Query PriceHistory for the last 2 records.
-            from app.models import PriceHistory
-            history = db.query(PriceHistory).filter(PriceHistory.product_id == p_db.id).order_by(PriceHistory.timestamp.desc()).limit(2).all()
+            # Compare against original_price (anchor)
+            anchor_price = p_db.original_price or p_db.current_price
+            old_db_price = p_db.current_price
             
-            if len(history) >= 2:
-                # We have history! Compare with the PREVIOUS price (history[1])
-                # history[0] is the current price we just saved
-                previous_price = history[1].price
-                current_price = float(current_price)
+            # Only alert if price JUST dropped AND cumulative drop exceeds threshold
+            if current_price < old_db_price and current_price < anchor_price:
+                drop = anchor_price - current_price
+                drop_pct = (drop / anchor_price) * 100
                 
-                if previous_price > current_price:
-                    # REAL PRICE DROP DETECTED
-                    drop_pct = int(((previous_price - current_price) / previous_price) * 100)
-                    
-                    if drop_pct >= 50:  # Alert only on >50% real drops
-                        deal['discount_pct'] = drop_pct
-                        deal['old_price'] = previous_price
-                        # Proceed to alert
-                    else:
-                        continue
+                if drop_pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
+                    deal['discount_pct'] = round(drop_pct, 1)
+                    deal['old_price'] = anchor_price
+                    # Proceed to alert
                 else:
-                    # Price same or increased
                     continue
             else:
-                # New product (only 1 history record)
+                # Price same or increased
                 continue
 
             unique_id = deal.get('sku') or deal.get('url')
@@ -677,7 +673,6 @@ def check_coppel_alerts(products, db):
             if not redis_client.get(cache_key):
                 logger.info(f"  🔔 Alertando: {deal['name']}")
                 deal['title'] = deal['name']
-                # deal['old_price'] set above
                 
                 if send_telegram_alert(deal):
                     redis_client.setex(cache_key, 86400, "1")  # 24 horas

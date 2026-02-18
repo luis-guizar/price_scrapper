@@ -10,14 +10,28 @@ logger = logging.getLogger(__name__)
 # ==================== PARÁMETROS DE FILTRACIÓN ====================
 # Puedes ajustar estos valores según tus necesidades
 FILTER_CONFIG = {
-    "min_discount": 60,           # Descuento mínimo (%) - bajado de 30
+    "min_discount": 50,           # Descuento mínimo (%) - bajado de 30
     "min_price": 100,              # Precio mínimo (MXN) - bajado de 100
     "max_price": 100000,          # Precio máximo (MXN) - subido de 50000
     "excluded_keywords": [
         "gratis", "free", "no price", 
-        "kindle", "ebook", "libro digital"  # Excluir tipos de producto
+        "kindle", "ebook", "libro digital",
+        # Juegos digitales
+        "nintendo eshop", "eshop", "nintendo store",
+        "xbox store", "xbox game pass", "game pass",
+        "playstation store", "ps store", "psn",
+        "steam key", "steam cd key", "código digital",
+        "codigo digital", "descarga digital", "digital code",
+        "google play", "app store", "itunes",
+        "epic games", "gog.com", "humble bundle",
+        "clave digital", "key digital",
     ],
-    "min_temperature": 100,        # Temperatura mínima - bajado de 100
+    # Excluir títulos que contengan estos patrones (juegos digitales por plataforma)
+    "excluded_title_patterns": [
+        "nintendo switch online",  # Suscripciones digitales
+        "xbox live gold", "ps plus", "ps now",
+    ],
+    "min_temperature": 50,         # Bajado de 100 para captar errores de precio más rápido
     "allowed_merchants": None,    # None = todos, o lista: ["Walmart", "Amazon", "Mercado Libre"]
 }
 
@@ -80,7 +94,14 @@ def filter_deals(deals_raw):
                 f"min_temp={FILTER_CONFIG['min_temperature']}")
     
     filtered = []
-    rejected_reasons = {"type": 0, "keywords": 0, "discount": 0, "price": 0, "temperature": 0, "isLocal": 0}
+    rejected_reasons = {"type": 0, "keywords": 0, "discount": 0, "price": 0, "temperature": 0, "isLocal": 0, "digital_store": 0}
+    
+    # Dominios de tiendas digitales de juegos (filtrar por URL del merchant)
+    digital_store_domains = [
+        "nintendo.com", "eshop", "xbox.com", "microsoft.com/store",
+        "playstation.com", "store.steampowered.com", "epicgames.com",
+        "gog.com", "humblebundle.com",
+    ]
     
     for i, deal in enumerate(deals_raw):
         title = deal.get('title', '').lower()
@@ -97,9 +118,31 @@ def filter_deals(deals_raw):
             rejected_reasons["keywords"] += 1
             continue
 
+        # Excluir patrones de título adicionales
+        if any(pattern in title for pattern in FILTER_CONFIG.get('excluded_title_patterns', [])):
+            logger.debug(f"  [{i}] Rechazado por patrón de título: {title[:50]}")
+            rejected_reasons["keywords"] += 1
+            continue
+
         if deal.get('isLocal', False):
             logger.debug(f"  [{i}] Rechazado por ser oferta física (isLocal): {title[:50]}")
             rejected_reasons["isLocal"] += 1
+            continue
+
+        # Filtrar tiendas digitales por URL del deal
+        deal_url = deal.get('dealUri', '').lower()
+        merchant_name = deal.get('merchant', {})
+        if isinstance(merchant_name, dict):
+            merchant_name = merchant_name.get('merchantName', '').lower()
+        elif isinstance(merchant_name, str):
+            merchant_name = merchant_name.lower()
+        else:
+            merchant_name = ''
+            
+        if any(domain in deal_url for domain in digital_store_domains) or \
+           any(domain in merchant_name for domain in digital_store_domains):
+            logger.debug(f"  [{i}] Rechazado por tienda digital: {title[:50]}")
+            rejected_reasons["digital_store"] += 1
             continue
 
         # --- Validaciones de oferta ---
@@ -139,7 +182,8 @@ def filter_deals(deals_raw):
                 f"discount={rejected_reasons['discount']}, "
                 f"price={rejected_reasons['price']}, "
                 f"temp={rejected_reasons['temperature']}, "
-                f"isLocal={rejected_reasons['isLocal']}")
+                f"isLocal={rejected_reasons['isLocal']}, "
+                f"digital_store={rejected_reasons['digital_store']}")
     
     return filtered
 

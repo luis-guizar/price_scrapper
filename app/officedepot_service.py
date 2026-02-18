@@ -254,21 +254,23 @@ def process_products(products):
                         db_product.url = url
 
                 if db_product:
-                    # Producto existe, comparar precio
+                    # Producto existe
+                    anchor_price = db_product.original_price or db_product.current_price
                     old_price = db_product.current_price
                     
-                    # Detectar bajada
-                    if price < old_price:
-                        drop_amount = old_price - price
-                        drop_pct = (drop_amount / old_price) * 100
+                    # Solo alertar si el precio ACABA de bajar en este scan
+                    # Y la bajada acumulada desde original_price supera el threshold
+                    if price < old_price and price < anchor_price:
+                        drop_amount = anchor_price - price
+                        drop_pct = (drop_amount / anchor_price) * 100
                         
                         if drop_pct >= SEARCH_CONFIG["min_price_drop_percent"] or drop_amount >= SEARCH_CONFIG["min_price_drop_amount"]:
-                            logger.info(f"📉 BAJADA DE PRECIO: {name} (${old_price} -> ${price})")
+                            logger.info(f"📉 BAJADA DE PRECIO: {name} (original ${anchor_price} → ${price})")
                             alerts.append({
                                 "source": "officedepot",
                                 "title": name,
                                 "price": price,
-                                "old_price": old_price,
+                                "old_price": anchor_price,
                                 "discount_pct": round(drop_pct, 1),
                                 "url": url,
                                 "image_url": image,
@@ -285,13 +287,14 @@ def process_products(products):
                     db_product.last_checked = datetime.now()
                     
                 else:
-                    # Nuevo producto
+                    # Nuevo producto — original_price = primer precio visto
                     # logger.debug(f"Nuevo producto: {name} (${price})")
                     new_product = Product(
                         name=name,
                         url=url,
                         sku=sku,
                         current_price=price,
+                        original_price=price,
                         source="officedepot",
                         last_checked=datetime.now()
                     )

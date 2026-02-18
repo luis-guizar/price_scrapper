@@ -169,11 +169,14 @@ def process_products(products, db_session: SessionLocal):
                     db_product = db_session.query(Product).filter(Product.url == url).first()
                 
                 if db_product:
+                    # Compare against original_price (historical anchor)
+                    anchor_price = db_product.original_price or db_product.current_price
                     old_price = db_product.current_price
                     
-                    if price < old_price:
-                        drop = old_price - price
-                        pct = (drop / old_price) * 100
+                    # Only alert if price JUST dropped AND cumulative drop exceeds threshold
+                    if price < old_price and price < anchor_price:
+                        drop = anchor_price - price
+                        pct = (drop / anchor_price) * 100
                         
                         # Alerta si supera el % o el monto fijo
                         if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
@@ -181,7 +184,7 @@ def process_products(products, db_session: SessionLocal):
                                 "source": "elektra",
                                 "title": name,
                                 "price": price,
-                                "old_price": old_price,
+                                "old_price": anchor_price,
                                 "discount_pct": round(pct, 1),
                                 "url": url,
                                 "sku": sku
@@ -191,6 +194,10 @@ def process_products(products, db_session: SessionLocal):
                         db_product.current_price = price
                         history = PriceHistory(product_id=db_product.id, price=price, timestamp=datetime.now())
                         db_session.add(history)
+                    
+                    # Backfill original_price if NULL
+                    if not db_product.original_price:
+                        db_product.original_price = old_price
                         
                     db_product.last_checked = datetime.now()
                     db_product.url = url
@@ -201,6 +208,7 @@ def process_products(products, db_session: SessionLocal):
                         sku=sku,
                         url=url,
                         current_price=price,
+                        original_price=price,
                         source="elektra",
                         last_checked=datetime.now()
                     )

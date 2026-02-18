@@ -182,18 +182,20 @@ def process_products(products, db_session: Session):
             db_product = db_session.query(Product).filter(Product.sku == sku, Product.source == 'soriana').first()
             
             if db_product:
+                anchor_price = db_product.original_price or db_product.current_price
                 old_price = db_product.current_price
                 
-                if price < old_price:
-                    drop = old_price - price
-                    pct = (drop / old_price) * 100
+                # Only alert if price JUST dropped AND cumulative drop exceeds threshold
+                if price < old_price and price < anchor_price:
+                    drop = anchor_price - price
+                    pct = (drop / anchor_price) * 100
                     
                     if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
                         alerts.append({
                             "source": "soriana",
                             "title": name,
                             "price": price,
-                            "old_price": old_price,
+                            "old_price": anchor_price,
                             "discount_pct": round(pct, 1),
                             "url": url,
                             "sku": sku
@@ -204,18 +206,22 @@ def process_products(products, db_session: Session):
                     db_product.current_price = price
                     history = PriceHistory(product=db_product, price=price)
                     db_session.add(history)
+                
+                # Backfill original_price if NULL
+                if not db_product.original_price:
+                    db_product.original_price = old_price
                     
                 db_product.last_checked = datetime.now()
                 db_product.url = url 
                 
             else:
-                # New product
+                # New product — use scraped original_price if available, otherwise current price
                 new_prod = Product(
                     name=name,
                     sku=sku,
                     url=url,
                     current_price=price,
-                    original_price=p.get('original_price'),
+                    original_price=p.get('original_price') or price,
                     source="soriana",
                     last_checked=datetime.now()
                 )
