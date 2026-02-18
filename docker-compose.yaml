@@ -9,6 +9,8 @@ services:
       TZ: America/Mexico_City
     volumes:
       - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     command: postgres -c timezone=America/Mexico_City
 
   # 2. Redis (Cola de tareas)
@@ -43,6 +45,21 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - TZ=America/Mexico_City
     depends_on:
+      - redis
+
+  # 5.1 Backend TypeScript (NestJS)
+  backend-ts:
+    build: ./backend-ts
+    volumes:
+      - ./backend-ts:/app
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/pricedb
+      - REDIS_URL=redis://redis:6379/0
+      - TZ=America/Mexico_City
+    ports:
+      - "3002:3000"
+    depends_on:
+      - db
       - redis
 
   # 5. API (Homepage Integration)
