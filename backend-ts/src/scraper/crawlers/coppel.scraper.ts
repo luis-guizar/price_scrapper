@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PlaywrightCrawler, createPlaywrightRouter, PlaywrightCrawlingContext, RequestQueue } from 'crawlee';
-import { Page } from 'playwright';
+import { CheerioCrawler, createCheerioRouter, CheerioCrawlingContext, RequestQueue } from 'crawlee';
 import { ProductRepository, ScrapedProduct } from '../repositories/product.repository';
 
 @Injectable()
@@ -20,10 +19,10 @@ export class CoppelScraper {
         const uniqueQueueId = `coppel_${Date.now()}_${Math.random().toString(36).substring(7)}`;
         const requestQueue = await RequestQueue.open(uniqueQueueId);
 
-        const router = createPlaywrightRouter();
+        const router = createCheerioRouter();
 
         // Handler for all pages (main + pagination)
-        router.addDefaultHandler(async ({ page, request, log }: PlaywrightCrawlingContext) => {
+        router.addDefaultHandler(async ({ $, request, log }: CheerioCrawlingContext) => {
             const currentUrl = request.url;
             const pageInfo = currentUrl.includes('beginIndex=')
                 ? `page ${Math.floor(parseInt(currentUrl.split('beginIndex=')[1]) / 24) + 1}`
@@ -32,22 +31,22 @@ export class CoppelScraper {
             log.info(`📄 Processing ${pageInfo}...`);
 
             try {
-                // 2. Wait for content
-                await page.waitForLoadState('domcontentloaded');
+                // 3. Extract __NEXT_DATA__ directly from HTML string
+                const nextDataScript = $('#__NEXT_DATA__').html();
 
-                // 3. Extract __NEXT_DATA__
-                const nextData = await page.evaluate(() => (window as any).__NEXT_DATA__);
-
-                if (!nextData) {
+                if (!nextDataScript) {
                     log.warning(`⚠️ No __NEXT_DATA__ found on ${currentUrl}`);
                     return;
                 }
+
+                const nextData = JSON.parse(nextDataScript);
 
                 // 4. Extract Products from JSON
                 const products = this.extractProductsFromJson(nextData);
 
                 if (products.length > 0) {
                     log.info(`✅ Found ${products.length} products on ${pageInfo}`);
+                    // Use a more gentle upsert if needed, but bulkUpsert is usually fine
                     await this.productRepository.bulkUpsert(products);
                     totalScraped += products.length;
                     allProducts.push(...products);
@@ -63,7 +62,7 @@ export class CoppelScraper {
 
                     if (totalCount > 24) {
                         const pageSize = 24;
-                        // Increased limit to 200 pages to cover large categories like 'Celulares' (4,000+ items)
+                        // Limit pages to prevent infinite loops, but allow deep scraping
                         const maxPages = Math.min(Math.ceil(totalCount / pageSize), 200);
 
                         log.info(`🔗 Enqueuing ${maxPages - 1} pagination pages...`);
@@ -84,29 +83,12 @@ export class CoppelScraper {
             }
         });
 
-        const crawler = new PlaywrightCrawler({
+        const crawler = new CheerioCrawler({
             requestHandler: router,
             requestQueue,
-            maxConcurrency: 1, // Reduced to 1 to prevent OOM on limited RAM
-            headless: true,
-            browserPoolOptions: {
-                useFingerprints: true,
-            },
-            // Use preNavigationHooks to block fat resources BEFORE the page starts loading
-            preNavigationHooks: [
-                async ({ page }) => {
-                    await page.route('**/*', (route) => {
-                        const resourceType = route.request().resourceType();
-                        if (['image', 'media', 'font', 'stylesheet'].includes(resourceType)) {
-                            route.abort();
-                        } else {
-                            route.continue();
-                        }
-                    });
-                },
-            ],
-            requestHandlerTimeoutSecs: 90, // Increased for stability
-            navigationTimeoutSecs: 120,    // Hard limit for slow Coppel pages
+            maxConcurrency: 2, // Lightweight, so we can do more than 1 if needed, but 2 is safe
+            // Cheerio is just HTTP requests + HTML parsing, very low RAM
+            requestHandlerTimeoutSecs: 60,
         });
 
         // Add the initial request
