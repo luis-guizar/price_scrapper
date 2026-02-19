@@ -76,8 +76,10 @@ function App() {
             setAddSource('chedraui')
         } else if (lc.includes('officedepot.com.mx')) {
             setAddSource('officedepot')
-        } else if (lc.includes('coppel.com')) {
+        } else if (lc.includes('coppel.com') || lc.includes('motoscoppel.mx')) {
             setAddSource('coppel')
+        } else if (lc.includes('liverpool.com.mx')) {
+            setAddSource('liverpool')
         } else if (lc.startsWith('http')) {
             setAddSource('other')
         } else {
@@ -282,6 +284,7 @@ function App() {
         elektra: { label: 'Elektra', color: 'from-purple-500 to-purple-600', icon: '⚡', bg: 'bg-purple-500/10 border-purple-500/30 text-purple-400' },
         soriana: { label: 'Soriana', color: 'from-red-500 to-red-600', icon: '🛒', bg: 'bg-red-500/10 border-red-500/30 text-red-400' },
         coppel: { label: 'Coppel', color: 'from-blue-500 to-blue-600', icon: '🔵', bg: 'bg-blue-500/10 border-blue-500/30 text-blue-400' },
+        liverpool: { label: 'Liverpool', color: 'from-pink-500 to-pink-600', icon: '💗', bg: 'bg-pink-500/10 border-pink-500/30 text-pink-400' },
         other: { label: 'Other', color: 'from-slate-500 to-slate-600', icon: '🔗', bg: 'bg-slate-500/10 border-slate-500/30 text-slate-400' },
     }
 
@@ -432,6 +435,7 @@ function App() {
                                             <option value="elektra">Elektra</option>
                                             <option value="soriana">Soriana</option>
                                             <option value="coppel">Coppel</option>
+                                            <option value="liverpool">Liverpool</option>
                                             <option value="other">Other</option>
                                         </select>
 
@@ -628,6 +632,7 @@ function App() {
                                                 <span className="text-xs bg-green-500/10 text-green-500 border border-green-500/20 px-2 py-0.5 rounded-md">💻 CyberPuerta</span>
                                                 <span className="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded-md">⚡ Elektra</span>
                                                 <span className="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md">🔵 Coppel</span>
+                                                <span className="text-xs bg-pink-500/10 text-pink-400 border border-pink-500/20 px-2 py-0.5 rounded-md">💗 Liverpool</span>
                                             </div>
                                         </div>
 
