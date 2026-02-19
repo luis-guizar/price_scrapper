@@ -31,7 +31,8 @@ export class OfficeDepotScraper {
             log.info(`📄 Processing ${pageInfo}...`);
 
             // Extract products using regex from raw body
-            const products = await this.extractProductsFromBody(body, currentUrl);
+            const bodyString = typeof body === 'string' ? body : body.toString();
+            const products = await this.extractProductsFromBody(bodyString, currentUrl);
 
             if (products.length > 0) {
                 log.info(`✅ Found ${products.length} products on ${pageInfo}`);
