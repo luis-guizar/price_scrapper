@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PlaywrightCrawler, Dataset, createPlaywrightRouter, PlaywrightCrawlingContext, RequestQueue } from 'crawlee';
-import { Page } from 'playwright';
+import { CheerioCrawler, createCheerioRouter, CheerioCrawlingContext, RequestQueue } from 'crawlee';
 import { ProductRepository, ScrapedProduct } from '../repositories/product.repository';
 
 @Injectable()
@@ -21,18 +20,18 @@ export class OfficeDepotScraper {
         const uniqueQueueId = `od_${Date.now()}_${Math.random().toString(36).substring(7)}`;
         const requestQueue = await RequestQueue.open(uniqueQueueId);
 
-        const router = createPlaywrightRouter();
+        const router = createCheerioRouter();
 
         // Handler for category pages
-        router.addDefaultHandler(async ({ page, request, log }: PlaywrightCrawlingContext) => {
+        router.addDefaultHandler(async ({ request, log, body }: CheerioCrawlingContext) => {
             const currentUrl = request.url;
             const pageNumMatch = currentUrl.match(/page=(\d+)/);
             const pageInfo = pageNumMatch ? `page ${parseInt(pageNumMatch[1]) + 1}` : 'main page';
 
             log.info(`📄 Processing ${pageInfo}...`);
 
-            // Extract products
-            const products = await this.extractProductsFromPage(page, currentUrl);
+            // Extract products using regex from raw body
+            const products = await this.extractProductsFromBody(body, currentUrl);
 
             if (products.length > 0) {
                 log.info(`✅ Found ${products.length} products on ${pageInfo}`);
@@ -44,28 +43,11 @@ export class OfficeDepotScraper {
             }
         });
 
-        const crawler = new PlaywrightCrawler({
+        const crawler = new CheerioCrawler({
             requestHandler: router,
-            requestQueue, // Use our isolated queue
-            maxConcurrency: 1, // Stay safe on RAM
-            headless: true,
-            browserPoolOptions: {
-                useFingerprints: true,
-            },
-            preNavigationHooks: [
-                async ({ page }) => {
-                    await page.route('**/*', (route) => {
-                        const resourceType = route.request().resourceType();
-                        if (['image', 'media', 'font', 'stylesheet'].includes(resourceType)) {
-                            route.abort();
-                        } else {
-                            route.continue();
-                        }
-                    });
-                },
-            ],
-            requestHandlerTimeoutSecs: 90,
-            navigationTimeoutSecs: 120,
+            requestQueue,
+            maxConcurrency: 10, // Much lighter, we can run 10 in parallel
+            requestHandlerTimeoutSecs: 60,
         });
 
         // Enqueue URLs to the specific queue
@@ -76,26 +58,20 @@ export class OfficeDepotScraper {
             await requestQueue.addRequest({ url: pageUrl });
         }
 
-        await crawler.run(); // Run without args, it uses the attached queue
+        await crawler.run();
         await requestQueue.drop();
 
         this.logger.log(`✅ Finished: Scraped ${totalScraped} products total for ${categoryLabel}.`);
         return allProducts;
     }
 
-    private async extractProductsFromPage(page: Page, url: string): Promise<ScrapedProduct[]> {
+    private extractProductsFromBody(body: string, url: string): ScrapedProduct[] {
         const products: ScrapedProduct[] = [];
 
         try {
-            // Wait for network/content
-            await page.waitForLoadState('domcontentloaded');
-            await page.waitForTimeout(3000); // 3s wait as in Python
-
-            const content = await page.content();
-
-            // Regex Extraction Strategy
-            // Python: re.search(r"'impressions'\s*:\s*\[(.*?)\]", content, re.DOTALL)
-            const impressionsMatch = content.match(/'impressions'\s*:\s*\[(.*?)\]/s); // /s for DOTALL
+            // Regex Extraction Strategy (Same as Python/original Playwright version)
+            // It looks for 'impressions' : [...] in the HTML source
+            const impressionsMatch = body.match(/'impressions'\s*:\s*\[(.*?)\]/s);
 
             if (impressionsMatch && impressionsMatch[1]) {
                 const impressionsStr = impressionsMatch[1];
@@ -124,46 +100,43 @@ export class OfficeDepotScraper {
                                         sku: pid,
                                         url: productUrl,
                                         current_price: price,
-                                        original_price: price, // Logic will be handled in DB upsert
+                                        original_price: price,
                                         source: 'officedepot',
                                     });
                                 }
                             }
-                        } catch (e) {
-                            // ignore malformed items
-                        }
+                        } catch (e) { }
                     }
                 }
             }
 
-            // Fallback: DataLayer
+            // Fallback: search for "dataLayer.push({..." patterns if impressions not found directly
             if (products.length === 0) {
-                const dataLayer = await page.evaluate(() => (window as any).dataLayer);
-                if (Array.isArray(dataLayer)) {
-                    for (const item of dataLayer) {
-                        if (item.impressions && Array.isArray(item.impressions)) {
-                            for (const prod of item.impressions) {
-                                try {
-                                    const pid = prod.id;
-                                    const name = prod.name;
-                                    let priceRaw = String(prod.price || '0');
-                                    priceRaw = priceRaw.replace(/,/g, '');
-                                    const price = parseFloat(priceRaw) || 0;
-                                    const productUrl = `${this.baseUrl}/officedepot/en/p/${pid}`;
+                // Secondary check for common GTM formats in script tags
+                const dataLayerItems = body.match(/"id"\s*:\s*"([^"]*)",\s*"name"\s*:\s*"([^"]*)",\s*"price"\s*:\s*"([^"]*)"/g);
+                if (dataLayerItems) {
+                    for (const item of dataLayerItems) {
+                        try {
+                            const idM = item.match(/"id"\s*:\s*"([^"]*)"/);
+                            const nameM = item.match(/"name"\s*:\s*"([^"]*)"/);
+                            const priceM = item.match(/"price"\s*:\s*"([^"]*)"/);
 
-                                    if (pid && name && price > 0) {
-                                        products.push({
-                                            name,
-                                            sku: pid,
-                                            url: productUrl,
-                                            current_price: price,
-                                            original_price: price,
-                                            source: 'officedepot',
-                                        });
-                                    }
-                                } catch (e) { }
+                            if (idM && nameM && priceM) {
+                                const pid = idM[1];
+                                const name = nameM[1];
+                                const price = parseFloat(priceM[1].replace(/,/g, '')) || 0;
+                                if (pid && name && price > 0) {
+                                    products.push({
+                                        name,
+                                        sku: pid,
+                                        url: `${this.baseUrl}/officedepot/en/p/${pid}`,
+                                        current_price: price,
+                                        original_price: price,
+                                        source: 'officedepot',
+                                    });
+                                }
                             }
-                        }
+                        } catch (e) { }
                     }
                 }
             }
