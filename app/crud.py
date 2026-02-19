@@ -83,9 +83,9 @@ def create_product(db: Session, product_data: dict):
     db.commit()
     db.refresh(db_product)
     
-    # Init history
-    if db_product.current_price is not None:
-        add_price_history(db, db_product.id, db_product.current_price)
+    # Init history automatically handled by DB trigger
+    # if db_product.current_price is not None:
+    #     add_price_history(db, db_product.id, db_product.current_price)
         
     return db_product
 
@@ -110,8 +110,8 @@ def update_product_price(db: Session, product: Product, new_price: float):
     product.current_price = new_price
     product.last_checked = datetime.now()
     
-    # Add to history
-    add_price_history(db, product.id, new_price)
+    # Add to history (Now handled by DB trigger)
+    # add_price_history(db, product.id, new_price)
     
     db.commit()
     db.refresh(product)

@@ -1,0 +1,23 @@
+import { Module } from '@nestjs/common';
+import { BullModule } from '@nestjs/bullmq';
+import { ScraperController } from './scraper.controller';
+import { PrismaService } from '../prisma.service';
+import { ProductRepository } from './repositories/product.repository';
+import { OfficeDepotScraper } from './crawlers/office-depot.scraper';
+import { CoppelScraper } from './crawlers/coppel.scraper';
+import { ScraperProcessor } from './scraper.processor';
+import { ScraperScheduleService } from './scraper.schedule';
+
+import { AlertService } from '../alert.service';
+
+@Module({
+    imports: [
+        BullModule.registerQueue({
+            name: 'scraper-tasks',
+        }),
+    ],
+    controllers: [ScraperController],
+    providers: [PrismaService, ProductRepository, OfficeDepotScraper, CoppelScraper, ScraperProcessor, ScraperScheduleService, AlertService],
+    exports: [ProductRepository, OfficeDepotScraper, CoppelScraper],
+})
+export class ScraperModule { }

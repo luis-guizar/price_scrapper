@@ -29,16 +29,16 @@ app.conf.beat_schedule = {
         'schedule': crontab(minute='0,10,20,30,40,50'),
     },
 
-    # --- SERVICIOS PESADOS (Playwright/Chrome) cada 15 min ---
-    # Compensados para que nunca se solapen
-    'scan-officedepot-every-15-mins': {
-        'task': 'app.tasks.scan_officedepot_deals',
-        'schedule': crontab(minute='0,15,30,45'),
-    },
-    'scan-coppel-every-15-mins': {
-        'task': 'app.tasks.scan_coppel_deals',
-        'schedule': crontab(minute='7,22,37,52'),
-    },
+    # Migrated to TS Backend
+    # 'scan-officedepot-every-15-mins': {
+    #     'task': 'app.tasks.scan_officedepot_deals',
+    #     'schedule': crontab(minute='0,15,30,45'),
+    # },
+    # Migrated to TS Backend
+    # 'scan-coppel-every-15-mins': {
+    #     'task': 'app.tasks.scan_coppel_deals',
+    #     'schedule': crontab(minute='7,22,37,52'),
+    # },
 
     # --- SERVICIOS LIGEROS (API/HTML) cada 10 min ---
     'scan-cyberpuerta-every-10-mins': {

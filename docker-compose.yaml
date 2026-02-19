@@ -51,11 +51,13 @@ services:
   backend-ts:
     build: ./backend-ts
     volumes:
-      - ./backend-ts:/app
+      - ./backend-ts/src:/app/src
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/pricedb
       - REDIS_URL=redis://redis:6379/0
       - TZ=America/Mexico_City
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
     ports:
       - "3002:3000"
     depends_on:
