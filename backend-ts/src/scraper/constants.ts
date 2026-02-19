@@ -27,6 +27,28 @@ export const COPPEL_CONFIG = {
         'https://www.coppel.com/ct/electronica/camaras-fotografia/cat000082',
         'https://www.coppel.com/ct/electronica/audio/cat000335?pmNodeId=11408&prNodeId=11419&regionTelcel=6',
         'https://www.coppel.com/ct/consolas-videojuegos/cat001063?pmNodeId=11408&prNodeId=11419&regionTelcel=6',
-        'https://www.coppel.com/ct/motos-movilidad/motos/cat002551?pmNodeId=11404&prNodeId=11419&regionTelcel=9',
+        'https://www.motoscoppel.mx/ct/motos-movilidad/motos/cat002551',
+    ],
+};
+
+export const LIVERPOOL_CONFIG = {
+    urls: [
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST10075558&page=1&Path=PLP&categoryName=Laptops',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST14457077&page=1&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST53117186&page=1&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CAT580066&page=1&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST46664340&page=1&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CAT670066&page=1&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST4818718&page=2&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST16779026&page=2&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST16779038&page=2&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST53117490&page=2',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST16778857&page=2',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST16778924&page=2',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST16778939&page=2&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST53450418&page=2&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST60647160&page=2&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST53118497&page=2&Path=PLP',
+        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST53450452&page=2&Path=PLP'
     ],
 };

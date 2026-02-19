@@ -1,0 +1,2286 @@
+{
+  "usableSessionsCount": 20,
+  "retiredSessionsCount": 0,
+  "sessions": [
+    {
+      "id": "session_ypkmAP0ZjJ",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_4_sn_FE09C5A52C69348DCD86E39AED0499D1_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_1",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:38.884Z",
+            "lastAccessed": "2026-02-19T19:52:38.884Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:36.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:38.887Z",
+            "lastAccessed": "2026-02-19T19:52:38.887Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:38.888Z",
+            "lastAccessed": "2026-02-19T19:52:38.888Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:38.888Z",
+            "lastAccessed": "2026-02-19T19:52:38.888Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:38.888Z",
+            "lastAccessed": "2026-02-19T19:52:38.888Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:38.888Z",
+            "lastAccessed": "2026-02-19T19:52:38.888Z"
+          },
+          {
+            "key": "_abck",
+            "value": "6FA6EF7DCE1AE2343C45C6F741046A0C~-1~YAAQiynIFziibmGcAQAAKSN2dw/Yos0DMOYQ2n/ZqYRxbYZPTxxUlEzMS5FFp6SVh8vUdA173AasW8n3/Stbu2dM7QHTeg7B+DhEIZFRnLnjg/PRZfUBxRcFGaNxiwqQaQCKuyzIGp0DlFwpgtVkkL82O2AvhQw+Fda4A2UhoWu7Eh/ZqGhuPm98Grnt/FlOfi/a48B/9yI5p9nLd+D8v5SkESAaUpDbXPGYQaazKWkI/bo5DFtPtKW559yKLo1PsvoarSy9HsASPpdq0eYLssYDc2svmWMYWQAgcive7gnuU2F/Y0+8yV5k+YU03xyE1Ig8rBeiLKNE/uaqzYnCsk0BKnFe7wvDqMdzz1HO9HkhoXAk0ylF4x+ijCWNaswVi9W8IeVIxPt65ll0RnvDD/vOwH7NHOutUTSQaL08BqFrb2zF1EtHHUq4/fDrmei59x2qaHwog7S+chupjOo=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:36.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:38.888Z",
+            "lastAccessed": "2026-02-19T19:52:38.888Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "26EE69B96D46155DAF7C1B075812BCB5~000000000000000000000000000000~YAAQiynIFzmibmGcAQAAKSN2dx7snQmVdjUQf4cI2errrHsdYIhhYuMBKQA17DQxa3PuqfQkUrgsVtUWfFHWsWEjx8DH/6UEB/Nx4y7H3kOnjGS+BPl1TdyJ2yBBXdJChCWeLkWbpq2f7NHjjFO23U2nojrsR0dca6+Lse8nQhySQwixWOGtuBbRk25iia1UMpksBjaz56wxjPtUaWXcfMqsmISR/rawTCbU4ZUFKrm4zQ71/Mi3a+VBUpVMoEoHVMkN0jbNr4EOwXZwtA4o4PScPXm9T1P5Gdxms6JYKfD8wbx2RJhLlJez3v+bG4ORt+ZP2atSUOjuiOSHr7go84EqDlSObvzW2ce/J+Qj0VwAlu2HtrOvb8Z7GmLnC/RJlE30roSLc2NQeDQ=",
+            "expires": "2026-02-19T21:52:36.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:38.888Z",
+            "lastAccessed": "2026-02-19T19:52:38.888Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "47A7EC3D5D795C2AD27C0FE2DA46E161~YAAQiynIFzqibmGcAQAAKSN2dx5LHqNYrTBLCfwqxn+FmILYNl6y9NwGEqu7qwHokoOiOs72tIeDXTVANiqY3GhXWuKdzWvL+OvjM6qjdQEVsn8UUgx4F+8nyDlFVkgwEf1Rtekn3QLEWF9zeHaajvW+g0JttKT3FdRwWh0jD58q047rGFkwo2Lep3vSUKAK9HY1gtmuQPai3XRCFSrfQB2Q+Kzsgk0FGq+eR7E0sbmWFHGkW2ne5f6RkvI0xTiKsP6c0gtL5xqvOg4AapjAAO8tPqZ2dbHEHgx8ZLgluD1fenrBdObozOP3qeliEIxh05eHCYrg4PX2+mKGop+/rB5JeqvxVyFtnwgjMQDRvpyHiNCWkcLx4nRzKN5gyAeZwevBzjNfRndnX8Tbcl1+tNGnoI8/Hg==~3621430~3687736",
+            "expires": "2026-02-19T23:52:36.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:38.888Z",
+            "lastAccessed": "2026-02-19T19:52:38.888Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:37.943Z",
+      "createdAt": "2026-02-19T19:52:37.943Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_Iyx2auVg1x",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_10_sn_3958765FE15253CA4FA8C396FFA480E0_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.754Z",
+            "lastAccessed": "2026-02-19T19:52:39.754Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.754Z",
+            "lastAccessed": "2026-02-19T19:52:39.754Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.754Z",
+            "lastAccessed": "2026-02-19T19:52:39.754Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.755Z",
+            "lastAccessed": "2026-02-19T19:52:39.755Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.755Z",
+            "lastAccessed": "2026-02-19T19:52:39.755Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Lonuevo",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.755Z",
+            "lastAccessed": "2026-02-19T19:52:39.755Z"
+          },
+          {
+            "key": "_abck",
+            "value": "53B2D03A390D70B5CB3F911E5545479D~-1~YAAQiynIFzClbmGcAQAAkCZ2dw+e39DnLHAgbBSQYfi9IaFjThzYOCMPUhp8lZbZAGU5Erp1WnNsQcWgoe91DNweeC7KOggDtRWtoSkkdkq/YkX9d0z0NP/pK6/nXQlDyoxpy38c0c53OFiyjKmNEQNXRy0PaboFtRA9XSY1Ev0fL61yUtw+i2WdfRvOVIbf6D/JvB70PSwpy7R54RmThmKsy4jv/XMhh1MrdBjoV/Mg80dsqQWxVBn8po+bI9wmxtEvCEheaAYM0LEliwXDvlFlsWLMJHaWADP8y2vjYY3i9VnJrP7QUPmCEWYEH63qF6fRNlIW/ivL4XMQCS67wA3Zw7kK4mUC1od5OtxrBaRQG8+YXHCHtrHTOkwFoHAhAm6MCcp1gugf0x2zBRDV9eZX5Icg/4YPnCGCrczdGSz1k9u+vDY7fFog+M0T0WafRMquWUeMxfsyKsUzgb8=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.755Z",
+            "lastAccessed": "2026-02-19T19:52:39.755Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "2D3E255E746F02BDE3E1CF56B4D285B8~000000000000000000000000000000~YAAQiynIFzGlbmGcAQAAkCZ2dx72ZffnvC9H7LTokEkBabzKtxhSKSWiVuSdqLqzpA3slHHtnDDtOREkwRGOmFDGMsYXWArhJU41HZy/dA4q07GS/9pWIz9y6sTaY8IRngCtmCQqfJt8AoMAY2B/nLwsMY0j+U/PDg6DrWu/iQOrZWQYw7ZJPSlx0+xUVN8fZHJyLsiNHbtXOlrs6r5Hha+F4ORsX/IR9R+dncaqdqf5YqEaQCOyOJImQTLiKoNKteDKLwOQeWMDiZCe+AbmU9pAn7sQZ6oRrGuhpQomye+9mI6nSngeMynq/V0ia0HfcXK9TTbe3Q58WDXQQzArkX7INEAOJQtn1RbQ5dpCX+OqvjkPWOsR+nBphB9qLdlDJ4Rid+MW9NPjTIw=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.755Z",
+            "lastAccessed": "2026-02-19T19:52:39.755Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "38B09DF8A20B6323C1C977A13E93A5A2~YAAQiynIFzKlbmGcAQAAkCZ2dx64m5He1k8qdrkXWR4z1CNI1luoOD0MkPLoK9WylTSyv8eWZCCZ9aI2F4ndlUAosEsAL8Ay8pInI1dyzNdM/T7Dy/qlBs15BOrADzzmPE6T5Nnv3IrYa7zQwqelJPBw+xk+sVmY2NuikyskPiAV/C7pxfWbm9LujlE9giKr6Qej7QsE4fDmdEdq5rlZVLZ4N0kDdetwpy+wsR9LaxyJ0OL/wwilGRfc4n3DlYmX2B9znmg+qUrQY5TDtZIBNXoRHKnVV0T8xZcJAeE2y7/0cOov8OhxDyvK8KfpF79Q3Q8mqGN8nIXJ3to/leYqYjRwRkcX26kIkD/bd8CfcBGfS+mOpfvtY7LF0IaBgCy6nQ+92yviPsAG2N4oGwD6+coGvV1M~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.755Z",
+            "lastAccessed": "2026-02-19T19:52:39.755Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.008Z",
+      "createdAt": "2026-02-19T19:52:39.008Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_NSyJUE0FOi",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_8_sn_0E644B696EBA146993411BC436F9E8BA_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          },
+          {
+            "key": "_abck",
+            "value": "D9798F5CF3A6DF94390E2B3C84FD6219~-1~YAAQiynIFwalbmGcAQAAaSZ2dw+9FE/zKGsg6v5Yz8Rfz/fhZ7RLlCkV/ODyrt8IFvkS2ivb7e9NZI8q7RacwS0RNLFOnQE3Re5TLnj8nPBeMJbRSU3Zx8SOkhAg8Z+8QLWNhCfdous+LKLxl762W+66HPmN9saGkYRvreDWrog9LAZP1yZSQ1A3g6kpdnCte7gHVMgCRE50xjfDX+Rr18SuykXbu44G9C2QjEJdSWBtW52DD7BspI2Qi61VRI/YhIMuELd2RE+JFRN45tFqYghIVx0UFFa4DGmjdi976H3GC7pB32lU1RQZNaJ4Hzy3O17eb+8v2YU0ItgsFcdBNfNg6XMDW5E+tMtMtpBk3hK6/WUE6xOmmhMFVRmruCrLgnNZepu246L2Xj3457j1dJwCCn8RW0pAeTI6hv+IcGnHteVQvzdx4QySJsiN4s/IH+uvup3VQOt4Zj/8mb0=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "18B16B8CE292031CF552777A355E0DDB~000000000000000000000000000000~YAAQiynIFwilbmGcAQAAaSZ2dx6Tjg13Yzw0KUlkaNXRGgWprSGy4PT7UHj4gnKHvMuLJnp7aZsCsHOO75k5pJGJdMuLRw8y53rQ0qQyeL3nHHe3W8aV+u9h31qZ3Vp27SgiuH9GQCLCjiKmRFiuodm3mp7WVTph8HShPk3HZSD84UC7Go0FSJOcgPz/ZpzKeh5z/NeWrh5hivU+sF5oE8zYoN4UtF0SYhDRH2ngh75n0OhzxE6rRhNn7J7usgfz9Dc4V94ynF4cF3OlFNtg5RW4LfJyotbHzIzMj5llYPTQApz5neBszt+7NIWV9ZhhrTX2ACPKcZycCSsQd8os7v+d488qyBdmLOXQMwmZRGwlDuL+GpDy6tYggR3RBN4JM/vfFnRiNZubuDo=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "490A3FF61BD09600A5CA182F105A6AE9~YAAQiynIFwmlbmGcAQAAaSZ2dx6/qpE/2TgIuMAUpDXOfe784jSJVJNJXezXWODfT/xp+ipDierS2tVu7/Z58tXDZ/d8uZscy6js06YXJl2h+p8blq1WFl+QYeFmKjUIVnA1N0NTqxkZhhjk+zPEnufIZN3EImv9bQRWoHQ8bV1KioSHYG9ml7cn+bM8bCZ/6a16OJMWRwhnpC8z1Rj9siO0quaAQvcnbQeljA88vBKWwqyq5QCvqwoKzhfDWWOqsMmo99MwLTrnuawAvZSjxxBxOKhsGg4lumOWfLhqFx9P2djS+jLYRBNNwJZ90byl6T655HuA+8zNsFuiWNOGveW0wZA6dhLE5Fo+Ew7M/NmAdFJ0qbSY0VuyRaVkmEs9DzcuB/ii/VvJAL/eDrY3bdy0jvoH~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.751Z",
+            "lastAccessed": "2026-02-19T19:52:39.751Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.012Z",
+      "createdAt": "2026-02-19T19:52:39.012Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_crqpUcDkle",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_5_sn_B49F75C7DB2FB03314D361D9BB3DC7F3_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          },
+          {
+            "key": "_abck",
+            "value": "67A4181594B52C1C050342FD2B3B97A8~-1~YAAQiynIFz6lbmGcAQAApyZ2dw9PjMRG1XpQ8+d7fJOtd6+moAFsmeWgvogUNhf2mGt910NTPhTUQ4Dsz4MYXFCZwOq41feLS525/evLMIqAcdvgO4/b9VINfvoYoLegzGdQiukS0IwW5CHvWXc5VEvw6kpD3KbgK+Te4pzfKYBVwQfFSLPuLrXQCnmfbB1pqKyP7jj/DnZXFRQTYKCEDIfc40KF9YPdOn3YFQf51Fb8HPMd50ZwlyY300Gh/QMOwDTOCMtqPxfC0ZneQ2xKE4d5l5uC1/pFNfk2CmWEWJLNkyn2ON39Lq33S6OmISFcClH+PC72gbsvEAtBvvkl4P4UEIH9JLpFDY1u7Lp/xUm8GolhBRjsPbGLy+0dpPwlJ95ZTHxHZAmb0EliHkgW7SKuT86QIt1OX3pCBnGbwqpjZFUIrqAvKpCKD3T05Zyej3tMZ/pgCWNJZIZ2cBg=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "B465D4CA5925A077AB88ED3570CAF4B2~000000000000000000000000000000~YAAQiynIFz+lbmGcAQAApyZ2dx6Q9RoOldWNuW62FXUmkprO7a32V8RRWUv7GL29StV7+y2YlNAWDbgzLCqM5dipw/sHANo5WJWhhOdJXk9A9DZ/kc7yp0cV3QxQg28W85XwOkJ3Wfw8DQEZyAzSYGyQSns6DuZj+gn09TprOxXrfxzo/7xmZSfCbc+oIKnSUK4Ira1O770ehJoNRJMfdbXh++1LlcMQvZSwqN7gXoP83ZrrDQaha9ekIOouvG5wr35CzynJDnPkKZY0kQrXTvdH8JM2F6hfRf95LenaBa/m4xCn6kxeP74Z9BErV6Cfxfnm/8FxAhdPxblC65dQk8ptWZrdHWC0huXl6Rel7CFl+O4IZWnt/n/y1ATwAwxn+bx9RrBuzsM9teU=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "FA12FD30B636C16C8AECAF89D70CC5AA~YAAQiynIF0ClbmGcAQAApyZ2dx6rU72X55cubs4/zBxUgcRJTvN1VTgBBjNOQvOufA7NCCO0DE7IeY87w3NlXYZbmAmANkQ+bUwsAjd++ns+G3MGnZLmRgfPMKlXRgBBE1hAu3R0gTeIJbAyiAClRm253LQ3yCtPPhcSCl2q4uqSYmsUzHUyzf1n9aw05vLqurS+jTuuCBQHPu1vItTT3qPKm20ko/j2VqT+/oVHpbk/i/laY8V5OvaZbskruzwsufYg9HGc/T7k7N/d+UmibOsEoVj9SIRsw1Q7WQIc7/aYQK0PU5fP9y4vmyUDsU/3PnO08dLKSELiKnRMR/4MV7AbFg5DWK5xEwi3MCnJDsiwW65R8c6Os5y+lAUPtjH4XjcSPXwqPNwslnyKWz7bciP8Xa0k~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.769Z",
+            "lastAccessed": "2026-02-19T19:52:39.769Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.014Z",
+      "createdAt": "2026-02-19T19:52:39.014Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_yQ9579fVuu",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_4_sn_113109C2CCBAB575E299AC363BC2C876_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_1",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          },
+          {
+            "key": "_abck",
+            "value": "898F18DF6435A0C77E7D0894C9322339~-1~YAAQiynIF0CkbmGcAQAAqyV2dw8DMoOQ6y6H5lys+KyC76K2LHI/Zk0ormmIi6HwpufSVHplZDic6akkKrgIX4s0dEhbqVegpx7yEUKpsPVByvLlN6U4aCy/PWe2z9cG2Q+q4nGzXqJsBTcWQUmeCm4MrOZQTIHT/ab5+VZ5LPXb79w+0/OlPC70P5W8OfgConL4vYppUfLlzI4p0dZYBzSVKg1poxkd3m6T60fVg4u3P4BYxykUzpSAE1uKyr41Fxko8r9ItrwWX4+JwchLgjpvogjuBpfE9ahvDmSLFzQov59RZZTTFwvXFj9D9B4pDgUNr/249bTTqKuVK5FbiJHTlEyBQ5WUxF6ansYRLGNhqcDU+/3GL4b6UTpOrgztRSrdDR2wcJx4w4G7vP4Rc8uNy1HGcigj6rnKyqApB1PB3HdCu/L7BAxEXD82yNGyR3ffdOgXo+aqGpG/V6sl~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "241556660641F7AF8783739119FE0142~000000000000000000000000000000~YAAQiynIF0GkbmGcAQAAqyV2dx5YJg18oboFNes8Reu34nJLRQOdUORIovQUtkExRgHXIv3ip0RO0K4vdZBxd3bOdPZcmGjpgdRqdBSwNnndjubzXbOA12BnqHaJ5yh6wDviCz7Yqc7orHAt/uTi8FcT2GNHgct+3RpS9RadKh8CTN9q06tQP/8Wk0PgGaLvfMcAuDuzYhqwZ5Nf5HmCRLLXn0mEwsSYZL73pyFyXpK363qtE7RTCKs81XoRajMZgv+Aax29aGvcQ7DBgHQUQp6aB2uPykVDvuCCOWCOTxlt37n8WQVYOFQ5Pnq2Zf4MuDq/mG4kiVjLxbOX29YUBRDFYL0TgpJksCNUICqj/y45W4iprMYRRxQgxEpr0qIS3QmwD8e/NFy6dw==",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "506601ADB1EB87D5419A4A804EF6CC7A~YAAQiynIF0KkbmGcAQAAqyV2dx4sv8rzGGEqz5znHyuayByqADC4IbvssCxQ3er25abEAPP1OgvTKdoXYAQUEFWZRUd/hxuYBn0bBk2iJV+VsjQ6YV1hFcxt0v6ael07OV27dwaSQaoFT8/W5hCTloSLwne/tQo1gqgX8ZcBnoKF3H2/zAkptZYdiUiUSl3V81itz9PcHtEadaik2bGYyeMPNXhq8wHSLrw2nSPbhPKqC57P/wFuGmogolCYFM9L7emXDncE+G46qGkSjc/1IXggTOdD9Sl6NCE3GmXKr/x0FA5VvVCAyCk4rhTiEBCSrTy/dY7GBu90F5auHEbaViwfH+1BajZ/6Volegu+7TKDO3cxPNNsHirJGJMJ7d55gnnJDg+6pAi4Nwr2Mmjg2HCMhJ+n+Q==~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.505Z",
+            "lastAccessed": "2026-02-19T19:52:39.505Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.016Z",
+      "createdAt": "2026-02-19T19:52:39.016Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_D02SyzCqMd",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_13_sn_B6708DECF6F0701A377EB0F9DEC42294_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Lonuevo",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          },
+          {
+            "key": "_abck",
+            "value": "FD8E4BEFF5F8C520184570E343CA167B~-1~YAAQiynIFxGlbmGcAQAAbSZ2dw87q1fSFwBSfbEAV/34UxFH01A6kXZ+ef3CXpWMaFDhsH/L9BZZEoOjchpmS8VC3KqCxCS+WsyasKxRDwmD+/OIALFo1T04DYrFNilAAGiNslPaDGfKrloL2FCYhXJZews50ySpkuVJFVFQgYsdkc62P414YNaenhYepoLED7DQ6cE6Cwp6t/9MfLprh4BxtWiFQKV/0yauUbtjE6ODNoQMWK+sdzo4AE9WiCo5QESrt8OoSFyCfLaAXKjlKa/LR7LDJQP8FwNSo/83XiitxzkGfqskunDuNACVqzWczLzPbr0AE01ueX71yj1PYBq1YI43Wgxqb4A3AoLynmooMPphtiv5UW/6IelU4xgboEK+AUiri+d5+3XdEqoFdVhHtw6WUL1yf9iRidXIPBhLQA+UAYrvs4XY7tDmorXb1qHqqMH5McffPJNJ8d0=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "4C4B3E4369C52E6E59AD32CA8D217070~000000000000000000000000000000~YAAQiynIFxKlbmGcAQAAbSZ2dx4zpLWacwoGGoEPKN/pPDxWU/ObKb5tqMxEzRuoRVyhIqPmWULAV7IiS4FVYf3fOhHmfCbbx/V1hmSRiu+L3uMNaxRGXqhRxEYKlWOOyIOQBBXiVgYoYCAr+DUAQEkRHDx4svB5oSkYToBGyoT8k4iaSvWK+qXWoaFtM7DuXrAU9UiXPQWOKjQNhWVrwhmDnAokiEK/8lGno75dQ57cIONeFQOlIk8dJmPxSSb6YC/ciqMEhWAqHd7dv9T8BK+6x0Y5RHm5aSQNm7qPM9zSNesEFMFXDfhZGamxNN9TzwZxygFSsTzZjYJLc+RJU2y1cuW3Lz+HuwgThxPhsgkF9Ckx6JkzNiFkDud/WohH+4jj8NJKVnMmNeA=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "ABAABD8C4DA405ED924D25EEC7C79D27~YAAQiynIFxOlbmGcAQAAbSZ2dx49E1VHA/cAwbJI8Y3wN4pzimTKI7krxU00LgBx+K66cITWXnciLeWzlLoNbKpH1WMVxi5yw7lyUBKKz1/Vpt9sQJfSF3LttfsGw+7/sBEv2I+zdXCVPybAoDj7WB0LJ74D09B2ykX+oJJIJ3XbHbqbKSDu97e2CtgIvcH6Wwr9n3B8+1SnIyLGnZXPGny09XyLzz9OvyfUDqqYRKA6cVFOCPgg2Uklso6nafiB0jenNGBLeMLJlGoxJHc0gIwRw5J7oldmzrRzwOVq+Nno+XhQM4UEs0Bk+SLR639K8MU14H7E7NCOjglvkPDo5kQL4y/rJly4ZkbS/hZsmufNMEpzHhIi5GloGf0eatqHBOOAbUApXjRTIklBZ1+aurPJrIvn~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.761Z",
+            "lastAccessed": "2026-02-19T19:52:39.761Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.019Z",
+      "createdAt": "2026-02-19T19:52:39.019Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_8U7FKgfcaO",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_5_sn_7AF30F1B28D0199658D89480B18F540F_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Lonuevo",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          },
+          {
+            "key": "_abck",
+            "value": "15C476AB021C50CD4C9E68218AD6F8C4~-1~YAAQiynIFy2kbmGcAQAAoSV2dw9MRalZ2pinWQa87p7u+WwLx8QZjDR6/y5FMZF9fobYHVJCbfL62DK+FUd/Qfw5Gbq4S9LG0LFpQT/+jSIyRuOc5222BTuZV/eWj/1SG4Kea8YX5wCKunH8Qx0ANS2cuQcDQSXJjiWPlY7iuXvPNzGmZDGFo9w3wDRZdzqaqdQC5Y7cg38x1YBwSoLoBxC2R14gTWQSWkacHjXEtF4Gj2FXT63Dj1WVTjUdlhmQgIZ7GhKw63fqeWwvtCOG9snJw1MFiz0aWbhDyOWJlsejZIXHWrulimV9kQj1fv43Wb5Rjs90Be9s3zML/89K680gD4qsZgX+h/VzZ3lt2uAlg6QfoW4gxarYm0qr2GctznKBSPNEn2VGWS3/dW7Y//eOmkBZMAeXrNiFzRV6/1r3fagQvuI//w0YimGNnNLlIT0VXw5+0Cusa2IaY0lw~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "508862CB08C1E9E527CF18A06412081A~000000000000000000000000000000~YAAQiynIFy6kbmGcAQAAoiV2dx5N9fojXMerTFbGFll1jhWEtdOWbL1iGmY5rKEoQk51X+SOJB8KeY+A22vRAyQnCQZC6hGOObwUQAs3eq0iv4wSVH7K3V/kLBrtInr/9hVUvip8WGNT/TDDHS5NdmmvpYGq/Q7XP/pvQUTzuYYwHYaSPOHtAgFueG5fRvm/sd7BJtJ67H2hVU1Vd8bm09TRWzflhUlCVkebigXdpgU1e+it6Cu8k/Zk/o514M5SQY8AEK+V0wFb+hcKcOvGlQJMh/m22FHUlwx022MrmhG/SKh8Vv4HBUZVw1iHiRDK5CeMfDT7WsUX72X5KY3X3/+Rhn0EFLbj6JNzvu2DpRVIT8Nd1RwpQc5jP6YKcTlNmcYCGv6Yk/8vE0U=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "11B57BF00347BD7E8D1689B432A04C41~YAAQiynIFy+kbmGcAQAAoiV2dx60oSqy3xqAPaN+Au0/8/PD+1DbGHGmvAT4V1MbZ91VFkn7X6nfXb453qUcZIws5kgy3CEUJW5QcFUnBFpPyTmPMEKU+X8/lxWENjOW122rKFNnHbNZXOGm9AAqlPHOR1p8LiIAVOoPft3arObVnouXwBt9PzojxGOCDSxfofyD+FSKQgzCxOPio7e9zPrf7h4irvv1Ofu5tG4tNcmgE7tFQxWjuDd420iNUZgu0pQocOenmiyqurhgluTHmF4J1mqFELYhq8l3mBz539n8lCudYAnma8KBVKs5H2ARpW+7EkwJr+8vN9q+IEZEGeX0xhBDdv2cUzZfl6rQHGRdffIxQG2bedfZTlssP2oan7/w7SyUt9iZ38mj3lWLrMVv43RE~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.500Z",
+            "lastAccessed": "2026-02-19T19:52:39.500Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.021Z",
+      "createdAt": "2026-02-19T19:52:39.021Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_VyeYiQmZby",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_14_sn_E1F48D0C2421BC36E9F3A8A49B5DA076_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          },
+          {
+            "key": "_abck",
+            "value": "784A47AC88C5E0174D129FBCBFDCEB48~-1~YAAQiynIFwOkbmGcAQAAViV2dw9wtY9pGsWNVh/xFztz13yuHt4kE2REDWpxJ1TSjguCGXittcJK9VBX4TD1Vsjm6zq5TS6YSyQqWwMvDz/mV6KYWzX5C8S5s/iTnqq+Q44sg02wwczq78rEyYv4nz6JVu9a3sriet73LLPxjZ+lre02fYbIMA10upaPV5uuPjZL156BX/wVFy7U13SAloofGXz/XWKpuGCuGdJjxDutPgDXGBhC5o86LEUsZpLQH02gXtfDQl3jeYiXCICp9J1t9oT0qoFShjv1Wm6Jam1/Orckj0d3nUpaelblnBvsQmP+CMEGvBPIjxuSLWdH8H6AlPlJDk81PHFm2HjCwUcSuUS/mcRvqfHpi6Xq+fxBbItJ9VKT5+WLjqyxLtyt669mJiOsgwn4gED45xigLS3kXv3D/nJI2vJ26Zzt5Q6T4NjvEi9yq8zuqyOCMsU=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "035DD0E42CD6EEDE97D784761E018F9A~000000000000000000000000000000~YAAQiynIFwSkbmGcAQAAViV2dx44to1AXV4o6c3k7zfoS2JvEiempDfxy2ZFiL3CD7LtnXVs0UmI46RWGF9u2cju9Zz3Og0QsIc6G8aWWUyfzbLrYa0l0x9UeUIRIrv2VblH2EOkgNGbWW6luaFrgx0CMF6e2bTE7y2R+yoXIl2PG1R3LzXH3D4XvmodPlzCBXAZmugjfgzoMLrymbuv7eJLVKAaKRBWzp30BtO2EFTbKfepHdUKb/YF/iWHBPYQoPGtKu05rxA8zVwzZYR26HC5h7Ac+3VvGIZwW14Ul7FLDdLCE+wJ0rYnaGysst5DYZmtpvGTiDs2s4gxXa6SHghHpTclNxmRPBD4mVoaZJrkc+BmPXnbM2COQo3QUrYI1c8gEFFknh2A5Q==",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "6795BD2720F63D4F42C78A5B4C313DC8~YAAQiynIFwWkbmGcAQAAViV2dx7J7HCsFmO5AzFDcMkEaxhQ0uNHa0hlG4hti8cQ/LwkAXAYxWYSJtynPE5A6pi8inxvQVl0JopOpRexLorN6MY8gRyoDqG1fIGQUz7jv51pdPP2Mjg7qHhH/vNlR/LLENF4w8oFkzE8I4VJwLTLHTWqZ2UWO5ZIjsfcGPQ6YpEu5Q4fOY/DYw3WfKk1DED/dLyHKuyq1+wcV+QF9hK01y0fk5oOuWfpr4gUxLV2M18Bcg37cN2mNrtUpJNE4U4djurZcg9NOl9v9CR45RGghY28jbRpINNsKqDdwwzlA1ALv5zVOUynzBTKnlvwOHvqVStSB221oEWr/L235QgTaNS4ScVrC2OKusQmegV+U4mrF6Qi5Igo9EISGM+k0NA8uKHNnw==~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.433Z",
+            "lastAccessed": "2026-02-19T19:52:39.433Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.023Z",
+      "createdAt": "2026-02-19T19:52:39.023Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_c53KfwWhG1",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_4_sn_C0A433E6710E7854E24AE79AEB8E5682_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          },
+          {
+            "key": "_abck",
+            "value": "F93BB8B365FDDE02CC1990DE828A0B72~-1~YAAQiynIF9ujbmGcAQAARCV2dw/YaxRDE7MXQDSJ/MBi6XyZbQpIm1txDTUYU06rOixUwQ1qOyYCjrteIuBGP/9Y0yh1aYHdwX9qxceVa7BOx5be2+/Ci0kAXeCKFWpiIrAtGNTW/EL5XAZth7FLMw/6TJ/9c+6NzzW9BXBRFz6Six3Cqy0rG1xw1GSoo2T1mGb7RP15/HuHVecwu8bnvlY7P14hWpKLMJHCDUcviqGoVQpF8sGZwAKUUgHt2TmJR1nsQ+Loif+h0xOzU9XWUKXBPNeMVrmzjLLi4IvPj95mzdVq29hk5Hl0hFyJxG2BXp9ukVMD18w8enH8FQX4a9/yB7Qzxyu+p4YEky31nq/4yUt6KPl3SqOUUYGpx8b+g9UnQx6G4LFPhlVGmDnAU5gGlgzWIB5nh9UOJp3t/pXusgOvQ1hr4TnAsx9fuYuPiFAV07wAYsqbaJTFFO8=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "2583C906B7B3D2B2A916D19444BB8AF4~000000000000000000000000000000~YAAQiynIF9yjbmGcAQAARCV2dx6FFbVTD48jm3So74xqB2eFbmSRWT97yi5Eu4SIuyk7ESdnS1cOir09kI5S2bLyc5W2KcwWKKSqBWcgBuSPrzRYZLCZ6QswV5SLh8T7OUVa8GXfCZs4bmZUaq2HOosSi/Uzmc4Sv9TS9A+VN22X+upIoQ08D6OIxWOMMDY9V6Dw0+/vTm2vVF2RPrFba2CQfQjk/vbIqittObZKARlhmfeouabS1jK70H7h3zQq8oyQnK6QOCAYyHuxC+QSN4OoWSWtsoFHIVERWKaV7Ad0mKvfmAFAEihhCUewuaB2HEDUsNJKYHBb3jfoknuac1iPkEGOEixHglDZkkaolUNsok5I4W1cFBTmuOsoscITNOguqjCdDcV94fs=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "9486A1091439B5CA9056DF1858979F7A~YAAQiynIF92jbmGcAQAARCV2dx57Q8Hyy2aURm0xsAhMWnQ4zhRpAbQJr4retshinMlLUPlY9qziKaVRuU7iribSJDQDjnU34pNeGJlRMNhbqqOYEZ+A+blYybzPgI8EDTOo8m5MhOrsz5SeB/z2pQBhgCeovZPXA/F+WY3qZ/g9MayCcYtAZ3p1L8EfHGrvXKlR5Zy5Hci3tjnJnGagvMvWwRprtLd8Kx4QQj7RmjVkMvZosa1nJLKx4lb6WFU0BhglS/Kzcus8wCH/hiz3vU+3HK6brw2rCE3nKia1eAFnsc/9v0fya7GURlbMQHCWXC7dTGbIMnzkDU7UMVipwh0MSw5/KT+Dpfg8kbcsU3/i/cf9Mzc2XJmE3+YhoOCUU/5eDaskQWEkO8gUvDVfxGDWBpIr~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.424Z",
+            "lastAccessed": "2026-02-19T19:52:39.424Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.025Z",
+      "createdAt": "2026-02-19T19:52:39.025Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_Z7hSvFSZ42",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_8_sn_69EE9D315717B5FDA0423C41742ABBEF_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_1",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          },
+          {
+            "key": "_abck",
+            "value": "5B4F29F427F2CD8786BE4F66F30E0C6C~-1~YAAQiynIFzGkbmGcAQAAoyV2dw/WWJO7KB65rKXgtCWbrl44TZREpnDtpg4avRogJjp+fywOohtdl/yKuLNOxunbPDrAi+faAtGaWXJUUmkVzjJpU+6SskIX1Ffi2+mR0Rql/36EoSWDZ3zn8j8wbc1USI9BKyaJ2vOk+iUNYV4go/9z93VOD8Owptmx+tS2AxNACAOjOb7ePjrQXGS9g0C0P09qFZbsg+d94IjsTJjOh2mAhU0Y+CiuC+iULSMvFNbGD7mEfjcmQmc8HWCAOTj53JT8fVjEWNU4Ky4bxM0xhvA1VsAgE8MPV+9Aoz83Luv9fnWH0unGgvWRWOyWaOKdnHeM3axGZ59IUZUfzZ55zyZYqtibsGKcnDb3PFDlJthv4iDA9PsPOqdlNi3C/tt1UN+OnpP70G+YVzu2c/hbDEa/hDubsplLz3NuV0bf3NK4WuSF5WU2ywA2HYI=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "844A5A244F58F6EA98C662BB7569410C~000000000000000000000000000000~YAAQiynIFzOkbmGcAQAAoyV2dx6KKJ5UGIzv8C4HFZNrTYFyKGH8dWXbZNKjuSQXU3RFRMoPURrPx4DQLUlL8vyFbJ/2Ar2PsCvFm4e/cWqHK8cIMs3X7gJ84aRNgGENv2yxzOAocTML7UN/SGd5GiVIjR06d77oEprdVsznWNzedgR06kfMMrDmY3lga5XXmt7vwQP5XyiM+dIm80Fhr9n7ofVbE4uvw3v8Fz5plxQSHRHJr5/QJgZ7pA4R2f/9J27LXmz0L9A6cA/gL5PLns2hSW2Pc7tnLevwAC6IMzDP0KdlN4MT5XYDdpm5YmIZALLANoG//OsB8Yf0Q1KZMV/++3N2PO6HgYaVOoUwqSLwWlHXPNbuyglI514Qtahm5Xj2klWzDorOmEw=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "C214BA7CFA668766D1CBE882C4C683B8~YAAQiynIFzSkbmGcAQAAoyV2dx5zNyWrk76X5EWK/70WRMAkkXOCAp4FudjMK+TSj+sW7JySGEuELswcEIlHl4K+0z4YYqZIvDTsaXiBjvjCQCIiyVabaytuChCUIUHNmGFrFMAX2CmxuJqHwZ9lMTTVHIxHno7DCnv0O3sD4app/s/dGq/6IoG7bBW6lH+bP4gp2s9H+1MxtikJITYoLKs+2CWw3D4UuObFxu5Lydc9OB0iGc5RyHoF1wqrLt/U8xzBc2oN8HO1QNcakyh2+eLl2P5Sc55/0244Gw5nVPhdO5XezpgCXl70Iq8YHrl3GMdXEmXGpWNENcmrn92gwfk1LdMRJ8kK0PzdlotQNf3O3beEMu456XCA4bxkt+WSsecNKN2Q4QLifL2PdX0cUMQMwXw4~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.502Z",
+            "lastAccessed": "2026-02-19T19:52:39.502Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.028Z",
+      "createdAt": "2026-02-19T19:52:39.028Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_n5xxqJ0VW5",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_13_sn_E870EF01F665B5DB67516675A59F9925_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          },
+          {
+            "key": "_abck",
+            "value": "3D734C6F9FCB17DE3F1FBBA01EDA7657~-1~YAAQiynIF1CkbmGcAQAAsyV2dw/lT5I8F+IcTkFQ0Z3kwjUgUmp6mtRhH/wXnfDKnC7BHEp9iJf/ph3MKPifsz5/P8BdF2Iu2XzagpHSaEW8P43q7wf34jIe/HH59+xPOHDdT27yHQV1uudRdMt2DREwpxNXUy9z4sLM2180/QksKFj0IovHbnM9ARG7rrISM3sOZekrE10DnTfcE8V4QGwplgY+6NvND8vY9RYIAgfc/+CqT+kkZDdpP9KdSO3/Y18ZXKZ1UjaYYeGJJ7u7ErsQTKK8CsozBuH7UoxDB++WH00XHC4NhYz/8sPB24D9IkM4e8fLxenJ7WiIZ886MjDwsLuDJF508wxq+og7ZtUsyzmGIpJG7B+gYIBcA4FNTCI3+E7sEVBf1CEwGhCuIcbnEpsNnmtz4b3HPCxp6EZ9mA4uQ0X0zByLjV5dDPcaudaAcfHcH630tL1sX10=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "C4F7215E74C82057F4C8BE50B599C93C~000000000000000000000000000000~YAAQiynIF1GkbmGcAQAAsyV2dx5FKL3q7RQ6WFUjLnX1HUo8WJhWGJBZbX5KiCRDwxg5DBkmOoCkIZRKXXQIAqEhlzQAqeb17lZyEhA/QSUe87Rscg1mJgotfvvixLOr3G7HAvMF1R4qyuLfUDYXPDth2wT/2eve0ff/yOCgTydk6tritUj8oAajVbgWt+RU88UT8PzL41w4VCSx4HW5cOW78IjlSkqFWedNgCvlnNbNY2v6EeFjmTV41VHEm5VGGxrwlQ16WyIIhcgD+vtL0WDSwUXdW3YG8kgsB+u/MBadImBuITi4V75Vdp4oxFri4jL9fzCp6W8W99FyTJf/IlgFM/yIrGEu6IPyhHavUxlLPtmjFKFoMopF5R8jK3zLRg3Q0DmPJhNhTi0=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "13B775A313955D7DFA9AA096DEE0FF8B~YAAQiynIF1KkbmGcAQAAsyV2dx61FGnJS1ueL2kETJm7oy5bTX9mrBqBv7d14JbT4pkIiDESN6FVQTqdlSys63zOg5RqmocbnK7I7UileL8PqyyIQoMZjSC8u7VZ5YvN1/2zQhwc63dUt4T3pBgsaY9ErdjTNCBFfTDv+C/4u0O8gLNjNfDXqqyxRxgcEXprH7oYWwIdhg18IgJdaoqkFz3jP8eS69nidBMvgtOA9aLuaWEhxg6d/1NSRIBwudi8Kpqr2XAr69dx84D/iOrbmXEq9ZjjwuJ7a34PklGWVK0GPA5WBEdW82mYaDSTWRXs3dPwcoWbkKKaLidl9XpPX5CsfASkWSt87AUSxOI8hF9pZpEN4U9iB/xjHvB/XmqbTTl110THN5bUblSUjY6lyiyrAT1Y~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.514Z",
+            "lastAccessed": "2026-02-19T19:52:39.514Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.043Z",
+      "createdAt": "2026-02-19T19:52:39.043Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_im8toA23SH",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_5_sn_99C4673AF3996BD9706617D53AAF4E01_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Lonuevo",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          },
+          {
+            "key": "_abck",
+            "value": "2126A2B4DC35CFB579B299D41DAA1DA6~-1~YAAQiynIF3OlbmGcAQAA2yZ2dw+1xrn+fDzC+fDAh+HZsbJJt0/1bk9D4M/boJnAamaqK0fXVklVY20M/sprFGZK7ju+qHVPS5FoirAFvwhHmFvj0t81dfRI4lwKE2+NRi8CUAx1otP4fHz81QmsuuuH30WyGHybhxJHH3QAnTEuV+ufHS8Of2XPbAPB5ggZ1FpTl0YJowzujDK47t3n3wsCqWm6r4xefU7T7XZ9GLaYu/PtC8lCjjCyO4SHqkc/IN5NclCyoQOx47lNCbkIWd7ogObf2OigXTe/gGTclWOP1i4MgIoelfLHXVi9ZfJabIdFvvOmI17F1BliSSPx3v+1rP4ibmaMZScZn0LY5popSsWAEXfcMskljGNAZdHgZUprE8YQLvILgZbBCmDoK+ows2n8a5PHSlSAGvZbxszTRIad2LIEBOsLyOzTj4qAz6oZp5WxiHzNgHCFHns=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "7FC4A310A32936CDD87299C9B70A3D27~000000000000000000000000000000~YAAQiynIF3SlbmGcAQAA2yZ2dx4hizUmBq9W7YgHZwN6bXgjArz+nWrFp1xZG7mkovo/FGWuQ7k0K8A4m5zNoh2pXkP1RgRH0HfsR/z14i6Bf9lSjZGTe60NTJAe99VVXnYz7MBEMhW7/C2gsG/S5F3uTsJkcUZBIz80X//ePmuqUw/BySKgsKiw7AlrNnsdy+AI5rO+PdjSMRhcxxCdVumPL2TYvww6jCB9X0q4I522hkx2kSXvx74xIObYM4C8nptKKHTdV8z0yK0hgg5yKrRriTVqHjnKdhccsp+GJWv6P1GZtMIggOyyvD9ouonY/AgJZuY+P/ao2MEJWEDhpcd1m1qtzioAguHUlNdyzVQuy7+OxAQQ+42cW0Lezpyn6KtJITB44AE5xW4=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "7A2D687EF8BB55DB64539547F78010E1~YAAQiynIF3WlbmGcAQAA2yZ2dx6Mo9ISxGr6r1XJNo6dl70S1Z1UlPTJD5L9/S1RQXQbcYdOTFoHMF5n5GJnWkOAuSBEfEEKQsyOakN1QOohzadsfjgumcaopr+qi112DQ2hS7Y38A10Oy7vdBsSIOXMNjoJpylNBxSGm/FAra1dzn9n5tGHB9ZbbMEqME3XmSOxF43LiSqAoOduN6xP6vw01aWqc/o9Lze9HFN4Dng3XKJrSWhEqC24CNpPk6GuvPYp0t9BsKVM2fYHzaAUwfpFwBVJXPzihQaQaCxvFqbudTyl+0sfJvqLGaH0tv0z0Rv4K8JQObUY1xxtEU/iRj4q04sg9aAlUZ849isaHFwpMrtAR8IwJERiPKbvWVKFO582UUNc0XTQaDtRhuPZUHJgj7l1~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.807Z",
+            "lastAccessed": "2026-02-19T19:52:39.807Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.430Z",
+      "createdAt": "2026-02-19T19:52:39.430Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_iAzSDa0G7W",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_15_sn_17EA07B41730FE780AF8372BF65BA64F_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Lonuevo",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          },
+          {
+            "key": "_abck",
+            "value": "B6EEE8B723B8376BEE980EDC3B49B4FB~-1~YAAQiynIF4KlbmGcAQAA5iZ2dw9E3F0G9YWofpbcfmd4WvYmopZStIQDbnNMeYndT6Jh8pyLHJPFbrGy9TlTzKotlVcQgmuTfA58z7nwo08L7A6O2SkZON7/vJMjjEWGST82kPv4GHzro5jfiDCGPlVOKlsqdUrho7C1r95BXI83iW1PsdU4SnUwTwBUHYrZfP0IEc89HiNed0FbGD9UfcX++Ppycj0+hGMYsg/si27c9Q1IjO7ZpoSu5vOcMHI3pfGxGPrE+7CFb+IOEv2dC3VyfBSSgbQxYp9Enxmt6CrB/lk4m8CA3BfFKoFiEbU7y+Jj7JtqrrWMa1p53L7b8+SzTC0/9jelE8xZH658E4Zu4h2dBezjYOUNUhiSQzHi4WmNvjnjc6EuEPdn44ISJG3Ppi4auQoivrJuSCMgEVLcO0aK+zCtxsyRVaqeMGMeweY2Dr0rGBJ2lM+wslA=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "2BDE0887AA7C58B7D30BD5FD32D2EAE9~000000000000000000000000000000~YAAQiynIF4OlbmGcAQAA5iZ2dx6SpDr63W4ZZHb+YPA3BZSX8bSWg6NO1oFncEby7wq/elz7jxJ0FBN20oytuWcjaaVsgZoEy0t5FroZMnhz274Zj7RdI2sH8BFmvt2ohacSlgg2CrD1U3W7/CH7/awHtEwNvnfiVdddzuPge0EbfL1iYBqTzGt80/UO/3SSAhQSRq9WFys6XXHpgIbMUX9ADtboNVatEtHvGsNcYzq8W/k5YUde0FF1/6SOXUsiYIxoR+AKJDlulzDEqZ97RNVn5T+P8Bs56V6hbErD+mgAm/1j5w69qSwNzsJWaPm1IMg5nzqQQfwhRD63JJceLt9WeMJZ1dBO2veY4VI1+E8+JcpQyT9YpTWhgdOrX9GprkePzS14GUjfY64=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "AE4AC0CABCBF477925795329B7533776~YAAQiynIF4SlbmGcAQAA5iZ2dx67bQNJ703GcMgzPOBrdTUu2SDwVrRycO8ZPG4o7/t3Fml9UWmNVQBxJOlz/+4uf3qBqgHE5krv29DW6ke4yYhTQ3KVe49WoMB9+IHp1D9FitadFAugv1tjjSMAEstAwnQDgmt68KVsz1xhzO5j8sM9S772DuX56DErWTMQfMffu+FSYfzNAt8jeWgZb1BifSHhchIjbWy8akCyc/GmqxxcPwBYW6dqq41Jgcyp4hcsZjklo78vbMXZxo1MD0pm4FAWizxk6KPYV2aOW3EV2LyBdO8ZpyoMVTO4ZUDuXfanhyTjM8JR202yc4n7oTKnVM88N+2RYRhTrDBx2ob8IYtx++UlvWSUbfL0CYnIUu/qKHs4eIgDovv3lZJgYl2etL45cg==~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.818Z",
+            "lastAccessed": "2026-02-19T19:52:39.818Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.439Z",
+      "createdAt": "2026-02-19T19:52:39.439Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_33ZU2WLfL8",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_12_sn_04E0C8A45B9D9A77705E7189FB7D8423_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          },
+          {
+            "key": "_abck",
+            "value": "96245EC8E3AD98175927A1186710EC44~-1~YAAQiynIF9ylbmGcAQAAVid2dw+t2ELqwIhuD7JQUxBlxDOoiWS/5b4v8rNv9AfgeSoRq3GUoj5vkabaOLTZUQMAKQQzLcsqf5w1GAfHCBlxFNu/AeG1mkuAgDsNu+yE5rDf3Cj/lX6SMUWChO/kSCRcQ16cIW/fbi2b3slhdTuAMP2NlOyShQygLhKzz3Dk5Byp2/i7rk0pAA4AtkYEpsfz9V3VmoYpG3ym+AuyszIeHTZkVpI4GewSKZTlj82Z8GTXUxuqsiHoyLkE7ggtzkVbOtlbHVsIKd8LRV77yPkmPqslugCvbxatjO7X7Op5hGlVL5qbfnOkQhFWrRRPpVxD8jWPqxutyawR1OMiancpC9G0Fy0TT0e/NZODz4/9IOxlhSDAJ0RIOwoUIpeYa+QOeEQHOZNbMy8B4dCN2a+/BpTtF4QQC8HelhFipvv4+pxs35cT37q0y6PO3W97~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "FCF024A0C5F15A5C755DA9F3B116DCC5~000000000000000000000000000000~YAAQiynIF92lbmGcAQAAVid2dx7Ms8X3xVN89FI55whmgFyaKHimYFhcX7i/KCf+PlCxKOlFNwQQLmRRO1llXjuEv8sfiFPqlBi2dznEp0tp0HrS5w8LDDLi50JiGFjIQUXBwO95Hjlkwo4YSVWSc4XZUM9eZS4tWij17apm6BVm2KoIZNayjYo33rr28VFUGdqmtehyOhOwnudccKSI4+VFnLU/TnVPuWAe40et7X1twIc/AjxPvP+TGVQMt4YFZEefPMOkY/y2RwZX58VHOyaXlDIwnFUMGvi+1ASXrbw1RCbXiSWm4QJu+X4mDt/RrqKUE9lWynSrmhfPjY9Q/WvQiyevMIumZbH35faSC42eo5t5OyBF2OMy4DD5D24TjkTbezPvl6whtg==",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "FCF4A494E0C737938F86BDBC6AA789F0~YAAQiynIF96lbmGcAQAAVid2dx7RG43Fc1gVrAA789uUAXC1T1Z/ROf6qKDMEGUcWlLpKgdEV2Q+LrR2g5FLzXb6Zxe7huNMeaiU7Dp87uObsd9g5OW06eHt9YHJBIbR5/JD7Li49qFTJRYCMUxhyjlnOpNRGl0Mq3PT/15cyuiT9yvHzS0Z1caemYimbkxwZTTkIkhrdKR6HIL41/lzkFXgaULzfas6kYonlu9Hz0xJPoguzAsqDKVp/2pKZoaJ5HTylRFRIOQw0WIwPYZSVbtn7wjyt1+LdpBNLudm0FE7DAEd+NoR+sUACheH51Hnop9yoD76Sb9QCWf81KI4rhBcm4jwP7CpHHk1TusUKFWWTG1o9r3eRLmmVrOWYr0MjYdg0WFKPX1Tvarl3LwjZNzjUeyd2g==~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.932Z",
+            "lastAccessed": "2026-02-19T19:52:39.932Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.511Z",
+      "createdAt": "2026-02-19T19:52:39.511Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_3vdnC89kKf",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_12_sn_F205B30B08070C991188729589F01608_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_1",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:38.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Lonuevo",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          },
+          {
+            "key": "_abck",
+            "value": "63E8B7988E7AC2FEB27E8330D098448A~-1~YAAQiynIFxymbmGcAQAApyd2dw9hGMPQumtv7U8F7bxKSW9DjlyzylYMZMUhKWoJhqEHZ3+KnBKcGbykFiaB74GVSaabbtjGQ8FtRCO8S4Qc2c+VepYt4vjSF3FrE+H6Pvlv/4fZjCTbSOSmA1re6Et9EUhe1AhuQALyD8zuGDMfzgLWK68JDlS+QyGzme3Q2lDsTJ+P3tg+MrkOPBPJJqQo6gfIQs2meTtKSMpklrVrJoF5avoSkCMqhCZV3fGxXkM4/I0s5HBjKjNsI74cl0lYtyt494e4ctKXoGuP5uu8a5B+tBuHPRBPNhiy0507ZkLhY8CKDRFAIf7lwyvoIoWM6RowC+/QSU838I3l6mB+R+jlMVxYW43wnqgmSefJTMmKikWZIA7Yr0iZjef0tOqAoZjhCFMCHsM7HbHLnyC5UHXjfC3qB2qRGVfrpUOwBJ6N3moJSmWkQFNAgaA=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:38.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "1D92543F56193C040742EDED451D00D0~000000000000000000000000000000~YAAQiynIFx2mbmGcAQAApyd2dx7Ny+JDQfJ2A/ycvkCKnOKyEY2IXT9293fzat++btFvfr7XzDLOfpfvUmZZeOe9vKYuu+0AeV+yEAnbJReF15Fqm5r3uK+zGHBwAWaLF0C6xfjoFVr+bEXV3Vt5Iwbl6vzo1c5pMRQTp9tr6XTnVuoBsGX9JuRPe+Aqm1Ff8S8DWYKkc2tP3WPR8aN870ORI8B7Hl2heI+pcduV3IkliOZSzO09k06tnfZsSw/Aag5W953YXGnlVpGPP6jrXRbcjO4lKKduukdORvRl9L3e8MVZlPXYE20/vzmMQgqawC9PKmZ5C2B74XkDqa03zImv+aA4k5vpxiDdEmNq0WROqK9nUTg/LV90tC3V6zU3yxIRG9umu12It2w=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7199,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "C49B7B676874384A176B3734F0456392~YAAQiynIFx6mbmGcAQAApyd2dx5TaxTxwgyDQhvvimjKaJMO0tOcASc3I52+eYhK+KGdPHOchtK8iUV9XBzmi/jNLwLlAwfv5Od99vsWoW8pZUvkqRVzrvCKcVuRyQkjRJbz/I+2m47CL+I3E6etOMj9Rnn2v7M5FJ/N/CxAhBb/kmTFnICAoiJ9FaSv1PgOWfFym1+c3TNPyPoZ0UmyuuhyWPKz42kDQhEBuqZ5ssDjrmVMmRsWCYnzOUuTv5uANprUIgJjjpiH2x2f0QJIbTDZSjiUphkFVnBWDA6Xr4TYAsRzIqWoqTO/mkZa1H0BrWtzWAGp/Z03A5hqqada1VrDKuPPE6yfyo+yppryRKcTwnImPFU3OpeUyxMdgnbiev4Oeo+aNQBRw23QFkxxRz5pZhOF/g==~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14399,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.018Z",
+            "lastAccessed": "2026-02-19T19:52:40.018Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.516Z",
+      "createdAt": "2026-02-19T19:52:39.516Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_ZsGA8hEqX3",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_15_sn_C23FE91948549F9E8797EB5FA0B19538_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.009Z",
+            "lastAccessed": "2026-02-19T19:52:40.009Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.009Z",
+            "lastAccessed": "2026-02-19T19:52:40.009Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:40.010Z",
+            "lastAccessed": "2026-02-19T19:52:40.010Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.010Z",
+            "lastAccessed": "2026-02-19T19:52:40.010Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.010Z",
+            "lastAccessed": "2026-02-19T19:52:40.010Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.010Z",
+            "lastAccessed": "2026-02-19T19:52:40.010Z"
+          },
+          {
+            "key": "_abck",
+            "value": "7C861AAA6068F2C90C41BE943802D9C1~-1~YAAQiynIF9+lbmGcAQAAVyd2dw8HrRp7nxYxqK47jjjHOR4aDLT/uQxVO7DXq7E9HN27uOijKrNYbQSP0OU7X7ahXpfdIDQR3ucmfarV9prHOgDUYra7P8uWEjh9Bg+GmUG3VzWhU+raJd8+V36RANcE7LaQW4bNACl1Jxs1fO9KItrvHStGGCSvmfFw8zguB+/whaBM8xCbL+Dxv3kRcEZyJbxPs9JSiHZCDzegc1kMeSvH0CvoScBwCwuNyy7/N3CleYhTUAOq6++agA/ir9Cde56ZbKU0K8TPAPcgeeDIrM41HruVIpgbYRuGjg83gkXwGyzoH8Gf7t8Qrp0RbCi5xe7PB9jtx13BYat0wab7H3inGXr078Uar1N1jEoPVxGFN4nn+tdiFvXMLO4mCJIAGLcHNfYav7e/CbckmrxGjZKn5uEkrRmD+y0K4WN7iRxaofgrcezEqPUOjy4=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.010Z",
+            "lastAccessed": "2026-02-19T19:52:40.010Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "7F4168DFE3F462275A15C95E6F98A620~000000000000000000000000000000~YAAQiynIF+ClbmGcAQAAVyd2dx7hEDW3ke+8TDFaIb1y2lEcMj8c58QVv15TwPISlwAacO+dUlHkvm8za9gHZAFFp9N7VJ3Cmr2n4e6tmHGW2Y5i2O2N+Z+5EeCvXVBCutA6Q+of/w5ty+NTkU5wcMdZK+QNUMfBbuR8OFgHi9nZ4yfrLfQuCv/1E6xdOrkJTZaSPjoiuISrjgMQrTAWT2bTSudF8Vw625T3za8osBsG+xOpKIthSUDW9goBUsz6gj7F43uLzHNQjoZ5rjlIscUz2alk9X5TdxrUARCpSOmIz1o0BkIJ8/4KNvqeIHaD5zOViUy5xw2YtChq+Rr6+oPOb9CJNwY1pbZfATR6/TkC5RbfA5hy82tAkT3cU2xls/1aG4lMFExyL0s=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.010Z",
+            "lastAccessed": "2026-02-19T19:52:40.010Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "BEBAC42C08245D4BD60EE5D6523A52A7~YAAQiynIF+GlbmGcAQAAVyd2dx5rCo4QuJPJLjyDNnWc3RQVdluXiZDKpGWrxveqv0qcXUpPpM9yAUx6VLnhiz01mh845jbUlvP02NIxm4GMVoMjvBxKrOrZZ9ATWlOh6w3sNecS1OHGtxhA3eB1G5TS5rfa73T/YqQIxvNItxGqsTplTLQB9/JVIcDzmZM/9Aw93h/mrN+niHywoz685R1X/BXtMRQXR233KeMP+sJWl42CwBc6VN2KoFkbTsK2o9mMHHDqaJRdn+jfOYPMP4OpnwODCLDtHQtWeS70MtMpjgyOIejF0KFZCiD3JomFNAcWkiFf0xO/nzaG9WT+zpJX8YyBIdb3b8cl0VmsI8KYWDQ/dr66lNY1SyxF0XgRg3fowZJTNv6oH5NOuP6jUV4l+4Mm~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.010Z",
+            "lastAccessed": "2026-02-19T19:52:40.010Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.518Z",
+      "createdAt": "2026-02-19T19:52:39.518Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_DSIg7otW0x",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_5_sn_478CD6729D7812E4FF0EF98CCC3CB8A5_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:37.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Lonuevo",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          },
+          {
+            "key": "_abck",
+            "value": "F9D29F2BB1A0F29D9ECB02DA0E69DDD5~-1~YAAQiynIF7elbmGcAQAAICd2dw+VSiIpkuY3u9pCOO1wR41gDqhXXxwsY+FTWDrJEvMgoRSSjtkP7J//nDmATeRDFHrVzRANsYmJxICX4sATmKgGjSIryHypMc5GBakYgEtRUi02KozWh7JBWKcNgjqzix5snaMT5r3Rn6BBOj7X2lraYYnBExjC47EuSBlHwTpiEhZMuBvw7xx2bhudBYE2aMz74a/RfZHajU3VVl0T64mmbHrWRb3YaQv66FEgYchMIZ+KpaXa5yMoBEZAh901DbbHq7Hti50KUModw8gDCXR89qHNE2lhXRHzr5IXbkYPv0oVqKqFkMo34zWqiYIgDE4/qPmZgMPLqFnszaFMPnQGvSw8Y60FXZQ1YF7RqqGbAYmHu5Mnq882D3ebgKLG9kUpOepEfI5meXmmIF1wm4BU/i7FkTez93BEWQ1X6+CJEBFWveXvN2yoeXY=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:37.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "ECD516D8E8571F350641084ADEA97AA6~000000000000000000000000000000~YAAQiynIF7ilbmGcAQAAICd2dx7YpUoDzquvdPopXxaGzRB8BjdGck6rinwwe/yT3VC30n4eeokXnYdVj454YsM4opa2nx7A9ka00pCYRNrSnAyQNd1zTISgF5E/4PicGxECxWzBTR1LK1J+aO1PLkFAvLvNjpsKC3Kn5htcz6YGGEH+Nb9/v8AWP/iKp354x5YAljP0AWxikwv0SXF44VNsb2JISPbJ7jIMsF6qq5AIXkJlDAKMspP3ZPrM4nxHZ+hM5PdZF4hNu24OUvy3wZsEdA459uC0Yvw3st2r7N+aYwyyf9dhbXlPvkBqltTfyDKvsQK8Z38u7HR1WhG0e9oA2TAa1O/zIfgK/0YAdc+/yGtE9aUi1ssVVQ+N3lufvAUQPbn/YLyDnC4=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7200,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "B06AABC817565D3AA4AC02126F5652C0~YAAQiynIF7mlbmGcAQAAICd2dx58+v6vqJRSzrOI55ZVQGlEvHYngJh0TL3EOLpWAwvqRXuNeqaz362xwEzqPnbrgrzGi0kppDa71ly4ZmsSWozqXrE6WSyQ5yN82m6Aa0RRgSkDlJpcWRJwYjzCITO0/Lhg3uCvvf/DS6wvPNo8JBxw/uR0ka/nmjIJGNAq7CmMR7ToC5Dbm50U5iei+vmgj5OGWrdRCmgzWD6rUDol85UBjWyziRb2XVWW5ALZXFOGGtQ4HdwAu6hy+J+dkn2cGf+bY25y1lKsoHciZ5h6/eLjSI7GTAElbGeOOlOTiiQyXFoAvXRux+gEnga6UrukdP1yQpumOg3DilWArIqqzCLi/zwwdQ/09UKepYmbP5Hjc7k7xEykrE45J48bDCKfsKIU~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14400,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:39.881Z",
+            "lastAccessed": "2026-02-19T19:52:39.881Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.523Z",
+      "createdAt": "2026-02-19T19:52:39.523Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_72WhpPeUSE",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_12_sn_7024809A19A1E37679D1BD7CE5A181E1_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:38.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          },
+          {
+            "key": "_abck",
+            "value": "B036A9E61B50922D5BACE2B61D64B29A~-1~YAAQiynIF3embmGcAQAADSh2dw+u4EOX5hKRctPKMmhar1gfkm9otMLWs5vUSwzSlYXTzTdRBtlSmOj/YdKt5bk1Agpq3A/x4SEyg0z+rYX1U/CYllpdFihUSlX6KsXbaTir165WNCP2zBIT4aaxBJVBM6TTL+8jLqtH1l86wrO+cv5oDbaAq2Fap+jIxdtfPnRVu1wxf0BCsSictjjXb+RAlF2tYlhIBLCzDrbj/J0bHJMQ7QF4LI1apXcAV+zctty9cyH1cy1c/Y2y3FXh5+sT3Wun4CCJpF45/exOl3QXm2qNjmMsztRr3zaW7irmsxa8z5tuNXSCGd6atVklnRK71szCsutaITHHmfT0K0dvvKodBoZA1GoaOXm3cTRJyufEjK3BN3Dxefn6Ygv7sbBUy7j5yFRXoHBzpuW2j0mTD7IGiADPt76pqQ54kF005nEr7EkH+IWJTppj7Dea~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:38.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "8E4B5C741EF6CE88767D9A59512DDCCC~000000000000000000000000000000~YAAQiynIF3imbmGcAQAADSh2dx5ZmYJVCOacyoZawaSLFKkWIIPBnkAdaPg6dh8MoifRaGs8gcK1J+68un+HY324jfZTbUa8H+hGSA161HGliEQfi9gdbTdWKtBzlVmavqGa+9FSe+tdWEsKqkGA3VcV2ddniOBigOyPsD+AtOhlmcY/hS21VD+KL7HwKn49wtMDkOGosJ5bnlQeZxtRVQPG0vGgac4Ynrl7jMGvya3uIDWLZsDZm3RLs9IOsogI5Zv6ZmmX6ljNT9I/9P655gYYhRCOEt86hQPqN3USw9nO2BWOu2cU4nDHr1QlSGIGuBvcgNAZVg9h/jGlg4zbZ0EzXTysn4DFyVE1UBV/y1+I5Wxr1EXjY/6Dj3oM2QhmWirwr3BdFOe2QQ==",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7199,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "B6CF85C29E4FBFFE6E1B55266D22DFA0~YAAQiynIF3mmbmGcAQAADSh2dx4N0S0Mi8G673zgGJ+ilEWhToRieHmz7pKjWe9WZYR9MVtBL6C/UO3Sns+HTS2QDJ5Qdlhw/Go5R0LIf5o34O4VNozoCJTnN54pHGL4AtNMzZQw70I1JEyxrhSXYbn9hSWX1EO6Au8RC1GaDMKEetAj+qqUZAntu8sCEKqMrCIKSFsjfzkVRyyIvCHyBFnovIGHJu3tIiV1yIswTTxh33svyOVULp8qRKfpd6f8nQwXeK9Q1j8tKXgehJ3kw4Nd0ccdvRXazAptIvdDOmOXOWpkyn5nJ9lDqFenPX1n0vi0tW9vlOoGfUcTI8O+uQiRs0TKju1gPgoCz2jLYNJsT7W4VpWCWEzbCvErIDgjq494qQsrYJVLKwjwWeXS8MqbslxSNQ==~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14399,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.115Z",
+            "lastAccessed": "2026-02-19T19:52:40.115Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.767Z",
+      "createdAt": "2026-02-19T19:52:39.767Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_ngS61S5f1W",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_14_sn_3F3ACF3CB8F6DBF56CD9A42022A53F2E_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_1",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:38.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          },
+          {
+            "key": "_abck",
+            "value": "93FF51BC8E47D64BE47837D8F0E839A5~-1~YAAQiynIF0umbmGcAQAA2Sd2dw8pWkEOdrwGaZ5z2M2J8E5IQ7Gc4NZdT2nPTf+1vnzdXZykC4UenJdEfFMUnRhBzWxZpz/T7pXU2JiupxZJLmcdqTkm4Kakp5v20FFmRyfcSx6fvBuS+0vi+iI+TZTEfTJZ1Yixk1A25pDVFWhKFUF8UM0IrR5yMUEM7E7c38HTUdHKEGzzScWdcdXr+8yPeW28VOs3BkwFVMOBfty4q7xbjMFqO1YXXS1PjptRuMibrAKf/hTTX23+0nBoVaIY+PAH9XP/qQnORi9M2aXeEDOoawiCuj+TK5nvHo4XuBi/JHzXm8B7e/a/9rxKtY/dsn6Rf/ZJOwAnvJt5k7mLg26UMvLn6qfB60/zL6hPr57en7sBL/AYKFk39S0cFloq3w0P0dYkexOc0zH7F2M6RU94ZH1LZMOXKpf4N7kgC1K/MoqpjO9ZQSPCDFk=~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:38.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "69CE6005D2666095803F46A15145516E~000000000000000000000000000000~YAAQiynIF0ymbmGcAQAA2Sd2dx6w6Is69fwgZIKb+vtaj1UiEwHuSrr9EIyqgWJshhCrMXMUvq6ZlyE8Kpqg9/C/7eXWytPK8rBpHj03+O4SZGfvXyusUayyV0z+ZxRGGWmJGrcuD1/c1VpPgZv3vcQO0ay/82uXvNDNpwj8gg8OyhzG9o2skGjRnIYdv7D8W3qGotJ+kaCmxu56gVKYJYxiSgyaAha3kGgIB/mAwlW8dduEs70H0EsU8DAr2T4h/VrUgfxC89en9fsJj+4Hzt+pqJAJucUOzkR/IvKjXuJDb1gJRHg6V2Hljk/1PvChVGVGk+qPqrvyrgd3z7YFahU/6n8iWfblOLceoHB0pmSf71SzZf+u5fiSCexF6PaPUvUwRjvpmgLInTA=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7199,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "1DD3EB3041DCE0B51FA18202F63E3152~YAAQiynIF02mbmGcAQAA2Sd2dx7ijtKKUjHNjnpdxpkpLFbELoe/Av71G3AfmRgyzNbv5L+HqpewggDe4H+N1gZcc/BQAvdb31rFze163+QDbTQ68G9S6Zc3ROmaGwyDN2aPWbWSlZcgT15URuCs34cAK1OZ/4SfCYMX7V9jcXAFAtwXZX13FSzocjb1nSCU8Lr/IE2jEP9oc11xITwv077cqp8tGz2DSGmbiC133M8vtYmhHvWU+Ly8qJFY7zpzLpKr6wRWucR2jX+a9PjaBw8EMe+8R472pjeHo/cQTa+Y4qVFcS7O24sTxKeudcBNPjkSqh4NrpodU71jnMcPj5ZndWZrZ7umh1JRA1ic0siUnwFIt9YCLvSeZMQ32Y7Rw9YKl5h1gshXmH0vhj/u20CMjNOk~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14399,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.064Z",
+            "lastAccessed": "2026-02-19T19:52:40.064Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.773Z",
+      "createdAt": "2026-02-19T19:52:39.773Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_7w83niKnhA",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_10_sn_0C05F459F35FA4173D864DE7EE7751CD_perc_100000_ol_0_mul_1_app-3Afb4b113cea6706c5_0",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          },
+          {
+            "key": "AKA_A2",
+            "value": "A",
+            "expires": "2026-02-19T20:52:38.000Z",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          },
+          {
+            "key": "DCC",
+            "value": "SiteC",
+            "domain": "www.liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          },
+          {
+            "key": "sfEngine",
+            "value": "google",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          },
+          {
+            "key": "PS",
+            "value": "true",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          },
+          {
+            "key": "SelectedTab",
+            "value": "Parati",
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          },
+          {
+            "key": "_abck",
+            "value": "A35FE9277B29A04E055B4C658215BB63~-1~YAAQiynIF4embmGcAQAAHSh2dw9k+ZdsF4dTWwq4ueSh7G/RffhUOFoSIiVH8dtLEl8OJiqk7IiUtWatmegnvBbAk1Ba2eVuM8TyI5MQvgexMZthBsGZsq0aYSe5Rji2DOQrUOhJgi1Zy2FkSqdxQ9OQcctkMX7AEa2/yRjMldDSsmDk4yyC2THIBRiE7U7omi5x0u8SNmQuFEXbHrFXLQD5kDU6hjR0oP9JH7RwhQltiJdmSf9SzaTxJoxXZyJsW3Ckm6iU04LlU2XdK6KooPI7gruhyTLJNFqirreGvNPWtgpmK+GLhbrLNJqB1l6p4UrVKUWFLpyAJ5d03GoIM4i3lcIaBgd2h0wj6i5/CqKyET0EleZdkVTtR1sQtk8HrkAIqJi31cNFZkdmb88QWir5uJ1ToGS3qJA8lDIYuQZosGMDAwvpTzhTec9H73iDjDAmQIYq1LajmnEfWeax~-1~-1~-1~-1~-1",
+            "expires": "2027-02-19T19:52:38.000Z",
+            "maxAge": 31536000,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          },
+          {
+            "key": "ak_bmsc",
+            "value": "682904F7F517ECF0CD3B0EA4272A8B26~000000000000000000000000000000~YAAQiynIF4imbmGcAQAAHSh2dx4KQC+9866Vold6aycNz6MnvKwX2A3wlXkQVBAlwBfjNLBVcpbu4+ERpAHuy4OLWJtHBxOUKkJAC4u70kUiT6p5P2WrCyKkvhfpFUqVe0YtPhqNvcxET1WLjIIhkOsN8kIsZJWO2vIZQWHQWhhY9CO+iEgZPMdFD4STmHBTKFnHQZ4s/jygk8vI6RomUbOFRE0XQC29Qy5nmK2umjZH2m2yJAh4frQHxS/dK9CvmoT2OnoII+jibhm8Sc5KgVbb3jdvfZvFHNDWl06m1EiHgeJfGJLOV3ttJPElSAwM76oWTdjYmGHFdsMJr7QVgEh4v+q5jAWTZHMj7gT6TcVYAwkYUTcJCSlHbgk0xW8BUUYhJioxrlRSx9A=",
+            "expires": "2026-02-19T21:52:37.000Z",
+            "maxAge": 7199,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          },
+          {
+            "key": "bm_sz",
+            "value": "E6A8C5ECF31DE0E12EB2716291A8A4D8~YAAQiynIF4mmbmGcAQAAHSh2dx4JrtKUaEwI6BYXejvwXAS5gHR9yDIzwVbsXZvKmoMBXOy8QcQiOS+vHqY5AjkJ7z9/W9MrMhfDyzYiCFupqnttm5wrFnyQvHtmMK8VA9CGYEHnIECTiU/dWTMFAkylgyhVcRZLuX/lyI/Lxe9BokkOOWXpdJWyk8NCP4fxBVooq/FTOvGLc8gZmRj+OSQfKUMyllolg8kJXhulvTvSH0T9vzI5JUT9SyW/5zlh6eOP848Yc6SlHyFCVVEacpahL85QrDRVZSLgM6f6bxZVU579GE/eO2gmtdq8FzlD87nrJTlo+5fIVRl2F/rFK9EG/FfXQskoTNnglnjvIkm1bCBae6em7hnIqsIRYQtbQAbmYEhM+hkAEkAiiVtyeCnneIpwcQ==~3425841~4338497",
+            "expires": "2026-02-19T23:52:37.000Z",
+            "maxAge": 14399,
+            "domain": "liverpool.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-02-19T19:52:40.131Z",
+            "lastAccessed": "2026-02-19T19:52:40.131Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-02-19T20:42:39.823Z",
+      "createdAt": "2026-02-19T19:52:39.823Z",
+      "usageCount": 1,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    }
+  ]
+}

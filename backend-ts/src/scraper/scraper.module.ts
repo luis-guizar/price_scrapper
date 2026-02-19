@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma.service';
 import { ProductRepository } from './repositories/product.repository';
 import { OfficeDepotScraper } from './crawlers/office-depot.scraper';
 import { CoppelScraper } from './crawlers/coppel.scraper';
+import { LiverpoolScraper } from './crawlers/liverpool.scraper';
 import { ScraperProcessor } from './scraper.processor';
 import { ScraperScheduleService } from './scraper.schedule';
 
@@ -17,7 +18,7 @@ import { AlertService } from '../alert.service';
         }),
     ],
     controllers: [ScraperController],
-    providers: [PrismaService, ProductRepository, OfficeDepotScraper, CoppelScraper, ScraperProcessor, ScraperScheduleService, AlertService],
-    exports: [ProductRepository, OfficeDepotScraper, CoppelScraper],
+    providers: [PrismaService, ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, ScraperProcessor, ScraperScheduleService, AlertService],
+    exports: [ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper],
 })
 export class ScraperModule { }

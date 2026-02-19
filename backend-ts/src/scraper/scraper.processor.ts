@@ -3,6 +3,7 @@ import { Job } from 'bullmq';
 import { Logger } from '@nestjs/common';
 import { OfficeDepotScraper } from './crawlers/office-depot.scraper';
 import { CoppelScraper } from './crawlers/coppel.scraper';
+import { LiverpoolScraper } from './crawlers/liverpool.scraper';
 import { AlertService } from '../alert.service';
 
 @Processor('scraper-tasks', { concurrency: 1 })
@@ -12,6 +13,7 @@ export class ScraperProcessor extends WorkerHost {
     constructor(
         private readonly officeDepotScraper: OfficeDepotScraper,
         private readonly coppelScraper: CoppelScraper,
+        private readonly liverpoolScraper: LiverpoolScraper,
         private readonly alertService: AlertService
     ) {
         super();
@@ -40,6 +42,18 @@ export class ScraperProcessor extends WorkerHost {
 
                 const coppelElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
                 this.logger.log(`✅ [Job ${job.id}] Coppel: Finished in ${coppelElapsed}s`);
+                return { status: 'completed' };
+
+            case 'scrape:liverpool':
+                this.logger.log(`▶️ [Job ${job.id}] Liverpool: Starting scrape for ${categoryLabel}...`);
+                const liverpoolProducts = await this.liverpoolScraper.scrapeCategory(url);
+
+                if (liverpoolProducts && liverpoolProducts.length > 0) {
+                    await this.alertService.checkAndSendAlerts(liverpoolProducts);
+                }
+
+                const liverpoolElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+                this.logger.log(`✅ [Job ${job.id}] Liverpool: Finished in ${liverpoolElapsed}s`);
                 return { status: 'completed' };
 
             default:

@@ -1,7 +1,7 @@
 import { Controller, Post } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { OFFICE_DEPOT_CONFIG, COPPEL_CONFIG } from './constants';
+import { OFFICE_DEPOT_CONFIG, COPPEL_CONFIG, LIVERPOOL_CONFIG } from './constants';
 
 @Controller('scraper')
 export class ScraperController {
@@ -36,6 +36,23 @@ export class ScraperController {
 
         return {
             message: 'Coppel full pass triggered',
+            jobCount: urls.length,
+            urls: urls
+        };
+    }
+
+    @Post('test-scrape/liverpool')
+    async triggerLiverpoolTestScrape() {
+        const urls = LIVERPOOL_CONFIG.urls;
+
+        for (const url of urls) {
+            await this.scraperQueue.add('scrape:liverpool', {
+                url: url,
+            });
+        }
+
+        return {
+            message: 'Liverpool full pass triggered',
             jobCount: urls.length,
             urls: urls
         };
