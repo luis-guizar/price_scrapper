@@ -29,6 +29,7 @@ services:
       - DATABASE_URL=postgresql://user:password@db:5432/pricedb
       - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TELEGRAM_HIGH_PRIORITY_CHAT_ID=${TELEGRAM_HIGH_PRIORITY_CHAT_ID}
       - TZ=America/Mexico_City
     depends_on:
       - redis
@@ -58,6 +59,7 @@ services:
       - TZ=America/Mexico_City
       - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TELEGRAM_HIGH_PRIORITY_CHAT_ID=${TELEGRAM_HIGH_PRIORITY_CHAT_ID}
       - CRAWLEE_MEMORY_MB=800
     ports:
       - "3002:3000"
@@ -75,6 +77,7 @@ services:
       - DATABASE_URL=postgresql://user:password@db:5432/pricedb
       - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TELEGRAM_HIGH_PRIORITY_CHAT_ID=${TELEGRAM_HIGH_PRIORITY_CHAT_ID}
       - TZ=America/Mexico_City
     ports:
       - "8001:8000"

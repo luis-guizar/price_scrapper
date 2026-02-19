@@ -252,8 +252,7 @@ def process_products(products, db_session: Session):
     BATCH_SIZE = 50
     
     # Configuration for alerts
-    MIN_DROP_PCT = 35
-    MIN_DROP_AMOUNT = 5000
+    MIN_DROP_PCT = 50
     
     for i in range(0, len(products), BATCH_SIZE):
         batch = products[i:i + BATCH_SIZE]
@@ -284,7 +283,7 @@ def process_products(products, db_session: Session):
                         drop = anchor_price - price
                         pct = (drop / anchor_price) * 100
                         
-                        if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
+                        if pct >= MIN_DROP_PCT:
                             # Validate price drop before alerting
                             logger.info(f"📍 Potential deal detected: {name} (original ${anchor_price} → ${price}). Validating...")
                             if validate_price_drop(url, price, anchor_price):

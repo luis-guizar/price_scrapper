@@ -168,8 +168,7 @@ def process_products(products, db_session: Session):
     processed_count = 0
     
     # Configuration for alerts
-    MIN_DROP_PCT = 40 # Lowered for Soriana to catch more deals
-    MIN_DROP_AMOUNT = 5000
+    MIN_DROP_PCT = 50
     
     for p in products:
         try:
@@ -190,7 +189,7 @@ def process_products(products, db_session: Session):
                     drop = anchor_price - price
                     pct = (drop / anchor_price) * 100
                     
-                    if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
+                    if pct >= MIN_DROP_PCT:
                         alerts.append({
                             "source": "soriana",
                             "title": name,

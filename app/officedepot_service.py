@@ -21,8 +21,7 @@ SEARCH_CONFIG = {
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/Electr%C3%B3nica/Pantallas/c/03-027-0-0",
         "https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/computo/ipad-y-tablets/tablets/c/04-041-906-0",
     ],
-    "min_price_drop_percent": 30,
-    "min_price_drop_amount": 500,
+    "min_price_drop_percent": 50,
     "keywords_include": [],
     "keywords_exclude": [],
     "max_pages": 10,  # Safety limit for pagination
@@ -264,7 +263,7 @@ def process_products(products):
                         drop_amount = anchor_price - price
                         drop_pct = (drop_amount / anchor_price) * 100
                         
-                        if drop_pct >= SEARCH_CONFIG["min_price_drop_percent"] or drop_amount >= SEARCH_CONFIG["min_price_drop_amount"]:
+                        if drop_pct >= SEARCH_CONFIG["min_price_drop_percent"]:
                             logger.info(f"📉 BAJADA DE PRECIO: {name} (original ${anchor_price} → ${price})")
                             alerts.append({
                                 "source": "officedepot",

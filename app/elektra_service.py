@@ -149,8 +149,7 @@ def process_products(products, db_session: SessionLocal):
     BATCH_SIZE = 50
     
     # Parámetros de Alerta
-    MIN_DROP_PCT = 35      # 35% de descuento
-    MIN_DROP_AMOUNT = 5000  # O 5000 pesos de bajada directa
+    MIN_DROP_PCT = 50
     
     for i in range(0, len(products), BATCH_SIZE):
         batch = products[i:i + BATCH_SIZE]
@@ -179,7 +178,7 @@ def process_products(products, db_session: SessionLocal):
                         pct = (drop / anchor_price) * 100
                         
                         # Alerta si supera el % o el monto fijo
-                        if pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
+                        if pct >= MIN_DROP_PCT:
                             alerts.append({
                                 "source": "elektra",
                                 "title": name,

@@ -8,10 +8,11 @@ export class AlertService {
     private readonly logger = new Logger(AlertService.name);
     private readonly telegramToken = process.env.TELEGRAM_TOKEN;
     private readonly telegramChatId = process.env.TELEGRAM_CHAT_ID;
+    private readonly telegramHighPriorityChatId = process.env.TELEGRAM_HIGH_PRIORITY_CHAT_ID;
 
-    // Minimum drop thresholds
-    private readonly MIN_DROP_PCT = parseInt(process.env.ALERT_MIN_DISCOUNT_PCT || '40');
-    private readonly MIN_DROP_AMOUNT = 6000;
+    // Minimum drop threshold
+    private readonly MIN_DROP_PCT = parseInt(process.env.ALERT_MIN_DISCOUNT_PCT || '50');
+    private readonly HIGH_PRIORITY_PCT = 75;
     private readonly MAX_ALERTS_PER_BATCH = 10;
 
     constructor(
@@ -70,7 +71,7 @@ export class AlertService {
                     const dropMap = anchorPrice - currentPrice;
                     const dropPct = (dropMap / anchorPrice) * 100;
 
-                    if (dropPct >= this.MIN_DROP_PCT || dropMap >= this.MIN_DROP_AMOUNT) {
+                    if (dropPct >= this.MIN_DROP_PCT) {
 
                         // Check deduplication (24h)
                         const alreadyAlerted = await this.prisma.alerts.findFirst({
@@ -105,13 +106,23 @@ export class AlertService {
     }
 
     private async sendTelegram(product: ScrapedProduct, dropPct: number, oldPrice: number) {
-        const msg = `📉 ¡BAJADA DE PRECIO EN ${product.source.toUpperCase()}! (${Math.round(dropPct)}% OFF)\n\n📦 ${product.name}\n💰 Nuevo Precio: $${product.current_price.toLocaleString()}\n❌ Antes: $${oldPrice.toLocaleString()}\n🔗 ${product.url}`;
+        const isHighPriority = dropPct >= this.HIGH_PRIORITY_PCT;
+        const prefix = isHighPriority ? '🚨' : '📉';
+        const msg = `${prefix} ¡BAJADA DE PRECIO EN ${product.source.toUpperCase()}! (${Math.round(dropPct)}% OFF)\n\n📦 ${product.name}\n💰 Nuevo Precio: $${product.current_price.toLocaleString()}\n❌ Antes: $${oldPrice.toLocaleString()}\n🔗 ${product.url}`;
+
+        // Route to high-priority chat if available and discount >= 75%
+        const targetChatId = (isHighPriority && this.telegramHighPriorityChatId)
+            ? this.telegramHighPriorityChatId
+            : this.telegramChatId;
 
         try {
             await axios.post(`https://api.telegram.org/bot${this.telegramToken}/sendMessage`, {
-                chat_id: this.telegramChatId,
+                chat_id: targetChatId,
                 text: msg
             });
+            if (isHighPriority) {
+                this.logger.log(`🚨 HIGH PRIORITY alert sent to priority chat for ${product.name}`);
+            }
         } catch (e) {
             this.logger.error(`Failed to send Telegram message: ${e.message}`);
         }

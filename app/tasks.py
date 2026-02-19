@@ -34,16 +34,24 @@ redis_client = redis.Redis(host='redis', port=6379, db=1)
 def send_telegram_alert(deal):
     token = os.getenv('TELEGRAM_TOKEN')
     chat_id = os.getenv('TELEGRAM_CHAT_ID')
+    high_priority_chat_id = os.getenv('TELEGRAM_HIGH_PRIORITY_CHAT_ID')
     
     if not token or not chat_id:
         logger.error("❌ Variables de entorno TELEGRAM_TOKEN o TELEGRAM_CHAT_ID no configuradas")
         return False
     source = deal.get('source', 'keepa')
     
+    # Route high-discount alerts to priority chat
+    HIGH_PRIORITY_PCT = 75
+    discount = deal.get('discount_pct', 0)
+    is_high_priority = discount >= HIGH_PRIORITY_PCT
+    target_chat_id = high_priority_chat_id if (is_high_priority and high_priority_chat_id) else chat_id
+    prefix = '🚨' if is_high_priority else '📉'
+    
     # Formato diferente según la fuente
     if source == 'promodescuentos':
         msg = (
-            f"🔥 ¡OFERTA DETECTADA EN PROMODESCUENTOS! ({deal['discount_pct']}% OFF)\n\n"
+            f"{'🚨' if is_high_priority else '🔥'} ¡OFERTA DETECTADA EN PROMODESCUENTOS! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Precio: ${deal['price']}\n"
             f"🌡️ Popularidad: {deal.get('temperature_level', 'N/A')}\n"
@@ -51,7 +59,7 @@ def send_telegram_alert(deal):
         )
     elif source == 'officedepot':
         msg = (
-            f"📉 ¡BAJADA DE PRECIO EN OFFICE DEPOT! ({deal['discount_pct']}% OFF)\n\n"
+            f"{prefix} ¡BAJADA DE PRECIO EN OFFICE DEPOT! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Nuevo Precio: ${deal['price']}\n"
             f"❌ Antes: ${deal['old_price']}\n"
@@ -59,16 +67,15 @@ def send_telegram_alert(deal):
         )
     elif source == 'cyberpuerta':
         msg = (
-            f"📉 ¡BAJADA DE PRECIO EN CYBERPUERTA! ({deal['discount_pct']}% OFF)\n\n"
+            f"{prefix} ¡BAJADA DE PRECIO EN CYBERPUERTA! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Nuevo Precio: ${deal['price']}\n"
             f"❌ Antes: ${deal['old_price']}\n"
             f"🔗 {deal['url']}"
         )
-
     elif source == 'chedraui':
         msg = (
-            f"📉 ¡BAJADA DE PRECIO EN CHEDRAUI! ({deal['discount_pct']}% OFF)\n\n"
+            f"{prefix} ¡BAJADA DE PRECIO EN CHEDRAUI! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Nuevo Precio: ${deal['price']}\n"
             f"❌ Antes: ${deal['old_price']}\n"
@@ -76,7 +83,7 @@ def send_telegram_alert(deal):
         )
     elif source == 'elektra':
         msg = (
-            f"📉 ¡BAJADA DE PRECIO EN ELEKTRA! ({deal['discount_pct']}% OFF)\n\n"
+            f"{prefix} ¡BAJADA DE PRECIO EN ELEKTRA! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Nuevo Precio: ${deal['price']}\n"
             f"❌ Antes: ${deal['old_price']}\n"
@@ -84,7 +91,7 @@ def send_telegram_alert(deal):
         )
     elif source == 'soriana':
         msg = (
-            f"📉 ¡BAJADA DE PRECIO EN SORIANA! ({deal['discount_pct']}% OFF)\n\n"
+            f"{prefix} ¡BAJADA DE PRECIO EN SORIANA! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Nuevo Precio: ${deal['price']}\n"
             f"❌ Antes: ${deal['old_price']}\n"
@@ -92,7 +99,7 @@ def send_telegram_alert(deal):
         )
     elif source == 'coppel':
         msg = (
-            f"📉 ¡BAJADA DE PRECIO EN COPPEL! ({deal['discount_pct']}% OFF)\n\n"
+            f"{prefix} ¡BAJADA DE PRECIO EN COPPEL! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Nuevo Precio: ${deal['price']}\n"
             f"❌ Antes: ${deal['old_price']}\n"
@@ -100,7 +107,7 @@ def send_telegram_alert(deal):
         )
     else:  # keepa
         msg = (
-            f"🔥 ¡OFERTA REAL DETECTADA EN AMAZON! ({deal['discount_pct']}% OFF)\n\n"
+            f"{'🚨' if is_high_priority else '🔥'} ¡OFERTA REAL DETECTADA EN AMAZON! ({deal['discount_pct']}% OFF)\n\n"
             f"📦 {deal['title']}\n"
             f"💰 Precio Actual: ${deal['price']}\n"
             f"📉 Promedio 90 días: ${deal.get('avg_90', deal.get('avg_price', 'N/A'))}\n"
@@ -118,7 +125,7 @@ def send_telegram_alert(deal):
             
             response = requests.post(
                 f"https://api.telegram.org/bot{token}/sendMessage",
-                json={"chat_id": chat_id, "text": msg},
+                json={"chat_id": target_chat_id, "text": msg},
                 timeout=10  # Increased timeout
             )
             
@@ -629,8 +636,7 @@ def check_coppel_alerts(products, db):
     skipped_count = 0
     
     # Configuration for alerts
-    MIN_DROP_PCT = 35
-    MIN_DROP_AMOUNT = 5000
+    MIN_DROP_PCT = 50
     
     for deal in products:
         try:
@@ -655,7 +661,7 @@ def check_coppel_alerts(products, db):
                 drop = anchor_price - current_price
                 drop_pct = (drop / anchor_price) * 100
                 
-                if drop_pct >= MIN_DROP_PCT or drop >= MIN_DROP_AMOUNT:
+                if drop_pct >= MIN_DROP_PCT:
                     deal['discount_pct'] = round(drop_pct, 1)
                     deal['old_price'] = anchor_price
                     # Proceed to alert
