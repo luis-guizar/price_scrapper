@@ -49,6 +49,7 @@ export const LIVERPOOL_CONFIG = {
         'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST53450418&page=2&Path=PLP',
         'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST60647160&page=2&Path=PLP',
         'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST53118497&page=2&Path=PLP',
-        'https://www.liverpool.com.mx/getPlpFilter?categoryId=CATST53450452&page=2&Path=PLP'
     ],
 };
+
+
