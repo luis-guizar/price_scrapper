@@ -5,7 +5,7 @@ import math
 import concurrent.futures
 from datetime import datetime
 from sqlalchemy.orm import Session
-from app.models import SessionLocal, Product, PriceHistory
+from app.models import SessionLocal, Product
 
 import re
 
@@ -216,8 +216,6 @@ def process_products(products, db_session: Session):
                     # Update price if changed
                     if abs(price - old_price) > 0.1:
                         db_product.current_price = price
-                        history = PriceHistory(product=db_product, price=price)
-                        db_session.add(history)
                     
                     # Backfill original_price if NULL
                     if not db_product.original_price:
@@ -239,9 +237,6 @@ def process_products(products, db_session: Session):
                     )
                     db_session.add(new_prod)
                     db_session.flush()
-                    
-                    history = PriceHistory(product=new_prod, price=price)
-                    db_session.add(history)
                 
                 processed_count += 1
                 

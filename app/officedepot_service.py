@@ -4,7 +4,7 @@ import re
 import random
 from datetime import datetime
 from sqlalchemy.orm import Session
-from app.models import SessionLocal, Product, PriceHistory
+from app.models import SessionLocal, Product
 from playwright.async_api import async_playwright
 
 # Configurar logging
@@ -279,9 +279,6 @@ def process_products(products):
                     # Actualizar precio si cambió
                     if abs(price - db_product.current_price) > 0.1:
                         db_product.current_price = price
-                        # Add to history
-                        history = PriceHistory(product=db_product, price=price, timestamp=datetime.now())
-                        session.add(history)
                     
                     db_product.last_checked = datetime.now()
                     
@@ -298,10 +295,6 @@ def process_products(products):
                         last_checked=datetime.now()
                     )
                     session.add(new_product)
-                    
-                    # Add initial history
-                    history = PriceHistory(product=new_product, price=price, timestamp=datetime.now())
-                    session.add(history)
             
             except Exception as e:
                 # logger.error(f"Error procesando item: {e}")

@@ -4,7 +4,7 @@ import json
 import urllib.parse
 import concurrent.futures
 from datetime import datetime
-from app.models import SessionLocal, Product, PriceHistory
+from app.models import SessionLocal, Product
 
 # Configurar logging
 logger = logging.getLogger(__name__)
@@ -191,8 +191,6 @@ def process_products(products, db_session: SessionLocal):
                     
                     if abs(price - old_price) > 0.1:
                         db_product.current_price = price
-                        history = PriceHistory(product_id=db_product.id, price=price, timestamp=datetime.now())
-                        db_session.add(history)
                     
                     # Backfill original_price if NULL
                     if not db_product.original_price:
@@ -213,8 +211,6 @@ def process_products(products, db_session: SessionLocal):
                     )
                     db_session.add(new_prod)
                     db_session.flush() # Get ID
-                    history = PriceHistory(product_id=new_prod.id, price=price, timestamp=datetime.now())
-                    db_session.add(history)
                 
                 processed_count += 1
             
