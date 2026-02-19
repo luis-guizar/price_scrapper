@@ -86,7 +86,7 @@ export class CoppelScraper {
         const crawler = new CheerioCrawler({
             requestHandler: router,
             requestQueue,
-            maxConcurrency: 2, // Lightweight, so we can do more than 1 if needed, but 2 is safe
+            maxConcurrency: 10, // Increased concurrency for faster scraping with lightweight Cheerio
             // Cheerio is just HTTP requests + HTML parsing, very low RAM
             requestHandlerTimeoutSecs: 60,
         });
