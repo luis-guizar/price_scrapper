@@ -47,11 +47,25 @@ export class OfficeDepotScraper {
         const crawler = new PlaywrightCrawler({
             requestHandler: router,
             requestQueue, // Use our isolated queue
-            maxConcurrency: 3,
+            maxConcurrency: 1, // Stay safe on RAM
             headless: true,
             browserPoolOptions: {
                 useFingerprints: true,
             },
+            preNavigationHooks: [
+                async ({ page }) => {
+                    await page.route('**/*', (route) => {
+                        const resourceType = route.request().resourceType();
+                        if (['image', 'media', 'font', 'stylesheet'].includes(resourceType)) {
+                            route.abort();
+                        } else {
+                            route.continue();
+                        }
+                    });
+                },
+            ],
+            requestHandlerTimeoutSecs: 90,
+            navigationTimeoutSecs: 120,
         });
 
         // Enqueue URLs to the specific queue

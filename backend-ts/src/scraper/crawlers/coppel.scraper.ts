@@ -31,16 +31,6 @@ export class CoppelScraper {
 
             log.info(`📄 Processing ${pageInfo}...`);
 
-            // 1. Block heavy resources (images, fonts, media) to speed up loading
-            await page.route('**/*', (route) => {
-                const resourceType = route.request().resourceType();
-                if (['image', 'media', 'font', 'stylesheet'].includes(resourceType)) {
-                    route.abort();
-                } else {
-                    route.continue();
-                }
-            });
-
             try {
                 // 2. Wait for content
                 await page.waitForLoadState('domcontentloaded');
@@ -97,13 +87,26 @@ export class CoppelScraper {
         const crawler = new PlaywrightCrawler({
             requestHandler: router,
             requestQueue,
-            maxConcurrency: 3, // Balanced RAM usage for 8GB server
+            maxConcurrency: 1, // Reduced to 1 to prevent OOM on limited RAM
             headless: true,
             browserPoolOptions: {
-                useFingerprints: true, // Stealth mode
+                useFingerprints: true,
             },
-            // Reduce timeout for faster failures on dead pages
-            requestHandlerTimeoutSecs: 60,
+            // Use preNavigationHooks to block fat resources BEFORE the page starts loading
+            preNavigationHooks: [
+                async ({ page }) => {
+                    await page.route('**/*', (route) => {
+                        const resourceType = route.request().resourceType();
+                        if (['image', 'media', 'font', 'stylesheet'].includes(resourceType)) {
+                            route.abort();
+                        } else {
+                            route.continue();
+                        }
+                    });
+                },
+            ],
+            requestHandlerTimeoutSecs: 90, // Increased for stability
+            navigationTimeoutSecs: 120,    // Hard limit for slow Coppel pages
         });
 
         // Add the initial request
