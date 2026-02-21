@@ -39,6 +39,13 @@ def send_telegram_alert(deal):
     if not token or not chat_id:
         logger.error("❌ Variables de entorno TELEGRAM_TOKEN o TELEGRAM_CHAT_ID no configuradas")
         return False
+        
+    # Explicitly filter out 'venta internacional' products
+    title = deal.get('title', '').lower()
+    if 'venta internacional' in title:
+        logger.info(f"🚫 Alert blocked: Contiene 'venta internacional' - {deal.get('title', '')}")
+        return False
+
     source = deal.get('source', 'keepa')
     
     # Route high-discount alerts to priority chat

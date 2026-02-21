@@ -184,7 +184,7 @@ class CoppelService:
             # Excluir productos de Marketplace y Venta Internacional
             if '-mkp-' in url.lower():
                 return None
-            if 'venta internacional' in name.lower() or 'internacional' in name.lower():
+            if 'venta internacional' in name.lower():
                 return None
 
             return {
@@ -265,7 +265,7 @@ class CoppelService:
             # Excluir productos de Marketplace y Venta Internacional (falsos positivos)
             if '-mkp-' in product_url.lower():
                 return None
-            if 'venta internacional' in name.lower() or 'internacional' in name.lower():
+            if 'venta internacional' in name.lower():
                 return None
 
             return {

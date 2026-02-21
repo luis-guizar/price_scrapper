@@ -106,6 +106,13 @@ export class AlertService {
     }
 
     private async sendTelegram(product: ScrapedProduct, dropPct: number, oldPrice: number) {
+        // Explicitly filter out 'venta internacional' products
+        const titleLower = product.name?.toLowerCase() || '';
+        if (titleLower.includes('venta internacional')) {
+            this.logger.log(`🚫 Alert blocked: Contiene 'venta internacional' - ${product.name}`);
+            return;
+        }
+
         const isHighPriority = dropPct >= this.HIGH_PRIORITY_PCT;
         const prefix = isHighPriority ? '🚨' : '📉';
         const msg = `${prefix} ¡BAJADA DE PRECIO EN ${product.source.toUpperCase()}! (${Math.round(dropPct)}% OFF)\n\n📦 ${product.name}\n💰 Nuevo Precio: $${product.current_price.toLocaleString()}\n❌ Antes: $${oldPrice.toLocaleString()}\n🔗 ${product.url}`;
