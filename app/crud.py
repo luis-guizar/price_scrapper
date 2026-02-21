@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models import Product, PriceHistory, Alert
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 
 logger = logging.getLogger(__name__)
@@ -193,4 +193,38 @@ def get_alerts(db: Session, skip: int = 0, limit: int = 50):
 
 def get_alerts_count(db: Session):
     return db.query(Alert).count()
+
+def prune_database(db: Session, days: int = 30):
+    """
+    Deletes products (and their history) that haven't been updated in `days` days,
+    and alerts older than `days` days.
+    """
+    cutoff_date = datetime.now() - timedelta(days=days)
+    
+    # Prune old alerts
+    alerts_deleted = db.query(Alert).filter(Alert.created_at < cutoff_date).delete(synchronize_session=False)
+    
+    # Prune old products
+    # Due to cascade="all, delete-orphan", this should also delete related PriceHistory in SQLAlchemy
+    # if queried and deleted object by object, OR handled by DB foreign keys on delete cascade.
+    # We will do a bulk delete, but let's make sure PriceHistory is deleted first or rely on DB.
+    # Since we set up Prisma without explicit cascading, it's safer to delete PriceHistory first 
+    # for the old products, then delete the products.
+    
+    old_products_query = db.query(Product).filter(Product.last_checked < cutoff_date)
+    # Get IDs of products to delete
+    old_product_ids = [p.id for p in old_products_query.all()]
+    
+    if old_product_ids:
+        # Delete history belonging to those products
+        db.query(PriceHistory).filter(PriceHistory.product_id.in_(old_product_ids)).delete(synchronize_session=False)
+        
+    products_deleted = old_products_query.delete(synchronize_session=False)
+    
+    db.commit()
+    
+    return {
+        "deleted_products": products_deleted,
+        "deleted_alerts": alerts_deleted
+    }
 

@@ -24,7 +24,7 @@ from app.monitoring import Monitor
 monitor = Monitor()
 
 # DB Imports
-from app.crud import create_alert
+from app.crud import create_alert, prune_database
 from app.models import SessionLocal
 
 
@@ -552,11 +552,12 @@ def scan_soriana_deals():
 @app.task
 def scan_coppel_deals():
     """
-    Dispatcher task: Reads all Coppel URLs and schedules a separate task for each.
-    This prevents one long running task from blocking the worker.
+    Dispatcher task: Reads all Coppel URLs and scrapes them sequentially.
+    This saves massive amounts of RAM by reusing the same browser/context 
+    and avoiding concurrent Playwright instances across celery workers.
     """
     logger.info("=" * 60)
-    logger.info("🚀 DISPATCHER: Starting Coppel fan-out...")
+    logger.info("🚀 TAREA INICIADA: scan_coppel_deals (Sequential Mode)")
     
     urls = []
     try:
@@ -574,56 +575,39 @@ def scan_coppel_deals():
         logger.warning("No Coppel URLs found.")
         return
 
-    logger.info(f"📅 Scheduling {len(urls)} Coppel category tasks...")
-    
-    # Spawn a task for each URL
-    for url in urls:
-        scrape_single_coppel_category.delay(url)
-        
-    logger.info(f"✅ Dispatched {len(urls)} tasks.")
-    logger.info("=" * 60)
-
-@app.task
-def scrape_single_coppel_category(url):
-    """
-    Worker task: Scrapes a SINGLE Coppel category.
-    """
-    task_id = scrape_single_coppel_category.request.id
-    logger.info(f"▶️ [{task_id}] Processing Coppel Category: {url[-20:]}...")
+    logger.info(f"📅 Scanning {len(urls)} Coppel categories sequentially...")
     
     try:
-        # Initialize service with just ONE url
-        # We need to import CoppelService inside the task to avoid circular imports if any
         from app.coppel_service import CoppelService
         from app.crud import process_products
         from app.models import SessionLocal
 
-        service = CoppelService([url]) 
+        # The CoppelService already iterates over self.urls sequentially, 
+        # effectively using 1 browser to load all categories and doing parallel pagination inside.
+        service = CoppelService(urls) 
         products = service.run()
         
         if products:
-            logger.info(f"✅ [{task_id}] Found {len(products)} products, saving...")
-            
-            # Database saving logic (reused)
+            logger.info(f"✅ Found {len(products)} products total across categories, saving...")
             db = SessionLocal()
             try:
                 process_products(products, db)
                 monitor.record_found_deals('coppel')
-                
-                # Check for alerts separately per category
                 check_coppel_alerts(products, db)
-                
             except Exception as e:
                 logger.error(f"❌ DB Error: {e}")
             finally:
                 db.close()
         else:
-            logger.warning(f"⚠️ [{task_id}] No products found.")
+            logger.warning("⚠️ No products found in any Coppel category.")
             monitor.record_no_deals('coppel')
             
     except Exception as e:
-        logger.error(f"❌ [{task_id}] Failed: {e}")
+        logger.error(f"❌ Coppel Scrape Failed: {e}")
         monitor.record_failure('coppel', str(e))
+    finally:
+        logger.info("=" * 60)
+
 
 def check_coppel_alerts(products, db):
     """
@@ -693,3 +677,27 @@ def check_coppel_alerts(products, db):
             
     if alerted_count > 0:
         logger.info(f"✨ Sent {alerted_count} alerts for this category.")
+
+
+@app.task
+def cleanup_database_task():
+    logger.info("=" * 60)
+    logger.info("🧹 TAREA INICIADA: cleanup_database_task")
+    logger.info("=" * 60)
+    start_time = datetime.now()
+    
+    db = SessionLocal()
+    try:
+        # Prune elements older than 30 days
+        results = prune_database(db, days=30)
+        
+        logger.info(f"✅ Limpieza de DB completada en {(datetime.now() - start_time).total_seconds():.2f}s")
+        logger.info(f"   - Productos eliminados (y su historial): {results.get('deleted_products', 0)}")
+        logger.info(f"   - Alertas eliminadas: {results.get('deleted_alerts', 0)}")
+        
+    except Exception as e:
+        logger.exception(f"❌ Error en cleanup_database_task: {e}")
+        monitor.record_failure('cleanup_db', str(e))
+    finally:
+        db.close()
+        logger.info("=" * 60)

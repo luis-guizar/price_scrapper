@@ -57,6 +57,13 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_soriana_deals',
         'schedule': crontab(minute='2,12,22,32,42,52'),
     },
+    
+    # --- TAREAS DE MANTENIMIENTO ---
+    'cleanup-database-daily': {
+        'task': 'app.tasks.cleanup_database_task',
+        # Ejecutar todos los días a las 2:00 AM (hora de México)
+        'schedule': crontab(hour=2, minute=0),
+    }
 }
 
 app.conf.timezone = 'America/Mexico_City' # type: ignore

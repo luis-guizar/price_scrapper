@@ -181,6 +181,12 @@ class CoppelService:
                 
             image = p.get('thumbnail') or p.get('image')
             
+            # Excluir productos de Marketplace y Venta Internacional
+            if '-mkp-' in url.lower():
+                return None
+            if 'venta internacional' in name.lower() or 'internacional' in name.lower():
+                return None
+
             return {
                 "name": name,
                 "sku": sku,
@@ -256,7 +262,11 @@ class CoppelService:
             original_price = max(candidates) if len(candidates) > 1 else 0.0
 
             image = p.get('thumbnail') or p.get('fullImage')
-            if isinstance(image, list) and image: image = image[0]
+            # Excluir productos de Marketplace y Venta Internacional (falsos positivos)
+            if '-mkp-' in product_url.lower():
+                return None
+            if 'venta internacional' in name.lower() or 'internacional' in name.lower():
+                return None
 
             return {
                 "name": name,
