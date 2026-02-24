@@ -104,8 +104,18 @@ class ElektraService:
                          image = first_item["images"][0].get("imageUrl", "")
                          
                     if first_item.get("sellers"):
-                        seller = first_item["sellers"][0]
-                        price = seller.get("commertialOffer", {}).get("Price", 0)
+                        elektra_seller = None
+                        for s in first_item["sellers"]:
+                            s_id = str(s.get("sellerId", "")).lower()
+                            s_name = str(s.get("sellerName", "")).lower()
+                            if s_id == "1" or s_id == "elektra" or s_name == "elektra":
+                                elektra_seller = s
+                                break
+                                
+                        if not elektra_seller:
+                            continue
+                            
+                        price = elektra_seller.get("commertialOffer", {}).get("Price", 0)
                 
                 
                 full_link = f"https://www.elektra.mx/{link}/p" if link else ""
