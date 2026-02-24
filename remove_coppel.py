@@ -2,9 +2,11 @@ import argparse
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from app.models import Product, Alert
+import os
 
-# Connect to the exposed localhost DB
-DATABASE_URL = 'postgresql://user:password@localhost:5432/pricedb'
+# Connect to the DB using environment variable if available, fallback to 'db' (docker) then 'localhost'
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://user:password@db:5432/pricedb')
+print(f"Connecting to database at: {DATABASE_URL.split('@')[-1]}") # Print host/db for debugging
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
