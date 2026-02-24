@@ -59,10 +59,11 @@ export class ScraperScheduleService {
     }
 
     // Runs every 20 minutes (at :10, :30, :50)
-    @Cron('0 10,30,50 * * * *')
+    // @Cron('0 10,30,50 * * * *') // Temporarily disabled due to heavy anti-bot
     async handleMeliCron() {
-        this.logger.log('🚀 [CRON] Starting automated full-pass for MercadoLibre...');
+        this.logger.log('⏸️ [CRON] MercadoLibre scraping is temporarily disabled due to anti-bot gating.');
 
+        /*
         const urls = MELI_CONFIG.urls;
 
         for (const url of urls) {
@@ -72,5 +73,6 @@ export class ScraperScheduleService {
         }
 
         this.logger.log(`✅ [CRON] Dispatched ${urls.length} MercadoLibre scraping categories.`);
+        */
     }
 }
