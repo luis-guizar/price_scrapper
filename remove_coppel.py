@@ -26,7 +26,17 @@ def main():
         """))
         session.commit()
 
-        # 2. Get counts for visibility
+        # 2. Optimization: Create indices on foreign keys if they don't exist
+        # This prevents Postgres from doing a full-table scan for every product deleted.
+        print("Optimizing database indices for faster removal...")
+        with engine.connect().execution_options(isolation_level="AUTOCOMMIT") as conn:
+            # We use CONCURRENTLY for history to avoid locking the whole table if it's huge
+            conn.execute(text("CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_price_history_product_id ON price_history(product_id)"))
+            conn.execute(text("CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_alerts_product_id ON alerts(product_id)"))
+            # Normal index is fine for source as it's a smaller table or we are about to delete from it
+            conn.execute(text("CREATE INDEX IF NOT EXISTS idx_products_source ON products(source)"))
+        
+        # 3. Get counts for visibility
         prod_count = session.execute(text("SELECT count(*) FROM products WHERE source = 'coppel'")).scalar()
         hist_count = session.execute(text("SELECT count(*) FROM price_history WHERE product_id IN (SELECT id FROM products WHERE source = 'coppel')")).scalar()
         alert_count = session.execute(text("SELECT count(*) FROM alerts WHERE source = 'coppel'")).scalar()
