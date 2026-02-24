@@ -37,6 +37,8 @@ const AlertHistory = ({ onBack }) => {
         elektra: { label: 'Elektra', color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/30' },
         soriana: { label: 'Soriana', color: 'text-red-400', bg: 'bg-red-500/10 border-red-500/30' },
         coppel: { label: 'Coppel', color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/30' },
+        liverpool: { label: 'Liverpool', color: 'text-pink-400', bg: 'bg-pink-500/10 border-pink-500/30' },
+        mercadolibre: { label: 'MercadoLibre', color: 'text-yellow-500', bg: 'bg-yellow-400/10 border-yellow-400/30' },
         other: { label: 'Other', color: 'text-slate-400', bg: 'bg-slate-500/10 border-slate-500/30' },
     };
 

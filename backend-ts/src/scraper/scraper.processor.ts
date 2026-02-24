@@ -4,6 +4,7 @@ import { Logger } from '@nestjs/common';
 import { OfficeDepotScraper } from './crawlers/office-depot.scraper';
 import { CoppelScraper } from './crawlers/coppel.scraper';
 import { LiverpoolScraper } from './crawlers/liverpool.scraper';
+import { MeliScraper } from './crawlers/meli.scraper';
 import { AlertService } from '../alert.service';
 
 @Processor('scraper-tasks', { concurrency: 1 })
@@ -14,6 +15,7 @@ export class ScraperProcessor extends WorkerHost {
         private readonly officeDepotScraper: OfficeDepotScraper,
         private readonly coppelScraper: CoppelScraper,
         private readonly liverpoolScraper: LiverpoolScraper,
+        private readonly meliScraper: MeliScraper,
         private readonly alertService: AlertService
     ) {
         super();
@@ -55,6 +57,19 @@ export class ScraperProcessor extends WorkerHost {
                 const liverpoolElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
                 this.logger.log(`✅ [Job ${job.id}] Liverpool: Finished in ${liverpoolElapsed}s`);
                 return { status: 'completed' };
+
+            case 'scrape:meli':
+                this.logger.log(`▶️ [Job ${job.id}] MercadoLibre: Starting scrape for ${categoryLabel}...`);
+                const meliProducts = await this.meliScraper.scrapeCategory(url);
+
+                if (meliProducts && meliProducts.length > 0) {
+                    await this.alertService.checkAndSendAlerts(meliProducts);
+                }
+
+                const meliElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+                this.logger.log(`✅ [Job ${job.id}] MercadoLibre: Finished in ${meliElapsed}s`);
+                return { status: 'completed' };
+
 
             default:
                 this.logger.warn(`❓ Unknown job name: ${job.name}`);

@@ -1,7 +1,7 @@
 import { Controller, Post } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { OFFICE_DEPOT_CONFIG, COPPEL_CONFIG, LIVERPOOL_CONFIG } from './constants';
+import { OFFICE_DEPOT_CONFIG, COPPEL_CONFIG, LIVERPOOL_CONFIG, MELI_CONFIG } from './constants';
 
 @Controller('scraper')
 export class ScraperController {
@@ -53,6 +53,23 @@ export class ScraperController {
 
         return {
             message: 'Liverpool full pass triggered',
+            jobCount: urls.length,
+            urls: urls
+        };
+    }
+
+    @Post('test-scrape/meli')
+    async triggerMeliTestScrape() {
+        const urls = MELI_CONFIG.urls;
+
+        for (const url of urls) {
+            await this.scraperQueue.add('scrape:meli', {
+                url: url,
+            });
+        }
+
+        return {
+            message: 'MercadoLibre full pass triggered',
             jobCount: urls.length,
             urls: urls
         };

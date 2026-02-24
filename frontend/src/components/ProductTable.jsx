@@ -118,6 +118,7 @@ export default function ProductTable({ products, onDelete, onSearch, pagination,
                                     <option value="soriana">Soriana</option>
                                     <option value="coppel">Coppel</option>
                                     <option value="liverpool">Liverpool</option>
+                                    <option value="mercadolibre">MercadoLibre</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
@@ -226,7 +227,8 @@ export default function ProductTable({ products, onDelete, onSearch, pagination,
                                                         p.source === 'soriana' ? 'bg-red-500/10 text-red-500' :
                                                             p.source === 'coppel' ? 'bg-blue-500/10 text-blue-500' :
                                                                 p.source === 'liverpool' ? 'bg-pink-500/10 text-pink-500' :
-                                                                    p.source === 'elektra' ? 'bg-purple-600/10 text-purple-600' : 'bg-slate-700 text-slate-300'}`}>
+                                                                    p.source === 'mercadolibre' ? 'bg-yellow-400/10 text-yellow-500' :
+                                                                        p.source === 'elektra' ? 'bg-purple-600/10 text-purple-600' : 'bg-slate-700 text-slate-300'}`}>
                                         {p.source || 'Unknown'}
                                     </span>
                                 </td>

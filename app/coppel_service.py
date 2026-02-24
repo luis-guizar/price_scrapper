@@ -186,6 +186,18 @@ class CoppelService:
                 return None
             if 'venta internacional' in name.lower():
                 return None
+            
+            # Solo artículos "Vendido y enviado por Coppel"
+            seller_name = p.get('mpSellerName', '').lower()
+            if seller_name and 'coppel' not in seller_name:
+                return None
+            
+            seller_id = p.get('sellerId')
+            if seller_id is not None and str(seller_id) != '0':
+                return None
+                
+            if p.get('variantTypes', {}).get('isMarketplace'):
+                return None
 
             return {
                 "name": name,
@@ -266,6 +278,18 @@ class CoppelService:
             if '-mkp-' in product_url.lower():
                 return None
             if 'venta internacional' in name.lower():
+                return None
+                
+            # Solo artículos "Vendido y enviado por Coppel"
+            seller_name = p.get('mpSellerName', '').lower()
+            if seller_name and 'coppel' not in seller_name:
+                return None
+                
+            seller_id = p.get('sellerId')
+            if seller_id is not None and str(seller_id) != '0':
+                return None
+                
+            if p.get('variantTypes', {}).get('isMarketplace'):
                 return None
 
             return {

@@ -42,38 +42,65 @@ export class CoppelScraper {
                 const nextData = JSON.parse(nextDataScript);
 
                 // 4. Extract Products from JSON
-                const products = this.extractProductsFromJson(nextData);
+                const { extracted: products, rawCount } = this.extractProductsFromJson(nextData);
 
                 if (products.length > 0) {
-                    log.info(`✅ Found ${products.length} products on ${pageInfo}`);
+                    log.info(`✅ Found ${products.length} valid products on ${pageInfo}`);
                     // Use a more gentle upsert if needed, but bulkUpsert is usually fine
+                    log.debug(`⏳ Starting bulkUpsert for ${products.length} items...`);
                     await this.productRepository.bulkUpsert(products);
+                    log.debug(`✅ Finished bulkUpsert for ${pageInfo}`);
                     totalScraped += products.length;
                     allProducts.push(...products);
                 } else {
-                    log.warning(`⚠️ No products found in JSON on ${pageInfo}`);
+                    if (rawCount === 0) {
+                        log.info(`🏁 Reached empty catalog data on ${pageInfo}`);
+                    } else {
+                        log.debug(`⚠️ Kept 0 of ${rawCount} raw products on ${pageInfo} (all filtered out)`);
+                    }
                 }
 
-                // 5. Handle Pagination (Only on the first page/job)
-                // If the URL doesn't have 'beginIndex', we assume it's the main page and calculate total pages
-                if (!currentUrl.includes('beginIndex=')) {
-                    const totalCount = this.extractTotalCount(nextData);
-                    log.info(`📅 Total products in category: ${totalCount}`);
+                // 5. Dynamic Sliding Window Pagination
+                if (rawCount > 0) {
+                    const pageSize = 24;
+                    const MAX_PAGES = 300; // Hard safety cap
+                    const WINDOW_SIZE = 10; // Match maxConcurrency
 
-                    if (totalCount > 24) {
-                        const pageSize = 24;
-                        // Limit pages to prevent infinite loops, but allow deep scraping
-                        const maxPages = Math.min(Math.ceil(totalCount / pageSize), 200);
+                    const isMainPage = !currentUrl.includes('beginIndex=');
+                    const match = currentUrl.match(/beginIndex=(\d+)/);
+                    const p = match ? Math.floor(parseInt(match[1]) / pageSize) + 1 : 1;
 
-                        log.info(`🔗 Enqueuing ${maxPages - 1} pagination pages...`);
+                    const baseUrl = currentUrl.split('beginIndex=')[0].replace(/[?&]$/, '');
+                    const separator = baseUrl.includes('?') ? '&' : '?';
+                    let expectedMax = request.userData?.expectedMax || MAX_PAGES;
 
-                        for (let p = 2; p <= maxPages; p++) {
-                            const beginIndex = (p - 1) * pageSize;
-                            const nextUrl = currentUrl.includes('?')
-                                ? `${currentUrl}&beginIndex=${beginIndex}`
-                                : `${currentUrl}?beginIndex=${beginIndex}`;
+                    if (isMainPage) {
+                        const totalCount = this.extractTotalCount(nextData);
+                        expectedMax = Math.min(Math.ceil(totalCount / pageSize), MAX_PAGES);
+                        log.info(`📅 Reported total items: ${totalCount} (Approx ${expectedMax} pages)`);
 
-                            await requestQueue.addRequest({ url: nextUrl });
+                        const enqueueUpTo = Math.min(WINDOW_SIZE, expectedMax);
+                        if (enqueueUpTo > 1) {
+                            log.info(`🔗 Sliding window dynamically starting up to page ${enqueueUpTo}...`);
+                            const promises = [];
+                            for (let i = 2; i <= enqueueUpTo; i++) {
+                                promises.push(requestQueue.addRequest({ url: `${baseUrl}${separator}beginIndex=${(i - 1) * pageSize}`, userData: { expectedMax } }));
+                            }
+                            log.debug(`⏳ Waiting on RequestQueue for ${promises.length} items...`);
+                            await Promise.all(promises);
+                            log.debug(`✅ Enqueued ${promises.length} items`);
+                        }
+
+                        const nextP = p + WINDOW_SIZE;
+                        if (nextP <= expectedMax) {
+                            log.debug(`⏳ Enqueuing forward slide page ${nextP}...`);
+                            await requestQueue.addRequest({ url: `${baseUrl}${separator}beginIndex=${(nextP - 1) * pageSize}`, userData: { expectedMax } });
+                        }
+                    } else {
+                        const nextP = p + WINDOW_SIZE;
+                        if (nextP <= expectedMax) {
+                            log.debug(`⏳ Enqueuing forward slide page ${nextP}...`);
+                            await requestQueue.addRequest({ url: `${baseUrl}${separator}beginIndex=${(nextP - 1) * pageSize}`, userData: { expectedMax } });
                         }
                     }
                 }
@@ -110,8 +137,9 @@ export class CoppelScraper {
         }
     }
 
-    private extractProductsFromJson(nextData: any): ScrapedProduct[] {
+    private extractProductsFromJson(nextData: any): { extracted: ScrapedProduct[], rawCount: number } {
         const extracted: ScrapedProduct[] = [];
+        let rawCount = 0;
         try {
             const pageProps = nextData?.props?.pageProps || {};
             let productsList = [];
@@ -134,6 +162,8 @@ export class CoppelScraper {
                 }
             }
 
+            rawCount = productsList.length;
+
             for (const p of productsList) {
                 const item = this.parseSingleProduct(p);
                 if (item) {
@@ -143,7 +173,7 @@ export class CoppelScraper {
         } catch (e) {
             this.logger.warn(`Error extraction JSON products: ${e.message}`);
         }
-        return extracted;
+        return { extracted, rawCount };
     }
 
     private parseSingleProduct(p: any): ScrapedProduct | null {
@@ -159,6 +189,23 @@ export class CoppelScraper {
                 // Ensure there is a slash
                 const path = productUrl.startsWith('/') ? productUrl : `/${productUrl}`;
                 productUrl = `${this.baseUrl}${path}`;
+            }
+
+            // Exclude marketplace/external sellers
+            if (productUrl.toLowerCase().includes('-mkp-')) {
+                return null;
+            }
+            if (name.toLowerCase().includes('venta internacional')) {
+                return null;
+            }
+            if (p.mpSellerName && !p.mpSellerName.toLowerCase().includes('coppel')) {
+                return null;
+            }
+            if (p.sellerId !== undefined && p.sellerId !== '0') {
+                return null;
+            }
+            if (p.variantTypes && p.variantTypes.isMarketplace === true) {
+                return null;
             }
 
             // Price Logic

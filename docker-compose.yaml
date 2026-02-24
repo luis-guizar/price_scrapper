@@ -50,6 +50,7 @@ services:
 
   # 5.1 Backend TypeScript (NestJS)
   backend-ts:
+    command: npx ts-node src/main.ts
     build: ./backend-ts
     volumes:
       - ./backend-ts/src:/app/src
