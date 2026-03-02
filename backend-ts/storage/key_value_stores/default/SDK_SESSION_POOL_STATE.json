@@ -1,9 +1,149 @@
 {
-  "usableSessionsCount": 28,
+  "usableSessionsCount": 10,
   "retiredSessionsCount": 0,
   "sessions": [
     {
-      "id": "session_mAWfSppTuX",
+      "id": "session_EZlufTy65n",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-03-02T06:20:15.304Z",
+      "createdAt": "2026-03-02T05:30:15.304Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_lwoeECAMu2",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-03-02T06:20:15.481Z",
+      "createdAt": "2026-03-02T05:30:15.481Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_ewtbi7eYJy",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-03-02T06:20:15.483Z",
+      "createdAt": "2026-03-02T05:30:15.483Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_YYXLLREXVD",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-03-02T06:20:15.484Z",
+      "createdAt": "2026-03-02T05:30:15.484Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_hhe2PUx5t7",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-03-02T06:20:15.484Z",
+      "createdAt": "2026-03-02T05:30:15.484Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_hJpYYdFijD",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-03-02T06:20:15.485Z",
+      "createdAt": "2026-03-02T05:30:15.485Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_kJDCjox3N3",
+      "cookieJar": {
+        "version": "tough-cookie@6.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2026-03-02T06:20:15.486Z",
+      "createdAt": "2026-03-02T05:30:15.486Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_wgKetl1SAx",
       "cookieJar": {
         "version": "tough-cookie@6.0.0",
         "storeType": "MemoryCookieStore",
@@ -13,65 +153,89 @@
         "prefixSecurity": "silent",
         "cookies": [
           {
-            "key": "_abck",
-            "value": "2F73AAC2005552B18B6002EBC63B1CE1~-1~YAAQqyfIF44jqEacAQAAK3AXkA+yZRWR3rs+haPRIBdUIzEciCqrlW+a3fFyvq2wx4mHquT1fOwY8frLNs1W4DehdLSC5WFNKZ337hsS8Fqc2NP2NrU8Wa//WmQzOYqUBbaXyuAJuk91uQFLXCBSAzU1B/95achP7KD6RxDHcawAovYG4q55F8dkK0aSkIvW+tCagr9lD9BzMhwSNQlGIx96KY0gU3DDDFsqVj5PPNQDl5BY3bpW7YTBxEs9ntNqahpfH0pr6/xlXAI7Sj993/6F41lCEOR7AwwjN/k9hySJltbtgntDT6EfFUj0pHKQz9hrUIJYLFtb9VJkDAhCENyhu2ofe0WEj8K7DJNoHwV4o3yC4yCCksR4MyuNzeMZBSfPWU6zsZqZ8+H0SYMSF7LvLtXvKCm97wS51QrSfrhYZAEkTX+ng70tHsEvvaGsU19Xzo70Nts=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
+            "key": "JSESSIONID",
+            "value": "498C4704BDF582680ED32BCD90335E64.accstorefront-68b4dbb66d-28swp",
+            "domain": "www.officedepot.com.mx",
             "path": "/",
             "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:44.773Z",
-            "lastAccessed": "2026-02-24T14:39:44.773Z"
+            "httpOnly": true,
+            "hostOnly": true,
+            "creation": "2026-03-02T05:30:15.881Z",
+            "lastAccessed": "2026-03-02T05:30:15.881Z"
           },
           {
-            "key": "ak_bmsc",
-            "value": "0DD47F88FBAE70F8269F21C264D97A07~000000000000000000000000000000~YAAQqyfIF48jqEacAQAAK3AXkB4ZHc/ZZNRKLKTZAdSFGGMihg0IXfaEBs6WZPzaaJVnx4nTeElQimWw+bNfceTZaDmEGmwGa0qnAL53P67CR53YimglJSooA/p1f7MboxQ8LQvRXk9xz4X2i21rpL7L1M1266NpCKFvJF6whh3jgoR8YDT3qUnX3vZr0Bhv4eWtQBZGSekwuHpO85whaka63QmCp2emunG+zuEKoJ0ihzbPVILUnQw46n5jF0yuwEhnnJds8/olrbEyBs6n8zVx6pbDdOZ7eixGMg2VUbCan+9wGsuM2EJLpGzD76Ay4RpPkt5sFiGyL8cWYZbMn3v8n/xYVo2fr4n/uoU9/BaacJLksunLEL4j0ovyDMGBoOWGmHEs0HRadArB4ZK0EJrWD7VIiEigNvmSJQ==",
-            "expires": "2026-02-24T16:39:39.000Z",
-            "maxAge": 7198,
-            "domain": "coppel.com",
+            "key": "anonymous-consents",
+            "value": "%5B%5D",
+            "expires": "2027-03-02T05:30:16.000Z",
+            "maxAge": 31536000,
+            "domain": "www.officedepot.com.mx",
+            "path": "/officedepot/en/Categor%C3%ADa/Todas/Electr%C3%B3nica/Pantallas/c",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": true,
+            "pathIsDefault": true,
+            "creation": "2026-03-02T05:30:15.881Z",
+            "lastAccessed": "2026-03-02T05:30:15.881Z"
+          },
+          {
+            "key": "cookie-notification",
+            "value": "NOT_ACCEPTED",
+            "expires": "2037-07-28T21:30:16.000Z",
+            "maxAge": 360000000,
+            "domain": "www.officedepot.com.mx",
             "path": "/",
+            "secure": true,
+            "hostOnly": true,
+            "creation": "2026-03-02T05:30:15.881Z",
+            "lastAccessed": "2026-03-02T05:30:15.881Z"
+          },
+          {
+            "key": "ROUTE",
+            "value": ".accstorefront-68b4dbb66d-28swp",
+            "domain": "www.officedepot.com.mx",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": true,
+            "creation": "2026-03-02T05:30:15.881Z",
+            "lastAccessed": "2026-03-02T05:30:15.881Z",
+            "sameSite": "none"
+          },
+          {
+            "key": "dtCookie",
+            "value": "v_4_srv_17_sn_4F152BC59244C0B3BC7367A717A689F8_perc_100000_ol_0_mul_1_app-3A8aba6c7cbbf8535a_1_rcs-3Acss_0",
+            "domain": "officedepot.com.mx",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2026-03-02T05:30:15.881Z",
+            "lastAccessed": "2026-03-02T05:30:15.881Z"
+          },
+          {
+            "key": "__cf_bm",
+            "value": "RyQv6aSP1YN1HvzYuV2pn7jTyb5G6XN.Ys8.QciVWc8-1772429416-1.0.1.1-VHc64nFuClwCo9x__UJgGnHqmqIWCQaXF3IAWAx0ar5gAwc7xLQPKPDZXLgGRABfgeJXFnA0XTaP33La.TV.rCXNLoW6nPKo9YDPGJioknk",
+            "expires": "2026-03-02T06:00:16.000Z",
+            "domain": "officedepot.com.mx",
+            "path": "/",
+            "secure": true,
             "httpOnly": true,
             "hostOnly": false,
-            "creation": "2026-02-24T14:39:44.775Z",
-            "lastAccessed": "2026-02-24T14:39:44.775Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "C9572BD6BE4E2FA98D4E994D19039F07~YAAQqyfIF5AjqEacAQAAK3AXkB4gvGO8sMa0Pxm7DAq+5LNTjAJTskhGg4Y80+jCJYolDB+ynnXEU+iEZYNwqQrjUrezw461Gcm8Oal0m+1FFmMp/PvSuRSpWR+1Maj4gi+Y+mOIsUeVjmz/4BNkVRw/mWeZ6wLaFlGqp2z+SL2r6upJJifN0qnSrSeenNLr42fhZc47R2iqoIUXcPlHB0UWZ+9ybRHYxuhJO3UloIRQNahHckaHKOCrTv3tuY3s5fglmUGwcBZFz9+QEoOmkD43H6kN5QrrW6KZJRF27758zyxG9UU/S1JZLx3SiSm7GD8mSM2GOSmk9tlkQfIVJvqkb6cxP65rbuKWj6IQS6E+ojD/MvizVA==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:44.776Z",
-            "lastAccessed": "2026-02-24T14:39:44.776Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "4BFE497CCA9BA2A144451B9181902789~YAAQqyfIF5EjqEacAQAAK3AXkB4LxH6gKD+hZssoEBbna8jfGiEtGFYHGhB+lqfQ4ia1kGhGtjg1h/WauCc+c9dYZSSKK0dGJrsSwTsr+1sM9QtEU+6UjLEZTwMKi/ni4zQEGS8hYlnMNzj2ZRzXiWP4RaRfMiuGGL7iKp1R7u71lBrPPMb4QF+5VNgXygR+/w7RspG1Vby6mIlirAIP4UF5gCUskDjRIcH9osrvywbBiOn7jOaApj1/Q4BxsMxbLX9SyEIjw93G9c/0uqjITl5+tHxLA8RvSpmUdypRsoDUNdgQ7Jn5ailkaCTe9rija63SZnBAqbAjMov+yOJPJkY+kPtHRHxTJaLEleIQmNBqw0bnUiP75fIymTDzlgFPXqB89xkxRhpU5IWqaP78hNBxMKf6yoDZUu5CulJw7cEv1kssrmc=~3490102~3687223",
-            "expires": "2026-02-24T18:39:39.000Z",
-            "maxAge": 14398,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:44.776Z",
-            "lastAccessed": "2026-02-24T14:39:44.776Z"
+            "creation": "2026-03-02T05:30:15.883Z",
+            "lastAccessed": "2026-03-02T05:30:15.883Z",
+            "sameSite": "none"
           }
         ]
       },
       "userData": {},
       "maxErrorScore": 3,
       "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:43.147Z",
-      "createdAt": "2026-02-24T14:39:43.147Z",
+      "expiresAt": "2026-03-02T06:20:15.487Z",
+      "createdAt": "2026-03-02T05:30:15.487Z",
       "usageCount": 1,
       "maxUsageCount": 50,
       "errorScore": 0
     },
     {
-      "id": "session_aCCiO9LitH",
+      "id": "session_v43TpyBszk",
       "cookieJar": {
         "version": "tough-cookie@6.0.0",
         "storeType": "MemoryCookieStore",
@@ -79,67 +243,19 @@
         "enableLooseMode": false,
         "allowSpecialUseDomain": true,
         "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "893D589F2C321439C1DD884FDD8C7B9B~-1~YAAQqyfIF6kjqEacAQAA93AXkA+Kny1gY0P6s+FIJq6DE4QbicV+4KNd1fpEFXMdjgE2oaFZk9FIMOwJ1z+DiKKlRGplQXYgS9RzkXMa6TTJSGSTMRxzV5rzuanx5qmjqAfvplezwiWm+quL4toxfOGFFo2o5y2lESU1TmwsLLWH6n2T4DMGnpbiJmu/r/xeSTZHrlLnFdir46eoZ8gckDLzrf7yM4vEZBjY2ORGlrXBNeRXmUyzJMET5KgQ+rZQoerl5QdRgAq/nWBXG6DOQIjMo9/FzuDJE0kQcy/X/WgglkTBvIIlAzOvH530+myBuBCxi04G9Xbb37ECh6qo6hLqJk3Mz66mQQsT/gL2gThjQg/qSZRnfEyquLRr1bDoF9KXLQIAYsqi6iCXBQwkafkq6sSjWfB8okQNELix7aaeGteAiv7NU3aylbu7JFBECk3uqLF2XV0=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.074Z",
-            "lastAccessed": "2026-02-24T14:39:45.074Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "A71F00F938D201160C1CA17F8727A36F~000000000000000000000000000000~YAAQqyfIF6ojqEacAQAA93AXkB5MAaEFikv8K8/m3OzGHSv3kI4hsB1+R6gkhPTCReLoN3+izFw8wfs3l8/S2pmoGVI64YAn2ODQfJCv38jsGmQzXplgN2Mx1keAWehQfJ/g4Bkb/eDKxJv3KOjUctfr02CFViN04PNA5J+J+Wr7R2U/JHPBSOkMbRDOcOAzg0Z0kSZuAemiSkUnjdJIIV/swEB7u23KClCcaQNdp6GeLgWchIS2HLW2/ruzbPRHlYHgTj1bIPp04aWMkSzfGPoSpMCOF13rCfKJ+wcj+DcAXM65xFR0ndAGkCWYMJlhnyL3OeDAfPW/FJ1DZ0PIJitFrqePN2zhGoz2kSjLT+szOsNoZdnvhV/tfAg16A/AJFM1XhM42XcKtLKv29L/FBAzlvJdr/HNz9WRyg==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.074Z",
-            "lastAccessed": "2026-02-24T14:39:45.074Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "298F7387EDD0D69EC3273F64540635F7~YAAQqyfIF6sjqEacAQAA93AXkB5tCMOcJQTAZSV2evyhhuiimUQVkD66b84dt2ALzJyMOjmBhW/wjffzl/dAKkMk1/ytCpO/6rWAo0ISMHjD9/qgpuy2zUVBfjNIb1spWuQWdRgCB8WScb5ImOMgf8xfegKi79DS4IkjCe5xD0A70O945zoxyVDbrPLoj+pt5RSz7V5n7iS7d+hRDVVtna/WmoJyrS2cEpxxaMmbnkRt4c2hg6NAONkDulWNZixZnKSO1ItJIJ4d6NEmR7hq0e5FpH61Q3/XM5lkknMFInDO8rstmDyOWv5gVTgzXIik9JY6yglH30OKFxUCXzopO/sEdfffqpX1hSHhRXtV3P0eysM2O8En3g==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.074Z",
-            "lastAccessed": "2026-02-24T14:39:45.074Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "0500AF6ECE1261FA2DE1DE564F4BAE01~YAAQqyfIF6wjqEacAQAA93AXkB6c0GktElgabK6rRZjO5Hd8BUaFxAT36yJSK51e2PYsyEMa+PVDZzwqokF1CxkVX31NpGe6xKZZFYk5E8sxJR930Qdod5t7NAt2jFxV2mCvGiFvtpJrb9NIvESvRbMo5TKPoZbBQK1CPD66CEdr0r2fSOHi8yxndsov1nIh4ZKKLXzW4TB5cnV6ETmXA89xYci6bKeWDoxnnPJipmRXPMAFTcwUBaug01149eiUomM7vwpcpSFedEeoedBv8VOR5nWQVuSERN2BOqSIJY+2UEAqtqtR8t1BrzkPc3cZAPpZZhcd6SUU5O8lKOfk86cJ0No/COkeDo8hv2H77dDPacWHRW/gyBy+3UQSkRbD0AxffwWeNfHQR0cmkGErIocO3jTJG5sIL1DfolkX5Rf088oWjw==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.074Z",
-            "lastAccessed": "2026-02-24T14:39:45.074Z"
-          }
-        ]
+        "cookies": []
       },
       "userData": {},
       "maxErrorScore": 3,
       "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.851Z",
-      "createdAt": "2026-02-24T14:39:44.851Z",
-      "usageCount": 1,
+      "expiresAt": "2026-03-02T06:20:15.488Z",
+      "createdAt": "2026-03-02T05:30:15.488Z",
+      "usageCount": 0,
       "maxUsageCount": 50,
       "errorScore": 0
     },
     {
-      "id": "session_AiLFRFzrhG",
+      "id": "session_bRZHk8KhzL",
       "cookieJar": {
         "version": "tough-cookie@6.0.0",
         "storeType": "MemoryCookieStore",
@@ -147,1762 +263,14 @@
         "enableLooseMode": false,
         "allowSpecialUseDomain": true,
         "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "1A58103411197B870EB915FEB9BF98FE~-1~YAAQqyfIF50jqEacAQAA7XAXkA/bcBzYKPcK8jqV6ajdu9jZKpjN/kZqgI9Nf7ffQk4kVpEzG0+Snk4l4B3x30llNozGrHaPthc9HTv1BbIP8Ox3td12eAqOPEakI+45T/KZDWYp2Olg4OD/Jo7G9EIwrZFGGHYJTUf6OxFVDh3iBRMwpb8luOpxtbMUfbK3GB0ZvX014PtxrXpQWm+kWp0o3/dMSElcR6dsPw4VHlwQogv7JxOQpPf460P8GOlt+NN/0O7NPhH3lEZb2q7gJlyrBTlVoG5CGcY1Fxd6tPtRQ3H3GsDvJXV3DuhXvna0GlrAgUrk2GuBzLfn+mmvc6fUBOgUJk+k5RgMgz8Al7oV/xxzsF5sRP1LkwP1dTvTg+azNzc82hndVMFvHx9jYWY6F885i6sb5SLdgW/20m5Mx0Nihu50gnTCeom665leMYZg63LcCh0=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.008Z",
-            "lastAccessed": "2026-02-24T14:39:45.008Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "4C93034D2E0C945A6829D16CDA6BF0C9~000000000000000000000000000000~YAAQqyfIF54jqEacAQAA7XAXkB4FGfGScbyEMDDmuuqnKtc17kNWLpdLFB4DvpN0sdIw+RkCgouJEQ4RJ7oeyo+sXJjUPJdEjnz392e1Z8Av/FYV29FkRU5vCbL0/kgbSQwUdMCDFwXDHqGf5mHHSJjG9ZyWsSZa7Zq83xiYgHmR7yXECW6LXCmePX2r8CjC4MAh6yRCWK5iQU65UOv45NgsAVHrQtVcMLY4sx5tYxN9nATR2gzJFLdqxiQ05gBd72bd5HIlVMWJR0kKA4e+hqmRwUxAlrw0tmc/25PiCzotzyB81Qfv9Inr46XK292/MkX5w4JRpT5eVVotiXiXEqPOQrjNDL7CP6ZvAZLRX26bdnd7NpBi64K7XwXKA+EzwXxn6hmSiqofkJOz6B4pk7d/a79SMKtq0VobLg==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.009Z",
-            "lastAccessed": "2026-02-24T14:39:45.009Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "28F40353A57E75EC69F755BB2499C5EA~YAAQqyfIF58jqEacAQAA7nAXkB55gpYgLH9x78HozfrD+NRhydS5WhY7rYsw2uKZp2rh8HfDd+C/AcGWr2Jz8xwB4Sn8f8J+4l30neoh3WMqNLyj/kzEpl43CWD9cadyaZQ8MMH+Fe3kvOcV4BeKSMy0A93NdlY8ttmduBKWEfk2LxetKMto8wJ1CV11GMuWdvo+vi4dbRUQNm28VIuuJXNk9MTpFnjQSIddZAZ5jwPAdxWrhZgT/uLJoM04dY9AeMsz7HVlr25tKmLH4dAhk0S74lClJAad+pZhG8nNHtfrFYQN2FQHwTR0GGaI/PYHtbPITSiqwB6tKoZUgAXUTSEPZAzqQb6rG5Ez5WjQvdl+B5cA7LEFoQ==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.009Z",
-            "lastAccessed": "2026-02-24T14:39:45.009Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "CD1623FDAA3C04FE5AC0E8E4F6A3E13B~YAAQqyfIF6AjqEacAQAA7nAXkB6PeBeqvi+mbmSkJQj2sJPp35snsHa40oAPeJLZ3dxo5AQ87VcyVfLkmNRnFwnoRZ4yfGMkh0Sc6DHyKFmgfuJCPxpEN1RjPdyBaQWjL2mgOs4XC/PfjKOZ0Eu0KsaF5MyDOv/qIDr2I8m3BTzbI7wBiGALclV+KDPf950mV7fgQp68jeuHWwmEEEIkoRuHbYeua/Dm2xHSWL0ncaDeIAWwcAI4MlUieBkMgb1H1PKZnjcGEQasL4XnpXq++4Lm1jb6y6W/4kc92sFjm9wmsOYNXOi7/xZz9CPqqzpfZpL86jYNFet3nCXT92Fj10s+C6no+7PYBA+CBndZgCOvb6RKtFrpS8GW+/PgZOSdfzw3rKO7BCqaDVs1YuSmZN7vj98TnlYso6q+fDfsk1nZecdSMA==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.009Z",
-            "lastAccessed": "2026-02-24T14:39:45.009Z"
-          }
-        ]
+        "cookies": []
       },
       "userData": {},
       "maxErrorScore": 3,
       "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.855Z",
-      "createdAt": "2026-02-24T14:39:44.855Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_R4w4HX8DA6",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "5E689FA1A7E8661E94E9A4654908D14F~-1~YAAQqyfIF5UjqEacAQAA5HAXkA+wxVzn17NVC5Ehqqf+M/PYZx2JZYDoNIVWTM29BFH7WvWC4SRyBvID6zf9vwBsJC6psY/CGgN3Sv9Q0toh7VgGGLIrgCvwy8eEGdDtmwCMSYaQSlle7tU/sxurx+P6I6RSDCfBEKh5ZGE6CezMceAMN78DeTbz+Wpy3tDX1VIgk5647KaQnZD96B4xgGRRveOAIBQ2Yj+JSFZPlHPBNtEFmRMjODxXuFwHvCV2RyOhUOZbWiUcWVr39DpBFBudgwAHdg3iZCuDQVhaSDoj/5jIL4V0DFk9HB0bkVJdziFql1JcaTzWTliC7+cEfEsCwFY0xyTWt3pFaqXGQPY8yn4gCFZU4k1366tRCLc95Oh3IUdh609dlk2m20rPNif0ogwWopFavp0H8HpMyRjR9uJHEVdxoD61WO0z7DdAHe5GLFNCBno=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:44.964Z",
-            "lastAccessed": "2026-02-24T14:39:44.964Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "FCEF3F785334461702877FCECF37A7BF~000000000000000000000000000000~YAAQqyfIF5YjqEacAQAA5HAXkB6A0KAu67CzT8DP9sFMsnKbN+yxL6FoDtEVMMdrd3epGH4WesSXT9o66xNnLWDdHxVmQkYY6u9OyovA/VWDY7h9HUgDMxfP4FXCE6eQCrqk+fGoLaSrm3MPQmj6+HZhGHuZB9XZ4MFOfiKaR8W3E92ESKItdVI/udXn23FWloEGLG/rhIKO8+mKmAEScyDT+SeRVTmPVHXgM6J979Rh/b/r93hyyPmiwM8NRuMkZSySbNeUlyyseqtrRPzRB0VTTOBfhfMGYTQRsg6eAKp9n1Mxf1IAaR2W0LVf04bz6yKW4kcsjZ9G7lVZAE/GeEtdKNklpYaqLhMf1tNWksFSCD2cthYvx3mKIRQnXXnpSiITZ5peX6wH6uc+BrCjcFN5n9b0/jjJ8T2G",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:44.964Z",
-            "lastAccessed": "2026-02-24T14:39:44.964Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "98E4C598EE7237B6470008C3E44826BD~YAAQqyfIF5cjqEacAQAA5HAXkB5Lw6lklAIekgcJ0CEUKlqkU+MkscjU33XsdDkSOkXzQebwaYeTCXxNliF7UJMB+Ew/A5rV3M4ea/9T5UMOXHiBEp/7/atBe/hAAkYBuhPOKxLGV6fDFlAxR/B8ya8GkZUZPa1pEfUEyUe6EgrznOeFqlngEM4kycVn9r3HTUDPrxvRZ435uf3WClfwjnomQKsHu92z/T3uPsN38HHf6jOLBjmbEJtNzj2c9tyGQsQeoDwGXd+cfPWjD2kQl7V/wKzRR+INZVE9txWgcaGv8NaWGfvZRItfhO0li3F8463K9FdSgOoMJ0A4j3yAwm9jYYNGVgfrXLDXwomLdJpEoTunmabfLQ==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:44.964Z",
-            "lastAccessed": "2026-02-24T14:39:44.964Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "50D40747B21AD53DC8614107F9CE13DD~YAAQqyfIF5gjqEacAQAA5HAXkB7k6Q6S1meU9a1juUQlZDkZc1kcJlzosV8tnqLd4X5lPLlRBX3CilSNDheXuBU8dX3S7/5BwWjNwhrunQZGnhVluimh9OXk3xuatWAFuSygBpnfwqewhrXqBp6d2HyO/C1oVdanNcv6s44cSlCSRKXpkSAH2ktgp+mcrtAs6jDAsmlKyICMWCNd/IoWyhx31QyaPompl7b260rkazRJt6S6N6lpVRlNstRjK++WGS+FGg0a0gO5UAF1KfNq6BQsXma9TNm07ej4+DWTCBhxGxlTVRkUNBnpb1fHblVRdpEjViJXM8YaelagvWK658mmNZJmVXp4fc+yLdkSUNzbdM5ns3V78EKc8ri7Z51iP9V2MlkZMKrwu6TZuP89hdDH02ZuNm1ZPgJJE0zDGVivEnJgh9Y=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:44.964Z",
-            "lastAccessed": "2026-02-24T14:39:44.964Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.858Z",
-      "createdAt": "2026-02-24T14:39:44.858Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_0bsXcNZpDK",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "1FB4AA0B0880B98784AEE56124D20C8C~-1~YAAQqyfIF5kjqEacAQAA7XAXkA974zot2q01jWFgncM7Yr0bOHP//BC5nrCakuCFuzKjs8DtwfxjgCICCqfSW25fC1HePqHI+K2R7dP1BuQCmUDapt1lSWv4NERsYQp0I4vvGtEv46JWVrHGBD4IN797WyBvc6+3Ru1qI4njBlIadog1Jq6aZ/jl3qU8g8iNGFHZ9F8ETKV3ronTsfpvg8z1HG8H/NgkNpY6+k1kSrnonw0I7gT/jzV5vJnNhaNAdtkCVNS5mKuo4vnzNzZT2Reo43R+zHuR7AV3W0WukK2ImBY9j/dvUQMK5U0emmqkoR2S6PC+RzzBYeFyLIGnLYTLdqDsz1CBGfahOz1n+3H9eIp3hJSxgNXA7DkAfehK3MxPLLk5k33sSxJP+HAEoTilyFGQAjaaTztUSV9E1OrjDw9gFXru2yWHipl0uWTJeXYnyFe69I4=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.027Z",
-            "lastAccessed": "2026-02-24T14:39:45.027Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "38A621D4D1FF861E905C4069B093167F~000000000000000000000000000000~YAAQqyfIF5ojqEacAQAA7XAXkB5M28D4Adlk3NkqyBlqa+7o5GKTXpLQXiIJH6Zn1E7rc+ogYBEHB4jzHAmfrs3kn3uAsh+xgfSKU5ui0AYt2rVtUKYVw7CaAAxEcWRPH1pJXB3VTjpkmS+NBAKXiom1r/g5H4kP2k7zGoJshQ2KGkGUSuCda73xBFycNn6weYHi7w+Hpa8EQ6SHix+lKQXouy25f+GYr+HyjVoLzwmET3jj33EhsfZVM3SwO5OEfc20jUfFxkrc3nNX65iWD5/Jsc9oiiwJbxRmGYkc5hI/taG8pkiauO25nq0rtPDKIxqOe1r8DCmyAVAHRUGswk2SD8kSfqE91G3M5Lz+wHWaFxgSG2fnT0BcuecEJEBpB0C0tcYf8z9zqt1fb9KnNv8yh4ItApyZDV7Fug==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.027Z",
-            "lastAccessed": "2026-02-24T14:39:45.027Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "B194A5A099CAE513BA9C39918806A3DB~YAAQqyfIF5sjqEacAQAA7XAXkB515irIfzM/YiJfB7iejk0a84tmgWgdQlF1aWIe70T09GknMhzbFFTHYPYn3N6dmQOU+vAVN0CQ0VGkoAQti0wk8OXxIBHJdJf+1hWYk7uYUPujy2w7maZ0bPuX5tS3XLMEOI5WAPvgYECJ4XNrjNzA7MgE8Btm5Pz/X9ZJHcEcSZxzkcLFNFDAMLG6JAo1EbhrvqqZjVWactXCptIoOWthiEVqUjmzYHnp6zZ8xyvvrigw5IOgoQ0oIevxrj0pDjHjGim1kHnAk0YLuBJ7dFDplGbxXaNY1bjalPw8sStp6JnxE1vfoWDQmEYRbQkC8rLiJwgVb09SBLXmD5wQNyb4LH3jMw==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.027Z",
-            "lastAccessed": "2026-02-24T14:39:45.027Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "9F56A7BAFA00E61B9F37C4DA9A52CD1D~YAAQqyfIF5wjqEacAQAA7XAXkB54Qn9e9pCwkc3rC70qrDM9m6lLukoSBCWCDb4tGd0Oq8HqQTTu+Y1MKmSAlUzHWY/7N5PjeRBTOdFqk42DFS/Abd49wQvYXAJB8nEvo5jYuJlmxeljJXOwwMaVbRvHOxMzd7Fm6Va5brtcPgXgX3ld+hWVn0+wQW0CGXzAjlehLQkH6DoGdkUp/RdeMVJT0OFJRarOngRbCk6fafNmsLbRmfnlmafr8bOrz/RkogvPIvKKyJrpQ+af1mrBkV1ILq3Tloij6gUORTJGMFJAlKfPc+4BJkc6EWKVNg6mIg4Y7CEu/98nODBztAK2lTqaHXUFqnN2gjD8S4CV8lcu2HVUAmSkivfRY0mzevXTkDR2SoWyU2Duee0uGo7Y1QjuLSf9L7EhL6h06J2nBRPZsAAApg==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.027Z",
-            "lastAccessed": "2026-02-24T14:39:45.027Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.862Z",
-      "createdAt": "2026-02-24T14:39:44.862Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_58Mps82NJn",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "4F4B1AE7EFE5B69745CC02CBBECF8793~-1~YAAQqyfIF7UjqEacAQAA/nAXkA9IjPxX8X7ab8S12XiW+dsFmzOmMWKKdGNTN1qnmPiKAxQGvysHeTz71zlqF8jHzPJJuXcJEW5wQ0m4Bsy26IoCIvjkU4HpYxG3A54Y4wAGbPcVrsDfouIld5UxN97IM9eunYYIuFlnTOcIsig55DmN9ZzXd4ArI9fEevHs6YoYwd8HI7xd8b/CBr/1FIjh3TtoWV3FD6o3GuiNH/F4Cm9xwkbQ41QNGZWgmtbJRklA4SQcTeweS9yt1B3B38DlWYYPubgHHaU1Zy0XDWvmAmH/1cpFVjloLtr4uvIM6EMnjbWmQ93PhMvB3VoJKNYk4V+xrkUbPZgePKqv3lGPWazXJGd2kVjWspAX9ggNgZGyosHFopeAZ7ZqLQ1nLDBZNB1KjGudpFwqgQq0v1jheD+jk/neU767Y5dd6Zx9rOD8bawieLf0~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.105Z",
-            "lastAccessed": "2026-02-24T14:39:45.105Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "84472DF2592740C886B4BE187FD01B4D~000000000000000000000000000000~YAAQqyfIF7YjqEacAQAA/nAXkB6OYl2gEoyNPHle5jfeNgx8n+r6gokrwZDNkdAkCLoh5HijLrYn6tU/L1b8PwPupYMBOWmFOsbqH5HpUstzJqek4AX0IFhRfWS4NY2cRySwl+FXIS2qvwKKHu2Y/cmEIVBpue6WBeFO+W9hAG0bHTz6GnQjzfJrlepu+z/urhVSC1A+C+xaUmG7beRtetvdecqil7t/G/KiND1Hj6hyJBlH3Isi3FaB77CKoEvn0TOburzHMkipEeb5UyL66gufU+GkvS3SUoTBGv5ap5zOJtDaIpkX3IuaP8KytCQbISd88VDXYJcnRGrCR2J5zxTsQkXYOT9r5s/Q9vYcpCQpHX34gjdr3Ork340NHYiLgZwSYfXPaeJsZjhJJs/jSVS0HS3oYbHiokWwPg==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.105Z",
-            "lastAccessed": "2026-02-24T14:39:45.105Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "B9826187A060538612DA75A81D03B393~YAAQqyfIF7cjqEacAQAA/nAXkB47iiTTcvhffQzo9tZ3erteIJKV4oXt3P1FDeMcCiflSXTzhuNltzxFcM2TNSMCkEeLb+NyUt4570/zdyqTJoNvqo9ts9LQQE4vkTti18mmKIt/jRVp7V5aFFwau9lv4OHIJW45LRJuRUyaaZhv6AUZFcH92Sq/NAYrTRfD35kMgoVm+VoQikYD/dT84MezVuRF0zlcK1bWWzCF6QCzola9/A+sEvxRXFjViiccuef9F+k8gBzeo6+cuwgIzBI56Blg1tA9USTg9YZn3wenMtE7b2P+fmxs5T8LoFh6v0oQcGkNLuMI/VmRV4IswihNn2Rjr6YWXL80LpCGQ9qzB62cpZSW7A==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.105Z",
-            "lastAccessed": "2026-02-24T14:39:45.105Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "0EC6877E85B730CE1782BC718F4AC9F2~YAAQqyfIF7gjqEacAQAA/nAXkB5z6ZdIHsM0V0EQBKbYkNrv3wEL/r3drv935Kyd2zW+zR5DuWzLt/SnwQP6I6hlTZFGZ3m2ngGo5ZgsEHOvU97IMPUgMYiBMoYhoi3lCkapdmR+HThqAYyiLhoiYvfgyTKadO/Y3/YREAjVHe/JWcIzAdpPRZpkoSfLR5D4/UTkhlr9CKcpQwX7VdqeXUN3wlO8WDQ/tsaByUFsRZ6O+db9588BEjBF36MOSc9xZuHMuIZWbrXvdRrkFK6EZEl8RmGdDj5kj1bL6ft3ud5tAcqOA8Eull5rj6rsXtkFdpTyGI5lpxWJ6+hUQhN4b1kFq8ngt9bJpqOlw7CUKGYuUS0bn9Oj+T42YZq2ByNCNFeRBEKlkc2JwrHBUGpxDWKuXVDuv2CimRDheQCnk5PDTLZjbA==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.105Z",
-            "lastAccessed": "2026-02-24T14:39:45.105Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.865Z",
-      "createdAt": "2026-02-24T14:39:44.865Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_mCmdSPX317",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "DF717DF3B7827CE41EE3F24D31350C85~-1~YAAQqyfIF6UjqEacAQAA9nAXkA9/8fAUMat5bxLbsoh0BGJi2l6yEXsm3pzNt5Io5GU9mMblCkTqe9lF3lBuJmNO1g2BNYrbiEOZxjkE9zhU1ldNuMDi4KNW5pXuHLfkprpWDfcFcCFhwh8qX3TPUXhg5XOCndTUcZxdLvg/suE4lTX/fphhOUViiscpuk1VPkDwZdDzoJac2xJVjk5VCleH64HJgNZMVslOpvSeUvamPZeY3OzhxnG8ti2/dDnpoPYN4krSRqJdvvMT8QUNcEjMhBzfUJR1YNsnaKcJSHaYFBb7q+VTijhWjXjNJ324efEdcUA/i+6iYZdlyanV6IW5jik90/9Nv0jR5c6rf62JjiR6dC4StXwN9D81tjDJDzUKg4mhoTUxM/5vhERL8MDHheIy9jYfHTIyREwJdW4tEY4jTGpp8c4GejDxI+2SFL36VHRIvhs=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.061Z",
-            "lastAccessed": "2026-02-24T14:39:45.061Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "9CD07AC00D2346232876B50A967AB310~000000000000000000000000000000~YAAQqyfIF6YjqEacAQAA9nAXkB4k7YGpU8TftNumrOjXiYiiApzdyvKovZq5USKwrPv87jOxKuI3FB52HwKlTUc3pXWSudeGeScjmHmUTJUfKw87xGSxlja6IJASh+1484TG0LFAnRw0eV2ZWfh9ShYZGJ2cN1dVgYHoX0wxiBjfqGMTxfyOQKwcri/c/pINo/SVJRCr6tQUve3yxfBoWp1ir0HxrBQMOSEuoVZawpv+iRIjyyeWzR01X/ewAWKx+RTy8mRekqE6p6Dl+GimwvqQ0fiQA1Zy/BZeabs4v2wXz+6IdzrzdNLZoi0YnB+B3ongwGSaDutzSDT8xSgkCrTmSLq0q1npOf1l+HHzYaf+dUT+gluLf52aaiuJ++2V6hhRI0k3yJ2bnueiR4vKkv7pcqSMXBMDTZKB",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.061Z",
-            "lastAccessed": "2026-02-24T14:39:45.061Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "FCED7FA310FF3C7F6551A98FEF8E56B2~YAAQqyfIF6cjqEacAQAA93AXkB4f9kByb53OOy+iiz7Jp1zCy0ObYn4cQkglKYt8FrqD6g+uB7gvFCGWGPzcQ9lAJobuqptpY6hPdzK82wMApVRjQe2IxiCVoLkC30x3OMNLjGAY3t8XyaTT5kr0g8MdmI5G9rDs7nnl5rLch1oP0BbKJ2MDRAK3umppVPo2TBaJ3a7ob8LuQElqsG/wZoTWld4vaclRqHIVoPE8VujxASwdSMlDYV8jz16vuIPBLmDa3ZSspW2UCxDtT1fXT1CgI/PPBh1PHrVBsgnr65Hx11mIhz3G9qq8tuV7QWPA+32IL+oV/PpzDrdW4OH0TrTD1wt3JWzbcIW7qdJ/fqEhzWXYpuOMZA==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.061Z",
-            "lastAccessed": "2026-02-24T14:39:45.061Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "663B26720E442C231B8509721A60A5DF~YAAQqyfIF6gjqEacAQAA93AXkB6/biPx6TVw+/m0GHdHl3/9gYzi4DJkCHJLuBGp44OjsZIDbBWTLl+qRk65Mxbgl8cbRHLyJRv7uaH6MCyolwfeqRx2O+rqi7lC7V5j5Vx2Nupyi6res9FoWvX+IZAjWX5gFGcK26I8KYOUtx+z+fVF22m7t4gi7x1fxoxLV9lyPTFLKHEeGkS/7ClG0Uiriwgf2XKqf/gEK9900bEspavpX/4aCX0N7F2gFVjyHtuvBZsM9MwOq6Eq3N166SkmLhy37C/MeKiR59smk3HmVBm19C+S4p4qxSDyqaOblwlvwI+nQHW+LZu2HqOIU7/SoLodxS4mpaRMdasDFWr2iFso1KUWWKfW70JjCBNVu9BZFl/DNrdXCVxa+0pV9eDTq/exteIH4NY0uCBYmrVOSPzqdxQ=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.061Z",
-            "lastAccessed": "2026-02-24T14:39:45.061Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.867Z",
-      "createdAt": "2026-02-24T14:39:44.867Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_hIXd4bItUg",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "784F377A3470836E53BD355E048CF7AA~-1~YAAQqyfIF60jqEacAQAA+HAXkA88towDjKS8MZ91w6/KsA8MMexBbrfk7j4vNDv6MEbfvTpkylJRyW07QBQo88uynFaqNwByCcF59kmKiTHcYDBQxbm3fwG7IJZjRgvUbC77q0F2BUNLeT7J1ZkF1fWVK/eFQ+37pEhvE6iQyimyKln+wfJkHP8WGuA8ADMe/K0Ekd42iXPhQiwCaYpAXXOZZ1o/WjgFyPz1wCStMz4SlHABbBcgHWbq6HiogiMfJHrPu2YecwJDhcXsdxCXhH5oaLKMtDqSOgk+9OYYmUhyBZQmHw8wUM0CHkf4OC+1sfztxk+BzZ6nzBuOkcjHzy9t1WeYKsDOkDC8UzdHleCoulPYyCs5a/aGKBsA5lvYBN9g+ncbO95/JDR/JPhhfc+8cibctFvi6BDzPzsv4yIRkEbqEKiyIf1Fxf51TJej3WOV2OVvw3E=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.090Z",
-            "lastAccessed": "2026-02-24T14:39:45.090Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "571B2CF5EFC45FE85B6943742CE87249~000000000000000000000000000000~YAAQqyfIF64jqEacAQAA+HAXkB5JdWPM0S09KVZZ657HOL8c4KxJLyRjEsTJ3HaT8+AxfUnM/swFGj1IIsJYA9E7EjkqkXjrNXcy+idz6mWeNf8Qb5fWlfw8eI3lDSbNOwmt5l9tt5tAkt2bzbvK0iORuB5LPsAwbyy7y24lnT7LP7ECUPovI1PLtDrFxQgrlof97XPhyZ/hnadu9is4cAVwlcRAljdWJxFLiFhdE+D2LCnQQlNjg6Spks58Mrp74Sw7NSrUyy0ZdLptN/bwiO2O8nkU0tteDmSJgItVe+JewRk4Hxovjpytd+UzSTp4Fqv/vUxu4atBii+peJh7G3FMfGa7xU5I0szyaCLSU1HBIB7ZRRU2S3UGyUS/civ2D5/2L9D5IzKGZ5EBpzzJLjqCLcT+y6ycI7evOg==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.090Z",
-            "lastAccessed": "2026-02-24T14:39:45.090Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "86FB73AD33ED30A187B53FD68C5854AD~YAAQqyfIF68jqEacAQAA+HAXkB7f9svVQal4oPlz6zpqTbD062uZg0qZ/2jdNg/I8MZM9VP2GoaloIHGK7usQzA9t3C7SbEUbQZaQf2IztWFRZLu6OllD/p6m22mkPn1QG6zy1S+2BHyYGd3TBe7V61IRZ06EFSqm24Jeez4r7T7qDC1ogiaNsTD68emXXrBVzs/XtnOxTDiJtY3HLB7M6gTYwJHitd0U54m/mUGIpNxXJr5FLo/PDGWYdx1MPSAi4Xe6b4ISskdGGeUumjgruWtRSNg2CSRviw7oXNEaZO2VoNPZ4XP8amQ0sDbz3gpl+cq1FaCFARbCiJK/bc7UDVkh7nrGHFetwtRVpXMkijcTlSTgWE3Vg==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.090Z",
-            "lastAccessed": "2026-02-24T14:39:45.090Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "8CCF6DD75C6D1D3D2A6E9C4D11967E7A~YAAQqyfIF7AjqEacAQAA+HAXkB7tOIenJyiVeYj5NTffVXCJQtE7GKCztL6JcbpoXZU/ZrgE1HakfOavfpFC8CVuCXaMF1kqKJGdUlRQ0mi7HhNI0HAd7VSmWT3dyncJI8IZ60120Ie/6bmeVSpgyCz4mXqifJHPG1zmF8dyxrMIShHqGzutM9K5+wrWzcZGOpSUl7i+Oz0aYIAxtytwotpFUZ41ct3zI2W3tPaISmgiIoUmljPBVSwXFExeSLVQV9XuuvcBLCKGc7Sz2E41ilpUWRyqLc6BkwZLzFAqyLFTkJwIlM3jwm6XHgNcwnhNku2LPW+EzqRgPiLOQbPhYN06XUGHmpNjS7ONwIhGTApX5Cze7YC57r0dHFBR8t9JLOJr90C7FddK5CEW2VaVngxtMzO3lCJi083eGvzzd1F8pVVbYQ==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.090Z",
-            "lastAccessed": "2026-02-24T14:39:45.090Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.869Z",
-      "createdAt": "2026-02-24T14:39:44.869Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_UDpzQO0oRd",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "F16BBDA33135ED3E4358D05AF2E6BA8E~-1~YAAQqyfIF6EjqEacAQAA7nAXkA/d0Tb8cnxe6sPsrwmHmns4jTsVzfOUsMlYVs+92yI9+4tL28fuMNeoaW9Oky/l8DlMVqKxu0mDpZhbvqxvJkuR08SsEWU0vqUwipMBuaL2UljWfEwbsSeYbYe0y/LOFOGB4FAfK1DgOR2xW1Xt5IlBlVIpT3FW5jIsI9exLIktC4HfmWqnm8sKRTN9kVFO5kdPaIyWyPp0vSXVSaRK0uNmYTwr9qC/5Gh1poFWFbRUBIj8QeYnmOnWgX65xEnxmsgGpDK/wXD7cVlFoMJppruM7Ei8lbuu6QyU13XbT270+5JyrnkvQU98ig9tRQMYS8bbegymJ6mBSpenOsgPFyXLqjbiqsq5GurshE2f13GzriRKFVv+UdzUAOH8XePgPzaO/bfCtYk6gKDXDG5Csz3zJ/u2K1xx8MiJOAB0ogO4MrPjABE=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.046Z",
-            "lastAccessed": "2026-02-24T14:39:45.046Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "D62BAEA63DC93E7AA3995BF6CAA46A8E~000000000000000000000000000000~YAAQqyfIF6IjqEacAQAA7nAXkB5n0t+bUwLQ1YwZncZLHumcCbXO6KvRf5ntWlqwtgiruq4PcSmCNCycKSv2sq4Le9w6+DhVB31ymKPi/F4wYNjAH8IdfJ3V+9lb3n4SlcoU7oGFUsiJpwtH+ZvQv11Edok4iGYjRYWL6HGT6zJClb4L/Uu2NzvjqyIXpTiA1pfyp/5Cota1Nd+xPr3tpDrvX5BGg9fYVscOR4dA1+gzLN5NGjKl5PgyBlxx/w1oviPTeMrJZXkeQxo9Ku4wwDuImes0TBdUabftJZDKAjjyQbZYyBpGA+1zdxmjd8FZjV/QDbZ4uCsyb2hXt0XseXDPUx1KVYtsGie8oQXMYF6DDgQ/10GBolZfVClpomn65lgQ/oodHE9pf6QvkopX6Fcnlb11dOwFDRQu5A==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.046Z",
-            "lastAccessed": "2026-02-24T14:39:45.046Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "855D114595917201884DC358453B299C~YAAQqyfIF6MjqEacAQAA7nAXkB6m3M6M9pDJSt3C7kLKzJifq+f+cmRRshFPWlAB9DqDD7D1oVqqbR2Jmc39G8pVI2igJj14SDrhnw/VOVz2K5WiVkBzkSaE5xGXdNVg3xEv8qSzcvbpCK8wFf1jT3um7A529E0bO0KsbhkrapbGO1OpL9AaN9P8iHvbjc/d9pFdLhrDs5xbmMdTDABFgkrKFbL4xj5X4SneZXyfQXVrTRumDf7O5nc3xRizD9sGowNgW23hLVPbsKEK8Uo6ieyJBykhPMQF0QR1J+wpewxJbgYrJBT2rlcpjttYum+ONLO+mcgeiHE1sT7JUfKLkjeh+f9r34t3enCSsQVHzNfco/E40VQdbw==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.046Z",
-            "lastAccessed": "2026-02-24T14:39:45.046Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "4048104F8C92AE68A87FF9D70FFFEE3E~YAAQqyfIF6QjqEacAQAA7nAXkB5jdpbeddq4GcReDd+w6ExLUfP3DvnuVhASRxpqSe28TtvWo7MpRMg6TxRHSZ7JztN3/9DJSYCqZ2wgkw+D+PiBetBxYdw8iFQ30BCT8x1brFIUvdYDvb6lrPZats6RyDy5BvS5Z1zmZ954pK7kVqXSobDBIL4Xca5xluEDDcPq1EkGuS0IXNBIIOdFWAw315diw785sAdQaPf3dft2kU81pRuB06e7hCR1Pd/c60MKTEkOTAeo9KFLrxUxhHpDZUoj4UhfmoZ7n2PFqRHSAfKmU01tRrGVhv0prHNl9Zqs8/Hd9hXBHucx+vz92vqx7jOXXKuM8htw/39auXAo4Mr9dSvm9+IrB06tSLp9akhC/JgiKqieQoi+p3IguNSjySvpyvlP/3MZCId9hrVUlN5xDg==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.046Z",
-            "lastAccessed": "2026-02-24T14:39:45.046Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.870Z",
-      "createdAt": "2026-02-24T14:39:44.870Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_f4bxYk3hJu",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "60CDA6DBE941B7616BF3368091649C27~-1~YAAQqyfIF7kjqEacAQAA/3AXkA85yahYl20tkLjCYHwFCWehydCu9ih9fRYodiTv9P58U5LehLGMUWtLwISgphggMS6Dd+HX2SQ/mjq0wA473koenanLC5CPAcygPaLyefdqy9gRA0RmP8HbrZHpLNRy2tOwxr9hBz5F1VsmGBpvspsuEPJXrlZS8+Z/C+NxJbIL0gXMQOkR3VVc0gmJmrItcpxvGl9F9i5+rQ4zACHQUc33mZyyEqvudvp1Lm2MF2/eAsgtBRangSyr/S68S2fkkwfPe17zvYC09XWaF3iVI1t5lYYxJEqRNXeXCImvS3ZGRnHrfqks3QBHs63/jnmV9Unrf6Pdgr68eCDvJPu8ZLUU8/Ep/GDIVipcLHIybcBa0dUJUAXTdmF9cDPzJAz2aiTYVR59hqvVoY93NNiBMjZJVWKsyvDwwjiE4dvXAdX1dbVFkpw=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.118Z",
-            "lastAccessed": "2026-02-24T14:39:45.118Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "5B07595891BE0752C1F7BA6B41971BF8~000000000000000000000000000000~YAAQqyfIF7ojqEacAQAA/3AXkB6yPiJqGpjmgoZ8bVH1KUKfalaDXAsrTqr9BrZ5cdA4fY6fUXh9nga3NO/yx9Jw+kJO15Z32z3EtK0/5O7XThkW1bmLOU5fYC+R8Z4Lbb5lvwbZTSS+uJm4Zvml1DH1ZK2o8AHMOX17glZWmlt6viB3jlJJNJ1gbZcZA+XthkRAxn/cD671CBKUWJNf/2ByXvG/t9p+FE2oVPPvndt99OPyEPsD3efGWSs22b9O2vCHFA+GvoxyrqFu7l6AC08hhtBSsUrXyie5bVAVYf8tGfSse3BhLQ7ofyiHKB6hL5zKYKtRvkI7oGy0BS9V2zbXmz1h+7To7LoJGvqjYqTMj5bjMmgn3bqxDPTBJYjrkRM8kV9KtJu3O1FJ/C/rxMbSE1mErGSI2PmUwA==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.118Z",
-            "lastAccessed": "2026-02-24T14:39:45.118Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "E54CB3BFC2581AD301D4DF1AA68A142B~YAAQqyfIF7sjqEacAQAA/3AXkB5ehYaDkt6q+idwuao1rHeul++2xoeIArCsqC9te4r6fbDDitrTSjVTq4wJqq7lMvdotIiGzOpGXAi0aNeoSMVGFdVw8a9kJq6tGyKnlveY8C8OBDe6qlRRBX4T7Dga7fQJBmkgdSxVwRDoRhf5EMS5xBljLXGeo7uE284UUBGl+w235kvF5HJa6mMkkphMYGb7drm/hcQVC4Iw7RRfjsioWntv1FQXlllLQ94lTifXNQU/mZxuwJXepxNuMzJMVwe1jHj7+KLZcaJxMEAV1Vei7tqvOlV0MwobQ7k2ArJKLido49porMZAcu4MiObcuE+FUWbjsBAMVL/2FnytVhpZOH+7XQ==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.119Z",
-            "lastAccessed": "2026-02-24T14:39:45.119Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "F4162873E2428D502227089D48E8112A~YAAQqyfIF7wjqEacAQAA/3AXkB518l/L2OEOyKAn/aiiCK+DbUSfUffPPXScH8KwcX4bXq7ucHMutwg0q16bkuZr032EbIphYj+a5m48ozPLIHkhYdMyogmAQO9GlsQB4SOAEHNpPnLD6artyHG5zTtnHO0mdhd9tJMJVZ4ufrqKCk9scjlzraKLyRqmheL0l+QPwmooFGUCgS1oVSq58boWyfzat6y0+CGarwjULpWkKL4sTb74m/Yx63FTjfAFFhJKQ7XyzmyEYuxMIRLu9WFuXHI/DP3/Zw5YuBPfRUCwR0vyFxlwA93+Kmrjo0Er5oDhwn7ZWRGeERHm5hhlTw6iMzpqTo7zYQM3RRM1MpuW4VsSYGYkTs9L2P387kXNEUTju+9F9MPKCGAh05yHmmv3B6dznB96YSuTMzeHzhiu7x8cNA==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.119Z",
-            "lastAccessed": "2026-02-24T14:39:45.119Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.872Z",
-      "createdAt": "2026-02-24T14:39:44.872Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_8pkvuRi9Uy",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "F25FA466B8D24241990A2B546F529CF3~-1~YAAQqyfIF7EjqEacAQAA/XAXkA9uLzfWbZeGrpF64Hczk++ivJCC76JWZG+rRt946yvGxgBBOfo+OkKGTrtEYBd47lwHZTo4X1YCOtQ3tLGTyWuFT6XcwscHXwqc/rFvwgOE6uTjap6D/JkVkLY3wPHSfsEeNEC58dTqZiwz14seylG94C332iq4hqg5BAaRjdzguRDzmc8zyg+uFfQwrqaG58fC62W38h5gIxEKlZrrisWbGKdnrEoJbm9vzaSJCDNmco7goETP8mDh/48VuDtSG5pQoeNByt8Ul3Keof377tau5ouQyl7LYj8zhIn0HDfOMbcc2vS9NDoHnz7T6t7zQWTlRLAPUa3GJmsSBRKaYDQrs98VY1qJe4ynyJi3v6xr3Ccub7WoqJ8Z1WlVTmTQ1r68rveGQX7D3GL9yrg7Jgc9nazb5l+yxl+snVGQUnuhUvLpJiw=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.134Z",
-            "lastAccessed": "2026-02-24T14:39:45.134Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "0DFE58EEE6D5A63A8E0A74D327D7528C~000000000000000000000000000000~YAAQqyfIF7IjqEacAQAA/XAXkB68SxuG/C3G65I6VnbFI/jV2InBEjIAErKeloEEu7QwYvR2gjewmn/6xquRxbCwmmj+tUEd+zlCZT95cg1ghsQYAAKdkcJHvSZio9uxyIUubc6wo9gJ4K90dQ5cJp0qa2bbneEe1KOsLR9+25CBZHPNF/JhD/9dzgOqH2T1VVFu0t8Efub713WOUkxgFywli9/7ZGWJNNRxWiiDnLc48lNcDTekYk6KD7ImUjqp/ZMhafrdvr+T1Wd/kvlJ+e8EPetjTTJuuf9U+8Ri65efS6toGGOGV0MBWZq+xevkB7loVwu8jZH+GSdMhbrpLHcyV7oeoJRcm/T48BcMOH4bhOjs/hT5RqhXwmuDFREYcg1tCSmWr4BW5ijw8wB2pW5+MdIFSlalK/sBWw==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.134Z",
-            "lastAccessed": "2026-02-24T14:39:45.134Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "EA0E6EDF9A4DEF9729705300D32A404B~YAAQqyfIF7MjqEacAQAA/XAXkB6hriDUC98YYBPFWCgAeQbnnV/DWVxJAHCiHnRpDpDMnccoZlMNlxARTEFVIUFofNJTIq/X+X+gbrf8dwDxwxHVLH+wNhpp2uSM/MmfCDzm7CarLvuFvbesi/9HbldXPm1Z61fmmrn/gxl5PAGXp5lBycKDgyvPd+aUTxSLN8pFtFdkeo3mh3/ozzg0H86/KIHv8PSKAvzWsK6PpyRgl+TTWvK2/tkPF9vmAKAB+yqfhK2XR8oWMculiz3UGNTzXp9d6hDRc3tutL1Y9aemfFiGxUqbh8Xio5x37UFiwzTC6fhW0XIpiI3ftSpxCmwzbwhgW6DkFL7aK/osLIrX7OTnxz1esQ==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.134Z",
-            "lastAccessed": "2026-02-24T14:39:45.134Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "5F9300FB80E313CC56E3ADE934524712~YAAQqyfIF7QjqEacAQAA/XAXkB5iaiDtZ6k3NlLgGRJdKDUXTYTh6W9e0bW8uZ9ijtEmCF/XMYNyXN/p1+Ne663jmkdzqZXK1v4ZjRv3HTcRyWnTKqmVcuujAArBdOw5FhLndC8X9olUylmzUKnMfflQItw7KTeH5BgL8NYCy4nRZhnyMJiLY48VLn+jIfmgZ/B1jCkb2MPLRsQ5zMmii99Jp8/w4FWKFz2ixafXCxYAU+7rtYUzM+whpBMePDygTsxE2Pvu9Lo/WUBErnrBAE6doccU3+ltpFLkcaz6NvRBYwNZDZCs8nRxmcU02CEKaEeiRq4fci7LSSLVhqbCNBIiryl7JC1mONPYIn7rLUz3rE80zcYQVDcOX1ky8cPr+5nhba8LU+UlWbwLRWswGFbBuFfGdbgyxaSg//a+8D1enmgPfw==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.134Z",
-            "lastAccessed": "2026-02-24T14:39:45.134Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:44.892Z",
-      "createdAt": "2026-02-24T14:39:44.892Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_YtlfboQYCJ",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "2AA95BB0A585A7605C2FDAC81892C3E4~-1~YAAQqyfIF8ojqEacAQAAKHIXkA8hEFRPyfZ7fd1aunsoQ2lfdgiBO3bzcftHC0HLb2lvD2GMeaq/p5yV3omOU0xGTTaQNmt91uyCuFsfXVRWFfb0FAZp+lNAxDEesRBmZo6teSski/eV0M63W9/8F0K+McY0Y470aXS80g+ofDc/bqmQEd2ARu56SA+UXaw2uKIjXRqrI7N5HfJTSw+DKvO5l4X1cnxlUuIGeWxL6PrbjI/zGc7Xrd9zwgGMjcSRflKT3rMKzPhW+nrZyk2Q+ME6388pH+nWX1rAEc1/S8cujc7Iygh0qImj22CdTOkR9EqouXHzRxVcJBmSqequvVLzifn0TZkDsCcs69M5wp4ocncFyVQ3zLJjBXYlT/3pt/B4uGNerzlNsj6JmaEfSoLl9ZaC0ED5XaSxwVavVMG9SZG233Cn9dGf/E19jKhu1cpwAkad1Fw=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.304Z",
-            "lastAccessed": "2026-02-24T14:39:45.304Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "A8F0D3FFF3AEF8AD1185BCC268A1F8A6~000000000000000000000000000000~YAAQqyfIF8sjqEacAQAAKHIXkB6zG9XPS2cPSzkRA2sDw7IUB6C37h63dPfvI60WH0FZ7na4vxHZsakYYHpTJIjvsW5zrVb6RnMhwjb1ebRRs6W1Sxfnkn1fNdZPxqzaQ1Lsva9FwKCzQsEKcNFVVi8+z5+o0bp0uUevvHSENG1rvTX0m6AUOVzPpRt+z5pA+zZBuEdL8HgllF9hcQp/LwMPHXYAbJEHBh8g5XrJo1CRWUxeSbTpa+nlgMWDVgaMh+PwnLRb55L5up5gpHgt7DJPRRH45FF74xGubtpsP3J4Kpjc8Zr+dUg9DbbJbNrqTHfLw8AkdgKZvUl+ayY+ZF653At2HJDxV5wZwYlD2lAlXkFNmnjWJu62y8pU36yKoUdwGi4lOJxBLUNB0nc9J7AdHZXObvzlS07ouA==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.304Z",
-            "lastAccessed": "2026-02-24T14:39:45.304Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "EA943A4235829829FD06DB4768EDDCAD~YAAQqyfIF8wjqEacAQAAKHIXkB6cQNFGy06A3TPxXeD7qTkMn7Hqlt2G1O1D6NGxL9o7qZPuLxdJ6kaWQokOA80OemtQgwAoaPNZF0S8d+mgnOl416Co71s0WTYZnIxo2KQG4kCTUpw8yhkDkct7bK/kt+Aivh70n/xxTfBh9BYdpM/jp/Il6WGKhZjLaeVKhZ73PSMmjtyK9/EM2h1k/S3Xbd05tAzSI3EGl2NuTtpUHiLdn4icE4Ednsy71OzCWyHmpd3n6uOOsU4xKiTvaFGOpVvqTbFLtL6GhofKsXwPXnnpZTW35EECqllTw6knSl/nF/Ll5AAzn15iO5Ida5PglUsB/52B6UghKB2na9H90kFWxg3otg==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.304Z",
-            "lastAccessed": "2026-02-24T14:39:45.304Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "42A666263B6FCE621C67BE289BC7376B~YAAQqyfIF80jqEacAQAAKHIXkB5fxlOBNwwTNC3OdoazTsLONusb8Gpie/8NMC9ejbyR509JyPdRmhWHboYe6kuEp1j0h11rLDdPjiel/81/3Ok/jP48nDuh8aYY6ebV8n2/4yszTFUuJQWD0dWCZLGa3yDf4XCNryjXgJqSwsDFWWMWVbD/lts3jQ9/cbh8E5tmsA8DfV3KvUKTgP0pR14IJOZTvdSUbMZxz+OVwZAh5fJyHwsyBBXZJsxfSHIcaOFIS6dWmP9HeWfQ9YMta5Ti5lLqVTWNzmwMUz0N81xPMcziKZcc26Ost5V9uHaKvexrxDEEnWdAeDxc+drxX3ChLEQOxYYAktlrQ8MHSvt4jPpv5kdX9qCqWZ+AbyGwFxP9Yh4D0e3TCTal4H4vLC+MT8VqjqEWO0Bj2xk0JFuWdhu0ew==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.304Z",
-            "lastAccessed": "2026-02-24T14:39:45.304Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.171Z",
-      "createdAt": "2026-02-24T14:39:45.171Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_f1NDXkViYI",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "A3793454A25162E9D7F436ABF979DA7F~-1~YAAQqyfIF9IjqEacAQAAKnIXkA/ptxmf29hMBtLlj1AghMc8f/dJfIEVovm0E5C+04X7rT6sTbMvu3BMqeaV3YVkzDLDUtpism5G86ZuaWN8SeXP3hTxHYmBCwtLNCER9pqERjOKMLU00Y7Z2o7dV1KDUc1mKvy4Ng7WNK+upR7YVo+4vnM03gqh+QJeEHOZCQ/WN4yEZWIhXr+mZOiefszprB0R/Y89DjhFeerUB/O/BSMLtGsXz8w3pLYJ0gTbBqAn89dYM20D7w/BStWFw4m71OvY8Zx2ByLNYEN8+ozxDUIrbxfEHQ29Zkqz85F7BP6gGm/Grv0oaOzrfwuQXV9jQw6UAGA4UvY+gSDXOkFxYGwHixjYGWWqAlFAnYTyDnW6h7ScpC3mVsg98jxmtGx9G76pUnYuGUqhqgkF5sv1hNt/vOtOdgmoMerRtgURPSE2pEM2bkE=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.385Z",
-            "lastAccessed": "2026-02-24T14:39:45.385Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "5C430ED4BA8BF5473DBCE0C42FCEAB4A~000000000000000000000000000000~YAAQqyfIF9MjqEacAQAAKnIXkB4d57qn+w5Ywx3gbC5t02fUms7Qx7e8YPZuoU1hmmi3f4oqg9bAuzYiDiMk1hN9eTn3fm8TBxlnCnmdSXGfbtKGUsAhHqv7pBKrw+D3Yts1ZrdAyebna2dm5ya2EXFvOQD4+iUsroSKyHKz/0U2euWN0sdu7HUx/m6/eHYJ+NZRxU2/wZmjfXguuGa+gln3uk9jatnV99rUvlrZiQBTvjcj1ZLU5aeA87vHBGBjUdiLadOQwhYge4cfVfdlfDVy8z7SNoWKe5kiNIz45xSxfX/nPVQGo5qiqWtfuEisIpxqlwOocokt+fAh/QuOmR9MYtReu+tCw8JGvDbNO5s/CNcJq0KwxteZZxzsgLItlrG2NTBfyyklseSZEFKACAhsl2UGf0iiOQpI4w==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.385Z",
-            "lastAccessed": "2026-02-24T14:39:45.385Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "E7B0550FFB80F14433EEBE8D0DB3BB9F~YAAQqyfIF9QjqEacAQAAKnIXkB68UtOi6GOEDjfTMSeoAiXdXAPZLaOH3ytsvPTwRrfPyvluu8BZW6OVVcIB1SStH1vLjLaj7vZ3vc6cJ25LakmFFipQNgKNZS1QSZlSGFj9/zM+gjc8Gz2sgqzGFCkUAVI83iCR9Di6ehtV20C73jtNlDTilz8x08AdvLUzBVEwRpn27bLK87BNThDfuyl85scEmH/rrrwqbk4cpAqeF0zXuYYiA8wIOWf72vSfgVQtUNMMdcXQBcPsYi2RchDhBKIV+E8Ni3cwmyt6EUCLWQpvGm1pjHWqLz1szbBCxMpkYwZfalLKKyfCHFliGpcjCDtq5LG0MlU+Irivtb9dMGTkRC9uBA==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.385Z",
-            "lastAccessed": "2026-02-24T14:39:45.385Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "D7CF6A21C83EFC654ED32259915334EC~YAAQqyfIF9UjqEacAQAAKnIXkB6ADwGQ3xGHJPfz23cdbFE9yjcHasAToSk9dgK4tUZpz5c/TdnQt4T0MkywQUluOEFLLZhYJlsF4KC2LtMxpfsbdKM03/eRCSB2UQTj31GhYwOwS1uGSjizdBGcorhkRS9snGgijo3KIZnS+t8aAsuURK8Hq77FIK/R9e2f4Wij+9KNR5nxP1roMOChFSKcjp+1IOQF51NwyQK8fUVpkxPFMm4HCqWsNFjDhTCWU5zusSAOp2OxrbBIiOidmDdFada+/GW4xfnfYHiobfCcW0M38nY1SKVMU2RTtxhmLWf/ph30rg/s+GOkee2T5CJzjH256YNQfRAarGmI90vsSFblFkOgvM5SnhlYK3LOsMjKvllmUCH3bjKSVBhi1WjZJaBqGG4o8UDPkfOb3L4nLmdhVmc=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.385Z",
-            "lastAccessed": "2026-02-24T14:39:45.385Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.172Z",
-      "createdAt": "2026-02-24T14:39:45.172Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_3V7q8eDfWl",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "C1DCECC23C8C4E8FD70627A1EBE6F53B~-1~YAAQqyfIF94jqEacAQAALnIXkA+tmwttRQcUUSB+PwaMQBV83dMmPuPDntMMfPaIqFOGmW+8gaEV6OCEsqUNAKyzca25iJyBN0Xa6RJ97zcOGkR56Bb4RB3LlVdsDCKSl1BLCmpiDmUfmsCDQNuARWCsJoI0WNzqBeXHw3zOzB0n13r1xMq/FUTBydu/wGAT3DCXDqWdiooS32ikL1Mc0DVa9yINdk40pSeurXmMTuD9C2RqzhpjAVXsL1GuAdGnXF6ni9lyEfet9Pm1LNgc8XikmEQGfMc86lryfdqeGgNTYW/b1BfIeiybDB2kIj1FygbgxSES0P+PP+pcKd8/OBhjcIHbaP5/SbfB+qJ1BVl2B+cPd31OfLxoIbKyihsB3pwHt5x86xM9O+3NdiK5n+e3KrUMtT57yBidw7rCYHw2T7RJXeUI3BFN4KBpl3Kt9wNJ0vV4nTt4~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.356Z",
-            "lastAccessed": "2026-02-24T14:39:45.356Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "CB0E09FEABE58E4B49FAF2FC2A6A73C1~000000000000000000000000000000~YAAQqyfIF98jqEacAQAALnIXkB7o9wkhP/nL444GxqDHAafDpHBewFF6Q7dwgNg+jj2epdjhaBBAzTupOYHq5wUPClto2OaaFe06QqGDbl0qDYWtvDYmsart8oaKrepbFbI0DS3OhS4fxCQXajDlblphRFdgtDyr41i1orXJCR8+ri1n0C12DdsqCv3VjOmw5d106+VbN3MFfmopG7gwHKedMxcYGSfZgcZvexPA7qgnjod+yoUx7f/I/gGGdBBYVFsCGJeE4vV1ebkNkdIl7XHzHPkKW2bB/lUuR1X/y3sjAOQfmvQmc6tTsgkSl/dIyNhQlv1DIUjLqGY/p6XsstH/sU87sJdGWaBFReO0MdmGW4O/MKljY7r2X85yBa9FPNk7e9oq8jK3/OptwSqht4TXTO0y7M+qRfItBA==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.356Z",
-            "lastAccessed": "2026-02-24T14:39:45.356Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "28BED483D24DC5A6E6FB2498EE51F377~YAAQqyfIF+AjqEacAQAALnIXkB5tGlrO+ULniCBot7MLswBboKMGWpKNnxc42pdlK0sQvkOanuB1Q3sS86gvzLPCINM1ZqLFTw+yUlngaOp0TcpNGb1tOwB4sc5XUqAvOx7mZWJfT7Sj7X1VTDJM0fSVTePy8jdYC/2E6EeG/OT7MU/3K0YpuNaLgCzX5eZW/oefwSGW9Us/ZKIccYbpHSe79UnhBY/Ip7i49fKSfNWZnCIiEkfKcjoSdJHe/0rCbzGS3r4MVWAdCI5PExmZxHUbQwYyGXeQMIVDixfbmRCX8hWFImjwD7RJlMJXzvHXSp4XClxi/zZV0BMt+MIYo8+bFHPBrsJ2rHcyWOoDDw8qA8OpohYzYA==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.356Z",
-            "lastAccessed": "2026-02-24T14:39:45.356Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "6459950EB562AD62E5238FF522B800D3~YAAQqyfIF+EjqEacAQAALnIXkB4JvZrBtzMSU55CoTzpklfJ2yFex61ZrZCb2DfKCVgtRibOfmUWci466P19Md5bjg3D3rq8TsXm3XwetAvGT87XGj2sCJ7cPLjwDq9z4GbB7Sf8tRKhzNqH5IyjI+jN9P8oL21u9xG7luRDOXR31KPSUK4RI5goRXN4maKB+pRiNpsOs2iEBa8MnNPBCBlH8YJ/zL3RhXaFV/GlBqTrCrnYilHna2TS6OQamC9yfmRVRQnyd2RL28kJ01mNi2RtwY9kAH+W06ZS/O/SUGfPk7o8PGca8/W2JHwf7Y8f3aqoXRz9fv/lVT+ywJpy687pVpbIKhZamHzbSf4A1lAD+4Tz52YJPPIhn6GtDPMRPEbuixj5mrp0j/+FYbSqCM+2fHh4+fdBROrZAnknFJO/XjtoQQ==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.356Z",
-            "lastAccessed": "2026-02-24T14:39:45.356Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.173Z",
-      "createdAt": "2026-02-24T14:39:45.173Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_z1nTlelL9p",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "07A3C66788E5D48B05A2B237637D8CBA~-1~YAAQqyfIF+kjqEacAQAAYHIXkA+mUz2t+A+Gtgdh0gYUVxFJYD75bxAbsPRSz3GsbuuMpwX2ECXIDC/kWl26QqFlKaX44Vscx3pKs6ownQfXJHpUKBzGBpQirGkD3dLIfIweKYNdzPA6zomUkx5Lpl7/F+YHKjDw7Vup4lUl8KK6S/25UN8SIEY6hHu+Mcpsz6hzksgszMQh+DcqVTpQexf6zboA/8VkTZS+cy6M5xiC628sbdUj6lOlBVBiTQyD+eFt38oQE2WWkd5zfSM1jZo494ep21vHcyC49WRZ1UFiY0N1UYnIXNZzEaXq65FiHszjWPiYv7v65IX0HQEANwQ2EdDpFDXQSyw1VVvIIP4jrUTf34+zolBK0mpuunfDw0zn016Kf9Qmtuf47acdQXjSWqVJXRiQ0GIVzD59hroClITwbIQIF8+W1tPiiFhv4YM97iFZ4bFJ~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.403Z",
-            "lastAccessed": "2026-02-24T14:39:45.403Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "7A143F719A12628B283515549E369F4A~000000000000000000000000000000~YAAQqyfIF+ojqEacAQAAYHIXkB5GU6An+JYI1nPLfBwsReOZWHKwmbUp9XllgyCYWDDtK5JaRXqeU2/ELNZ5qGolax0j0IjJaJafSMdGMn6LV7mMix7O+/WhhvmvuaOwAG9wWeKyK+xUp/hQ8SCk8zvicBxu40ozJ2ylsLyNLo5RDDU5mX7a+D4nKxQAeRxTPK43X/WwK3Hh7J8FgQOnSrFTqwVkbRf+EmvzhNs8zSka6qxDHqmiHYna0ok2b9wCpQ33KgDJOHI2yp0gQ7E6TZ+c1uJ5TikLaA4t3RCcU9WID8e4hOfHb7neZDReHHlFJmGT+bXN68+g25kj+1fWoed2lBpFQqGomnFTMxSbDF2RMJCwb7o4tHpnQ64RZyukEbNdmC88FLqXOL6oFNm+AEZENsJFMkJeHRbU",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.403Z",
-            "lastAccessed": "2026-02-24T14:39:45.403Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "1878755254A3D4FC08E0D9CF93E97A6A~YAAQqyfIF+sjqEacAQAAYHIXkB4EW+HHhj5U+iru8STrqJIFCU+Oi2jFVBkJf9vn/uMY+0WdNusmcqjlRrRguVnHdaPLupGlhq1oDSMSnPRERexhMPxnNexGA848lG8WNqC2uoqs4zQOUz+1oJle3nWounBuEaGuUa1YtWW8c6t+VZ1/WV3w5GYABYB2SX2nePwTajuNBDHsqx/4anIhQr3RlGlynh5hrOyK/9KrVQEn89RdanP34QUAhPzpF1o5ztVnw+Noqbqad88FXAGh5Z3jGW+LTkwy6kQSQ5GSfhkfx1K+UjP4DWmBmBxxkN5m/gYDINkELID4f1JMrelBcmk9dFHGYauI9Tb+w0BwAtpYdkeH5EXCtQ==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.403Z",
-            "lastAccessed": "2026-02-24T14:39:45.403Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "3625A4B20252869BA7B2C7FCC8E68BD0~YAAQqyfIF+wjqEacAQAAYHIXkB664Wq5+yhSfzrcymOmT5W8ey/CAIZr4OBvi83nzdAjMQPib+W3x7iOjD7WSTfmpQcP0RPUSl2l+5GLJM9PMt7xmU6T4Dl4iVWPzfbq3aUPdHypec+RJo0Kswna2HfNRr05pm1f2Oo+JeVA1LpW1AEn0/YX/On2TuVo9xu/FFchp++eeUX/Eq9JND1ErgWgE9HioBOMegAPEmM9wPxd0EnQOyINXudjZnDrrFJaXKPAJkRAOQY4E1lfFnsGKm9wncEbJTKvuz+yhqxj/QM6PUuAeyNgAw6O9SJVMwf7WmzeXyzIxraaSzXEOT97SJ31HvltzqGXmJoZNtivsPODrpI1IKXl//MOZbAQJ/VV5EB/KZI3aAQ4qGf18xEYwdHOQEBHXOZUqZs9n5akkFRWaReEd5A=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.403Z",
-            "lastAccessed": "2026-02-24T14:39:45.403Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.174Z",
-      "createdAt": "2026-02-24T14:39:45.174Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_G2sMSWN1zb",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "AB539279B388863DBE27AF7345B90BF4~-1~YAAQqyfIF9ojqEacAQAAK3IXkA+AkzPYsLeKGfHdowIXfeI2a5SUNrBZ1Y0/R2e5zs2irAcajj1+Rf6JQxrokHV0KJDV2Xq+OHUrgqqhyr4gq7prOimDnCXfOJERk8tNgGIAqzkThI837O4t1U4jwPLsefLGMUoJwDOWAY3d7Be2jC90mZF/IYnkt+PCCH7ZHGvhJUlK0RHRis2jss3Z4QdmYmwW1oP54mmj/mY07dZeKOxpijfegPyUNzBAyUvM4SKgQT+gT4Z54l9/K2bBnCO44rTtdV66r9IuI0h8r774DvPqjBt/BVmuEZLRQ0P0UOIjJN0XuFxD+76tIAhTILUDjp+ILYA9OmUlkONVpGO2E8MZ4Z8EBz9bjGQdELoKoXdzj4KLbQKB5NG938VyJnqVDNGbYhTc+ivDNsIWzQgA/Koxe0LJSuIo5fC6lszBjUTyPBeJGLsp~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.342Z",
-            "lastAccessed": "2026-02-24T14:39:45.342Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "F896F49660A3A56F08E14669DBD539F5~000000000000000000000000000000~YAAQqyfIF9sjqEacAQAAK3IXkB4qBePunV3cPBKB6zST9I36/RHzzVYDUV+b84l0PBVciNo3cGS4A0UNUngfSnh/+9l5iTArVaGkr0S/yZtlXLAmrCyYP/wxyCQNJF7V0EMt3pFyvDTbIxQ3aUsl6JmJOYFhYWGNbPevrR1Oga5AbhepqQQAFGxcHzotJgOAetEpKBZ5WVRIOZGKVeUeBB6OHItvQKU0GKytN0/adlWMeB6kLCyOkwhBOkRe51KIeQmqWkp24nUbo36sYXSOF0Efqh1ub84DXuMXtP297N2rTvm72VdkTusDhvWo1hWU1gDWCT9DP1tYtxNFfpPmoULc6SRxTVgwrsg+hHAyXPJ8JKbIKkPCvIr4K/y02RSnNu2WqK/YPzEl5h5buzzC3ESH6rbmyWUvkDgZ3w==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.342Z",
-            "lastAccessed": "2026-02-24T14:39:45.342Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "F9FCEC7D80E051073191F3B881C7E15C~YAAQqyfIF9wjqEacAQAAK3IXkB69Qcwd36PN3czHOmH9QYAG5Bp937kKMLn15KAIkCNZE8WbEI51k24+D5I9FOntgO/ay1b2BZYkiEHddfe1R0kGRlKxXqjTp5qM/F7SrFEWLl5WCzFiTdk5rvkepmGYQGtGoPB0b6xP2KxWiBkcJoZB5vmKZQGv3oy6JV6JfBsaM2sF9nQZMmwZYPK11/Iwp+zEFtUzDueL5QGB1+jHUecDVkeX7l2rilTy3vNuer1JnO1SKFg8VM6YTnkiIAujDjPL4gMycXscmd5PFZckLRE7XIx0VgrNo5IVPtATJdT0gp2m9ECTTq2zuc/Ao+mT0LJmp/0JW9aZ42nb3T/rtHgu2f9wxQ==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.342Z",
-            "lastAccessed": "2026-02-24T14:39:45.342Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "8AC13094A08CE8027224CB527EDA056C~YAAQqyfIF90jqEacAQAAK3IXkB7OFE8LYCrqzebaxhDE6J1JQuriY5AIjcTonO5LXghGIlkyDh6RflpE54PrZKXI/1E6EZxVVyBwPdcw/JAptOKwe2NlxOiGcjVM8OhmxCJOMfSK6p1mQkLH7FgJrO0ZKvA+yZ5C8wO6AoUPyDWu2mCSCjgE0Q2mdY0Y/BmJ9u3GwqveuHvUn2AwVzvrlXMlV652Gr1nVKz1XlGlx7fa85ZrfBnC2rJqHDQTygW1NWygM2jbPlPUgKfTGaW+OG0gZneDcrDPOD2nQYMbz0JbmNSbjV6I+nVN1gPYOYLpjMQzqrbC4JneaCq5GsUqQJXSrpdbO/UDbPovAxNppCqycIr2lBZQIuNzeY/hZPH3M1DNdnC02S6t+mFcM8JyUIn7tME04ESoQpkdU9ESg1eGEkiKiA==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.342Z",
-            "lastAccessed": "2026-02-24T14:39:45.342Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.176Z",
-      "createdAt": "2026-02-24T14:39:45.176Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_KNA6aVhuQS",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "8707F82A77C3FC1EE1F1AABBDAE253DD~-1~YAAQqyfIF8IjqEacAQAAIHIXkA/kN/vyS6mTxHmo5ayfgNe3dWqV7dQISE6gfA4FqiaYaQ9VwkOGe263ySH/7yt5KAshiUFqLjsQlgucSNBH9miik28C8WuDYULgsalHpcZwBOmd5v1nZ0HTkpXHr4k8NsHZsZ6u2myaGxHtPnemO1FDtpbmB/WsyNujRQmBB5L5SQ5TRB9zZeEcBZTQuK7I2Q+LtJhI5IZZI9rVf71VRrCPm+fbT0TeeoIougNwEvPa64Qp67cK7cO9j3wAuTcBM/erb+sCsBL1n1T3pTCn6SujkoZMMcJUJZTXl4+pvvdPd7Bf7hVPRSkbjz1PmR0YidiKug2D8xo4VnCJ7NzvK7my4FDeTCYLpSQyWnCOxGsWyPSGj49WPc9TCBdWo29V5EerpB8RHIYfVhG5Fq4z7LAutMkLvLdfeyQFbXWMgWAhzSJB6T0=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.260Z",
-            "lastAccessed": "2026-02-24T14:39:45.260Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "6A31CD1E4C885DB2D35C9214C0BECB76~000000000000000000000000000000~YAAQqyfIF8MjqEacAQAAIHIXkB7lOEFCLHUcuDtXwtj4jG/gkJ26k9d8SvxgA26n1fEePBYTI+M3sh1oq6a0gBx2tdYXFIJoyYHZFgr+npTMue6EclPRNKK+S090LDj+YyVam5WXH75rf3dNYJrxBSTZd+VoZmcU9b1yNNeMq/cYYAI8K8ioQLnoCd/CoRVD0RyaDhj2KmjEHxzCGk5qJ1gTwSTBo7Vt3+izR0Ctl81hSxpTHk7URrW/M7RR/HmUNMlNdie49v+xIEtCqoKztMjZpLuVwf6YKHbOvPtAZAEYeaAtjJm6vXsCdNH6My5/GNomJHbxZouFS2VYIuDpy6P9zYcb4hX7V1ekXKXRvaadGOliKsfuw/aH1etHMSS6JcFVgM1flMD4oLxzVA5Jz6uKbcdEhBmlXXCt+A==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.260Z",
-            "lastAccessed": "2026-02-24T14:39:45.260Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "9CE6874CF74231FFB110F38C85B5134C~YAAQqyfIF8QjqEacAQAAIHIXkB6GXGLezaHziHsonuMkL/hHXndUuXEJO/AvzuOaKI/YP9s3/Vp5Cb+btDCQr6FvfL+SQIN3bR/WzF9SM6wpkC/CnEw7HoR3KthSu7zQEziAmYmqxtCEfthYkp8KU9wMDrQ4znvHZqd0CQML6P4isTfEFiZ6oR7aPuyykeB3loSMWoiAzsrBK0+ddxGATkrmNrFYmApVp9cpR7TWzbH0uWubP6D/DadQ5n/3Roaw4m7ZpQYPndhGcZCanv70MqfMHGibdy93sKpXbcGnGJIcuCBIbfdOeN78LBKMUd9veraAC4XCjuYVPrM4d4rcCUN6oUjUZKrFde3LG30wG5kpbjqmrLGhwA==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.260Z",
-            "lastAccessed": "2026-02-24T14:39:45.260Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "BC1E8C7D1192DE84F71B3F8DEE1CAFF7~YAAQqyfIF8UjqEacAQAAIHIXkB6w/MZVulMj1fiJZNYQQYYvh9Ws98Z5m4/Bul4O182wefMkjR2RcNQyLqEkOrOohyF/FJcFJQ5lLHOv0vuqNw6i119jzgo6Bti0Z5am6C69pWWME40XB5+W5G9XGLq+3IZDwPtLhgmwgt/4VZxKHKN2oqYpiH0QirWSUOGQqjO3bVsKXDV0j/lCTyoKZt9eGC8v8DB13ku93yUVtyyXEWX6ZjKbt37BKqoabC2onRjr3IXZmEwTVAgE7MioHrtumAbtb6uav6OirB4VRwwIau9VpOzrv+0dA4ywszRrSKySahPBWX8GmjTQwOXpJltf9H7Xb3A3UJ0GFSM6DhI2T9h0aGgIIwL6mUf+dFesIaa2JuAv1lwkb2A9accn+c8MLpmZDdIz67aWv1gHv4ya7SNAoB0=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.260Z",
-            "lastAccessed": "2026-02-24T14:39:45.260Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.177Z",
-      "createdAt": "2026-02-24T14:39:45.177Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_sxlfLVhxOJ",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "06853F64AD731B6053A27C8AB5DA71AA~-1~YAAQqyfIF9YjqEacAQAAKnIXkA8AgiROaVtgFRWADkPiaYnZWhP6JhpKgggh1n0a7MF+396C7Bv9ewsn8u+HCt8iUrNHLsSJYOnB7SsY84xs4vNv34z/suo+7IPMdaAOku46+U9hvyOvFu6cfpiufv2bENsDoSOYkm3fydw6jtZIQwYImHX6mIwERQ1Q1fWS5VjiVa0U6jjM81Gbw1rDynPUXT1ckkQfGxnmunorOzVllFpKsIoepHPxkDYQSvYZUXake03CDVwcvHMgP4c9t54ct9GrillS9IvxMpQ/O1vs0E7riptVLrjvmfU+fTjJNQATGH3brp0AzOf7QZ1a1/TmH2VyfzBURUJw3ADaAvfaUV7kJwVNB7d0WTwGrqauj2iFqwZTdH0/1zrifTSOxMig7JHtBD2vvgs0+KoWJtW8qp7BHiPEKlypFYWgYMxzMO6DYWBXd38=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.373Z",
-            "lastAccessed": "2026-02-24T14:39:45.373Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "E0182D3CCBA2B78D8E4DE42A1171E78D~000000000000000000000000000000~YAAQqyfIF9cjqEacAQAAKnIXkB4DhRPf3Kax9DPbF5IPdz02fhE6YczNS8o9JUgu7SJZnAGRXmDtKZzniYGHhGku0DS8xcK1f6Bh9HbtnQgRM+w2CVa4kX6IpJviQsFbzKTED6/oiDE73LecdzoRbKUjRoxX1kdOfOGu/jrVpXg5nv9AA9COCId0cEBleeKsRN6ktitZGkA6AzYMlBNek5qci1SskjiZswxRI5NIj38gb+fF12ewRvbSX3p15Zc9ebbGgy5A6OyiO0H+4MWV2ukxQd8Y8HIgSiTga9Vmf+B0V3Uu9sOikFIxXq4d33K1HDgRnB3oe8pY21iPljd2BQSLCPDvJM5G2+u2/58kR60GmEzayLKIcROT4OwG6/wWjksaLBsMdkKMW5gINmUwzsuY1H4SDhb6aFl3",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.373Z",
-            "lastAccessed": "2026-02-24T14:39:45.373Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "D62CBB07AB716AD8C53CD8291465EAA0~YAAQqyfIF9gjqEacAQAAKnIXkB4CdPlbJvBZMPfHqBxy3Hw5yxLfX7KzW6XpxuSQZhF6ApvknHg05VENPTYg16M4wSUWC5uDAJA1KMmm7Hr3K+uNCRm5vUG9/EA7DiObAV6Ie868XcMcrhJa3QqmHSWQfMaV28GneQp8XSK0Klw/qNTxZdvO6zzGLOPODbORtwBhhiEQ8JbJ1JPsB7p3GZHxZxoeNsxZG4EqFBcW7xm4MaJ1oPVbt7g7BWRhedTGMSzOs9dQIzlnoy6xW1NzBzG3ID7PUsLbNkYG5ZLCwCgWe7LKYtBb4MNTNYDB0xkj37MdNwwmBDOfU5JDc51R3H1Y3oDlIx8h+3AXbw++RNNK4m985i7ZDA==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.373Z",
-            "lastAccessed": "2026-02-24T14:39:45.373Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "4C715A6B6ECD809C1BEDCCF002BE7068~YAAQqyfIF9kjqEacAQAAKnIXkB4qf20J7ClC7O3h6v+3ImBDZSq1P0+p9pTaT0UQhT9CqHqDTEJDwqr7/H5dC3wPVsDwMDbrPoAgdkcB3xORKUfD/DDAEDkczRw/gFZXL59zMglEBHUKKkWD+rVWASiqs4QjhmMyTVIb5DbD8F3JWa16b9hoRHr6H6yexXKp4Mq/KS5Psuc3TPUh1K0S29hhEXSBCyKjG8WKpRNC2e4nw3MAG3X9Vj2DEPmWq0ePtqVBClopCS/6c0UPidQhCJi4+bdV79a3XcfuNhrJDmc7Rk/asKacDg1wc0iMpoDK2Gi4MOGEFyoJ9u3w8BtwL3ehJsP0CtkDjnAv6lM3wsK/d7+jBriC7PxnZmMvXRSrnw/SdYO0RChvsRT7aU0bKgoFL2480AumcFswaJnuNPYabvC5/ec=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.373Z",
-            "lastAccessed": "2026-02-24T14:39:45.373Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.179Z",
-      "createdAt": "2026-02-24T14:39:45.179Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_r0WdU4Kgqm",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "314E9E879C706AC62C0D242B45D0C5F1~-1~YAAQqyfIF8YjqEacAQAAIHIXkA8UgKCEzI2qdZPugv/NjoBuqQkwL5WYj8xklGaOQP92/pKao3QgCOcy589TonvhB4QXu9CHIK2wcOpEGubmBHe6VqkGN0AeY/47Fb8zNy8Yoquhv+T0fSWZttMuvp1nRDXme0aQC1nG8alk9E8W6IayjUUcuOdyDSBRN74llqGxBRtPtdXRRVMsWQjti75rSgjpfbsZeswPE0pHgQTRGX+BLdNZ2A+e3jnp6X/gtOa4/qVSjqkGWy1KmruwMS/BuYHzoJAcOJCDdzhP6kNx+dfqJShCdqfP6iuPi8xY7DFRZD3QlmKrAdFVvZbvDaUNb95m0IjHNys9f12+Tp6AuKM35TFo4xtuOISrGpVi6wsMkuoWo0BjJcjLw3N2hUdSVDmav7ghj8wRWNTya9G+0RML3E2L1lvI7rXyDIGZsGJGUE0jUos=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.284Z",
-            "lastAccessed": "2026-02-24T14:39:45.284Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "6875EE2E5102B6CD165D49EE6B048C1F~000000000000000000000000000000~YAAQqyfIF8cjqEacAQAAIHIXkB42Q22g40m0d8NZsy/wG4YpV7BoqvV5KioSdh/7aT7bzKqN//UOpp4uFZxQo/D9F+obQmuJpHIgpkTce4dFvG+aNaCId+HfRCyPrvX2gpf7oSxDHCrUmhzbkp0j2o6udjY7l1EXLxPdz/+1gU6R2kTVoz3Y+gwf2r+f9ffGRQ+U1y+pGnBASj9UMJRBVfRESWd7FgoWzxmSniuSeY30RqptweKzzeBC0LH24O8k6lClZgLtB5zGdQ2sjpSamMYmFMxyBh8p9u8czJjrgAO6D2F7OkOovkJWH0LJM2WHtZHfj2rwU5MtqtjDMOLP1QJW9hWDfFQkiYdGqLdZdRzNmy2HmWdllejSmE6gIfYlY+p4yXqH3E3WPhf1/GJCFw2bptazYNeppWtgOQ==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.284Z",
-            "lastAccessed": "2026-02-24T14:39:45.284Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "E56377B38DCFEC09DA660D432A04902A~YAAQqyfIF8gjqEacAQAAIHIXkB4Lcrynu1NzpbhYTOD7pdY3YYkb9gAMKEV4kWxn/0lngdnA0iab9iUOU6yf6K0twkW7LjYt1/ZBB1wHqzhfKzC/GkIwqUt45d1YUxnOIsrd3ylusy/D+jwobQEaEG+TrVeikhZzi4BZyFclYLBVDoe0MhsgUdipC3vrkTthkso/Hei/L7vRFM+h501Ma7QmK359ob6Utqlu0bLXVXdva90i0tA24MzdVF6wuJCV7Dzj7fl72d7TafcuREyFuUfUMVdOze7Js3BuIgOTwRorzdNaMC5qcfBN7QvPvPuFgkhTD2k/sW/CgYmJBzu+EqvrVdKpnkJT5tvCFXmjkAldByd4meky8g==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.284Z",
-            "lastAccessed": "2026-02-24T14:39:45.284Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "3832D817C5E6D9E42E3F6F3183D9BA29~YAAQqyfIF8kjqEacAQAAIHIXkB6T/96R/+ytrwY8COpQ0L7ZfQaruqImq6DQBBcUdFEnh/9Fo9F19PP0P/XoioeG9w+0aBkiM1WLuGf75qSfoKarvEMbO/8ofO/cjF9nnLCNCsJnUqSocf5As+E0s17IpWF3mT20YKaPLcYtbBT2IUmYVAEzykY/GFb6pNaNQCWjmQozaCwqW6KiG6ILP3YZGrxf95s+nthbx8qrR/+HeC+Wgw8v3rez/WRc4sPpZVgbYao7dt8bG6OjwyketheUF5jpfduoMYAClUqlQnDJQXzDnmJqPJbVj821aITQVjr+gyHXSRFUB0xVXDn0j+DpgwLM3tPGkDqc4CnIRiyXQNn+bZhq8enCXijtJtBhCiEzSXCbUQCZ+eFQxqxQrLXpNnUzlLIqCD7h57rSrG8Kr3rHVA==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.284Z",
-            "lastAccessed": "2026-02-24T14:39:45.284Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.179Z",
-      "createdAt": "2026-02-24T14:39:45.179Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_pwEgu4kPsg",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "5D08A730AF76AA26538291C908D4034D~-1~YAAQqyfIF84jqEacAQAAKHIXkA9Vw4btQa6ATZs10ciYlBfqpe0ki9W0SMWaBQA7huLB2X4vr/SFCd3YWc8JgxVP4MTOEpDVgulBrtGVG/bYz3mzwohiwclHVGLjIXlalubjGA4SYnW34unaVxgYFe5W0uJGWJOKUNlva+jI/nj/eQrE6KGcQTiooNhkpL64ynrBoIk5WXqknd/Xq7G1GWRED1K1nbBK3+L/8G3Lsoyooh3g755HpbTKRWXl7+RAtT/XLXgrDG0i06wpjgAO9HEIi5bwYpFK69VWeyakxOQGhqM5PpFos7zly6l/OAPbmUADCqLpKhhhDfAc+QlVZC1x2GTfZhofecNeb9muzjb82HrkZc9f+BronxOiwW+Z/3w77JptkCQV2by5yu+4A56/JO1lPmBSx3xcvjdSiU2R8w5Zw6sqEBfn8agvfBaFNtQQXM4W29U=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.326Z",
-            "lastAccessed": "2026-02-24T14:39:45.326Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "5DDC23BC9106B53C384A5371D9C44D74~000000000000000000000000000000~YAAQqyfIF88jqEacAQAAKHIXkB7q8FgwaAYUXQBRqQTpRYk6V22NeHUSzGOgjt7pVEHo/Z2d1dTT1xRzurP8/ksZ00pQeH3YVd8qo/kTks943ceTCRLbqModdmnVEt97fe+/5YVcHy3MFb687Ts6wPpmBwlClLRh9o1npx0gWHL6ZJpachLTAxw7w+Ey1JYflnWEzO7ALN5SNrOqsOL6UkK7NSHApFIOTddyP0qQfs4V5pATbVAZbpw6ix80f1G9gDLzfbVmtMINWIOmadXjwmEDGRk8+q+IbdAwKOzeqVjQRjL4ko2ie+PwcaUPwkyrE67xkJYyi60BSwVuMFAdXQ2JS+Zfjc6r/Y/NB3F90s87YpTsxjtZYcdJPBi1Y2/Pv1ym8NKrWhSVilOlpzYcoZ8gD0yrxRkNgYmBQw==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.326Z",
-            "lastAccessed": "2026-02-24T14:39:45.326Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "77B642C4E5FC09E11D0835DAC577291A~YAAQqyfIF9AjqEacAQAAKHIXkB5MQ3y3hjjGkNycEmf7TMEMiVwuiy5V1NwMLNmrtZ5FnpBE/Y6omTZ5iakywMBj6Wfu1TTrhIDtAc/ouqXHRzMTRzQBAXaBb2m2v/274HcoXMRPAkiLZNt4piTlTQjMxgYcCKFgX/gVeb9JPLG+5mtMLv9p1dy5GO45QFps9YCd/jcFjQF+K2O3VNGzSYKS3BFsa4ZoZU/wHIufxK0ZWDtF5loOar21TVRzpZQ/Mf8S0uqryr7FfCyEL1rLMQt9syZCB6Z/cmKUNxq8MsKQcsAbi/dIHJF/e4Hm+vj7t4td8DYgabRFO6CPV9eUF1r/FqceEuakUUQCs6ohNYDcKvwKgeiutQ==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.326Z",
-            "lastAccessed": "2026-02-24T14:39:45.326Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "177B82097B21294E42A7F20E383FE826~YAAQqyfIF9EjqEacAQAAKHIXkB68QTPsfE+oBvN2DJ34nHfpQJUogfsP+nFJa76uZa/5dEqY7mCIv4QRvlLaozzwiIuA0tDU2dxYx7NU/1sLEoSgeZbijiZ7O5u2Ak7C4z/F8XxnazZaLQkWZuLlrcQaNDaNGOBZRH/8RQbb4z6rvfNy+mnzFYNLsDuf0h3wC0ICyMCM79rPjNv3c4Q2unVHAQNei2LFiBzy1ymA2uZi35tZetJgKfqiAonvBjC0bv+fxxVVB0mxoKZSOhVKEm2IIh8RqKj5cKz6C2g4t6XzzR33Mg5f/yhi7N6Nb8JikuldSOwhe260jKj/G4KgN4kDHxZjuDNYZh1V9FW7oqUre3KNGmOhLvfgu6gqxq6ruZ8c9FrAZGidc/KbP2y9f4HM/OT80+4Z543ra39+kCCntl9Y5Q==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.326Z",
-            "lastAccessed": "2026-02-24T14:39:45.326Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.181Z",
-      "createdAt": "2026-02-24T14:39:45.181Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_otQYqwASur",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "38623805D31E19F627A8E742D023A9CE~-1~YAAQqyfIF+IjqEacAQAARHIXkA+Vk1hednkkMqjxHMwuCEScFk9YUby8+JfCy2Lbr5r1fF5PTBO9x96N/ONMy4MUPdePTBsJGAEmQuZ+1UfSvPb8LQwuxA8bSshbnjSpUJ8SVHUkeuTq5kXEwk5XpcSNhfdumS42yOSvjRDQK3KQRf9x308D+BJhn27HFeNfgDMdwVl0MKoFRRX6RRXyfzkGTCeU7UgvPdQT519sIeLitr9VxU6sdLvNzOONutrO9A9+nNaHZ5nDPVR46FoBfX9khzclFRYjySHT7UvljWfmdproYd5kAqnysTCWj8PRo98u4/aM69XZE1ucLxA6OImSiwsL3vhWqkzkQKug2PkF8/cFqwsyu30Bqcp+YzWUkQ4XBys0kT/EaaO6USQFa4I42I1be8LfkerAioCxApDV0u+Hij0dXLSux3GJYUPxOIydIKB2+iI=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.428Z",
-            "lastAccessed": "2026-02-24T14:39:45.428Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "31025FAD1D9AA56869EB50430BB1AEDF~000000000000000000000000000000~YAAQqyfIF+MjqEacAQAARHIXkB4Fu+hJUJ74WMNa7Jh2IGb0pdHVvS/ZNIPQXsC1tVErlg9x9cZG5O87FqQnM2Ddt3S6ZoZmbif8W6ZbnxVE2NhRbLKscxM9WwcRKtD3qJhSwP4S09iQvh1dET/HA0GrPnzAexCf4EvQZvXgAednG9vD9q/ll9kpUsvXptmBaI6M28alJYnwodPC9v+XFnoVnV3nlvqb5QnCJnmqIAjLSWzEh0Cntby6sKCvrNEuP/KuO41djgy6kw43oBitbDYoJiMtMJDQMl/JAhj3/oOhSC4i5USdgXGq9NhaN8cDMGkEXGVPn5Aw/csxCv8HaykbZHyMny+tY9FcWYykxFr6pVYQB5or13GQmqcFAl5Zul8H51B+IC/1N6R+0R+r/MpjSSoCtVYm5JAIaQ==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.428Z",
-            "lastAccessed": "2026-02-24T14:39:45.428Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "EE9462424ABBB352B47772F50081B51D~YAAQqyfIF+QjqEacAQAARHIXkB4iAG8s5Y3icoAKAjRzASCl3uySxnWhOHGtr0gUuYa0wR6mxWZFn1y2049oABgiwknXO3eVrNae/b6oc6vKNryN9kS+NVV4+2VvHnqk2HJgIbEkXcg63N7X62wFnKs+G/vbW6lUCe6/9mW9z+yv5e2KCtdygxy3E9kQUtyR8T4S8eap9r4NpWOHToo7Rxi89vVMUPftapYCooMJlnGPAbXTEWSOF+Xg6hglsGq4ky08fD44jWcKKIf8kXwiuW8J+XuB+P+xFkB5m+VJRE404luWDq8QGTQrgd5ztHjEtVVgB4/W6miytEhVovgqOJS7ZPy9E43WiQL/FGEaN98+udNCNpCLBw==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.428Z",
-            "lastAccessed": "2026-02-24T14:39:45.428Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "9C807C8A06040A867E752D120BCD57C1~YAAQqyfIF+UjqEacAQAARHIXkB5oCghYnjtXEsNOBOeBSQjfdu/tn6kIw+JdE4h1l9j/3sIUI5Eirvuc3mPd3ODJkbyo5M1sUSBQUZi6oQQi3lYlEx/jMsYjdHF9bulYSYc/cXBTtiW63kh4Am5mAtI4o03Gx6bp07S2yGLtij5WKBkA0I2UzEdlj4zAm3Y8L30Y7BohjNOmmeA2p+cokpJ5JpXQRfubGKi3RPHTrKBcWvU5igs9OeEPBVRUesssKuoEOCJ/FzqacwT+mqzZwEDpflp9Ynza589/nnSgVHb6srWCHuOa+cS84rNA1qkYnA85luz7YAU8El4DO/gMZxc7sdWxp6f7adTvTKyFMAitvJIbKSqC3EmX2+eZscNTpjvJgt8QHCCiU9JSCE1+J2UiTQ4xme5N5vvej9ZBhz/CuSB2kgo=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.428Z",
-            "lastAccessed": "2026-02-24T14:39:45.428Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.199Z",
-      "createdAt": "2026-02-24T14:39:45.199Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_5pn9WozUOH",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "B3BA96CF156514E8CCEF527B11F21F92~-1~YAAQqyfIF/AjqEacAQAAM3MXkA9wCLmeM1WVtpaXl1OA00SqZYzW/wMpQ8NiQd1UxpzrQnZQErTbbBRPoU5JOtG/aEXimaN9tBZar4cIslthAWwi2/u+JgB08eG0wowI79l6VXa9tMu8SEH9RHdQA1BjblX74eZvE1akew8C3YSrHjTpAX/NWwTxcDlbnarbuYShrPU87o4fNjE86saFtGHvdN/dJFP/pEsrxfeIuR9g0avRckjR/J88L8oKNs9ZFqoXDAguOtT++e9M+pPsY5/kQi0qzyjsoF9mlkUou3anoMdXkhnCyIOJnhYn//qAool8ZBCfxJEsrMpku89+iA74QP6InaaEJEOfjhDyM+CDpVQ6IcfCo/Q9O7F2aoLBz8sDF8+/pzDk2Z03CFw2n1n0ggIcDj+cnMF4by2ECCVlSGjwYCS6y0NNd+h7nXyqocU4oYGzMEo=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.524Z",
-            "lastAccessed": "2026-02-24T14:39:45.524Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "30CE20E4BD54C5C1BCA76AC573129B3E~000000000000000000000000000000~YAAQqyfIF/EjqEacAQAAM3MXkB76kY7aonmKDyqCVmrUsKkkK4wunqoh0Lf3j4kE4/jJVQsO/Ic4HZke+7A2dDUTxTxkCyPiLkVLxTu2xpilHQmfgas5JuyuaHw06N5tkGj1mNMZ7euFO1QaXy3YDV1PGT5TvNnHdXC5pVErOCh8QQ7yjjWzG6BX33SapS1sPsvXKhxGcdeN2XyRnbHUJIsY8QV2S1W9v/UhF8jNVuJS4endKneWxcEutT5XZ69RRIrjyDsmLXKhDeWkgIKrMsTe3ZoH1ORYF7PnviuprJAb/hXTvCR8SO1Ix4NBKgNNXwBl4ps/AnoBNecjA8pozfJOesEnCD1kiY+QuB7y1R/Z4+Sm7PAc0ED4vn31Ih17jVdZ86jg/D0Ynexccz5EvVzw0pAQr2Rr4z7WXA==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.524Z",
-            "lastAccessed": "2026-02-24T14:39:45.524Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "71A91BAF309BADAA23D8BEF821FB87ED~YAAQqyfIF/IjqEacAQAAM3MXkB6OgY6oPsoa2LX1RcjDYfGzj2wLXMEYZnxtbXXrLoHNffgJNWHjWL2Kfi1tMUQKx4eKSEbRvZ34t2fA8WCSinVUqBUcvaBXJGkZ306aQluZy+f54hlKKgsQ5MNWUJFU+0sW0LXfrjle5dD3sWpeA6NHlKQFe0t/P5iqmUzcgz0ceVTJbWZ7WzLawkHONYDduz2ZRDzon08QuV+fL4yMzlhpvrpKTraewccmB8FlZnRCB7XoMfb1DyWAj7QJB+0fCkHemQ3NPbX/H8GNEq1swbGZtbBkqkYhe49ptRqrdsv+CJUDptCk+i5BQbxczB0BtvEc8jI51pRA7IbFI2WiJQqx2BxThg==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.524Z",
-            "lastAccessed": "2026-02-24T14:39:45.524Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "04CE795B624855AC274E82E4AF52A862~YAAQqyfIF/MjqEacAQAAM3MXkB5v8Vv5nWO5EqdD0KaSELY53ul24QrZ+NWt6BY688yBpeWUqmu+jd2z6IJwXyt6PK+vCXnbXaNbx/zqImcBAXspE1jsO6wui+maW7DbAaCU8+alIbr4x7XFHyV+9DeqE1oJvWQYaizDf6ISPmtDCLaTaEKq57UEXYYGlCnnDmJVlt13TFTgbZVpx3xnhDrQBLAVeuotKNalWq1NLNTmsmd2IyrIsHXfRG7Y0G2e3urSaq7WCBMmGcx0nhU9nxroP1KKYdSyRF1f8qnSjFep3Vj80Ks88AzFT1YCMjnzzV1zCzoLk+UHhVBdUhr65eIBGdJvsVEQaLvhYEP5VjyIWX4IIGrIJtHDg2Ua0VfZ/uB5SVYRN+HbLWKKdvo/pd2AfriaBvTMDqCzMwg8NTC9+mptfQ==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.524Z",
-            "lastAccessed": "2026-02-24T14:39:45.524Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.453Z",
-      "createdAt": "2026-02-24T14:39:45.453Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_QV0BUVsDie",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "6DB208DD1A69A1544D636D3D1E162BE8~-1~YAAQqyfIF/QjqEacAQAANXMXkA9lzdZtNC2Ic9Feu5XF3aN9dRg1wvhBGflZn9zwD63TUncNeKV/9lQhBnHo6cDRjCeHjwm+VS7VcZq8HQpaqtp3n90UFo6/R/0BRyn+nVyhVqxMZowzdJd2FjpPdpERUWtr/V4VDCCJk/5lmHJpN3hK2S29KPmlKbbrkLKWICg0Y4ln0drL/YEzFTsfKnBPOdvGMmLXWb3LbMefIh+5oHyud5ZFWI/btWW5kpejjUajghEgNmTkITqaI7sgMri2/3Oe+uwbDlR8cIbfDKTga7WBrmrSaKEgNtgfsfQo2D0C3ZGpUfkuFO+1unp9AsD+5xtS5ON+qbAe21mlTkV9IHUIGuMjwIpysa7QzdRrRlhkuzztifSguwM8Aessfp0z0kXZGACtGnsew74x5qGYL/tHyR/y/xrB9sT0Bsr+gvNhxlSnm9w=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.555Z",
-            "lastAccessed": "2026-02-24T14:39:45.555Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "F9A1804417F920FF39EF0CEAD2A50A0F~000000000000000000000000000000~YAAQqyfIF/UjqEacAQAANXMXkB70Ke1lpLZIW9CsI0nHrJzSAOXk85J2rWdpDoNHiv9YZoVobx69phrVOmX+TOpx8GOAVPp1dJ3FQD6NlujGgR5A+DnTWZVKw094jQd8D8dQzQO/dXIpJNXrPzP54+KxksW9Zr/QANkqshCMyJBi5i3I/008yZ0Zlp+4XkfR2gzK7Bk2XOegdYJLzNx2u1w9+9ShRXRd/wIWzxKD+uKhLgdu9T4tH2Tm3OTzta6p3BOg/bXFR/Hv/dGurvRgHSH6URQJXPu0ToJwb5FUES6vGb+8J9LVPVPRdUBXxmurpAHQfINWTsp1Vl6LeCMTN82zt/0RzmogJd2zLxFR/W3NR3wkqyXfUFe08B/d9AhbXUOz1qH1UVf0OxdFCvycHqToHltz/6oo92mH3A==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.555Z",
-            "lastAccessed": "2026-02-24T14:39:45.555Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "D14B0CCD56A6B8C15222C0C28AC9732C~YAAQqyfIF/YjqEacAQAANXMXkB4BBu3IynA3cb1/ttEdyioTARHXf2X7BWwj8EoOfsZzNm1NP3OHJQv4pZmoeuWt6ELzSs9I0MQhXJWxu09EZwg0tdXDtx8Z69u5W7sVhM+40fIB/9Reo48tLSPMfQaa8nG27Myo7Hg7s3KMGP8swBpw2O5oKTuCyqA0l6pqmKAn7znuVuACq7sCQ4dfUlR53g5B2IgrA2kVn8TYQb7t8XjBOD+MCokgGqekcocNGxKTTjB6Ijx2XDFqlUYw2Z5EZ02947ZNVvagz98xjIaFzi39miAk51qcMjuzfrPeAeC0aTTdpmn6Y5uvw8dVcI1oxTXxCLsfiH2dCTEMUCGdNdWObqjBRg==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.555Z",
-            "lastAccessed": "2026-02-24T14:39:45.555Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "442451CBE3AB103DE09EAEB3AE0D2643~YAAQqyfIF/cjqEacAQAANXMXkB7nTCG6RpPDWyr7osb6iKyYtGHnD9Hxk+KVP/iaMWuWcHBY0N4Dy25/NGTBwSq8M67p/mjVWBkNDMaPP9MxGSN8/pxOX0bGk+if8VhwDVjXHLd9gmjVyRYhIOxfIv/1AL6V9lTt4nH/vIb6TiaqTriiirv2cPCEjxn0n0Mdb6BF9XZrdVcyruc+zLcyHt09F/lahL0NgB4z111q/B3ID5Q/VfbSPfE99XB6IILCUPxkeDeM1t9gjwpHnzbYRdqFaa3qrsYR43pHwThIrySGoyWx3MiigQVfAHf3bFsDN16/HXv+V4e+4gPrgI6E5rzZsbybhW+xSs9rxU3BSC6caKjHVS5OnwcOirdUjNzs7pru7U4lu7E32BUWggB60vNsJ3HtvcbM8orXEywqzQ1d6PS869I=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.555Z",
-            "lastAccessed": "2026-02-24T14:39:45.555Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.455Z",
-      "createdAt": "2026-02-24T14:39:45.455Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_HRfWFhGZGa",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "9947EB1BC64D2AB06F3EDB5197BF77EF~-1~YAAQqyfIF/gjqEacAQAAOXMXkA+h/sy64se1Iw0sDkn8eMusj6hZR/Q44YVive0hXyH5I2VbCer71cGFnbVKotiOBPw/k3SuyURC6VqBCbgYcdj4315doBNA/uJ6MJdAoY4ZHE/ER0MPiVuuHBAsDkOfOu+2D/MHroAQA/8RI73bt0R8r2o3HVPbyb92YH+d3hdYkhMGlQRynCpohETTdpEvODZH5gU3HmTTRQBC5Nu9HpRnCDVeDXSoXnZOokE8kqCiET5xL2Ba8vEVc7nMQ0P9g6yk7KZs6H/iczg3t3PisVEI53+uziioGzYS02bY+4mnQzonq1E+/M2FCG0gd6ig75M+sk+YjAy82dYiwLzRg2Dx5HxNp/Gudk+gHC50DzD+99Hd8wnzbwW60uJUZ8hLniskkwYIES6+jm8sod2Ah9JX37Cvi4TFz/d4EqYz+y/AXZwO/7No~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.538Z",
-            "lastAccessed": "2026-02-24T14:39:45.538Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "B4FF1407A3616D512F74C26FDC34051E~000000000000000000000000000000~YAAQqyfIF/kjqEacAQAAOXMXkB7YtJ8GNu0cEXU+Ewui5qc6rsfr8dWq2CAfd7V3IknVnprXIuNttOy6nUUWJQTq1JgUcMce49nmJLEGQcarOvPAvQRHMaQHh0zXewJDbN0BUfUL6OJreURq8/ZlcLb7OsTEqAHbo/QNT/CkkerKzj4sayxvuf0SiEydOAr1tpk8OLCX0ApoUwMhpOZniepqC2I0dGg3P1WJaGmMTq/KUH3S8KAZpxuve8InD1OH1eRKOFlZDXtzuAhk6o5Vdq8jjJUz11I7tPyjRRltOMrMEoWMOpRYY7HQJXQhEqPNh6LIwCCkK6lLw9j+BF2SNZo3Y33UCj6ihaJugJQK+JzOpn0lriEKnspphJis1ooBO51IyPo5cOHua51klChoBoWV9cMUHjZS8XCK",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.538Z",
-            "lastAccessed": "2026-02-24T14:39:45.538Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "725AF72BE0DBB45DB25C3C1C3EDA1814~YAAQqyfIF/ojqEacAQAAOXMXkB6e1AKzRjJZ+R0JgFzhrZ/CuobWrnH1VZ6/+r9q/clU0eu6oJD8wz/3NljUzqKxBJFVx2Uyfhz+0kKkHdHnbT5Q4cXSSJ9AXDOjs/FjWkSHTRcOj76WVnYpXGjQX5JmvsCEMWADRL4TfukwWJTtlJ3LsBYOWRSh4A16SXOjEWVsKFPXCNPfK9WlwW/uBey3KbVsZQ42CxfVzkwDBngtXNuYjbvIoVQWlpY8+KZVVmjcJCBjWCAuNLdb3Pr9uDaLwqGjesWAchKP2RK5K8keI/G/ogyqFx3mIJz+qP/MkRf0vnQyonPkSAPqyAobWr+nMsPOxiKhekWP2FolWl1hFKnvXduF9g==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.538Z",
-            "lastAccessed": "2026-02-24T14:39:45.538Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "8132B23C4495E3E75917F85A4ED5FE8D~YAAQqyfIF/sjqEacAQAAOXMXkB4jKXawpOIwajUIc4Lan2SviqEXe9SXK/fC5gMltcjm3yfiH5fIwdvWxUjmYQ90T25ylvh0qQUgIFKUmTcxl8tkNcNyZjXu7h6t6lxRPQHqufYrdSKITARpyikZHt/IRoMicHLwRNnk0+cnOT16VnQV3W69717TokKdwAnL750+/nB/IIKRprVhKhUooy18Vnk8+OMQNo7T1bAaew5UN7jbQmU1exQ9xP0y861ezClnIAulzox6kNQweTdm0hEwIY/8wVnZhlpEqjPwY0Km53uSh1607Dw2dVi9bcmcpXHON5dB9WvPqK9wdAWKc6yJJH7rnC1CBYvf+IwGPIUnWE5kkZHYcZ/U2HWodJRmD/h/MRSd1uaAb/wizGeSSwK8q3BWGLEIZagPbLmMLyPMpdk8234=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.538Z",
-            "lastAccessed": "2026-02-24T14:39:45.538Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.456Z",
-      "createdAt": "2026-02-24T14:39:45.456Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_8CKxaZIiZU",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "F93BA403DFC34170471D030D5D5598CD~-1~YAAQqyfIF/wjqEacAQAAPHMXkA8IWIzNGQM3PB7bYOyP6gT0kPQCA68mf28mNLQZ1tgIuq4uZO6eTDBkf1Fjrcxn/WcXwnQ15gslr6se5N1Xkh6whetqNk46bHbLcZXQqRJ0Ct4t2gGL/hxbJXSDDuHcpp0nyV06gxiF9h76QqB1jVh4ouB+maDMBB4YkRbsXWkXt/BlqBsFOp3JLqAi4rbdg4QElI8KH1g/waKH1303hq8+lcVDaKstF2p7Nm/p/QQHa8SywQOvo/9ehiR/8jZkMal06JOjBHxtF30mOlAOsdVvucXqEbdSxOfTpKQ9IcIMlcq2mCDCnPQr5C5WIViL4dv/X3zcJ1XU7M8CUeuUarK1vmUzMBrmamv4eaX5+yR5Q7SpdC3bANak5od7Wk4Inpex+gCvZLkdTOKQYJU3Zdn++yOzT95/ySCCpQ/GzmepKWt+FA==~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.571Z",
-            "lastAccessed": "2026-02-24T14:39:45.571Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "0181BC30CB3BC8F7B303FFA63B24BD18~000000000000000000000000000000~YAAQqyfIF/0jqEacAQAAPHMXkB5h9PUhTOaUapzfOGHK20gvkPFWscd0Vtipo6xZkFGiCiaJrm3utovie1m1lGjCAi8PdouX3FnVqQbPjx7aVnMjvi1X/Mv1QzdltxeISUez3Bq4rwDYvXCD0UOX2cNb4knkyN80w6TS7NYxl04SsKij6Q0EABitGYgFNjBEfojhzRD5C1syuLRK2vY3GErbZ8DyeUd21AOWDSBtyxyUawRpGLeAJZSi/l3TxOpxYjLUVPRZ6Nb9Y01lkCB35MhbNv2Jf7N1mU/scmfRLZGEsuH6RQ3JUlw1ta9uZbTCB9/5V+Nc2dXfPWOCIurifWEaENwRiBD/tGGAgdXHzMoW3Onls9p+K3FLlQurVA15of1Wwqs8asADam/TabHfetZW/84uaXRtxbwk",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.571Z",
-            "lastAccessed": "2026-02-24T14:39:45.571Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "4C19284433276A37EEF841E61DF85227~YAAQqyfIF/4jqEacAQAAPHMXkB5BghC7nJuZmk81EL2k1ET2KT+o8kGKCOWN13/tDI8JxhqrTcsnuCa1vtC7HR1JbHozZ3GIq4Dxyxg+rV/EwdE6b2FXknPLaSDaud6LT7K56EhBgMBNMfAZeOBKeQbc1wQWa6LWZf5HfTiW7WsV4La8Tc9bmWWdfP6czz2dwgyn9x19G4Lf2P04sjU7NPsilOMd6ovSLAuaKiHwZXbcQ2iadWC5VwOgP2+09xQF0Z6e99OxoI5MoDkBS4Z/No8B3WAFVUCXbEPs2lfT12OIEbXbuDRtOst9qVDNyAD1tTfrPcExDO+TkuFnxOueDBrxclpLMnLOQ9f4XuCgI6GH3SA4cI6nxQ==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.571Z",
-            "lastAccessed": "2026-02-24T14:39:45.571Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "DCEF12E711183BD87330C3DAAC1BB82F~YAAQqyfIF/8jqEacAQAAPHMXkB7j4JA0cv7M3cTcA/jvSSb7dhYqkCfZHbTMrynyBSaq5hLANwysx5n8nNkT3BX+0C+ei4I0vF0Z9724dVkEl1c9ZA+kzmiM2PdN0n7I+ucc2vg1VXsoZOsb6w/3ll76ejzdIuPI9ZitPbsZP4SdIXHP0rjWcpZJqvmk/vw791M+DX+SwKDkXWwnxzqcXv/WdcZSmDQgM+JU4TAXHlLcteXlfHdjOb337cMAp/ao1T0gaJb3LBGzuzPZOHEbqJin73c9nFeuod79Rq+EH/D4BrJsoYbgPk3zQO9Hh7/S2H1djBfbk8AShJCfZFYvd3dYdQNomHevGkHfaNCy1ZemesFKoL6ICZqafnwr836mM5bgVtBdKJFRRFvv7kQOrcHY/A4EqZkf/yIcefUm++qrSd4Jc/A=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.571Z",
-            "lastAccessed": "2026-02-24T14:39:45.571Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.457Z",
-      "createdAt": "2026-02-24T14:39:45.457Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_GpNEmH1lX7",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "41307087F2386C0F06973BB69D45311C~-1~YAAQqyfIFwAkqEacAQAAPXMXkA+LgikRALTOHmWtKl030NauPxJxX5Mpd+0cPpcZdl3tzXQWT8lZop3MIhyjKqDWWOIeILaFiiVz92ON5xw+baCPFQZl4N/xmKSrWc1Tvf37G0H244PExRJjS9lPIe28rfMrLHvdmAVuPtC0D+ar6h05T/yvh2akmtgtrvDKabF8rCzzvqooxDdwUmlA9ljB0OAOUtPvNYLnE5iRmn2Frug8khJ1pF5Mrs+hzcy3x/2k09p5J3+eouCZKkk92wBwoGACEdHjQc1oOd8Yin3BiBTrC3htHjP9kVvEyHNgKPZhvF6dbtl0NTmc5vgbiw+huiITMJkQ7+OEjHNxnk3iPbkgsODo8wdy2gVCmBM4rSiXzImEOuO0m71f5MVfrtHhRMS24QP2qbRhymvWEOao3lvxJgDCZ/IDUpXKo696sRFcip40B4c=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.583Z",
-            "lastAccessed": "2026-02-24T14:39:45.583Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "A7D004E0555079FCE87D0D0D20D852ED~000000000000000000000000000000~YAAQqyfIFwEkqEacAQAAPXMXkB6A5mAQvO4fgyAMtGlj5IETxFGX3a9T1yvYiyfPEb1IjzYUzyFfSoNwvGykY2wg0Z3CVjUeiHiHjiP6Aj3DaRXTpb4knPMMe+wrsL0q20/62y43nO4UppMvoaZLOGgIpZBqMX430MlAQmFMpvlCqYF3zw2IMqKVWPH3cWvxL/mO93KuqPeT4K7yvo85gPvBoJzaonj4Is6Y/HfK2f1UTtvg1B80dyqLEg3S9ljHm36GpRJM42SgBVws2kvisplO+gnTSfU6bVcfFQPJPiFiWg9RCH5eAYLHPgFyTHqq+LFZb4i+dMCoB5xAqWCtoDdUqlpYW+PrMkYcuXU4i5h646qTxkLRM8oIpm4enjkjXSvu0G+vciLEl6bo4MUh0VmNTJslUw0a2zUZ",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.583Z",
-            "lastAccessed": "2026-02-24T14:39:45.583Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "0BFAC240EFEAD0302725B11C5285D3B6~YAAQqyfIFwIkqEacAQAAPXMXkB5UozKJbVqvpFOvCJiy3wyT/42QinPkT0Dc3HBWGSGpKMvFCvpdc+z5enKtzs5xuE7POdBgodjJon5hUNy0DXkAVkutIdt8Q8i7+zVdR93bAb05uzjVGJCLbuXBlaWGEma/8DCsxZ/CbWYyUe+tPIix+hHwVivVhGEiJpeeVLcoT9egsrbA6cRDLnhV4E6oUMzyZ5kjlraTQ1wF7J6GPlIrB1EkbRkhzDeMxsv2/UANh495Hm8b03Ga/Bj67zZt7kaJ12LRKSszfNIjHzexrpsWkP0Mmt+qcS7nQ6uWWAZO6QG8GOZiBKxI6NTUiQ2luzRxKiG0zpKeb6NjdNGPg7yBzwMX/A==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.583Z",
-            "lastAccessed": "2026-02-24T14:39:45.583Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "3980CA2ACFEB132EB432807E856158C8~YAAQqyfIFwMkqEacAQAAPXMXkB6CJc91TbchPhrkhcxgkZQxaqCNkA1JXb/28bf8fXlq2WgDndW9F7BMW7Vm5oBAfrS5YQ2yyO2KG1Wwvqdgj4F9h7K2sCH0t+ap7P9iA68B/VGezyt3xHG8c+QJrIakbwd3U4iC4m4MmfMPmULtUUe5X84JjoHY8+AqqbSVjgb5Bsxuh2aAH+73ZsCSXeWtuJcOYzC1Ku1KLp2DpMzth2anMUOrtdxSqVyV9aX3p1bK/+zfHZHadaa/5na/5qONeKjilyE4XgTj2A1vvOlLz7iRIaDNyJszbVL2c9uVH/zgkmZJZJvBpvKrcL9eV96auQkXMFulMeOn4ves5U6MoaqbSim2K9cblkJR2u1uNQPuWubp/hX5/V2og3l8Yb8Bt70+skH8FkHt5Cf4AAC2YC24xuA=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.583Z",
-            "lastAccessed": "2026-02-24T14:39:45.583Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.457Z",
-      "createdAt": "2026-02-24T14:39:45.457Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_dmb28cj7Zc",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "F3F5C69233F1C1864E9BF712BCAC314E~-1~YAAQqyfIFwQkqEacAQAASnMXkA/NXeg9Hjuu3QT+M4YIO3UvIwMunDe5OSTixul97gC7naYFrRjUX+RdXI9mzRT1NFYyA7k9gNnRLvTijYRBRbQyYBBw0GfowJINeM+UlOg5LVh+VykYQdQMGy3f8zwbzk60YdoIVf8y77urHeyZUz+ScSqLAYblwCq1ashPAb9kQd2+zG4BOl9j9ZQ6oH77t7fWjRxNM1S6quWhC3U6oFcikhXsuBhHL6YbKYhOUaQw6hfGQuOkoI/f++NytLtOYBMlnvFEqU/axUakhlpbOEJ8xRRS3tyKNh69p+zXnqflB18QEMh7snnwRmgIwByfPHBMAEMZe2wVC5TKymrmMEWfIEbMKOwLaXQBHT7RYbmoMGdOCxHGB37an7lBlyn8KtpVeWzOBftHurgFUKJeG2mr+kpF7GXqG6agxjp+/a/ABbs6mLE=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.595Z",
-            "lastAccessed": "2026-02-24T14:39:45.595Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "D287404B08BA5477FB72AEDBE01854E4~000000000000000000000000000000~YAAQqyfIFwUkqEacAQAASnMXkB5AiVxkjPX04Kfp0qs3r+efeMfvNpUnOqPx06yr3di2HOOL2sNSCJRNyiokdvr17pWIKcz8EHqYBa9aGdCrofy6fzZLaMLm0raQTIy66ooguecMeBFFnztskb3rMLGHzxo0Fz7s5M8jSj8PgK1rJZOQQGfgE1Qe2EFzJ9XHvsmswUBySUdMSGRvjFH5MrxSZ0S3kio+pXPO4qi2ogiZOWWHwXgmXTHAt3SY58vgR6qcVFCN488o0VOUYpr3uZs/As3XBiepRZ6mMUcs3JsGMP+5m/14kMDF5xx2tnw/W3vCtreRQW1nsBVA5KYDe3Ra/dy9pQjUPk1qFbaqH4OkJH/CoisQfVO8oFAwvUZy3RUWkLjJfnrspjCyO/oheHyxQldYAvSn+Z93mQ==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.595Z",
-            "lastAccessed": "2026-02-24T14:39:45.595Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "69D9EB5557CA1359D4CE1E47B19A01DA~YAAQqyfIFwYkqEacAQAASnMXkB56tpkAikOW34Y0MWOWffvpQ2W0nChUnf0sOoU11+XHrZDkxbzhqBTsOeBjm0VwP+Ap2UAsCW/NB3efnPYaP56VzjOOrj0BViVP1L+K8X+Tso07R65EIjXJ9Uc4ZWU3nszN3H/4BPFYfGE2b1K6Cdl7+LTgxinCq4SEFJXsKrjChNki9JTPfep3+jKvB3aV9bG119C3cU3dymHkJ5trm7IBZnGL6MoIBZeNdHb95SR0hdTuiNdrjQnDO4sodWhIbHyjnAvnoXB8R8D6hdytRay835cRwlKXj8iIQZ5pFc6q6yLd3xIq4GrreQhtmZkhdVhfIsTLaQ3vDNXuUi6w7uQPv3fUbA==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.596Z",
-            "lastAccessed": "2026-02-24T14:39:45.596Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "D1F1EFAAAE90524766C2CF1506EDAB8E~YAAQqyfIFwckqEacAQAASnMXkB6ZtIkzhgPioQqU9c2IYNQ3VGkA4UFLE8FRlfYJXzSDc16BxINquILkpI88wEmWEJKMIrNLb3/jYOyS3Q4Kn3O6OCC+q6jowediP7vAknBnXmfXE6tf1b4uxje/ipEU4VgRNJxiVnCd6/uyNk8uE+fHceQxl13xkqDt9IOv6QfBk3QCF7gM9mdxIm9fblWLGpsBmB1r2oP1A89bou5LF0fw+hPIFJDxidCy5AFeRHzfUu3kMH6Vsv7eXVWkswMb1QCC46OEUtljRBrMGSMFN3AED/Awz/nMfRHL5Y6VJ+tKDm5mbM0JGW7131qiLR8Cv9dqThr+NrGnnK51D4D7nGmWcfXH0ghH0RGMv2dK1lFZfmjpt7npd8QJe1MB0CeG5xFfS47ug8TYFPAtuASy6mNIiZE=~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.596Z",
-            "lastAccessed": "2026-02-24T14:39:45.596Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.459Z",
-      "createdAt": "2026-02-24T14:39:45.459Z",
-      "usageCount": 1,
-      "maxUsageCount": 50,
-      "errorScore": 0
-    },
-    {
-      "id": "session_I45BPuqtft",
-      "cookieJar": {
-        "version": "tough-cookie@6.0.0",
-        "storeType": "MemoryCookieStore",
-        "rejectPublicSuffixes": true,
-        "enableLooseMode": false,
-        "allowSpecialUseDomain": true,
-        "prefixSecurity": "silent",
-        "cookies": [
-          {
-            "key": "_abck",
-            "value": "897BB0166F55E1F352F9B47F57B4FE5C~-1~YAAQqyfIFwgkqEacAQAAVXMXkA9H4lgVn9udH68kHuMv55AUBcA2Aqchbk71lxtWQxxO18akgumrmwsDChBcQ7dVev9Rv7YSegAkN1hWbftD72VMFimBWzXcDfJ4sszwZUzbthHfDGxl7hs5h84UwzdTDpOxEHZplIY8wIQtu0z54jIVhkckKnasWiEwCxjn2j5CladUp2MZ7Tgn+wTQfFxQU7Rku0Hnwz1wLUxcJgk67DW+4NkD4xuu45NnFHJ3e8bMsXs92b28Kf78s2hx3fEgeAlFOV1IArlNvjvvYSnrWQdwbIEYeHkIiYA+kjbukmfau3NTatq0MLqSmo4LKfBH+RkymDtp+Ss+RewJKn8azECCzM5geTaHGedl7al/w8Ti+d3K2TJ1J+5RKJgds+Jr/mkFYIGumBTnFiGm707L2hGCioE+dbWlya9ghjpdqFeJ6uj5+s0=~-1~-1~-1~-1~-1",
-            "expires": "2027-02-24T14:39:41.000Z",
-            "maxAge": 31536000,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.609Z",
-            "lastAccessed": "2026-02-24T14:39:45.609Z"
-          },
-          {
-            "key": "ak_bmsc",
-            "value": "181B90B44CFFE23C9140EBB5F46FCC34~000000000000000000000000000000~YAAQqyfIFwkkqEacAQAAVXMXkB5QEvHbJfpjTYh/I+LureNJ8CNWY5hC5nj03aFit1EWs95/1+HqiVI52VLEiOgE0yE1Jkf3sOfyBMlGDlnjZtWLiJIdwlzniJtMR9j01RLoCkeHjuwlHsLaWWm1ZDSCAUQ9/syyLYmrHjUV9saYhnlpu1ww+cQEG85g0kpS50VCWMv7G8/JrN3jtfi0uPiJi0vItiPvcdpsNfjUAOb6WO/Z8upRTNU/woBT5VyXa4WyOhFsXHxl5bnbyvp07vaYXUoD7eOilGY4Y+5t9AdSH+/whN5vCEl94xinS+vIxiXZFXZanaD389jhFheiaRdvmrKOs16mm5GPIuCidY6qLOUD1ylhILlVuWVxw61dGKW3lINutWoZW6D9KHcbWc4Bbka42xu1d9VWSg==",
-            "expires": "2026-02-24T16:39:41.000Z",
-            "maxAge": 7200,
-            "domain": "coppel.com",
-            "path": "/",
-            "httpOnly": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.609Z",
-            "lastAccessed": "2026-02-24T14:39:45.609Z"
-          },
-          {
-            "key": "bm_mi",
-            "value": "1BAA3F1EB78549581724B2DE2DB408DB~YAAQqyfIFwokqEacAQAAVXMXkB6v8G4rPnDGs5GmAo7SM9BQ1FZl8L3PfajqOS8piBX0xcjd49Pk3WBsMG2gTVjK1ToMafvGs8zHaKpTXX8N5TrYD8ZLWTyjGERTvI0VLauE5CPyJQGXrzOPLpyypbHX2PfjsyM3/LtG7U8y4fVQkXNIvjck+h9LQYPOf2F+Wl2CbyFyiZuN3FanYRna01vz5MWlEEJ5dwmjyZJXQKT4NeQEGonMAKlCcX3CIWYd657JXuhRO5EzXMVPOtwV0P0hywepFATWgQ5GYojR5vPFaMg1eZ6sEzOWKqxx2S+TrmmPZ8Xy1JJ/JB9y4wHl4/eUAEKN7Fbwxi2y9cmGcHtpBQ2dFL41oA==~1",
-            "expires": "2026-02-24T14:39:41.000Z",
-            "maxAge": 0,
-            "domain": "coppel.com",
-            "path": "/",
-            "secure": true,
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.609Z",
-            "lastAccessed": "2026-02-24T14:39:45.609Z"
-          },
-          {
-            "key": "bm_sz",
-            "value": "D94C69A8CEE345C14598899337C0FA24~YAAQqyfIFwskqEacAQAAVXMXkB7MA2sO8ZnInm/GD++YC6pARZ2JSCUGmTQgIEg/MnMguupt94R0f1RJMMRUXlP20YTrYlYaGNFK6DqbuTrh7KtS72T2/cD5rtmNLI5CTevk+r/EUUY1Jdq3qVKAElFT0MnE0ChbS2KKSM4T8IjNvbJw+mt7pFtnkOLt2UcPYYL2lv/bM8pXO+ROj/9cV6YUn+WlCTKv9a7y6s9n333U6czRwCg4KZgV61jQl2zX+RwlbJj97k1sjUcblWST+4md9FBuxnWq4U1DUQSssN3OFlye/lcKb6Jvt964fVimRhhaNYKC26V+e7xpMg62hGBvnrFuSLC4CsOSxTvTddeWaevzUvI9PMw32MRcu6nz/2WoDI+J5QY9NRCc/+dvFn1NHg2X0egHk0RXsL7YsNVLC+qxPg==~4340022~3293507",
-            "expires": "2026-02-24T18:39:41.000Z",
-            "maxAge": 14400,
-            "domain": "coppel.com",
-            "path": "/",
-            "hostOnly": false,
-            "creation": "2026-02-24T14:39:45.609Z",
-            "lastAccessed": "2026-02-24T14:39:45.609Z"
-          }
-        ]
-      },
-      "userData": {},
-      "maxErrorScore": 3,
-      "errorScoreDecrement": 0.5,
-      "expiresAt": "2026-02-24T15:29:45.471Z",
-      "createdAt": "2026-02-24T14:39:45.471Z",
-      "usageCount": 1,
+      "expiresAt": "2026-03-02T06:20:15.504Z",
+      "createdAt": "2026-03-02T05:30:15.504Z",
+      "usageCount": 0,
       "maxUsageCount": 50,
       "errorScore": 0
     }

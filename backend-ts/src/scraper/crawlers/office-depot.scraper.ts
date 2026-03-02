@@ -47,7 +47,7 @@ export class OfficeDepotScraper {
         const crawler = new CheerioCrawler({
             requestHandler: router,
             requestQueue,
-            maxConcurrency: 10, // Much lighter, we can run 10 in parallel
+            maxConcurrency: 1, // Reduced to prevent 30s timeouts and WAF blocks
             requestHandlerTimeoutSecs: 60,
         });
 

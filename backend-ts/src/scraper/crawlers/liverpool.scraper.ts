@@ -131,7 +131,7 @@ export class LiverpoolScraper {
         const crawler = new CheerioCrawler({
             requestHandler: router,
             requestQueue,
-            maxConcurrency: 10,
+            maxConcurrency: 2, // Reduced concurrency to save RAM when parsing large JSON responses
             requestHandlerTimeoutSecs: 60,
             // Important: We need to ensure we treat the response as JSON or text, not try to parse HTML too strictly
             additionalMimeTypes: ['application/json', 'text/plain'],

@@ -64,7 +64,7 @@ export class CoppelScraper {
                 if (rawCount > 0) {
                     const pageSize = 24;
                     const MAX_PAGES = 300; // Hard safety cap
-                    const WINDOW_SIZE = 10; // Match maxConcurrency
+                    const WINDOW_SIZE = 2; // Match maxConcurrency
 
                     const isMainPage = !currentUrl.includes('beginIndex=');
                     const match = currentUrl.match(/beginIndex=(\d+)/);
@@ -113,8 +113,8 @@ export class CoppelScraper {
         const crawler = new CheerioCrawler({
             requestHandler: router,
             requestQueue,
-            maxConcurrency: 10, // Increased concurrency for faster scraping with lightweight Cheerio
-            // Cheerio is just HTTP requests + HTML parsing, very low RAM
+            maxConcurrency: 2, // Reduced concurrency to save RAM, JSON loads can be large
+            // Cheerio is just HTTP requests + HTML parsing, but large __NEXT_DATA__ json causes memory spikes
             requestHandlerTimeoutSecs: 60,
         });
 
