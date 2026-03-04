@@ -67,11 +67,25 @@ export class AlertService {
                 const anchorPrice = dbProduct.original_price;
 
                 // Logic: NEW price must be lower than OLD price (a real event happened while we were watching)
-                if (currentPrice < (previousPrice || 0)) {
+                const safePrevPrice = previousPrice || 0;
+                if (currentPrice < safePrevPrice) {
                     const dropMap = anchorPrice - currentPrice;
                     const dropPct = (dropMap / anchorPrice) * 100;
 
-                    if (dropPct >= this.MIN_DROP_PCT) {
+                    // Mitigate false alerts from fake high anchors that continuously creep down by small amounts
+                    const stepDropMap = safePrevPrice - currentPrice;
+                    const stepDropPct = safePrevPrice > 0 ? (stepDropMap / safePrevPrice) * 100 : 0;
+
+                    let minStepRequired = 0;
+                    if (dropPct >= 80) {
+                        minStepRequired = 5; // Extremely fake anchor -> require at least 5% step drop
+                    } else if (dropPct >= 65) {
+                        minStepRequired = 3; // Very high discount -> require at least 3% step drop
+                    } else {
+                        minStepRequired = 1; // Normal discount -> require at least 1% step drop (avoids 1 peso drops triggering)
+                    }
+
+                    if (dropPct >= this.MIN_DROP_PCT && stepDropPct >= minStepRequired) {
 
                         // Check deduplication (24h)
                         const alreadyAlerted = await this.prisma.alerts.findFirst({
