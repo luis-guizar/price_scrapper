@@ -60,6 +60,7 @@ class ProductBase(BaseModel):
     source: Optional[str] = None
     current_price: Optional[float] = None
     original_price: Optional[float] = None
+    is_active: Optional[bool] = True
 
 class ProductCreate(ProductBase):
     pass
@@ -162,6 +163,24 @@ def delete_product(product_id: int, db: Session = Depends(get_db)):
     if not success:
         raise HTTPException(status_code=404, detail="Product not found")
     return {"ok": True}
+
+class ProductUpdate(BaseModel):
+    is_active: Optional[bool] = None
+    name: Optional[str] = None
+
+@app.patch("/products/{product_id}", response_model=ProductResponse)
+def update_product(product_id: int, product_update: ProductUpdate, db: Session = Depends(get_db)):
+    db_product = crud.get_product(db, product_id)
+    if not db_product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    update_data = product_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_product, key, value)
+    
+    db.commit()
+    db.refresh(db_product)
+    return db_product
 
 @app.get("/products/{product_id}/history", response_model=List[PriceHistoryResponse])
 def read_product_history(product_id: int, db: Session = Depends(get_db)):

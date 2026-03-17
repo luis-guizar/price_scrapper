@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Search, Trash2, ExternalLink, Filter, ChevronLeft, ChevronRight, X, ListFilter } from 'lucide-react'
+import { Search, Trash2, ExternalLink, Filter, ChevronLeft, ChevronRight, X, ListFilter, Bell, BellOff } from 'lucide-react'
 
-export default function ProductTable({ products, onDelete, onSearch, pagination, onPageChange, activeFilters }) {
+export default function ProductTable({ products, onDelete, onToggleActive, onSearch, pagination, onPageChange, activeFilters }) {
     // Local state for inputs
     const [search, setSearch] = useState('')
     const [sourceFilter, setSourceFilter] = useState('')
@@ -237,6 +237,12 @@ export default function ProductTable({ products, onDelete, onSearch, pagination,
                                 </td>
                                 <td className="p-4 text-right">
                                     <div className="flex justify-end gap-2">
+                                        <button
+                                            onClick={() => onToggleActive(p.id, !p.is_active)}
+                                            title={p.is_active ? "Unsubscribe from alerts" : "Subscribe to alerts"}
+                                            className={`p-2 rounded transition-colors ${p.is_active ? 'hover:bg-yellow-500/10 text-slate-400 hover:text-yellow-500' : 'bg-red-500/10 text-red-500 hover:bg-red-500/20'}`}>
+                                            {p.is_active ? <Bell size={16} /> : <BellOff size={16} />}
+                                        </button>
                                         <a href={p.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-slate-700 rounded text-slate-400 hover:text-blue-400 transition-colors">
                                             <ExternalLink size={16} />
                                         </a>

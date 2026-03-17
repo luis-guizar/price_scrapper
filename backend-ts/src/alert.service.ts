@@ -58,6 +58,12 @@ export class AlertService {
 
                 if (!dbProduct || !dbProduct.original_price) continue;
 
+                // 2.5 Skip if product is not active (unsubscribed)
+                if (dbProduct.is_active === false) {
+                    this.logger.debug(`🔕 Skipping alert for ${product.name} - Product is inactive (unsubscribed).`);
+                    continue;
+                }
+
                 // ONLY Alert if we knew this product before (discovery spam prevention)
                 const history = dbProduct.price_history;
                 if (history.length < 2) continue;

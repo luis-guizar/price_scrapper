@@ -75,7 +75,7 @@ def create_product(db: Session, product_data: dict):
         product_data['original_price'] = product_data.get('current_price')
 
     # Filter keys to match Product model
-    valid_keys = ['name', 'url', 'sku', 'source', 'current_price', 'original_price', 'last_checked']
+    valid_keys = ['name', 'url', 'sku', 'source', 'current_price', 'original_price', 'last_checked', 'is_active']
     filtered_data = {k: v for k, v in product_data.items() if k in valid_keys}
 
     db_product = Product(**filtered_data)

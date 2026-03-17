@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X } from 'lucide-react'
+import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X, Bell, BellOff } from 'lucide-react'
 import ProductTable from './components/ProductTable'
 import TelegramModal from './components/TelegramModal'
 import AlertHistory from './components/AlertHistory'
@@ -276,6 +276,22 @@ function App() {
         }
     }
 
+    const handleToggleActive = async (id, isActive) => {
+        try {
+            await axios.patch(`/api/products/${id}`, { is_active: isActive })
+            
+            // Update local state to reflect change immediately without full reload
+            setProducts(prev => prev.map(p => p.id === id ? { ...p, is_active: isActive } : p))
+            setDashboardProducts(prev => prev.map(p => p.id === id ? { ...p, is_active: isActive } : p))
+            if (selectedProduct?.id === id) {
+                setSelectedProduct(prev => ({ ...prev, is_active: isActive }))
+            }
+        } catch (e) {
+            console.error("Error toggling active status:", e)
+            alert("Error updating subscription status")
+        }
+    }
+
     // Source badge helpers
     const sourceConfig = {
         keepa: { label: 'Amazon', color: 'from-orange-500 to-orange-600', icon: '📦', bg: 'bg-orange-500/10 border-orange-500/30 text-orange-400' },
@@ -477,11 +493,19 @@ function App() {
                                             >
                                                 <div className="flex justify-between items-start">
                                                     <h4 className="font-medium text-sm line-clamp-2 leading-snug mb-2">{p.name || "Loading..."}</h4>
-                                                    <button
-                                                        onClick={(e) => handleDelete(p.id, e)}
-                                                        className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-500/20 hover:text-red-400 rounded text-slate-500 transition-all">
-                                                        <Trash2 size={14} />
-                                                    </button>
+                                                    <div className="flex gap-1">
+                                                        <button
+                                                            onClick={(e) => { e.stopPropagation(); handleToggleActive(p.id, !p.is_active) }}
+                                                            title={p.is_active ? "Unsubscribe from alerts" : "Subscribe to alerts"}
+                                                            className={`p-1 rounded transition-all ${p.is_active ? 'text-slate-500 hover:text-yellow-500 hover:bg-yellow-500/10' : 'text-red-500 bg-red-500/10 hover:bg-red-500/20'}`}>
+                                                            {p.is_active ? <Bell size={14} /> : <BellOff size={14} />}
+                                                        </button>
+                                                        <button
+                                                            onClick={(e) => handleDelete(p.id, e)}
+                                                            className="opacity-0 group-hover:opacity-100 p-1 hover:bg-red-500/20 hover:text-red-400 rounded text-slate-500 transition-all">
+                                                            <Trash2 size={14} />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <div className="flex justify-between items-end mt-2">
                                                     <div>
@@ -551,6 +575,7 @@ function App() {
                         <ProductTable
                             products={products}
                             onDelete={handleDelete}
+                            onToggleActive={handleToggleActive}
                             onSearch={handleSearch}
                             activeFilters={activeFilters}
                             pagination={pagination}

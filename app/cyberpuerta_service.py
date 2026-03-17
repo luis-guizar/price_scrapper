@@ -194,6 +194,9 @@ def process_products(products, db_session: Session):
                     db_product = db_session.query(Product).filter(Product.url == url).first()
                 
                 if db_product:
+                    if db_product.is_active is False:
+                        continue
+                        
                     anchor_price = db_product.original_price or db_product.current_price
                     old_price = db_product.current_price
                     

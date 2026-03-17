@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
@@ -16,6 +16,7 @@ class Product(Base):
     current_price = Column(Float)
     original_price = Column(Float, nullable=True)
     last_checked = Column(DateTime, default=datetime.now)
+    is_active = Column(Boolean, default=True)
     
     # Relationship to history
     history = relationship("PriceHistory", back_populates="product", cascade="all, delete-orphan")

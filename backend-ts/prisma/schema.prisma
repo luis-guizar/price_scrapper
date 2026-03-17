@@ -39,5 +39,6 @@ model products {
   original_price Float?
   source         String?         @db.VarChar
   external_id    String?         @db.VarChar
+  is_active      Boolean         @default(true)
   price_history  price_history[]
 }

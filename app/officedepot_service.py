@@ -254,6 +254,9 @@ def process_products(products):
 
                 if db_product:
                     # Producto existe
+                    if db_product.is_active is False:
+                        continue
+                        
                     anchor_price = db_product.original_price or db_product.current_price
                     old_price = db_product.current_price
                     
