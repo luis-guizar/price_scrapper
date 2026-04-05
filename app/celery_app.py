@@ -53,11 +53,7 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_chedraui_deals',
         'schedule': crontab(minute='9,19,29,39,49,59'),
     },
-    'scan-soriana-every-10-mins': {
-        'task': 'app.tasks.scan_soriana_deals',
-        'schedule': crontab(minute='2,12,22,32,42,52'),
-    },
-    
+
     # --- TAREAS DE MANTENIMIENTO ---
     'cleanup-database-daily': {
         'task': 'app.tasks.cleanup_database_task',

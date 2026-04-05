@@ -57,8 +57,6 @@ def create_product(db: Session, product_data: dict):
         product_data["source"] = "officedepot"
     elif "cyberpuerta.mx" in url:
         product_data["source"] = "cyberpuerta"
-    elif "soriana.com" in url:
-        product_data["source"] = "soriana"
     elif "chedraui.com.mx" in url:
         product_data["source"] = "chedraui"
     elif "elektra.com.mx" in url:

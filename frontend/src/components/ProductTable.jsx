@@ -115,7 +115,6 @@ export default function ProductTable({ products, onDelete, onToggleActive, onSea
                                     <option value="cyberpuerta">Cyberpuerta</option>
                                     <option value="elektra">Elektra</option>
                                     <option value="chedraui">Chedraui</option>
-                                    <option value="soriana">Soriana</option>
                                     <option value="coppel">Coppel</option>
                                     <option value="liverpool">Liverpool</option>
                                     <option value="mercadolibre">MercadoLibre</option>

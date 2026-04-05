@@ -64,9 +64,7 @@ function App() {
             return
         }
         const lc = newUrl.toLowerCase()
-        if (lc.includes('soriana.com')) {
-            setAddSource('soriana')
-        } else if (lc.includes('amazon.com.mx') || lc.includes('amzn.to')) {
+        if (lc.includes('amazon.com.mx') || lc.includes('amzn.to')) {
             setAddSource('keepa')
         } else if (lc.includes('elektra.com') || lc.includes('elektra.mx')) {
             setAddSource('elektra')
@@ -452,7 +450,6 @@ function App() {
                                             <option value="cyberpuerta">CyberPuerta</option>
                                             <option value="chedraui">Chedraui</option>
                                             <option value="elektra">Elektra</option>
-                                            <option value="soriana">Soriana</option>
                                             <option value="coppel">Coppel</option>
                                             <option value="liverpool">Liverpool</option>
                                             <option value="mercadolibre">MercadoLibre</option>
@@ -656,7 +653,6 @@ function App() {
                                         <div className="mt-4 p-3 bg-slate-800/40 rounded-lg border border-slate-700/50">
                                             <p className="text-xs font-medium text-slate-400 mb-2">Supported sources with auto-fill:</p>
                                             <div className="flex flex-wrap gap-2">
-                                                <span className="text-xs bg-red-600/10 text-red-400 border border-red-600/20 px-2 py-0.5 rounded-md">🛒 Soriana</span>
                                                 <span className="text-xs bg-red-500/10 text-red-500 border border-red-500/20 px-2 py-0.5 rounded-md">🖨️ Office Depot</span>
                                                 <span className="text-xs bg-green-500/10 text-green-500 border border-green-500/20 px-2 py-0.5 rounded-md">💻 CyberPuerta</span>
                                                 <span className="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded-md">⚡ Elektra</span>
