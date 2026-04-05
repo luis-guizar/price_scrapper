@@ -22,17 +22,17 @@ export class ProductRepository {
     async bulkUpsert(products: ScrapedProduct[]) {
         if (products.length === 0) return;
 
-        // Use a transaction or just raw execution
-        // Optimizing for speed: Raw SQL with ON CONFLICT
-
-        // We need to construct the VALUES part carefully.
-        // For safety, we should stick to parameterized queries, but Prisma raw arrays are tricky.
-        // Let's use map to create the values string and a flat array of parameters.
+        // Deduplicate products by SKU to prevent conflicts in the same batch
+        const uniqueProductsMap = new Map<string, ScrapedProduct>();
+        for (const p of products) {
+            uniqueProductsMap.set(p.sku, p);
+        }
+        const uniqueProducts = Array.from(uniqueProductsMap.values());
 
         const values: string[] = [];
         const params: any[] = [];
 
-        products.forEach((p, index) => {
+        uniqueProducts.forEach((p, index) => {
             // Parameters for: name, url, sku, current_price, original_price, source, last_checked, external_id
             const offset = index * 8;
             values.push(`($${offset + 1}, $${offset + 2}, $${offset + 3}, $${offset + 4}, $${offset + 5}, $${offset + 6}, $${offset + 7}, $${offset + 8})`);
@@ -52,7 +52,7 @@ export class ProductRepository {
         const query = `
       INSERT INTO products (name, url, sku, current_price, original_price, source, last_checked, external_id)
       VALUES ${values.join(', ')}
-      ON CONFLICT (url) DO UPDATE SET
+      ON CONFLICT (sku) DO UPDATE SET
         current_price = EXCLUDED.current_price,
         last_checked = NOW(),
         name = EXCLUDED.name,
@@ -63,7 +63,7 @@ export class ProductRepository {
             const startTime = Date.now();
             await this.prisma.$executeRawUnsafe(query, ...params);
             const elapsed = Date.now() - startTime;
-            this.logger.log(`💾 Scored ${products.length} products to database (${elapsed}ms)`);
+            this.logger.log(`💾 Scored ${uniqueProducts.length} products to database (${elapsed}ms)`);
         } catch (error) {
             this.logger.error(`❌ Error in bulkUpsert: ${error}`);
             throw error;
