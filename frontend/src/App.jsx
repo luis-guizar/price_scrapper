@@ -290,6 +290,17 @@ function App() {
         }
     }
 
+    const handleUpdateAnchorPrice = async (id, newPrice) => {
+        try {
+            await axios.patch(`/api/products/${id}`, { original_price: newPrice });
+            setProducts(prev => prev.map(p => p.id === id ? { ...p, original_price: newPrice } : p));
+            setDashboardProducts(prev => prev.map(p => p.id === id ? { ...p, original_price: newPrice } : p));
+        } catch (e) {
+            console.error("Error updating anchor price:", e);
+            alert("Error updating anchor price");
+        }
+    };
+
     // Source badge helpers
     const sourceConfig = {
         keepa: { label: 'Amazon', color: 'from-orange-500 to-orange-600', icon: '📦', bg: 'bg-orange-500/10 border-orange-500/30 text-orange-400' },

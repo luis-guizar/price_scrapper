@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Search, Trash2, ExternalLink, Filter, ChevronLeft, ChevronRight, X, ListFilter, Bell, BellOff } from 'lucide-react'
 
-export default function ProductTable({ products, onDelete, onToggleActive, onSearch, pagination, onPageChange, activeFilters }) {
+export default function ProductTable({ products, onDelete, onToggleActive, onUpdateAnchorPrice, onSearch, pagination, onPageChange, activeFilters }) {
     // Local state for inputs
     const [search, setSearch] = useState('')
     const [sourceFilter, setSourceFilter] = useState('')
@@ -302,6 +302,31 @@ export default function ProductTable({ products, onDelete, onToggleActive, onSea
                                     <button
                                         key={p}
                                         onClick={() => onPageChange(p)}
+                                        className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${p === pagination.page
+                                            ? 'bg-blue-600 text-white'
+                                            : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
+                                            }`}
+                                    >
+                                        {p}
+                                    </button>
+                                ));
+                            })()}
+                        </div>
+
+                        <button
+                            disabled={pagination.page >= pagination.pages}
+                            onClick={() => onPageChange(pagination.page + 1)}
+                            className="p-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
+                            <ChevronRight size={16} />
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    )
+}
+                                onClick={() => onPageChange(p)}
                                         className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${p === pagination.page
                                             ? 'bg-blue-600 text-white'
                                             : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'

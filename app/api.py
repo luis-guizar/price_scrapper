@@ -167,6 +167,7 @@ def delete_product(product_id: int, db: Session = Depends(get_db)):
 class ProductUpdate(BaseModel):
     is_active: Optional[bool] = None
     name: Optional[str] = None
+    original_price: Optional[float] = None
 
 @app.patch("/products/{product_id}", response_model=ProductResponse)
 def update_product(product_id: int, product_update: ProductUpdate, db: Session = Depends(get_db)):

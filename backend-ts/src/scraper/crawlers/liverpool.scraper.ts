@@ -199,7 +199,10 @@ export class LiverpoolScraper {
             if (candidates.length === 0) return null;
 
             const currentPrice = Math.min(...candidates);
-            const originalPrice = listPrice > 0 ? listPrice : Math.max(...candidates);
+            let originalPrice = listPrice > 0 ? listPrice : Math.max(...candidates);
+
+            // Cap original price to prevent massive false positive discounts on inflated anchors
+            originalPrice = this.capUnreasonableOriginalPrice(name, currentPrice, originalPrice);
 
             // Image
             let image = p.variants?.[0]?.largeImage || p.variants?.[0]?.thumbnailImage || p.productImages?.[0]?.largeImage;
@@ -217,5 +220,68 @@ export class LiverpoolScraper {
         } catch (e) {
             return null;
         }
+    }
+
+    private capUnreasonableOriginalPrice(title: string, currentPrice: number, originalPrice: number): number {
+        const rules = [
+            // Apple & Premium Computing
+            { keywords: ['macbook pro', 'mac studio', 'imac'], maxPrice: 185000 },
+            { keywords: ['macbook air'], maxPrice: 45000 },
+            { keywords: ['laptop gaming', 'alienware', 'predator', 'legion', 'rog'], maxPrice: 120000 },
+            { keywords: ['laptop', 'notebook', 'pc', 'computadora'], maxPrice: 35000 }, // Generic laptops
+            
+            // Tablets
+            { keywords: ['ipad pro'], maxPrice: 75000 },
+            { keywords: ['ipad air'], maxPrice: 28000 },
+            { keywords: ['ipad'], maxPrice: 18000 },
+            { keywords: ['galaxy tab s'], maxPrice: 38000 },
+            { keywords: ['tablet', 'galaxy tab'], maxPrice: 15000 }, // Generic tablets
+            
+            // Smartphones
+            { keywords: ['iphone 17 pro max', 'iphone 16 pro max', 'z fold'], maxPrice: 60000 },
+            { keywords: ['iphone 17 pro', 'iphone 16 pro', 'galaxy s26 ultra', 'galaxy s25 ultra'], maxPrice: 45000 },
+            { keywords: ['iphone'], maxPrice: 28000 },
+            { keywords: ['smartphone', 'celular', 'teléfono', 'telefono'], maxPrice: 18000 }, // Generic phones
+            
+            // TVs & Audio
+            { keywords: ['microled', '8k'], maxPrice: 400000 },
+            { keywords: ['oled', 'qled', 'miniled'], maxPrice: 150000 },
+            { keywords: ['pantalla', 'tv', 'televisión', 'television'], maxPrice: 45000 }, // Generic TVs
+            
+            // Appliances
+            { keywords: ['refrigerador french door', 'lavadora secadora', 'centro de lavado'], maxPrice: 80000 },
+            { keywords: ['refrigerador', 'lavadora', 'secadora'], maxPrice: 30000 }, // Generic appliances
+            
+            // Wearables & Accessories
+            { keywords: ['apple watch ultra'], maxPrice: 25000 },
+            { keywords: ['apple watch', 'galaxy watch'], maxPrice: 15000 },
+            { keywords: ['reloj', 'smartwatch'], maxPrice: 10000 }, // Generic watches
+            
+            { keywords: ['airpods max'], maxPrice: 18000 },
+            { keywords: ['airpods pro', 'sony wh', 'bose quietcomfort'], maxPrice: 12000 },
+            { keywords: ['audífonos', 'audifonos', 'auriculares', 'airpods'], maxPrice: 5000 }, // Generic headphones
+            
+            // Gaming & Monitors
+            { keywords: ['monitor oled', 'monitor gaming'], maxPrice: 40000 },
+            { keywords: ['monitor'], maxPrice: 15000 }, // Generic monitors
+            { keywords: ['playstation 5 pro', 'ps5 pro'], maxPrice: 25000 },
+            { keywords: ['consola', 'nintendo', 'playstation', 'ps5', 'xbox'], maxPrice: 18000 },
+        ];
+
+        const titleLower = title.toLowerCase();
+        for (const rule of rules) {
+            if (rule.keywords.some(k => titleLower.includes(k))) {
+                if (originalPrice > rule.maxPrice) {
+                    // Cap it, but ensure it's not lower than currentPrice to prevent negative discounts
+                    const cappedPrice = Math.max(rule.maxPrice, currentPrice);
+                    if (originalPrice !== cappedPrice) {
+                        this.logger.debug(`Capped unreasonable original price for "${title}" from ${originalPrice} to ${cappedPrice}`);
+                    }
+                    return cappedPrice;
+                }
+                break; // Stop after finding the most specific matching category
+            }
+        }
+        return originalPrice;
     }
 }
