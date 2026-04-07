@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X, Bell, BellOff } from 'lucide-react'
+import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X, Bell, BellOff, Edit2 } from 'lucide-react'
 import ProductTable from './components/ProductTable'
 import TelegramModal from './components/TelegramModal'
 import AlertHistory from './components/AlertHistory'
@@ -503,6 +503,18 @@ function App() {
                                                     <h4 className="font-medium text-sm line-clamp-2 leading-snug mb-2">{p.name || "Loading..."}</h4>
                                                     <div className="flex gap-1">
                                                         <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                const newPrice = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, p.original_price || p.current_price);
+                                                                if (newPrice && !isNaN(parseFloat(newPrice))) {
+                                                                    handleUpdateAnchorPrice(p.id, parseFloat(newPrice));
+                                                                }
+                                                            }}
+                                                            title="Edit anchor price"
+                                                            className="p-1 rounded transition-all text-slate-500 hover:text-blue-500 hover:bg-blue-500/10">
+                                                            <Edit2 size={14} />
+                                                        </button>
+                                                        <button
                                                             onClick={(e) => { e.stopPropagation(); handleToggleActive(p.id, !p.is_active) }}
                                                             title={p.is_active ? "Unsubscribe from alerts" : "Subscribe to alerts"}
                                                             className={`p-1 rounded transition-all ${p.is_active ? 'text-slate-500 hover:text-yellow-500 hover:bg-yellow-500/10' : 'text-red-500 bg-red-500/10 hover:bg-red-500/20'}`}>
@@ -518,7 +530,10 @@ function App() {
                                                 <div className="flex justify-between items-end mt-2">
                                                     <div>
                                                         <span className="text-xs text-slate-500 block mb-1">Current Price</span>
-                                                        <span className="text-lg font-bold text-white">${p.current_price?.toLocaleString()}</span>
+                                                        <div className="flex flex-col">
+                                                            <span className="text-lg font-bold text-white">${p.current_price?.toLocaleString()}</span>
+                                                            {p.original_price && <span className="text-[10px] text-slate-500 line-through">${p.original_price?.toLocaleString()}</span>}
+                                                        </div>
                                                     </div>
                                                     <span className={`text-[10px] bg-slate-900 px-1.5 py-0.5 rounded uppercase tracking-wider ${sourceConfig[p.source]?.bg || 'text-slate-600'}`}>
                                                         {sourceConfig[p.source]?.label || p.source || 'Other'}
@@ -584,6 +599,7 @@ function App() {
                             products={products}
                             onDelete={handleDelete}
                             onToggleActive={handleToggleActive}
+                            onUpdateAnchorPrice={handleUpdateAnchorPrice}
                             onSearch={handleSearch}
                             activeFilters={activeFilters}
                             pagination={pagination}
