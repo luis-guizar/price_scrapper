@@ -505,9 +505,15 @@ function App() {
                                                         <button
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
-                                                                const newPrice = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, p.original_price || p.current_price);
-                                                                if (newPrice && !isNaN(parseFloat(newPrice))) {
-                                                                    handleUpdateAnchorPrice(p.id, parseFloat(newPrice));
+                                                                const promptInput = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, p.original_price || p.current_price);
+                                                                if (promptInput !== null) {
+                                                                    const cleanedPrice = promptInput.replace(/[^0-9.]/g, '');
+                                                                    const newPrice = parseFloat(cleanedPrice);
+                                                                    if (!isNaN(newPrice)) {
+                                                                        handleUpdateAnchorPrice(p.id, newPrice);
+                                                                    } else {
+                                                                        alert("Invalid price format entered.");
+                                                                    }
                                                                 }
                                                             }}
                                                             title="Edit anchor price"

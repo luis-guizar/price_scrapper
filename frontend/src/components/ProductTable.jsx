@@ -242,9 +242,15 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                         <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                const newPrice = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, p.original_price || p.current_price);
-                                                if (newPrice && !isNaN(parseFloat(newPrice))) {
-                                                    onUpdateAnchorPrice(p.id, parseFloat(newPrice));
+                                                const promptInput = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, p.original_price || p.current_price);
+                                                if (promptInput !== null) {
+                                                    const cleanedPrice = promptInput.replace(/[^0-9.]/g, '');
+                                                    const newPrice = parseFloat(cleanedPrice);
+                                                    if (!isNaN(newPrice)) {
+                                                        onUpdateAnchorPrice(p.id, newPrice);
+                                                    } else {
+                                                        alert("Invalid price format entered.");
+                                                    }
                                                 }
                                             }}
                                             title="Edit anchor price"
