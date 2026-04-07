@@ -242,14 +242,35 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                         <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                const promptInput = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, p.original_price || p.current_price);
-                                                if (promptInput !== null) {
-                                                    const cleanedPrice = promptInput.replace(/[^0-9.]/g, '');
-                                                    const newPrice = parseFloat(cleanedPrice);
-                                                    if (!isNaN(newPrice)) {
+                                                console.log('Edit anchor price clicked for product:', p.id);
+                                                console.log('onUpdateAnchorPrice function:', onUpdateAnchorPrice);
+
+                                                if (typeof onUpdateAnchorPrice !== 'function') {
+                                                    alert('Edit function not available. Please refresh the page.');
+                                                    return;
+                                                }
+
+                                                const defaultValue = p.original_price ?? p.current_price ?? '';
+                                                const promptInput = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, defaultValue);
+                                                if (promptInput !== null && promptInput.trim() !== '') {
+                                                    // Handle international number formats: replace commas with dots, remove currency symbols, etc.
+                                                    const cleaned = promptInput.trim()
+                                                        .replace(/[^\d.,]/g, '') // Keep digits, commas, dots
+                                                        .replace(/,(\d{3})/g, '$1') // Remove thousand separators (commas between digits)
+                                                        .replace(/,/g, '.'); // Convert decimal comma to dot
+
+                                                    // If there are multiple dots, keep only the last one as decimal
+                                                    const parts = cleaned.split('.');
+                                                    let normalized = parts.length > 1
+                                                        ? parts.slice(0, -1).join('') + '.' + parts[parts.length - 1]
+                                                        : cleaned;
+
+                                                    const newPrice = parseFloat(normalized);
+                                                    if (!isNaN(newPrice) && newPrice > 0) {
+                                                        console.log(`Updating anchor price for product ${p.id} to ${newPrice}`);
                                                         onUpdateAnchorPrice(p.id, newPrice);
                                                     } else {
-                                                        alert("Invalid price format entered.");
+                                                        alert("Invalid price format entered. Please enter a valid number (e.g., 1999.99 or 1,999.99).");
                                                     }
                                                 }
                                             }}
