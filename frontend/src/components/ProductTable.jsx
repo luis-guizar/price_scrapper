@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Search, Trash2, ExternalLink, Filter, ChevronLeft, ChevronRight, X, ListFilter, Bell, BellOff } from 'lucide-react'
+import { Search, Trash2, ExternalLink, Filter, ChevronLeft, ChevronRight, X, ListFilter, Bell, BellOff, Edit2 } from 'lucide-react'
 
 export default function ProductTable({ products, onDelete, onToggleActive, onUpdateAnchorPrice, onSearch, pagination, onPageChange, activeFilters }) {
     // Local state for inputs
@@ -232,10 +232,25 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                     </span>
                                 </td>
                                 <td className="p-4 font-mono text-white">
-                                    ${p.current_price?.toLocaleString()}
+                                    <div className="flex flex-col">
+                                        <span>${p.current_price?.toLocaleString()}</span>
+                                        {p.original_price && <span className="text-xs text-slate-500 line-through">${p.original_price?.toLocaleString()}</span>}
+                                    </div>
                                 </td>
                                 <td className="p-4 text-right">
                                     <div className="flex justify-end gap-2">
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                const newPrice = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, p.original_price || p.current_price);
+                                                if (newPrice && !isNaN(parseFloat(newPrice))) {
+                                                    onUpdateAnchorPrice(p.id, parseFloat(newPrice));
+                                                }
+                                            }}
+                                            title="Edit anchor price"
+                                            className="p-2 hover:bg-blue-500/10 rounded text-slate-400 hover:text-blue-400 transition-colors">
+                                            <Edit2 size={16} />
+                                        </button>
                                         <button
                                             onClick={() => onToggleActive(p.id, !p.is_active)}
                                             title={p.is_active ? "Unsubscribe from alerts" : "Subscribe to alerts"}
@@ -302,31 +317,6 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                     <button
                                         key={p}
                                         onClick={() => onPageChange(p)}
-                                        className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${p === pagination.page
-                                            ? 'bg-blue-600 text-white'
-                                            : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
-                                            }`}
-                                    >
-                                        {p}
-                                    </button>
-                                ));
-                            })()}
-                        </div>
-
-                        <button
-                            disabled={pagination.page >= pagination.pages}
-                            onClick={() => onPageChange(pagination.page + 1)}
-                            className="p-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                        >
-                            <ChevronRight size={16} />
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
-    )
-}
-                                onClick={() => onPageChange(p)}
                                         className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${p === pagination.page
                                             ? 'bg-blue-600 text-white'
                                             : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
