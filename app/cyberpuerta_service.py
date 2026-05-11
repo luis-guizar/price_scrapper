@@ -144,13 +144,10 @@ class CyberpuertaScraper:
                 logger.error(f"Error fetching batch: {e}")
                 return []
 
-        # Use ThreadPoolExecutor
-        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-            future_to_chunk = {executor.submit(process_chunk, chunk): chunk for chunk in chunks}
-            
-            for future in concurrent.futures.as_completed(future_to_chunk):
-                batch_results = future.result()
-                self.products.extend(batch_results)
+        for chunk in chunks:
+            batch_results = process_chunk(chunk)
+            self.products.extend(batch_results)
+            time.sleep(1)
                 
         logger.info(f"✅ Details fetched. Total products: {len(self.products)}")
 
