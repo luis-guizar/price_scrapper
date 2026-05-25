@@ -61,3 +61,5 @@ debug_walmart_tag.py
 inspect_live_walmart.py
 actualizacion_walmart.png
 send_walmart_announcement.py
+.claude/settings.local.json
+sephora_blush_response.json
