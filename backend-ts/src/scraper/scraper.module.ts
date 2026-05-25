@@ -17,6 +17,12 @@ import { AlertService } from '../alert.service';
     imports: [
         BullModule.registerQueue({
             name: 'scraper-tasks',
+            defaultJobOptions: {
+                removeOnComplete: { count: 100 },
+                removeOnFail: { count: 50 },
+                attempts: 2,
+                backoff: { type: 'fixed', delay: 30_000 },
+            },
         }),
     ],
     controllers: [ScraperController],
