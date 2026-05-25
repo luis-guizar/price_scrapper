@@ -5,6 +5,7 @@ import { OfficeDepotScraper } from './crawlers/office-depot.scraper';
 import { CoppelScraper } from './crawlers/coppel.scraper';
 import { LiverpoolScraper } from './crawlers/liverpool.scraper';
 import { MeliScraper } from './crawlers/meli.scraper';
+import { SephoraScraper } from './crawlers/sephora.scraper';
 import { AlertService } from '../alert.service';
 
 @Processor('scraper-tasks', { concurrency: 1 })
@@ -16,6 +17,7 @@ export class ScraperProcessor extends WorkerHost {
         private readonly coppelScraper: CoppelScraper,
         private readonly liverpoolScraper: LiverpoolScraper,
         private readonly meliScraper: MeliScraper,
+        private readonly sephoraScraper: SephoraScraper,
         private readonly alertService: AlertService
     ) {
         super();
@@ -70,6 +72,18 @@ export class ScraperProcessor extends WorkerHost {
                 this.logger.log(`✅ [Job ${job.id}] MercadoLibre: Finished in ${meliElapsed}s`);
                 return { status: 'completed' };
 
+
+            case 'scrape:sephora':
+                this.logger.log(`▶️ [Job ${job.id}] Sephora: Starting scrape for ${categoryLabel}...`);
+                const sephoraProducts = await this.sephoraScraper.scrapeCategory(url);
+
+                if (sephoraProducts && sephoraProducts.length > 0) {
+                    await this.alertService.checkAndSendAlerts(sephoraProducts);
+                }
+
+                const sephoraElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+                this.logger.log(`✅ [Job ${job.id}] Sephora: Finished in ${sephoraElapsed}s`);
+                return { status: 'completed' };
 
             default:
                 this.logger.warn(`❓ Unknown job name: ${job.name}`);

@@ -7,6 +7,7 @@ import { OfficeDepotScraper } from './crawlers/office-depot.scraper';
 import { CoppelScraper } from './crawlers/coppel.scraper';
 import { LiverpoolScraper } from './crawlers/liverpool.scraper';
 import { MeliScraper } from './crawlers/meli.scraper';
+import { SephoraScraper } from './crawlers/sephora.scraper';
 import { ScraperProcessor } from './scraper.processor';
 import { ScraperScheduleService } from './scraper.schedule';
 
@@ -19,7 +20,7 @@ import { AlertService } from '../alert.service';
         }),
     ],
     controllers: [ScraperController],
-    providers: [PrismaService, ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, ScraperProcessor, ScraperScheduleService, AlertService],
-    exports: [ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper],
+    providers: [PrismaService, ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ScraperProcessor, ScraperScheduleService, AlertService],
+    exports: [ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper],
 })
 export class ScraperModule { }

@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { OFFICE_DEPOT_CONFIG, COPPEL_CONFIG, LIVERPOOL_CONFIG, MELI_CONFIG } from './constants';
+import { OFFICE_DEPOT_CONFIG, COPPEL_CONFIG, LIVERPOOL_CONFIG, MELI_CONFIG, SEPHORA_CONFIG } from './constants';
 
 @Injectable()
 export class ScraperScheduleService {
@@ -56,6 +56,20 @@ export class ScraperScheduleService {
         }
 
         this.logger.log(`✅ [CRON] Dispatched ${urls.length} Liverpool scraping categories.`);
+    }
+
+    // Runs every 30 minutes (at :03 and :33 — staggered from other stores)
+    @Cron('0 3,33 * * * *')
+    async handleSephoraCron() {
+        this.logger.log('🚀 [CRON] Starting automated full-pass for Sephora...');
+
+        const urls = SEPHORA_CONFIG.urls;
+
+        for (const url of urls) {
+            await this.scraperQueue.add('scrape:sephora', { url });
+        }
+
+        this.logger.log(`✅ [CRON] Dispatched ${urls.length} Sephora scraping categories.`);
     }
 
     // Runs every 20 minutes (at :10, :30, :50)

@@ -52,6 +52,12 @@ export const LIVERPOOL_CONFIG = {
     ],
 };
 
+export const SEPHORA_CONFIG = {
+    urls: [
+        'https://ac.cnstrc.com/search/blush?c=ciojs-client-bundled-2.72.2&key=key_Y4DWcKVGsCyfyCID&i=0aad6209-0b7e-4efc-a9e6-a1c91a3f4620&s=1&page=1&num_results_per_page=52&filters%5BisExclusiveApp%5D=False',
+    ],
+};
+
 export const MELI_CONFIG = {
     urls: [
         'https://listado.mercadolibre.com.mx/computacion/componentes-pc/tarjetas/tarjetas-video/fabricante-amd/nuevo/gpu-amd_Tienda_all_NoIndex_True#applied_filter_id%3Dofficial_store%26applied_filter_name%3DTiendas+oficiales%26applied_filter_order%3D12%26applied_value_id%3Dall%26applied_value_name%3DSolo+tiendas+oficiales%26applied_value_order%3D1%26applied_value_results%3D58%26is_custom%3Dfalse',
