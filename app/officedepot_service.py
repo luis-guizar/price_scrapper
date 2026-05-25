@@ -254,12 +254,12 @@ def process_products(products):
 
                 if db_product:
                     # Producto existe
-                    if db_product.is_active is False:
+                    if not db_product.is_active:
                         continue
-                        
+
                     anchor_price = db_product.original_price or db_product.current_price
                     old_price = db_product.current_price
-                    
+
                     # Solo alertar si el precio ACABA de bajar en este scan
                     # Y la bajada acumulada desde original_price supera el threshold
                     if price < old_price and price < anchor_price:

@@ -56,13 +56,15 @@ export class AlertService {
                     }
                 });
 
-                if (!dbProduct || !dbProduct.original_price) continue;
+                if (!dbProduct) continue;
 
-                // 2.5 Skip if product is not active (unsubscribed)
-                if (dbProduct.is_active === false) {
+                // Skip if product is not active (unsubscribed) — catches both false and null
+                if (!dbProduct.is_active) {
                     this.logger.debug(`🔕 Skipping alert for ${product.name} - Product is inactive (unsubscribed).`);
                     continue;
                 }
+
+                if (!dbProduct.original_price) continue;
 
                 // ONLY Alert if we knew this product before (discovery spam prevention)
                 const history = dbProduct.price_history;

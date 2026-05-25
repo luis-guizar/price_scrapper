@@ -579,7 +579,7 @@ def check_coppel_alerts(products, db):
                 # NO ALERTS for new products to avoid spam.
                 continue
             
-            if p_db.is_active is False:
+            if not p_db.is_active:
                 continue
 
             # Compare against original_price (anchor)

@@ -118,6 +118,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                     <option value="coppel">Coppel</option>
                                     <option value="liverpool">Liverpool</option>
                                     <option value="mercadolibre">MercadoLibre</option>
+                                    <option value="sephora">Sephora</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
