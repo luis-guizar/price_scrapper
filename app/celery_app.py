@@ -49,10 +49,10 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_elektra_deals',
         'schedule': crontab(minute='6,16,26,36,46,56'),
     },
-    'scan-chedraui-every-10-mins': {
-        'task': 'app.tasks.scan_chedraui_deals',
-        'schedule': crontab(minute='9,19,29,39,49,59'),
-    },
+    #'scan-chedraui-every-10-mins': {
+    #    'task': 'app.tasks.scan_chedraui_deals',
+    #    'schedule': crontab(minute='9,19,29,39,49,59'),
+    #},
 
     # --- TAREAS DE MANTENIMIENTO ---
     'cleanup-database-daily': {

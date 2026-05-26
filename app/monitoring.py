@@ -3,6 +3,8 @@ import logging
 import requests
 import redis
 from datetime import datetime
+import urllib3.util.connection as _urllib3_cn
+_urllib3_cn.HAS_IPV6 = False  # prefer IPv4; prevents ENETUNREACHABLE if IPv6 is disabled in container
 
 # Configurar logging
 logger = logging.getLogger(__name__)

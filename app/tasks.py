@@ -13,6 +13,8 @@ import os
 import redis
 import logging
 from datetime import datetime
+import urllib3.util.connection as _urllib3_cn
+_urllib3_cn.HAS_IPV6 = False  # prefer IPv4; prevents ENETUNREACHABLE if IPv6 is disabled in container
 
 # Configurar logging
 logger = logging.getLogger(__name__)
@@ -152,6 +154,11 @@ def send_telegram_alert(deal):
                 retry_after = int(response.json().get('parameters', {}).get('retry_after', 5))
                 logger.warning(f"⚠️ Telegram Rate Limit. Waiting {retry_after}s...")
                 time.sleep(retry_after)
+                continue
+            elif response.status_code == 400 and is_high_priority and target_chat_id != chat_id:
+                # High-priority chat is misconfigured; fall back to regular chat
+                logger.warning(f"⚠️ High-priority chat inaccesible (400), reintentando con chat regular: {response.text}")
+                target_chat_id = chat_id
                 continue
             else:
                 logger.error(f"❌ Error enviando alerta Telegram: {response.status_code} - {response.text}")
