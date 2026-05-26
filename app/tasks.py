@@ -159,7 +159,10 @@ def send_telegram_alert(deal):
                 
         except requests.exceptions.Timeout:
             logger.warning(f"⚠️ Timeout sending Telegram alert (Attempt {attempt+1}/{max_retries})")
-            time.sleep(2)
+            time.sleep(2 ** attempt)
+        except requests.exceptions.ConnectionError as e:
+            logger.warning(f"⚠️ Connection error sending Telegram alert (Attempt {attempt+1}/{max_retries}): {e}")
+            time.sleep(2 ** attempt)
         except Exception as e:
             logger.exception(f"❌ Excepción enviando alerta: {e}")
             return False
