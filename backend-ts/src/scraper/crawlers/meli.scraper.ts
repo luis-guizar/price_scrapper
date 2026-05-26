@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PlaywrightCrawler, createPlaywrightRouter, PlaywrightCrawlingContext, RequestQueue } from 'crawlee';
 import { ProductRepository, ScrapedProduct } from '../repositories/product.repository';
+import { ScrapeProgress } from '../scraper.types';
 
 @Injectable()
 export class MeliScraper {
@@ -8,7 +9,7 @@ export class MeliScraper {
 
     constructor(private readonly productRepository: ProductRepository) { }
 
-    async scrapeCategory(url: string): Promise<ScrapedProduct[]> {
+    async scrapeCategory(url: string, progress?: ScrapeProgress): Promise<ScrapedProduct[]> {
         const categoryLabel = url.split('/').pop()?.substring(0, 20) || 'meli-category';
         this.logger.log(`🚀 Starting MercadoLibre scrape for: ${categoryLabel}`);
         let totalScraped = 0;
@@ -64,6 +65,7 @@ export class MeliScraper {
                     await this.productRepository.bulkUpsert(products);
                     totalScraped += products.length;
                     allProducts.push(...products);
+                    await progress?.onProgress?.(totalScraped);
 
                     // Restrict max pages to avoid ban from heavy playwright instances and grab most relevant matches
                     const currentDepth = request.userData?.depth || 1;
@@ -104,6 +106,7 @@ export class MeliScraper {
                 }
             } catch (e: any) {
                 log.error(`❌ Error processing ${currentUrl}: ${e.message}`);
+                await progress?.onLog?.(`❌ Error on ${currentUrl}: ${e.message}`);
             }
         });
 

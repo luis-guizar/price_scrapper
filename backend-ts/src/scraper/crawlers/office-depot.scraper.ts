@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { CheerioCrawler, createCheerioRouter, CheerioCrawlingContext, RequestQueue } from 'crawlee';
 import { ProductRepository, ScrapedProduct } from '../repositories/product.repository';
+import { ScrapeProgress } from '../scraper.types';
 
 @Injectable()
 export class OfficeDepotScraper {
@@ -10,7 +11,7 @@ export class OfficeDepotScraper {
 
     constructor(private readonly productRepository: ProductRepository) { }
 
-    async scrapeCategory(url: string): Promise<ScrapedProduct[]> {
+    async scrapeCategory(url: string, progress?: ScrapeProgress): Promise<ScrapedProduct[]> {
         const categoryLabel = url.split('/').pop()?.substring(0, 20) || 'category';
         this.logger.log(`🚀 Starting Office Depot scrape for: ${categoryLabel}`);
         let totalScraped = 0;
@@ -39,6 +40,7 @@ export class OfficeDepotScraper {
                 await this.productRepository.bulkUpsert(products);
                 totalScraped += products.length;
                 allProducts.push(...products);
+                await progress?.onProgress?.(totalScraped);
             } else {
                 log.warning(`⚠️ No products found on ${pageInfo}`);
             }

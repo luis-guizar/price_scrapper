@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { CheerioCrawler, createCheerioRouter, CheerioCrawlingContext, RequestQueue } from 'crawlee';
 import { ProductRepository, ScrapedProduct } from '../repositories/product.repository';
+import { ScrapeProgress } from '../scraper.types';
 
 @Injectable()
 export class CoppelScraper {
@@ -9,7 +10,7 @@ export class CoppelScraper {
 
     constructor(private readonly productRepository: ProductRepository) { }
 
-    async scrapeCategory(url: string): Promise<ScrapedProduct[]> {
+    async scrapeCategory(url: string, progress?: ScrapeProgress): Promise<ScrapedProduct[]> {
         const categoryLabel = url.split('/').pop()?.substring(0, 20) || 'category';
         this.logger.log(`🚀 Starting Coppel scrape for: ${categoryLabel}`);
         let totalScraped = 0;
@@ -52,6 +53,7 @@ export class CoppelScraper {
                     log.debug(`✅ Finished bulkUpsert for ${pageInfo}`);
                     totalScraped += products.length;
                     allProducts.push(...products);
+                    await progress?.onProgress?.(totalScraped);
                 } else {
                     if (rawCount === 0) {
                         log.info(`🏁 Reached empty catalog data on ${pageInfo}`);
@@ -107,6 +109,7 @@ export class CoppelScraper {
 
             } catch (e) {
                 log.error(`❌ Error processing ${currentUrl}: ${e.message}`);
+                await progress?.onLog?.(`❌ Error on ${currentUrl}: ${e.message}`);
             }
         });
 

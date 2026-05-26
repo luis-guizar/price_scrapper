@@ -345,7 +345,7 @@ function App() {
 
                 <div className="space-y-4">
                     <a
-                        href="http://localhost:3002/queues"
+                        href="/queues/"
                         target="_blank"
                         rel="noreferrer"
                         className="flex items-center gap-3 w-full px-4 py-3 text-slate-400 border border-transparent rounded-xl font-medium hover:bg-slate-800 transition-colors">

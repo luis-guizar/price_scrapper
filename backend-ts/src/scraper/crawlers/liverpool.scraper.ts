@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { CheerioCrawler, createCheerioRouter, CheerioCrawlingContext, RequestQueue } from 'crawlee';
 import { ProductRepository, ScrapedProduct } from '../repositories/product.repository';
+import { ScrapeProgress } from '../scraper.types';
 
 @Injectable()
 export class LiverpoolScraper {
@@ -9,7 +10,7 @@ export class LiverpoolScraper {
 
     constructor(private readonly productRepository: ProductRepository) { }
 
-    async scrapeCategory(url: string): Promise<ScrapedProduct[]> {
+    async scrapeCategory(url: string, progress?: ScrapeProgress): Promise<ScrapedProduct[]> {
         const categoryLabel = 'liverpool-category';
         this.logger.log(`🚀 Starting Liverpool scrape for: ${url}`);
         let totalScraped = 0;
@@ -59,6 +60,7 @@ export class LiverpoolScraper {
                     await this.productRepository.bulkUpsert(products);
                     totalScraped += products.length;
                     allProducts.push(...products);
+                    await progress?.onProgress?.(totalScraped);
                 } else {
                     log.warning(`⚠️ No products found in JSON on ${pageInfo}`);
                 }
@@ -125,6 +127,7 @@ export class LiverpoolScraper {
 
             } catch (e) {
                 log.error(`❌ Error processing ${currentUrl}: ${e.message}`);
+                await progress?.onLog?.(`❌ Error on ${currentUrl}: ${e.message}`);
             }
         });
 

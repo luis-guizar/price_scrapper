@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { CheerioCrawler, createCheerioRouter, CheerioCrawlingContext, RequestQueue } from 'crawlee';
 import { ProductRepository, ScrapedProduct } from '../repositories/product.repository';
+import { ScrapeProgress } from '../scraper.types';
 
 const SEPHORA_BASE_URL = 'https://www.sephora.com.mx';
 
@@ -10,7 +11,7 @@ export class SephoraScraper {
 
     constructor(private readonly productRepository: ProductRepository) { }
 
-    async scrapeCategory(url: string): Promise<ScrapedProduct[]> {
+    async scrapeCategory(url: string, progress?: ScrapeProgress): Promise<ScrapedProduct[]> {
         const term = new URL(url).pathname.split('/').pop() || 'category';
         this.logger.log(`🚀 Starting Sephora scrape for: ${term}`);
         let totalScraped = 0;
@@ -53,6 +54,7 @@ export class SephoraScraper {
                     await this.productRepository.bulkUpsert(products);
                     totalScraped += products.length;
                     allProducts.push(...products);
+                    await progress?.onProgress?.(totalScraped);
                 } else {
                     log.warning(`⚠️ No valid products on page ${pageNumber}`);
                 }
@@ -74,6 +76,7 @@ export class SephoraScraper {
 
             } catch (e) {
                 log.error(`❌ Error processing page ${pageNumber}: ${e.message}`);
+                await progress?.onLog?.(`❌ Error on page ${pageNumber}: ${e.message}`);
             }
         });
 
