@@ -52,44 +52,44 @@ export const ELECTRONICS_RULES: PriceGuardRule[] = [
     { keywords: ['hp 667', 'hp 664', 'hp 67', 'hp 662', 'cartucho de tinta', 'bote de tinta', 'botella de tinta', 'kit bote'], maxPrice: 1200 },
 
     // --- TIER 7: MONITOR DISPLAY SYSTEMS ---
-    { keywords: ['monitor oled', 'monitor gaming oled', 'monitor ultra wide', 'ultrawide oled', 'odyssey g9'], maxPrice: 45000 },
-    { keywords: ['monitor gaming', 'monitor gamer', 'pantalla gamer', 'pantalla gaming', 'monitor 4k', 'odyssey', '144hz', '240hz'], maxPrice: 22000 },
+    { keywords: ['monitor oled', 'monitor gaming oled', 'monitor ultra wide', 'ultrawide oled', 'odyssey g9', 'viewfinity', 'uwqhd'], maxPrice: 45000 },
+    { keywords: ['monitor gaming', 'monitor gamer', 'pantalla gamer', 'pantalla gaming', 'monitor 4k', 'odyssey', '144hz', '240hz', '34 pulgadas'], maxPrice: 22000 },
     { keywords: ['qian standard', 'sansui standard', 'monitor standard', 'monitor full hd', 'monitor fhd', 'sansui', 'qian', 'ghia', 'acteck', 'vorago'], maxPrice: 3200 },
-    { keywords: ['monitor', 'pantalla para pc'], maxPrice: 12000 },
+    { keywords: ['monitor', 'pantalla para pc'], maxPrice: 16000 }, // Raised from 12000 to accommodate premium standard setups
 
     // --- TIER 8: TABLETS ---
     { keywords: ['ipad pro', 'tab s9 ultra', 'tab s10 ultra', 'matepad pro'], maxPrice: 48000 },
-    { keywords: ['ipad air', 'ipad mini', 'galaxy tab s', 'surface pro', 'yoga tab'], maxPrice: 32000 },
+    { keywords: ['ipad air', 'ipad mini', 'galaxy tab s', 'galaxy s10', 'galaxy s9', 'galaxy s8', 'surface pro', 'yoga tab'], maxPrice: 32000 }, // Added galaxy sXX string sequence to prevent matching generic lower tier
     { keywords: ['tablet', 'galaxy tab', 'matepad', 'ipad'], maxPrice: 16000 },
 
-    // --- TIER 9: SMARTPHONES (Expanded Foldables/Premium) ---
+    // --- TIER 9: SMARTPHONES ---
     { keywords: ['iphone 17 pro max', 'iphone 16 pro max', 'galaxy z fold', 'z fold', 'pixel fold', 's26 ultra', 's25 ultra'], maxPrice: 60000 },
     { keywords: ['iphone 17 pro', 'iphone 16 pro', 'iphone 15 pro', 'motorola razr', 'galaxy z flip', 'z flip'], maxPrice: 45000 },
     { keywords: ['iphone', 'galaxy s26+', 'galaxy s25+', 'galaxy s', 'motorola edge', 'motorola signature'], maxPrice: 35000 },
     { keywords: ['smartphone', 'celular', 'teléfono', 'telefono'], maxPrice: 18000 },
 
-    // --- TIER 10: TELEVISIONS (Added 98"+ limits) ---
+    // --- TIER 10: TELEVISIONS ---
     { keywords: ['microled', '8k', '100 pulgadas', '98 pulgadas', '97 pulgadas'], maxPrice: 400000 },
     { keywords: ['oled tv', 'qled tv', 'miniled tv', 'lg oled evo', 'televisión oled', 'television oled', '85 pulgadas', '86 pulgadas'], maxPrice: 150000 },
     { keywords: ['pantalla', 'tv', 'televisión', 'television', 'smart tv'], maxPrice: 45000 },
 
-    // --- TIER 11: PHOTOGRAPHY & ACTION CAMS (Massive Spanish Expansion) ---
-    { keywords: ['blackmagic', 'sony fx', 'ilme-fx', 'ilce-9', 'eos r5', 'eos r3', 'nikon z9', 'nikon z8'], maxPrice: 180000 }, // Pro Cinema & Flagships
-    { keywords: ['cámara reflex', 'camara reflex', 'cámara sin espejo', 'camara sin espejo', 'cámara mirrorless', 'camara mirrorless', 'videocámara', 'cuerpo', 'lente', 'nikon z', 'sony alpha', 'canon eos r', 'fujifilm x', 'ilce'], maxPrice: 90000 }, // Enthusiast / Prosumer Mirrorless
+    // --- TIER 11: PHOTOGRAPHY & ACTION CAMS ---
+    { keywords: ['blackmagic', 'sony fx', 'ilme-fx', 'ilce-9', 'eos r5', 'eos r3', 'nikon z9', 'nikon z8'], maxPrice: 180000 },
+    { keywords: ['cámara reflex', 'camara reflex', 'cámara sin espejo', 'camara sin espejo', 'cámara mirrorless', 'camara mirrorless', 'videocámara', 'cuerpo', 'lente', 'nikon z', 'sony alpha', 'canon eos r', 'fujifilm x', 'ilce'], maxPrice: 90000 },
     { keywords: ['cámara', 'camara', 'gopro', 'go pro', 'cámara de acción', 'camara de accion'], maxPrice: 15000 },
 
-    // --- TIER 12: AUDIO SYSTEMS & SOUNDBARS (Expanded Premium Audio) ---
+    // --- TIER 12: AUDIO SYSTEMS & SOUNDBARS ---
     { keywords: ['bose smart', 'sonos arc', 'sonos beam', 'sony ht', 'jbl bar', 'samsung hw-q', 'klipsch', 'polk', 'lg s9'], maxPrice: 35000 },
     { keywords: ['barra de sonido', 'soundbar', 'bocina', 'bocinas', 'bafle'], maxPrice: 12000 },
 
     // --- TIER 13: SMARTWATCHES & WEARABLES ---
-    { keywords: ['garmin forerunner', 'garmin approach', 'garmin fenix', 'garmin epix', 'huawei watch ultimate', 'apple watch ultra', 'galaxy watch ultra'], maxPrice: 26000 },
-    { keywords: ['apple watch', 'galaxy watch classic', 'galaxy watch pro', 'huawei watch pro'], maxPrice: 15000 },
-    { keywords: ['reloj', 'smartwatch', 'galaxy watch', 'huawei watch'], maxPrice: 7000 },
+    { keywords: ['garmin forerunner', 'garmin approach', 'garmin fenix', 'garmin epix', 'huawei watch ultimate', 'apple watch ultra', 'galaxy watch ultra', 'apple watch'], maxPrice: 26000 }, // Moved apple watch base string here to allow luxury/steel finishes (up to 19k MXN)
+    { keywords: ['galaxy watch', 'huawei watch', 'pixel watch', 'gt 6', 'watch d', 'watch 5'], maxPrice: 15000 }, // Flattened brand structures to prevent structural fragmentation from mid-title numbers
+    { keywords: ['reloj', 'smartwatch'], maxPrice: 7000 },
 
     // --- TIER 14: HEADPHONES ---
     { keywords: ['airpods max', 'focal bathys'], maxPrice: 18000 },
-    { keywords: ['airpods pro', 'sony wh', 'sony wf', 'bose quietcomfort', 'bose ultra'], maxPrice: 12000 },
+    { keywords: ['airpods pro', 'sony wh', 'sony wf', 'bose quietcomfort', 'bose ultra', 'astro a50', 'astro x', 'logitech g'], maxPrice: 12000 }, // Added high-end gaming options like Astro variants
     { keywords: ['audífonos', 'audifonos', 'auriculares', 'airpods'], maxPrice: 5000 },
 
     // --- TIER 15: HOME APPLIANCES ---
@@ -106,14 +106,15 @@ export const OFFICE_RULES: PriceGuardRule[] = [
     { keywords: ['laptop gamer', 'laptop gaming', 'computadora gamer', 'computadora gaming', 'pc gamer', 'pc gaming'], maxPrice: 85000 },
     { keywords: ['all in one', 'aio', 'omnistudio'], maxPrice: 60000 },
     { keywords: ['laptop', 'notebook', 'computadora', 'computadora portátil'], maxPrice: 35000 },
-    { keywords: ['ipad pro', 'tab s9 ultra'], maxPrice: 48000 },
+    { keywords: ['ipad pro', 'tab s9 ultra', 'tab s10 ultra'], maxPrice: 48000 },
+    { keywords: ['ipad air', 'ipad mini', 'galaxy tab s', 'galaxy s10', 'galaxy s9', 'galaxy s8', 'surface pro', 'yoga tab'], maxPrice: 32000 },
     { keywords: ['ipad', 'tablet'], maxPrice: 16000 },
 
     // Displays & Office Monitors
-    { keywords: ['monitor oled', 'monitor gaming'], maxPrice: 45000 },
-    { keywords: ['monitor gaming', 'monitor gamer'], maxPrice: 22000 },
+    { keywords: ['monitor oled', 'monitor ultra wide', 'ultrawide oled', 'odyssey g9', 'viewfinity', 'uwqhd'], maxPrice: 45000 }, // Fixed syntax/duplicate tracking error
+    { keywords: ['monitor gaming', 'monitor gamer', 'pantalla gamer', 'pantalla gaming', 'monitor 4k', 'odyssey', '144hz', '240hz', '34 pulgadas'], maxPrice: 22000 },
     { keywords: ['qian standard', 'sansui standard', 'monitor standard', 'monitor full hd', 'monitor fhd', 'sansui', 'qian', 'ghia', 'acteck', 'vorago'], maxPrice: 3200 },
-    { keywords: ['pantalla', 'monitor'], maxPrice: 12000 },
+    { keywords: ['pantalla', 'monitor'], maxPrice: 16000 },
 
     // Office Printers & Consumables 
     { keywords: ['plotter', 'impresora industrial'], maxPrice: 60000 },
@@ -133,6 +134,10 @@ export const OFFICE_RULES: PriceGuardRule[] = [
 ];
 
 export const BEAUTY_RULES: PriceGuardRule[] = [
+    // --- TIER 0: PREMIUM HAIR TECH APPLIANCES ---
+    { keywords: ['dyson', 'airwrap', 'supersonic', 'secadora de cabello', 'estilizador'], maxPrice: 18000 }, // Intercepts high-end personal tech before matching makeup shade keywords
+
+    // --- REMAINING COSMETIC TIERS ---
     { keywords: ['creed royal', 'creed perfume', 'baccarat rouge', 'tom ford private', 'clive christian'], maxPrice: 16000 },
     { keywords: ['perfume', 'eau de parfum', 'cologne', 'fragrance', 'loción', 'locion', 'eau de toilette'], maxPrice: 8000 },
     { keywords: ['gift set', 'coffret', 'estuche de regalo', 'set de belleza', 'kit de regalo'], maxPrice: 7000 },
