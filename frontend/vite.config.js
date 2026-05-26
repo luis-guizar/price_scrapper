@@ -23,6 +23,11 @@ export default defineConfig({
     host: true,
     port: 4173,
     proxy: {
+      '/api': {
+        target: 'http://api:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
       '/queues': {
         target: 'http://backend-ts:3000',
         changeOrigin: true,
