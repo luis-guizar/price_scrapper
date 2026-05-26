@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X, Bell, BellOff, Edit2 } from 'lucide-react'
+import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X, Bell, BellOff, Edit2, Activity } from 'lucide-react'
 import ProductTable from './components/ProductTable'
 import TelegramModal from './components/TelegramModal'
 import AlertHistory from './components/AlertHistory'
@@ -344,6 +344,14 @@ function App() {
                 </nav>
 
                 <div className="space-y-4">
+                    <a
+                        href="http://localhost:3002/queues"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-3 w-full px-4 py-3 text-slate-400 border border-transparent rounded-xl font-medium hover:bg-slate-800 transition-colors">
+                        <Activity size={20} />
+                        Queue Monitor
+                    </a>
                     <button
                         onClick={() => setShowTelegramModal(true)}
                         className="flex items-center gap-3 w-full px-4 py-3 bg-slate-800 text-slate-200 rounded-xl font-medium border border-slate-700 hover:bg-slate-700 transition-colors">

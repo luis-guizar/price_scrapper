@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
+import { BullBoardModule } from '@bull-board/nestjs';
+import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ScraperController } from './scraper.controller';
 import { PrismaService } from '../prisma.service';
 import { ProductRepository } from './repositories/product.repository';
@@ -23,6 +25,10 @@ import { AlertService } from '../alert.service';
                 attempts: 2,
                 backoff: { type: 'fixed', delay: 30_000 },
             },
+        }),
+        BullBoardModule.forFeature({
+            name: 'scraper-tasks',
+            adapter: BullMQAdapter,
         }),
     ],
     controllers: [ScraperController],

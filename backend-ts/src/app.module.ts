@@ -5,6 +5,8 @@ import { PrismaService } from './prisma.service';
 import { BullModule } from '@nestjs/bullmq';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ScraperModule } from './scraper/scraper.module';
+import { BullBoardModule } from '@bull-board/nestjs';
+import { ExpressAdapter } from '@bull-board/express';
 
 @Module({
   imports: [
@@ -12,6 +14,10 @@ import { ScraperModule } from './scraper/scraper.module';
       connection: {
         url: process.env.REDIS_URL,
       },
+    }),
+    BullBoardModule.forRoot({
+      route: '/queues',
+      adapter: ExpressAdapter,
     }),
     ScheduleModule.forRoot(),
     ScraperModule,
