@@ -27,18 +27,20 @@ export function capUnreasonableOriginalPrice(
 export const ELECTRONICS_RULES: PriceGuardRule[] = [
     // --- TIER 1: ULTRA COMPUTING & WORKSTATIONS ---
     { keywords: ['macbook pro', 'mac studio', 'mac pro', 'imac pro'], maxPrice: 200000 },
-    { keywords: ['macbook air', 'snapdragon x elite', 'core ultra 7', 'zenbook', 'yoga slim', 'yoga pro', 'surface laptop', 'xps'], maxPrice: 48000 },
+    { keywords: ['alienware aurora', 'rog strix scar', 'legion pro 7i'], maxPrice: 150000 },
+    { keywords: ['ryzen ai max', 'rtx 5090', 'rtx 5080', 'rtx 4090', 'intel core i9', 'core i9', 'core ultra 9', 'ryzen 9', 'ryzen ai 9'], maxPrice: 140000 },
+    { keywords: ['snapdragon x elite', 'core ultra 7', 'ryzen ai 7', 'zenbook', 'yoga slim', 'yoga pro', 'yoga book', 'surface laptop', 'xps', 'prestige 16', 'swift 14 ai'], maxPrice: 65000 },
 
     // --- TIER 2: HIGH-END HARDWARE COMPONENTS ---
-    { keywords: ['rtx 5080', 'rtx 5090', 'rtx 4090', 'rtx 4080', 'intel core i9', 'core i9', 'core ultra 9', 'ryzen 9', 'ryzen ai 9'], maxPrice: 130000 },
     { keywords: ['tarjeta de video', 'tarjeta gráfica', 'gpu'], maxPrice: 65000 },
 
     // --- TIER 3: GAMING LAPTOPS & DESKTOPS ---
-    { keywords: ['laptop gamer', 'laptop gaming', 'computadora gamer', 'computadora gaming', 'pc gamer', 'pc gaming', 'xtreme pc', 'grizzly pcg', 'predator', 'legion', 'rog strix', 'tuf gaming', 'omen', 'aero'], maxPrice: 85000 },
+    { keywords: ['rtx 5070', 'rtx 5060', 'laptop gamer', 'laptop gaming', 'computadora gamer', 'computadora gaming', 'pc gamer', 'pc gaming', 'xtreme pc', 'grizzly pcg', 'predator', 'legion', 'rog strix', 'tuf gaming', 'omen', 'aero', 'thunderobot'], maxPrice: 95000 },
 
     // --- TIER 4: STANDARD LAPTOPS & DESKTOPS ---
-    { keywords: ['all in one', 'aio', 'omnistudio', 'imac'], maxPrice: 60000 },
-    { keywords: ['laptop', 'notebook', 'pc', 'computadora', 'computadora portátil', 'lap top'], maxPrice: 35000 },
+    { keywords: ['all in one', 'aio', 'omnistudio', 'imac', 'thinkpad', 'thinkbook', 'dell pro ai'], maxPrice: 65000 },
+    { keywords: ['laptop', 'notebook', 'pc', 'computadora', 'computadora portátil', 'lap top', 'ideapad', 'hybook', 'f515ea'], maxPrice: 48000 },
+    { keywords: ['ghia lb', 'qian qpi', 'vorago pad'], maxPrice: 22000 }, // Raised to handle budget brands building core i5/i7 hardware specs
 
     // --- TIER 5: PRINTERS & IMAGING ---
     { keywords: ['plotter', 'impresora industrial', 'duplicadora'], maxPrice: 60000 },
@@ -55,11 +57,12 @@ export const ELECTRONICS_RULES: PriceGuardRule[] = [
     { keywords: ['monitor oled', 'monitor gaming oled', 'monitor ultra wide', 'ultrawide oled', 'odyssey g9', 'viewfinity', 'uwqhd'], maxPrice: 45000 },
     { keywords: ['monitor gaming', 'monitor gamer', 'pantalla gamer', 'pantalla gaming', 'monitor 4k', 'odyssey', '144hz', '240hz', '34 pulgadas'], maxPrice: 22000 },
     { keywords: ['qian standard', 'sansui standard', 'monitor standard', 'monitor full hd', 'monitor fhd', 'sansui', 'qian', 'ghia', 'acteck', 'vorago'], maxPrice: 3200 },
-    { keywords: ['monitor', 'pantalla para pc'], maxPrice: 16000 }, // Raised from 12000 to accommodate premium standard setups
+    { keywords: ['monitor', 'pantalla para pc'], maxPrice: 16000 },
 
     // --- TIER 8: TABLETS ---
+    { keywords: ['skybook', 'skylight calendar'], maxPrice: 28000 }, // Intercept luxury mega-display calendars/smart displays
     { keywords: ['ipad pro', 'tab s9 ultra', 'tab s10 ultra', 'matepad pro'], maxPrice: 48000 },
-    { keywords: ['ipad air', 'ipad mini', 'galaxy tab s', 'galaxy s10', 'galaxy s9', 'galaxy s8', 'surface pro', 'yoga tab'], maxPrice: 32000 }, // Added galaxy sXX string sequence to prevent matching generic lower tier
+    { keywords: ['ipad air', 'ipad mini', 'galaxy tab s', 'galaxy s10', 'galaxy s9', 'galaxy s8', 'surface pro', 'yoga tab'], maxPrice: 32000 },
     { keywords: ['tablet', 'galaxy tab', 'matepad', 'ipad'], maxPrice: 16000 },
 
     // --- TIER 9: SMARTPHONES ---
@@ -69,9 +72,11 @@ export const ELECTRONICS_RULES: PriceGuardRule[] = [
     { keywords: ['smartphone', 'celular', 'teléfono', 'telefono'], maxPrice: 18000 },
 
     // --- TIER 10: TELEVISIONS ---
-    { keywords: ['microled', '8k', '100 pulgadas', '98 pulgadas', '97 pulgadas'], maxPrice: 400000 },
-    { keywords: ['oled tv', 'qled tv', 'miniled tv', 'lg oled evo', 'televisión oled', 'television oled', '85 pulgadas', '86 pulgadas'], maxPrice: 150000 },
-    { keywords: ['pantalla', 'tv', 'televisión', 'television', 'smart tv'], maxPrice: 45000 },
+    { keywords: ['transparente', 'oled97', '97 pulgadas', '98 pulgadas', '100 pulgadas', 'microled', '8k'], maxPrice: 1200000 }, // Massively escalated for luxury commercial transparent lines
+    { keywords: ['oled 83', 'oled 77', 'neo qled 85', 'neo qled 75', 'bravia 8', 'qn83', 'qn77', 'mrn85'], maxPrice: 180000 },
+    { keywords: ['oled tv', 'qled tv', 'miniled tv', 'lg oled evo', 'televisión oled', 'television oled', '85 pulgadas', '86 pulgadas', 'neo qled', 'bravia'], maxPrice: 150000 },
+    { keywords: ['pantalla ghia', 'pantalla sansui', 'g50w25', 'g40w25', 'g32w25', 'smx40', 'smx32'], maxPrice: 10000 }, // Safe zone for budget display tiers
+    { keywords: ['pantalla', 'tv', 'televisión', 'television', 'smart tv', 'horion'], maxPrice: 75000 },
 
     // --- TIER 11: PHOTOGRAPHY & ACTION CAMS ---
     { keywords: ['blackmagic', 'sony fx', 'ilme-fx', 'ilce-9', 'eos r5', 'eos r3', 'nikon z9', 'nikon z8'], maxPrice: 180000 },
@@ -83,13 +88,13 @@ export const ELECTRONICS_RULES: PriceGuardRule[] = [
     { keywords: ['barra de sonido', 'soundbar', 'bocina', 'bocinas', 'bafle'], maxPrice: 12000 },
 
     // --- TIER 13: SMARTWATCHES & WEARABLES ---
-    { keywords: ['garmin forerunner', 'garmin approach', 'garmin fenix', 'garmin epix', 'huawei watch ultimate', 'apple watch ultra', 'galaxy watch ultra', 'apple watch'], maxPrice: 26000 }, // Moved apple watch base string here to allow luxury/steel finishes (up to 19k MXN)
-    { keywords: ['galaxy watch', 'huawei watch', 'pixel watch', 'gt 6', 'watch d', 'watch 5'], maxPrice: 15000 }, // Flattened brand structures to prevent structural fragmentation from mid-title numbers
+    { keywords: ['garmin forerunner', 'garmin approach', 'garmin fenix', 'garmin epix', 'huawei watch ultimate', 'apple watch ultra', 'galaxy watch ultra', 'apple watch', 'ultimate 2'], maxPrice: 26000 },
+    { keywords: ['galaxy watch', 'huawei watch', 'pixel watch', 'gt 6', 'watch d', 'watch 5', 'venu 3', 't-rex', 'instinct'], maxPrice: 14000 }, // Safeguards rugged luxury lines like T-Rex Ultra & Instinct Tactical
     { keywords: ['reloj', 'smartwatch'], maxPrice: 7000 },
 
     // --- TIER 14: HEADPHONES ---
     { keywords: ['airpods max', 'focal bathys'], maxPrice: 18000 },
-    { keywords: ['airpods pro', 'sony wh', 'sony wf', 'bose quietcomfort', 'bose ultra', 'astro a50', 'astro x', 'logitech g'], maxPrice: 12000 }, // Added high-end gaming options like Astro variants
+    { keywords: ['airpods pro', 'sony wh', 'sony wf', 'bose quietcomfort', 'bose ultra', 'astro a50', 'astro x', 'logitech g'], maxPrice: 12000 },
     { keywords: ['audífonos', 'audifonos', 'auriculares', 'airpods'], maxPrice: 5000 },
 
     // --- TIER 15: HOME APPLIANCES ---
@@ -101,17 +106,18 @@ export const ELECTRONICS_RULES: PriceGuardRule[] = [
 export const OFFICE_RULES: PriceGuardRule[] = [
     // Shared Computing Parity Match
     { keywords: ['macbook pro', 'mac studio', 'mac pro', 'imac pro'], maxPrice: 200000 },
-    { keywords: ['macbook air', 'snapdragon x elite', 'core ultra 7', 'zenbook', 'yoga slim', 'yoga pro', 'surface laptop', 'xps'], maxPrice: 48000 },
-    { keywords: ['rtx 5080', 'rtx 5090', 'rtx 4090', 'intel core i9', 'core ultra 9'], maxPrice: 130000 },
-    { keywords: ['laptop gamer', 'laptop gaming', 'computadora gamer', 'computadora gaming', 'pc gamer', 'pc gaming'], maxPrice: 85000 },
-    { keywords: ['all in one', 'aio', 'omnistudio'], maxPrice: 60000 },
-    { keywords: ['laptop', 'notebook', 'computadora', 'computadora portátil'], maxPrice: 35000 },
+    { keywords: ['alienware aurora', 'rog strix scar', 'legion pro 7i'], maxPrice: 150000 },
+    { keywords: ['ryzen ai max', 'rtx 5090', 'rtx 5080', 'rtx 4090', 'intel core i9', 'core ultra 9'], maxPrice: 140000 },
+    { keywords: ['snapdragon x elite', 'core ultra 7', 'ryzen ai 7', 'zenbook', 'yoga slim', 'yoga pro', 'yoga book', 'surface laptop', 'xps', 'prestige 16', 'swift 14 ai'], maxPrice: 65000 },
+    { keywords: ['rtx 5070', 'rtx 5060', 'laptop gamer', 'laptop gaming', 'computadora gamer', 'computadora gaming', 'pc gamer', 'pc gaming', 'thunderobot'], maxPrice: 95000 },
+    { keywords: ['all in one', 'aio', 'omnistudio', 'thinkpad', 'thinkbook', 'dell pro ai'], maxPrice: 65000 },
+    { keywords: ['laptop', 'notebook', 'computadora', 'computadora portátil', 'ideapad', 'hybook'], maxPrice: 48000 },
     { keywords: ['ipad pro', 'tab s9 ultra', 'tab s10 ultra'], maxPrice: 48000 },
     { keywords: ['ipad air', 'ipad mini', 'galaxy tab s', 'galaxy s10', 'galaxy s9', 'galaxy s8', 'surface pro', 'yoga tab'], maxPrice: 32000 },
     { keywords: ['ipad', 'tablet'], maxPrice: 16000 },
 
     // Displays & Office Monitors
-    { keywords: ['monitor oled', 'monitor ultra wide', 'ultrawide oled', 'odyssey g9', 'viewfinity', 'uwqhd'], maxPrice: 45000 }, // Fixed syntax/duplicate tracking error
+    { keywords: ['monitor oled', 'monitor ultra wide', 'ultrawide oled', 'odyssey g9', 'viewfinity', 'uwqhd'], maxPrice: 45000 },
     { keywords: ['monitor gaming', 'monitor gamer', 'pantalla gamer', 'pantalla gaming', 'monitor 4k', 'odyssey', '144hz', '240hz', '34 pulgadas'], maxPrice: 22000 },
     { keywords: ['qian standard', 'sansui standard', 'monitor standard', 'monitor full hd', 'monitor fhd', 'sansui', 'qian', 'ghia', 'acteck', 'vorago'], maxPrice: 3200 },
     { keywords: ['pantalla', 'monitor'], maxPrice: 16000 },
@@ -135,7 +141,7 @@ export const OFFICE_RULES: PriceGuardRule[] = [
 
 export const BEAUTY_RULES: PriceGuardRule[] = [
     // --- TIER 0: PREMIUM HAIR TECH APPLIANCES ---
-    { keywords: ['dyson', 'airwrap', 'supersonic', 'secadora de cabello', 'estilizador'], maxPrice: 18000 }, // Intercepts high-end personal tech before matching makeup shade keywords
+    { keywords: ['dyson', 'airwrap', 'supersonic', 'secadora de cabello', 'estilizador'], maxPrice: 18000 },
 
     // --- REMAINING COSMETIC TIERS ---
     { keywords: ['creed royal', 'creed perfume', 'baccarat rouge', 'tom ford private', 'clive christian'], maxPrice: 16000 },
