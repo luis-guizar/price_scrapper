@@ -45,9 +45,9 @@ app.conf.beat_schedule = {
         'task': 'app.tasks.scan_cyberpuerta_deals',
         'schedule': crontab(minute='3,13,23,33,43,53'),
     },
-    'scan-elektra-every-10-mins': {
+    'scan-elektra-every-30-mins': {
         'task': 'app.tasks.scan_elektra_deals',
-        'schedule': crontab(minute='6,16,26,36,46,56'),
+        'schedule': crontab(minute='6,36'),
     },
     #'scan-chedraui-every-10-mins': {
     #    'task': 'app.tasks.scan_chedraui_deals',

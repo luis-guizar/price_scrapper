@@ -25,11 +25,7 @@ export class ScraperScheduleService {
     const urls = OFFICE_DEPOT_CONFIG.urls;
 
     for (const url of urls) {
-      await this.scraperQueue.add(
-        'scrape:officedepot',
-        { url },
-        { jobId: `scrape-officedepot-${url}`.replace(/:/g, '-') },
-      );
+      await this.scraperQueue.add('scrape:officedepot', { url });
     }
 
     this.logger.log(
@@ -45,11 +41,7 @@ export class ScraperScheduleService {
     const urls = COPPEL_CONFIG.urls;
 
     for (const url of urls) {
-      await this.scraperQueue.add(
-        'scrape:coppel',
-        { url },
-        { jobId: `scrape-coppel-${url}`.replace(/:/g, '-') },
-      );
+      await this.scraperQueue.add('scrape:coppel', { url });
     }
 
     this.logger.log(
@@ -65,11 +57,7 @@ export class ScraperScheduleService {
     const urls = LIVERPOOL_CONFIG.urls;
 
     for (const url of urls) {
-      await this.scraperQueue.add(
-        'scrape:liverpool',
-        { url },
-        { jobId: `scrape-liverpool-${url}`.replace(/:/g, '-') },
-      );
+      await this.scraperQueue.add('scrape:liverpool', { url });
     }
 
     this.logger.log(
@@ -85,11 +73,7 @@ export class ScraperScheduleService {
     const urls = SEPHORA_CONFIG.urls;
 
     for (const url of urls) {
-      await this.scraperQueue.add(
-        'scrape:sephora',
-        { url },
-        { jobId: `scrape-sephora-${url}`.replace(/:/g, '-') },
-      );
+      await this.scraperQueue.add('scrape:sephora', { url });
     }
 
     this.logger.log(
