@@ -54,14 +54,14 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
     }
 
     return (
-        <div className="bg-slate-900/50 rounded-2xl border border-slate-800 flex flex-col h-full overflow-hidden">
+        <div className="bg-[#0d1524] rounded-2xl border border-slate-700/50 flex flex-col h-full overflow-hidden shadow-card">
 
             {/* Toolbar */}
-            <div className="p-4 border-b border-slate-800 flex flex-col gap-4">
+            <div className="px-5 py-4 border-b border-slate-700/40 flex flex-col gap-4">
 
                 {/* Top Row: Search & Main Actions */}
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <h3 className="font-semibold text-lg whitespace-nowrap hidden md:block">All Tracked Products</h3>
+                    <h3 className="font-semibold text-base text-slate-200 whitespace-nowrap hidden md:block tracking-tight">All Tracked Products</h3>
 
                     <div className="flex items-center gap-2 w-full">
                         {/* Search Box */}
@@ -70,7 +70,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                             <input
                                 type="text"
                                 placeholder="Search products..."
-                                className="bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 w-full text-white"
+                                className="input-base pl-9 pr-4 py-2 text-sm w-full"
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
                                 onKeyDown={handleKeyDown}
@@ -79,7 +79,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
 
                         <button
                             onClick={() => setShowAdvanced(!showAdvanced)}
-                            className={`p-2 rounded-lg border transition-colors ${showAdvanced ? 'bg-blue-600/10 border-blue-600 text-blue-400' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
+                            className={`p-2 rounded-lg border transition-all duration-150 ${showAdvanced ? 'bg-blue-600/15 border-blue-500/50 text-blue-300 shadow-sm shadow-blue-900/20' : 'bg-slate-950 border-slate-700/50 text-slate-400 hover:text-slate-200 hover:border-slate-600'}`}
                             title="Advanced Filters"
                         >
                             <ListFilter size={20} />
@@ -87,7 +87,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
 
                         <button
                             onClick={handleSearch}
-                            className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                            className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 shadow-sm hover:shadow-glow-blue active:scale-[0.97]"
                         >
                             Search
                         </button>
@@ -96,7 +96,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
 
                 {/* Advanced Filters Row */}
                 {showAdvanced && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-slate-950/40 rounded-xl border border-slate-700/30">
 
                         {/* Source */}
                         <div className="flex flex-col gap-1">
@@ -104,7 +104,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                             <div className="relative">
                                 <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
                                 <select
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-9 pr-2 py-2 text-sm focus:outline-none focus:border-blue-500 appearance-none text-slate-300"
+                                    className="input-base w-full pl-9 pr-2 py-2 text-sm appearance-none"
                                     value={sourceFilter}
                                     onChange={(e) => setSourceFilter(e.target.value)}
                                 >
@@ -131,7 +131,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                 <input
                                     type="number"
                                     placeholder="Min"
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 text-white"
+                                    className="input-base w-full px-3 py-2 text-sm"
                                     value={minPrice}
                                     onChange={e => setMinPrice(e.target.value)}
                                     onKeyDown={handleKeyDown}
@@ -139,7 +139,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                 <input
                                     type="number"
                                     placeholder="Max"
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 text-white"
+                                    className="input-base w-full px-3 py-2 text-sm"
                                     value={maxPrice}
                                     onChange={e => setMaxPrice(e.target.value)}
                                     onKeyDown={handleKeyDown}
@@ -151,7 +151,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                         <div className="flex flex-col gap-1">
                             <label className="text-xs text-slate-500 font-medium">Sort By</label>
                             <select
-                                className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 text-slate-300"
+                                className="input-base w-full px-3 py-2 text-sm"
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
                             >
@@ -168,7 +168,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                     type="checkbox"
                                     checked={showExclude}
                                     onChange={e => setShowExclude(e.target.checked)}
-                                    className="rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-blue-500"
+                                    className="rounded border-slate-700/60 bg-slate-950 text-blue-600 focus:ring-blue-500/50"
                                 />
                                 Exclude Words
                             </label>
@@ -176,7 +176,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                 <input
                                     type="text"
                                     placeholder="e.g. funda case"
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-500 text-white placeholder-slate-600"
+                                    className="w-full bg-slate-950 border border-slate-700/60 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-500/70 focus:ring-1 focus:ring-red-500/20 text-slate-200 placeholder-slate-600 transition-colors duration-150"
                                     value={exclude}
                                     onChange={e => setExclude(e.target.value)}
                                     onKeyDown={handleKeyDown}
@@ -203,42 +203,42 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
 
             <div className="overflow-auto flex-1">
                 <table className="w-full text-left text-sm">
-                    <thead className="bg-slate-950 text-slate-400 sticky top-0 z-10">
+                    <thead className="bg-[#080f1a] text-slate-500 sticky top-0 z-10 border-b border-slate-700/30">
                         <tr>
-                            <th className="p-4 font-medium">Product Name</th>
-                            <th className="p-4 font-medium">Source</th>
-                            <th className="p-4 font-medium">Price</th>
-                            <th className="p-4 font-medium text-right">Actions</th>
+                            <th className="px-5 py-3.5 font-medium text-xs uppercase tracking-wider">Product Name</th>
+                            <th className="px-5 py-3.5 font-medium text-xs uppercase tracking-wider">Source</th>
+                            <th className="px-5 py-3.5 font-medium text-xs uppercase tracking-wider">Price</th>
+                            <th className="px-5 py-3.5 font-medium text-xs uppercase tracking-wider text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800">
+                    <tbody className="divide-y divide-slate-800/60">
                         {products.map(p => (
-                            <tr key={p.id} className="hover:bg-slate-800/50 transition-colors">
-                                <td className="p-4">
-                                    <div className="font-medium text-slate-200 line-clamp-2" title={p.name}>{p.name}</div>
-                                    <div className="text-xs text-slate-500 mt-1 font-mono">{p.sku || 'NO-SKU'}</div>
+                            <tr key={p.id} className="hover:bg-slate-800/40 transition-colors duration-100 group">
+                                <td className="px-5 py-4">
+                                    <div className="font-medium text-slate-200 line-clamp-2 text-sm" title={p.name}>{p.name}</div>
+                                    <div className="text-[11px] text-slate-600 mt-1 font-mono">{p.sku || 'NO-SKU'}</div>
                                 </td>
-                                <td className="p-4">
-                                    <span className={`px-2 py-1 rounded text-xs uppercase font-bold tracking-wider 
-                                    ${p.source === 'keepa' ? 'bg-orange-500/10 text-orange-500' :
-                                            p.source === 'promodescuentos' ? 'bg-red-600/10 text-red-600' :
-                                                p.source === 'officedepot' ? 'bg-red-500/10 text-red-500' :
-                                                    p.source === 'cyberpuerta' ? 'bg-green-500/10 text-green-500' :
-                                                        p.source === 'soriana' ? 'bg-red-500/10 text-red-500' :
-                                                            p.source === 'coppel' ? 'bg-blue-500/10 text-blue-500' :
-                                                                p.source === 'liverpool' ? 'bg-pink-500/10 text-pink-500' :
-                                                                    p.source === 'mercadolibre' ? 'bg-yellow-400/10 text-yellow-500' :
-                                                                        p.source === 'elektra' ? 'bg-purple-600/10 text-purple-600' : 'bg-slate-700 text-slate-300'}`}>
+                                <td className="px-5 py-4">
+                                    <span className={`px-2.5 py-0.5 rounded-full border text-[11px] font-medium tracking-wide
+                                    ${p.source === 'keepa' ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' :
+                                            p.source === 'promodescuentos' ? 'bg-red-600/10 text-red-400 border-red-600/20' :
+                                                p.source === 'officedepot' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
+                                                    p.source === 'cyberpuerta' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
+                                                        p.source === 'soriana' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
+                                                            p.source === 'coppel' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                                                                p.source === 'liverpool' ? 'bg-pink-500/10 text-pink-400 border-pink-500/20' :
+                                                                    p.source === 'mercadolibre' ? 'bg-yellow-400/10 text-yellow-500 border-yellow-400/20' :
+                                                                        p.source === 'elektra' ? 'bg-purple-600/10 text-purple-400 border-purple-600/20' : 'bg-slate-700/50 text-slate-400 border-slate-600/30'}`}>
                                         {p.source || 'Unknown'}
                                     </span>
                                 </td>
-                                <td className="p-4 font-mono text-white">
+                                <td className="px-5 py-4 font-mono text-white tabular-nums">
                                     <div className="flex flex-col">
                                         <span>${p.current_price?.toLocaleString()}</span>
                                         {p.original_price && <span className="text-xs text-slate-500 line-through">${p.original_price?.toLocaleString()}</span>}
                                     </div>
                                 </td>
-                                <td className="p-4 text-right">
+                                <td className="px-5 py-4 text-right">
                                     <div className="flex justify-end gap-2">
                                         <button
                                             onClick={(e) => {
@@ -299,10 +299,10 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                         ))}
                         {products.length === 0 && (
                             <tr>
-                                <td colSpan="4" className="p-12 text-center text-slate-500">
-                                    <div className="flex flex-col items-center gap-2">
-                                        <Search size={32} className="opacity-20" />
-                                        <p>No products found matching criteria.</p>
+                                <td colSpan="4" className="py-16 text-center">
+                                    <div className="flex flex-col items-center gap-3">
+                                        <Search size={32} className="opacity-15 text-slate-600" />
+                                        <p className="text-slate-500 text-sm">No products found matching criteria.</p>
                                     </div>
                                 </td>
                             </tr>
@@ -313,7 +313,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
 
             {/* Pagination Controls */}
             {pagination && pagination.pages > 1 && (
-                <div className="p-4 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-400 bg-slate-900/30">
+                <div className="px-5 py-3.5 border-t border-slate-700/40 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-500 bg-slate-950/40">
                     <div>
                         Showing <span className="text-white font-medium">{products.length}</span> results
                         (Page {pagination.page} of {pagination.pages})
@@ -346,7 +346,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                         key={p}
                                         onClick={() => onPageChange(p)}
                                         className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${p === pagination.page
-                                            ? 'bg-blue-600 text-white'
+                                            ? 'bg-blue-600 text-white shadow-sm shadow-blue-900/30'
                                             : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
                                             }`}
                                     >

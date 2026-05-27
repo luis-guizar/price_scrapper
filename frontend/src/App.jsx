@@ -158,6 +158,7 @@ function App() {
             const apiParams = {
                 limit: 1000, // Get all items for dashboard display
                 skip: 0,
+                min_history_count: 2,
                 search: dashboardSearch || undefined,
                 source: dashboardSourceFilter || undefined,
                 min_price: dashboardMinPrice ? parseFloat(dashboardMinPrice) : undefined,
@@ -320,24 +321,24 @@ function App() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-950 flex text-slate-100 font-sans">
+        <div className="min-h-screen bg-[#080f1a] flex text-slate-100 font-sans">
 
             {/* Sidebar */}
-            <aside className="w-64 bg-slate-900 border-r border-slate-800 p-6 flex flex-col hidden md:flex">
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-8">
+            <aside className="w-64 bg-gradient-to-b from-[#0d1524] to-[#080f1a] border-r border-slate-700/40 p-6 flex flex-col hidden md:flex">
+                <h1 className="text-2xl font-bold logo-shimmer mb-8 tracking-tight">
                     PriceTracker
                 </h1>
 
                 <nav className="space-y-2 flex-1">
                     <button
                         onClick={() => setViewMode('dashboard')}
-                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'dashboard' ? 'bg-blue-600/10 text-blue-400 border-blue-600/20' : 'text-slate-400 border-transparent hover:bg-slate-800'}`}>
+                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'dashboard' ? 'bg-blue-600/15 text-blue-300 border-blue-500/30 shadow-sm shadow-blue-900/20' : 'text-slate-400 border-transparent hover:bg-slate-800/70 hover:text-slate-200'}`}>
                         <LayoutDashboard size={20} />
                         Dashboard
                     </button>
                     <button
                         onClick={() => setViewMode('list')}
-                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'list' ? 'bg-blue-600/10 text-blue-400 border-blue-600/20' : 'text-slate-400 border-transparent hover:bg-slate-800'}`}>
+                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'list' ? 'bg-blue-600/15 text-blue-300 border-blue-500/30 shadow-sm shadow-blue-900/20' : 'text-slate-400 border-transparent hover:bg-slate-800/70 hover:text-slate-200'}`}>
                         <List size={20} />
                         All Products
                     </button>
@@ -348,19 +349,19 @@ function App() {
                         href="/queues/"
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-3 w-full px-4 py-3 text-slate-400 border border-transparent rounded-xl font-medium hover:bg-slate-800 transition-colors">
+                        className="flex items-center gap-3 w-full px-4 py-3 text-slate-400 border border-transparent rounded-xl font-medium hover:bg-slate-800/70 hover:text-slate-200 transition-colors duration-150">
                         <Activity size={20} />
                         Queue Monitor
                     </a>
                     <button
                         onClick={() => setShowTelegramModal(true)}
-                        className="flex items-center gap-3 w-full px-4 py-3 bg-slate-800 text-slate-200 rounded-xl font-medium border border-slate-700 hover:bg-slate-700 transition-colors">
+                        className="flex items-center gap-3 w-full px-4 py-3 bg-slate-800/80 text-slate-200 rounded-xl font-medium border border-slate-600/50 hover:bg-slate-700/80 hover:border-slate-500/50 transition-all duration-150 shadow-sm">
                         <Send size={18} />
                         Broadcast Update
                     </button>
 
-                    <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                        <h3 className="text-xs font-semibold text-slate-400 uppercase mb-2">Service Status</h3>
+                    <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-700/50">
+                        <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-2.5">Service Status</h3>
                         <div className="flex items-center gap-2 text-sm text-green-400">
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                             API Online
@@ -369,7 +370,7 @@ function App() {
 
                     <button
                         onClick={() => setViewMode('alerts')}
-                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'alerts' ? 'bg-blue-600/10 text-blue-400 border-blue-600/20' : 'text-slate-400 border-transparent hover:bg-slate-800'}`}>
+                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'alerts' ? 'bg-blue-600/15 text-blue-300 border-blue-500/30 shadow-sm shadow-blue-900/20' : 'text-slate-400 border-transparent hover:bg-slate-800/70 hover:text-slate-200'}`}>
                         <div className="relative">
                             <TrendingDown size={20} />
                             {stats?.alerts_count > 0 && <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>}
@@ -380,16 +381,16 @@ function App() {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto p-4 md:p-8">
+            <main className="flex-1 overflow-y-auto p-4 md:p-10">
 
                 {/* Header */}
                 <header className="flex justify-between items-center mb-8">
-                    <h2 className="text-xl font-semibold text-slate-200">
+                    <h2 className="text-2xl font-semibold text-slate-100 tracking-tight">
                         {viewMode === 'dashboard' ? 'Overview' : viewMode === 'list' ? 'Product Inventory' : 'Alert History'}
                     </h2>
                     <button
                         onClick={() => setShowAddModal(true)}
-                        className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-medium transition-all shadow-lg shadow-blue-900/30 hover:shadow-blue-800/40 hover:scale-[1.02] active:scale-[0.98]">
+                        className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-semibold transition-all duration-150 shadow-lg shadow-blue-900/40 hover:shadow-glow-blue hover:scale-[1.02] active:scale-[0.97]">
                         <Plus size={18} />
                         Track New Item
                     </button>
@@ -399,38 +400,40 @@ function App() {
                     <>
                         {/* Stats Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 backdrop-blur-sm">
+                            <div className="bg-[#0d1524] p-6 rounded-2xl border border-slate-700/50 shadow-card hover:shadow-card-md transition-shadow duration-200 relative overflow-hidden">
+                                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-indigo-500/40 via-indigo-500/10 to-transparent" />
                                 <div className="flex justify-between items-start mb-4">
-                                    <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-400">
+                                    <div className="p-3 bg-indigo-500/15 rounded-xl text-indigo-300 shadow-sm shadow-indigo-900/20">
                                         <ShoppingCart size={24} />
                                     </div>
                                 </div>
-                                <h3 className="text-slate-400 text-sm font-medium">Tracked Products</h3>
-                                <p className="text-3xl font-bold text-white mt-1">{stats?.products_count || 0}</p>
+                                <h3 className="text-slate-500 text-xs font-medium uppercase tracking-wider">Tracked Products</h3>
+                                <p className="text-4xl font-bold text-white mt-1 tracking-tight tabular-nums">{stats?.products_count || 0}</p>
                             </div>
 
                             <div
-                                className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 backdrop-blur-sm cursor-pointer hover:bg-slate-800/50 transition-colors group"
+                                className="bg-[#0d1524] p-6 rounded-2xl border border-slate-700/50 shadow-card hover:shadow-card-md hover:border-emerald-500/20 cursor-pointer transition-all duration-200 group relative overflow-hidden"
                                 onClick={() => setViewMode('alerts')}
                             >
+                                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-emerald-500/40 via-emerald-500/10 to-transparent" />
                                 <div className="flex justify-between items-start mb-4">
-                                    <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 group-hover:scale-110 transition-transform">
+                                    <div className="p-3 bg-emerald-500/15 rounded-xl text-emerald-300 shadow-sm shadow-emerald-900/20 group-hover:scale-110 transition-transform duration-150">
                                         <TrendingDown size={24} />
                                     </div>
                                 </div>
-                                <h3 className="text-slate-400 text-sm font-medium">Deals Found</h3>
-                                <p className="text-3xl font-bold text-white mt-1">{stats?.alerts_count || 0}</p>
+                                <h3 className="text-slate-500 text-xs font-medium uppercase tracking-wider">Deals Found</h3>
+                                <p className="text-4xl font-bold text-white mt-1 tracking-tight tabular-nums">{stats?.alerts_count || 0}</p>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[600px]">
 
                             {/* Product List */}
-                            <div className="lg:col-span-1 bg-slate-900/50 rounded-2xl border border-slate-800 flex flex-col overflow-hidden">
-                                <div className="p-4 border-b border-slate-800 flex flex-col gap-3">
+                            <div className="lg:col-span-1 bg-[#0d1524] rounded-2xl border border-slate-700/50 flex flex-col overflow-hidden shadow-card">
+                                <div className="p-4 border-b border-slate-700/40 flex flex-col gap-3">
                                     <div className="flex justify-between items-center">
-                                        <h3 className="font-semibold">Tracked Items</h3>
-                                        <span className="text-xs bg-slate-800 px-2 py-1 rounded text-slate-400">{dashboardProducts.length}</span>
+                                        <h3 className="font-semibold text-slate-200 text-sm tracking-wide">Tracked Items</h3>
+                                        <span className="text-xs bg-slate-800/80 px-2.5 py-1 rounded-full text-slate-400 font-mono tabular-nums">{dashboardProducts.length}</span>
                                     </div>
 
                                     {/* Search & Filter Controls */}
@@ -440,7 +443,7 @@ function App() {
                                             <input
                                                 type="text"
                                                 placeholder="Search..."
-                                                className="bg-slate-950 border border-slate-700 rounded-lg pl-7 pr-3 py-1.5 text-xs focus:outline-none focus:border-blue-500 w-full text-white"
+                                                className="input-base pl-7 pr-3 py-1.5 text-xs w-full"
                                                 value={dashboardSearch}
                                                 onChange={e => setDashboardSearch(e.target.value)}
                                                 onKeyDown={e => e.key === 'Enter' && e.currentTarget.blur()}
@@ -450,7 +453,7 @@ function App() {
                                         {(dashboardSearch || dashboardSourceFilter || dashboardMinPrice || dashboardMaxPrice) && (
                                             <button
                                                 onClick={handleDashboardClearFilters}
-                                                className="p-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-950 border border-slate-700 rounded hover:bg-slate-800 transition-colors"
+                                                className="p-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-950 border border-slate-700/60 rounded-lg hover:bg-slate-800/70 transition-colors"
                                                 title="Clear filters"
                                             >
                                                 <X size={14} />
@@ -463,7 +466,7 @@ function App() {
                                         <select
                                             value={dashboardSourceFilter}
                                             onChange={e => setDashboardSourceFilter(e.target.value)}
-                                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-300 focus:outline-none focus:border-blue-500"
+                                            className="input-base px-2 py-1 text-xs"
                                         >
                                             <option value="">All Sources</option>
                                             <option value="keepa">Amazon</option>
@@ -484,7 +487,7 @@ function App() {
                                             placeholder="Min $"
                                             value={dashboardMinPrice}
                                             onChange={e => setDashboardMinPrice(e.target.value)}
-                                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-300 focus:outline-none focus:border-blue-500"
+                                            className="input-base px-2 py-1 text-xs"
                                         />
 
                                         <input
@@ -492,27 +495,27 @@ function App() {
                                             placeholder="Max $"
                                             value={dashboardMaxPrice}
                                             onChange={e => setDashboardMaxPrice(e.target.value)}
-                                            className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-slate-300 focus:outline-none focus:border-blue-500"
+                                            className="input-base px-2 py-1 text-xs"
                                         />
                                     </div>
                                 </div>
                                 <div className="overflow-y-auto flex-1 p-2 space-y-2">
                                     {dashboardLoading ? (
-                                        <div className="h-full flex flex-col items-center justify-center text-slate-500 py-8">
+                                        <div className="h-full flex flex-col items-center justify-center text-slate-600 py-8">
                                             <div className="animate-spin mb-2">
-                                                <Search size={32} className="opacity-50" />
+                                                <Search size={32} className="opacity-30" />
                                             </div>
-                                            <p className="text-sm">Searching...</p>
+                                            <p className="text-sm text-slate-500">Searching...</p>
                                         </div>
                                     ) : dashboardProducts.length > 0 ? (
                                         dashboardProducts.map(p => (
                                             <div
                                                 key={p.id}
                                                 onClick={() => setSelectedProduct(p)}
-                                                className={`group p-4 rounded-xl border cursor-pointer transition-all hover:bg-slate-800 ${selectedProduct?.id === p.id ? 'bg-slate-800 border-blue-500/50' : 'bg-transparent border-transparent'}`}
+                                                className={`group p-3 rounded-xl border cursor-pointer transition-all duration-150 hover:bg-slate-800/60 ${selectedProduct?.id === p.id ? 'bg-slate-800/80 border-blue-500/40 shadow-sm shadow-blue-900/20' : 'border-transparent hover:border-slate-700/40'}`}
                                             >
                                                 <div className="flex justify-between items-start">
-                                                    <h4 className="font-medium text-sm line-clamp-2 leading-snug mb-2">{p.name || "Loading..."}</h4>
+                                                    <h4 className="font-medium text-sm line-clamp-2 leading-snug mb-1.5 text-slate-200">{p.name || "Loading..."}</h4>
                                                     <div className="flex gap-1">
                                                         <button
                                                             onClick={(e) => {
@@ -568,41 +571,41 @@ function App() {
                                                 </div>
                                                 <div className="flex justify-between items-end mt-2">
                                                     <div>
-                                                        <span className="text-xs text-slate-500 block mb-1">Current Price</span>
+                                                        <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider block mb-1">Current Price</span>
                                                         <div className="flex flex-col">
-                                                            <span className="text-lg font-bold text-white">${p.current_price?.toLocaleString()}</span>
+                                                            <span className="text-lg font-bold text-white tabular-nums">${p.current_price?.toLocaleString()}</span>
                                                             {p.original_price && <span className="text-[10px] text-slate-500 line-through">${p.original_price?.toLocaleString()}</span>}
                                                         </div>
                                                     </div>
-                                                    <span className={`text-[10px] bg-slate-900 px-1.5 py-0.5 rounded uppercase tracking-wider ${sourceConfig[p.source]?.bg || 'text-slate-600'}`}>
+                                                    <span className={`text-[10px] px-2 py-0.5 rounded-full border font-medium tracking-wide ${sourceConfig[p.source]?.bg || 'bg-slate-800 border-slate-700 text-slate-500'}`}>
                                                         {sourceConfig[p.source]?.label || p.source || 'Other'}
                                                     </span>
                                                 </div>
                                             </div>
                                         ))
                                     ) : (
-                                        <div className="h-full flex flex-col items-center justify-center text-slate-500 py-8">
-                                            <Search size={32} className="mb-2 opacity-50" />
-                                            <p className="text-sm">No items match your filters</p>
+                                        <div className="h-full flex flex-col items-center justify-center text-slate-600 py-8">
+                                            <Search size={36} className="mb-3 opacity-30" />
+                                            <p className="text-sm text-slate-500 font-medium">No items match your filters</p>
                                         </div>
                                     )}
                                 </div>
                             </div>
 
                             {/* Chart Area */}
-                            <div className="lg:col-span-2 bg-slate-900/50 rounded-2xl border border-slate-800 p-6 flex flex-col">
+                            <div className="lg:col-span-2 bg-[#0d1524] rounded-2xl border border-slate-700/50 p-6 flex flex-col shadow-card">
                                 {selectedProduct ? (
                                     <>
                                         <div className="flex justify-between items-start mb-6">
                                             <div>
-                                                <h2 className="text-xl font-bold">{selectedProduct.name}</h2>
+                                                <h2 className="text-xl font-bold text-slate-100 tracking-tight">{selectedProduct.name}</h2>
                                                 <a href={selectedProduct.url} target="_blank" rel="noreferrer" className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 mt-1">
                                                     View on Store <ExternalLink size={12} />
                                                 </a>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-sm text-slate-400">Latest Check</p>
-                                                <p className="font-mono text-xs text-slate-500">{new Date(selectedProduct.last_checked).toLocaleString()}</p>
+                                                <p className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-0.5">Latest Check</p>
+                                                <p className="font-mono text-xs text-slate-400 tabular-nums">{new Date(selectedProduct.last_checked).toLocaleString()}</p>
                                             </div>
                                         </div>
 
@@ -613,18 +616,20 @@ function App() {
                                                     <XAxis dataKey="date" stroke="#94a3b8" fontSize={12} tickCount={5} />
                                                     <YAxis stroke="#94a3b8" fontSize={12} domain={['auto', 'auto']} tickFormatter={(val) => `$${val}`} />
                                                     <Tooltip
-                                                        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
-                                                        itemStyle={{ color: '#60a5fa' }}
+                                                        contentStyle={{ backgroundColor: 'rgba(15,23,42,0.95)', borderColor: 'rgba(100,116,139,0.3)', borderRadius: '12px', boxShadow: '0 20px 40px -8px rgba(0,0,0,0.7)', color: '#f1f5f9', fontSize: '13px', padding: '10px 14px' }}
+                                                        itemStyle={{ color: '#93c5fd', fontWeight: '600' }}
+                                                        labelStyle={{ color: '#94a3b8', fontSize: '11px', marginBottom: '4px' }}
                                                     />
-                                                    <Line type="monotone" dataKey="price" stroke="#3b82f6" strokeWidth={3} dot={{ r: 4, fill: '#3b82f6' }} activeDot={{ r: 6 }} />
+                                                    <Line type="monotone" dataKey="price" stroke="#60a5fa" strokeWidth={2.5} dot={{ r: 3.5, fill: '#60a5fa', strokeWidth: 0 }} activeDot={{ r: 5.5, fill: '#93c5fd', strokeWidth: 0 }} />
                                                 </LineChart>
                                             </ResponsiveContainer>
                                         </div>
                                     </>
                                 ) : (
-                                    <div className="h-full flex flex-col items-center justify-center text-slate-500">
-                                        <Search size={48} className="mb-4 opacity-50" />
-                                        <p>Select a product to view price history</p>
+                                    <div className="h-full flex flex-col items-center justify-center text-slate-600 gap-1">
+                                        <Search size={48} className="mb-3 opacity-25" />
+                                        <p className="text-sm font-medium text-slate-500">Select a product to view price history</p>
+                                        <p className="text-xs text-slate-600 mt-1">Click any item in the list on the left</p>
                                     </div>
                                 )}
                             </div>
@@ -655,18 +660,18 @@ function App() {
 
                 {/* ===== SMART ADD MODAL ===== */}
                 {showAddModal && (
-                    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={closeAddModal}>
+                    <div className="fixed inset-0 bg-black/70 backdrop-blur-[2px] flex items-center justify-center z-50 p-4" onClick={closeAddModal}>
                         <div
-                            className="bg-slate-900/95 border border-slate-700/80 rounded-2xl w-full max-w-lg shadow-2xl shadow-black/50 overflow-hidden"
+                            className="bg-[#0d1524] border border-slate-600/40 rounded-2xl w-full max-w-lg shadow-2xl shadow-black/60 overflow-hidden"
                             onClick={e => e.stopPropagation()}
                             style={{ animation: 'modalSlideIn 0.25s ease-out' }}
                         >
                             {/* Modal Header */}
-                            <div className="px-6 pt-6 pb-4 border-b border-slate-800/80">
+                            <div className="px-6 pt-6 pb-4 border-b border-slate-700/40">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <h3 className="text-xl font-bold text-white">Track New Product</h3>
-                                        <p className="text-sm text-slate-500 mt-1">Paste a product URL to start tracking its price</p>
+                                        <h3 className="text-lg font-semibold text-slate-100 tracking-tight">Track New Product</h3>
+                                        <p className="text-xs text-slate-500 mt-1">Paste a product URL to start tracking its price</p>
                                     </div>
                                     <button
                                         onClick={closeAddModal}
@@ -689,7 +694,7 @@ function App() {
                                                 required
                                                 autoFocus
                                                 placeholder="https://articulo.mercadolibre.com.mx/MLM-..."
-                                                className="w-full bg-slate-950/80 border border-slate-700 rounded-xl p-3.5 pr-12 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all"
+                                                className="w-full input-base rounded-xl p-3.5 pr-12"
                                                 value={newUrl}
                                                 onChange={e => { setNewUrl(e.target.value); setAddError('') }}
                                                 onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handlePreview() } }}
@@ -716,7 +721,7 @@ function App() {
                                         )}
 
                                         {/* Supported sources info */}
-                                        <div className="mt-4 p-3 bg-slate-800/40 rounded-lg border border-slate-700/50">
+                                        <div className="mt-4 p-3.5 bg-slate-950/50 rounded-xl border border-slate-700/30">
                                             <p className="text-xs font-medium text-slate-400 mb-2">Supported sources with auto-fill:</p>
                                             <div className="flex flex-wrap gap-2">
                                                 <span className="text-xs bg-red-500/10 text-red-500 border border-red-500/20 px-2 py-0.5 rounded-md">🖨️ Office Depot</span>
@@ -848,10 +853,10 @@ function App() {
                                 {/* Step 3: Success */}
                                 {addStep === 'success' && (
                                     <div className="text-center py-6" style={{ animation: 'fadeIn 0.3s ease-out' }}>
-                                        <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/20">
-                                            <span className="text-3xl">✓</span>
+                                        <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/30 shadow-lg shadow-emerald-900/20">
+                                            <span className="text-3xl text-emerald-400">✓</span>
                                         </div>
-                                        <h4 className="text-lg font-bold text-emerald-400">Product Added!</h4>
+                                        <h4 className="text-lg font-semibold text-emerald-300 tracking-tight">Product Added!</h4>
                                         <p className="text-sm text-slate-500 mt-1">Price tracking has started</p>
                                     </div>
                                 )}

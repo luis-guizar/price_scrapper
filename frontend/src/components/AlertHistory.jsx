@@ -43,45 +43,45 @@ const AlertHistory = ({ onBack }) => {
     };
 
     return (
-        <div className="h-full flex flex-col p-6">
+        <div className="h-full flex flex-col px-2 py-4">
             <div className="flex items-center gap-4 mb-6">
                 <button
                     onClick={onBack}
-                    className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors"
+                    className="p-2 hover:bg-slate-800/70 rounded-lg text-slate-500 hover:text-slate-200 transition-colors duration-150"
                 >
                     <ArrowLeft size={20} />
                 </button>
-                <h2 className="text-xl font-semibold text-slate-200">Alert History</h2>
+                <h2 className="text-xl font-semibold text-slate-100 tracking-tight">Alert History</h2>
             </div>
 
-            <div className="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden flex-1 flex flex-col">
+            <div className="bg-[#0d1524] rounded-2xl border border-slate-700/50 overflow-hidden flex-1 flex flex-col shadow-card">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm text-slate-400">
-                        <thead className="bg-slate-900/80 text-xs uppercase font-medium text-slate-500 sticky top-0 backdrop-blur-sm z-10">
+                        <thead className="bg-[#080f1a] text-xs uppercase font-medium text-slate-500 tracking-wider sticky top-0 z-10 border-b border-slate-700/30">
                             <tr>
-                                <th className="px-6 py-4">Date</th>
-                                <th className="px-6 py-4">Product</th>
-                                <th className="px-6 py-4">Price</th>
-                                <th className="px-6 py-4">Discount</th>
-                                <th className="px-6 py-4 text-right">Action</th>
+                                <th className="px-6 py-3.5">Date</th>
+                                <th className="px-6 py-3.5">Product</th>
+                                <th className="px-6 py-3.5">Price</th>
+                                <th className="px-6 py-3.5">Discount</th>
+                                <th className="px-6 py-3.5 text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-800/50">
                             {loading ? (
                                 <tr>
-                                    <td colSpan="5" className="px-6 py-8 text-center text-slate-500">
+                                    <td colSpan="5" className="px-6 py-16 text-center text-slate-600 text-sm">
                                         Loading history...
                                     </td>
                                 </tr>
                             ) : alerts.length === 0 ? (
                                 <tr>
-                                    <td colSpan="5" className="px-6 py-8 text-center text-slate-500">
+                                    <td colSpan="5" className="px-6 py-16 text-center text-slate-600 text-sm">
                                         No alerts sent yet.
                                     </td>
                                 </tr>
                             ) : (
                                 alerts.map((alert) => (
-                                    <tr key={alert.id} className="hover:bg-slate-800/30 transition-colors">
+                                    <tr key={alert.id} className="hover:bg-slate-800/25 transition-colors duration-100">
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {new Date(alert.created_at).toLocaleString()}
                                         </td>
@@ -91,7 +91,7 @@ const AlertHistory = ({ onBack }) => {
                                                     {alert.title || "Unknown Product"}
                                                 </span>
                                                 <div className="mt-1">
-                                                    <span className={`text-[10px] uppercase tracking-wider inline-block px-1.5 py-0.5 rounded ${sourceConfig[alert.source]?.bg || 'bg-slate-800 text-slate-500'} ${sourceConfig[alert.source]?.color || 'text-slate-400'}`}>
+                                                    <span className={`text-[10px] font-medium tracking-wide inline-flex items-center px-2 py-0.5 rounded-full border ${sourceConfig[alert.source]?.bg || 'bg-slate-800/60 border-slate-700/50'} ${sourceConfig[alert.source]?.color || 'text-slate-400'}`}>
                                                         {sourceConfig[alert.source]?.label || alert.source}
                                                     </span>
                                                 </div>
@@ -109,7 +109,7 @@ const AlertHistory = ({ onBack }) => {
                                         </td>
                                         <td className="px-6 py-4">
                                             {alert.change_pct ? (
-                                                <span className="text-emerald-400 font-medium bg-emerald-500/10 px-2 py-1 rounded">
+                                                <span className="text-emerald-400 font-semibold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full text-xs">
                                                     -{alert.change_pct}%
                                                 </span>
                                             ) : (

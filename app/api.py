@@ -124,19 +124,21 @@ def read_stats(db: Session = Depends(get_db)):
 
 @app.get("/products", response_model=PaginatedResponse)
 def read_products(
-    skip: int = 0, 
-    limit: int = 100, 
-    search: Optional[str] = None, 
-    source: Optional[str] = None, 
+    skip: int = 0,
+    limit: int = 100,
+    search: Optional[str] = None,
+    source: Optional[str] = None,
     min_price: Optional[float] = None,
     max_price: Optional[float] = None,
     sort_by: Optional[str] = "newest",
     exclude: Optional[str] = None,
+    min_history_count: Optional[int] = None,
     db: Session = Depends(get_db)
 ):
     items, total = crud.get_products(
         db, skip=skip, limit=limit, search=search, source=source,
-        min_price=min_price, max_price=max_price, sort_by=sort_by, exclude=exclude
+        min_price=min_price, max_price=max_price, sort_by=sort_by,
+        exclude=exclude, min_history_count=min_history_count
     )
     
     page = (skip // limit) + 1 if limit > 0 else 1

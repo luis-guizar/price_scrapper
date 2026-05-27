@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from app.models import Product, PriceHistory, Alert
 from datetime import datetime, timedelta
 import logging
@@ -11,10 +12,11 @@ def get_product(db: Session, product_id: int):
 def get_product_by_url(db: Session, url: str):
     return db.query(Product).filter(Product.url == url).first()
 
-def get_products(db: Session, skip: int = 0, limit: int = 100, 
+def get_products(db: Session, skip: int = 0, limit: int = 100,
                  search: str = None, source: str = None,
                  min_price: float = None, max_price: float = None,
-                 sort_by: str = "newest", exclude: str = None):
+                 sort_by: str = "newest", exclude: str = None,
+                 min_history_count: int = None):
     query = db.query(Product)
     
     # Filters
@@ -36,7 +38,15 @@ def get_products(db: Session, skip: int = 0, limit: int = 100,
         for term in exclude_terms:
             term_clean = f"%{term}%"
             query = query.filter(~Product.name.ilike(term_clean))
-            
+
+    if min_history_count is not None:
+        history_count = (
+            db.query(func.count(PriceHistory.id))
+            .filter(PriceHistory.product_id == Product.id)
+            .scalar_subquery()
+        )
+        query = query.filter(history_count >= min_history_count)
+
     # Sorting
     if sort_by == 'price_asc':
         query = query.order_by(Product.current_price.asc())
