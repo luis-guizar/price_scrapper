@@ -40,12 +40,13 @@ def get_products(db: Session, skip: int = 0, limit: int = 100,
             query = query.filter(~Product.name.ilike(term_clean))
 
     if min_history_count is not None:
-        history_count = (
-            db.query(func.count(PriceHistory.id))
-            .filter(PriceHistory.product_id == Product.id)
-            .scalar_subquery()
+        qualified_ids = (
+            db.query(PriceHistory.product_id)
+            .group_by(PriceHistory.product_id)
+            .having(func.count(PriceHistory.id) >= min_history_count)
+            .subquery()
         )
-        query = query.filter(history_count >= min_history_count)
+        query = query.join(qualified_ids, Product.id == qualified_ids.c.product_id)
 
     # Sorting
     if sort_by == 'price_asc':
