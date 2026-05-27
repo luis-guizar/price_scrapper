@@ -10,10 +10,8 @@ import {
   ScrapedProduct,
 } from '../repositories/product.repository';
 import { ScrapeProgress } from '../scraper.types';
-import {
-  capUnreasonableOriginalPrice,
-  BEAUTY_RULES,
-} from '../utils/price-guard';
+import { BEAUTY_RULES } from '../utils/price-guard';
+import { PriceValidationService } from '../services/price-validation.service';
 
 const SEPHORA_BASE_URL = 'https://www.sephora.com.mx';
 
@@ -21,7 +19,10 @@ const SEPHORA_BASE_URL = 'https://www.sephora.com.mx';
 export class SephoraScraper {
   private readonly logger = new Logger(SephoraScraper.name);
 
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(
+    private readonly productRepository: ProductRepository,
+    private readonly priceValidator: PriceValidationService,
+  ) {}
 
   async scrapeCategory(
     url: string,
@@ -70,9 +71,13 @@ export class SephoraScraper {
             log.info(
               `✅ Found ${products.length} products on page ${pageNumber}`,
             );
-            await this.productRepository.bulkUpsert(products);
-            totalScraped += products.length;
-            allProducts.push(...products);
+            const validated = await this.priceValidator.validateBatch(
+              products,
+              BEAUTY_RULES,
+            );
+            await this.productRepository.bulkUpsert(validated);
+            totalScraped += validated.length;
+            allProducts.push(...validated);
             await progress?.onProgress?.(totalScraped);
           } else {
             log.warning(`⚠️ No valid products on page ${pageNumber}`);
@@ -156,23 +161,12 @@ export class SephoraScraper {
         ? imageRaw
         : `${SEPHORA_BASE_URL}${imageRaw}`;
 
-      const guardedOriginal = capUnreasonableOriginalPrice(
-        name,
-        salePrice,
-        price,
-        BEAUTY_RULES,
-        (t, from, to) =>
-          this.logger.warn(
-            `[Sephora] Unreasonable original price capped for "${t}": ${from} → ${to}`,
-          ),
-      );
-
       return {
         name,
         sku,
         url,
         current_price: salePrice,
-        original_price: guardedOriginal,
+        original_price: price,
         source: 'sephora',
         image: imageRaw ? image : undefined,
         external_id: externalId,

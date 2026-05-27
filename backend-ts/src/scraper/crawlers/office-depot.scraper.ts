@@ -10,10 +10,8 @@ import {
   ScrapedProduct,
 } from '../repositories/product.repository';
 import { ScrapeProgress } from '../scraper.types';
-import {
-  capUnreasonableOriginalPrice,
-  OFFICE_RULES,
-} from '../utils/price-guard';
+import { OFFICE_RULES } from '../utils/price-guard';
+import { PriceValidationService } from '../services/price-validation.service';
 
 @Injectable()
 export class OfficeDepotScraper {
@@ -21,7 +19,10 @@ export class OfficeDepotScraper {
   private readonly maxPages = 10;
   private readonly baseUrl = 'https://www.officedepot.com.mx';
 
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(
+    private readonly productRepository: ProductRepository,
+    private readonly priceValidator: PriceValidationService,
+  ) {}
 
   async scrapeCategory(
     url: string,
@@ -58,9 +59,13 @@ export class OfficeDepotScraper {
 
         if (products.length > 0) {
           log.info(`✅ Found ${products.length} products on ${pageInfo}`);
-          await this.productRepository.bulkUpsert(products);
-          totalScraped += products.length;
-          allProducts.push(...products);
+          const validated = await this.priceValidator.validateBatch(
+            products,
+            OFFICE_RULES,
+          );
+          await this.productRepository.bulkUpsert(validated);
+          totalScraped += validated.length;
+          allProducts.push(...validated);
           await progress?.onProgress?.(totalScraped);
         } else {
           log.warning(`⚠️ No products found on ${pageInfo}`);
@@ -121,23 +126,13 @@ export class OfficeDepotScraper {
 
                 const productUrl = `${this.baseUrl}/officedepot/en/p/${pid}`;
 
-                const guardedPrice = capUnreasonableOriginalPrice(
-                  name,
-                  price,
-                  price,
-                  OFFICE_RULES,
-                  (t, from, to) =>
-                    this.logger.warn(
-                      `[OfficeDepot] Unreasonable original price capped for "${t}": ${from} → ${to}`,
-                    ),
-                );
-                if (pid && name && guardedPrice > 0) {
+                if (pid && name && price > 0) {
                   products.push({
                     name,
                     sku: pid,
                     url: productUrl,
-                    current_price: guardedPrice,
-                    original_price: guardedPrice,
+                    current_price: price,
+                    original_price: price,
                     source: 'officedepot',
                   });
                 }

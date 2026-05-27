@@ -10,17 +10,18 @@ import {
   ScrapedProduct,
 } from '../repositories/product.repository';
 import { ScrapeProgress } from '../scraper.types';
-import {
-  capUnreasonableOriginalPrice,
-  ELECTRONICS_RULES,
-} from '../utils/price-guard';
+import { ELECTRONICS_RULES } from '../utils/price-guard';
+import { PriceValidationService } from '../services/price-validation.service';
 
 @Injectable()
 export class LiverpoolScraper {
   private readonly logger = new Logger(LiverpoolScraper.name);
   private readonly baseUrl = 'https://www.liverpool.com.mx';
 
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(
+    private readonly productRepository: ProductRepository,
+    private readonly priceValidator: PriceValidationService,
+  ) {}
 
   async scrapeCategory(
     url: string,
@@ -76,9 +77,13 @@ export class LiverpoolScraper {
 
           if (products.length > 0) {
             log.info(`✅ Found ${products.length} products on ${pageInfo}`);
-            await this.productRepository.bulkUpsert(products);
-            totalScraped += products.length;
-            allProducts.push(...products);
+            const validated = await this.priceValidator.validateBatch(
+              products,
+              ELECTRONICS_RULES,
+            );
+            await this.productRepository.bulkUpsert(validated);
+            totalScraped += validated.length;
+            allProducts.push(...validated);
             await progress?.onProgress?.(totalScraped);
           } else {
             log.warning(`⚠️ No products found in JSON on ${pageInfo}`);
@@ -227,19 +232,7 @@ export class LiverpoolScraper {
       if (candidates.length === 0) return null;
 
       const currentPrice = Math.min(...candidates);
-      let originalPrice = listPrice > 0 ? listPrice : Math.max(...candidates);
-
-      // Cap original price to prevent massive false positive discounts on inflated anchors
-      originalPrice = capUnreasonableOriginalPrice(
-        name,
-        currentPrice,
-        originalPrice,
-        ELECTRONICS_RULES,
-        (t, from, to) =>
-          this.logger.warn(
-            `[Liverpool] Unreasonable original price capped for "${t}": ${from} → ${to}`,
-          ),
-      );
+      const originalPrice = listPrice > 0 ? listPrice : Math.max(...candidates);
 
       // Image
       let image =

@@ -12,6 +12,7 @@ import { MeliScraper } from './crawlers/meli.scraper';
 import { SephoraScraper } from './crawlers/sephora.scraper';
 import { ScraperProcessor } from './scraper.processor';
 import { ScraperScheduleService } from './scraper.schedule';
+import { PriceValidationService } from './services/price-validation.service';
 
 import { AlertService } from '../alert.service';
 
@@ -32,7 +33,7 @@ import { AlertService } from '../alert.service';
         }),
     ],
     controllers: [ScraperController],
-    providers: [PrismaService, ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ScraperProcessor, ScraperScheduleService, AlertService],
+    providers: [PrismaService, ProductRepository, PriceValidationService, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ScraperProcessor, ScraperScheduleService, AlertService],
     exports: [ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper],
 })
 export class ScraperModule { }

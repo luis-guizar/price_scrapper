@@ -10,16 +10,17 @@ import {
   ScrapedProduct,
 } from '../repositories/product.repository';
 import { ScrapeProgress } from '../scraper.types';
-import {
-  capUnreasonableOriginalPrice,
-  ELECTRONICS_RULES,
-} from '../utils/price-guard';
+import { ELECTRONICS_RULES } from '../utils/price-guard';
+import { PriceValidationService } from '../services/price-validation.service';
 
 @Injectable()
 export class MeliScraper {
   private readonly logger = new Logger(MeliScraper.name);
 
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(
+    private readonly productRepository: ProductRepository,
+    private readonly priceValidator: PriceValidationService,
+  ) {}
 
   async scrapeCategory(
     url: string,
@@ -96,25 +97,15 @@ export class MeliScraper {
             },
           );
 
-          const guarded = products.map((p) => ({
-            ...p,
-            original_price: capUnreasonableOriginalPrice(
-              p.name,
-              p.current_price,
-              p.original_price,
+          if (products.length > 0) {
+            const validated = await this.priceValidator.validateBatch(
+              products,
               ELECTRONICS_RULES,
-              (t, from, to) =>
-                this.logger.warn(
-                  `[MercadoLibre] Unreasonable original price capped for "${t}": ${from} → ${to}`,
-                ),
-            ),
-          }));
-
-          if (guarded.length > 0) {
-            log.info(`✅ Found ${guarded.length} products`);
-            await this.productRepository.bulkUpsert(guarded);
-            totalScraped += guarded.length;
-            allProducts.push(...guarded);
+            );
+            log.info(`✅ Found ${validated.length} products`);
+            await this.productRepository.bulkUpsert(validated);
+            totalScraped += validated.length;
+            allProducts.push(...validated);
             await progress?.onProgress?.(totalScraped);
 
             // Restrict max pages to avoid ban from heavy playwright instances and grab most relevant matches

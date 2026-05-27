@@ -54,9 +54,9 @@ export class ProductRepository {
       VALUES ${values.join(', ')}
       ON CONFLICT (sku) DO UPDATE SET
         current_price = EXCLUDED.current_price,
+        original_price = EXCLUDED.original_price,
         last_checked = NOW(),
-        name = EXCLUDED.name,
-        original_price = COALESCE(products.original_price, EXCLUDED.current_price)
+        name = EXCLUDED.name
     `;
 
         try {

@@ -10,17 +10,18 @@ import {
   ScrapedProduct,
 } from '../repositories/product.repository';
 import { ScrapeProgress } from '../scraper.types';
-import {
-  capUnreasonableOriginalPrice,
-  ELECTRONICS_RULES,
-} from '../utils/price-guard';
+import { ELECTRONICS_RULES } from '../utils/price-guard';
+import { PriceValidationService } from '../services/price-validation.service';
 
 @Injectable()
 export class CoppelScraper {
   private readonly logger = new Logger(CoppelScraper.name);
   private readonly baseUrl = 'https://www.coppel.com';
 
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(
+    private readonly productRepository: ProductRepository,
+    private readonly priceValidator: PriceValidationService,
+  ) {}
 
   async scrapeCategory(
     url: string,
@@ -66,12 +67,15 @@ export class CoppelScraper {
             log.info(
               `✅ Found ${products.length} valid products on ${pageInfo}`,
             );
-            // Use a more gentle upsert if needed, but bulkUpsert is usually fine
-            log.debug(`⏳ Starting bulkUpsert for ${products.length} items...`);
-            await this.productRepository.bulkUpsert(products);
+            const validated = await this.priceValidator.validateBatch(
+              products,
+              ELECTRONICS_RULES,
+            );
+            log.debug(`⏳ Starting bulkUpsert for ${validated.length} items...`);
+            await this.productRepository.bulkUpsert(validated);
             log.debug(`✅ Finished bulkUpsert for ${pageInfo}`);
-            totalScraped += products.length;
-            allProducts.push(...products);
+            totalScraped += validated.length;
+            allProducts.push(...validated);
             await progress?.onProgress?.(totalScraped);
           } else {
             if (rawCount === 0) {
@@ -292,17 +296,7 @@ export class CoppelScraper {
       if (candidates.length === 0) return null;
 
       const currentPrice = Math.min(...candidates);
-      const originalPrice = capUnreasonableOriginalPrice(
-        name,
-        currentPrice,
-        Math.max(...candidates),
-        ELECTRONICS_RULES,
-        (t, from, to) => {
-          this.logger.warn(
-            `[Coppel] Unreasonable original price capped for "${t}": ${from} → ${to}`,
-          );
-        },
-      );
+      const originalPrice = Math.max(...candidates);
 
       let image = p.thumbnail || p.fullImage || p.image;
       if (Array.isArray(image)) {
