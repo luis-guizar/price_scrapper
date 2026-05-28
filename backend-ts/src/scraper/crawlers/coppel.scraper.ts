@@ -57,11 +57,12 @@ export class CoppelScraper {
             return;
           }
 
-          const nextData = JSON.parse(nextDataScript);
+          let nextData = JSON.parse(nextDataScript);
 
           // 4. Extract Products from JSON
           const { extracted: products, rawCount } =
             this.extractProductsFromJson(nextData);
+          nextData = null; // release large JSON object before pagination logic
 
           if (products.length > 0) {
             log.info(
@@ -91,7 +92,7 @@ export class CoppelScraper {
           if (rawCount > 0) {
             const pageSize = 24;
             const MAX_PAGES = 300; // Hard safety cap
-            const WINDOW_SIZE = 2; // Match maxConcurrency
+            const WINDOW_SIZE = 1; // Match maxConcurrency
 
             const isMainPage = !currentUrl.includes('beginIndex=');
             const match = currentUrl.match(/beginIndex=(\d+)/);
@@ -163,9 +164,13 @@ export class CoppelScraper {
     const crawler = new CheerioCrawler({
       requestHandler: router,
       requestQueue,
-      maxConcurrency: 2, // Reduced concurrency to save RAM, JSON loads can be large
-      // Cheerio is just HTTP requests + HTML parsing, but large __NEXT_DATA__ json causes memory spikes
+      maxConcurrency: 1,
       requestHandlerTimeoutSecs: 60,
+      autoscaledPoolOptions: {
+        snapshotterOptions: {
+          maxUsedMemoryRatio: 0.7,
+        },
+      },
     });
 
     // Add the initial request
