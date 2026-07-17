@@ -45,6 +45,18 @@ function App() {
         fetchData()
     }, [])
 
+    // Deep-link support: ?product=<id> opens straight to that product's detail pane
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search)
+        const productId = params.get('product')
+        if (!productId) return
+
+        setViewMode('dashboard')
+        axios.get(`/api/products/${productId}`)
+            .then(res => setSelectedProduct(res.data))
+            .catch(error => console.error("Error loading linked product:", error))
+    }, [])
+
     useEffect(() => {
         if (selectedProduct) {
             fetchHistory(selectedProduct.id)
@@ -603,9 +615,18 @@ function App() {
                                                     View on Store <ExternalLink size={12} />
                                                 </a>
                                             </div>
-                                            <div className="text-right">
-                                                <p className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-0.5">Latest Check</p>
-                                                <p className="font-mono text-xs text-slate-400 tabular-nums">{new Date(selectedProduct.last_checked).toLocaleString()}</p>
+                                            <div className="flex items-start gap-4">
+                                                <button
+                                                    onClick={() => handleToggleActive(selectedProduct.id, !selectedProduct.is_active)}
+                                                    title={selectedProduct.is_active ? "Disable alerts for this product" : "Enable alerts for this product"}
+                                                    className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors ${selectedProduct.is_active ? 'text-slate-300 border-slate-600/50 hover:bg-yellow-500/10 hover:text-yellow-400 hover:border-yellow-500/30' : 'text-red-400 bg-red-500/10 border-red-500/30'}`}>
+                                                    {selectedProduct.is_active ? <Bell size={14} /> : <BellOff size={14} />}
+                                                    {selectedProduct.is_active ? 'Disable Alerts' : 'Alerts Disabled'}
+                                                </button>
+                                                <div className="text-right">
+                                                    <p className="text-xs text-slate-500 font-medium uppercase tracking-wider mb-0.5">Latest Check</p>
+                                                    <p className="font-mono text-xs text-slate-400 tabular-nums">{new Date(selectedProduct.last_checked).toLocaleString()}</p>
+                                                </div>
                                             </div>
                                         </div>
 

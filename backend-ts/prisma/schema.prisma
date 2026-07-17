@@ -10,15 +10,17 @@ datasource db {
 }
 
 model alerts {
-  id             Int       @id @default(autoincrement())
-  product_id     Int?
-  price          Float?
-  previous_price Float?
-  change_pct     Int?
-  source         String?   @db.VarChar
-  url            String?   @db.VarChar
-  title          String?   @db.VarChar
-  created_at     DateTime? @default(now()) @db.Timestamp(6)
+  id                  Int       @id @default(autoincrement())
+  product_id          Int?
+  price               Float?
+  previous_price      Float?
+  change_pct          Int?
+  source              String?   @db.VarChar
+  url                 String?   @db.VarChar
+  title               String?   @db.VarChar
+  created_at          DateTime? @default(now()) @db.Timestamp(6)
+  telegram_message_id Int?
+  telegram_chat_id    BigInt?
 }
 
 model price_history {

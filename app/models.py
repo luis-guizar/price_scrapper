@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, ForeignKey, Boolean
+from sqlalchemy import create_engine, Column, Integer, BigInteger, String, Float, DateTime, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
@@ -41,6 +41,8 @@ class Alert(Base):
     url = Column(String, nullable=True) # Redundant but useful if product is deleted
     title = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.now)
+    telegram_message_id = Column(Integer, nullable=True)
+    telegram_chat_id = Column(BigInteger, nullable=True)
 
 
 # Conexión

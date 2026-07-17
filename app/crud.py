@@ -189,7 +189,7 @@ def process_products(products: list, db: Session):
 
 def create_alert(db: Session, alert_data: dict):
     # Filter valid keys
-    valid_keys = ['product_id', 'price', 'previous_price', 'change_pct', 'source', 'url', 'title', 'created_at']
+    valid_keys = ['product_id', 'price', 'previous_price', 'change_pct', 'source', 'url', 'title', 'created_at', 'telegram_message_id', 'telegram_chat_id']
     filtered_data = {k: v for k, v in alert_data.items() if k in valid_keys}
     
     db_alert = Alert(**filtered_data)

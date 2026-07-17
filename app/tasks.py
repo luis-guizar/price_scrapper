@@ -25,7 +25,7 @@ monitor = Monitor()
 
 # DB Imports
 from app.crud import create_alert, prune_database
-from app.models import SessionLocal
+from app.models import SessionLocal, Product
 
 
 # Usamos Redis para no repetir alertas del mismo producto cada 10 min
@@ -47,7 +47,19 @@ def send_telegram_alert(deal):
         return False
 
     source = deal.get('source', 'keepa')
-    
+
+    # Look up the tracked product by URL so we can deep-link back to it in the dashboard
+    # and correctly attribute this alert (product_id was previously never populated here).
+    product_id = None
+    try:
+        db_lookup = SessionLocal()
+        db_product = db_lookup.query(Product).filter(Product.url == deal.get('url')).first()
+        if db_product:
+            product_id = db_product.id
+        db_lookup.close()
+    except Exception as e:
+        logger.warning(f"⚠️ No se pudo buscar el producto para enlazar el dashboard: {e}")
+
     # Route high-discount alerts to priority chat
     HIGH_PRIORITY_PCT = 75
     discount = deal.get('discount_pct', 0)
@@ -112,7 +124,11 @@ def send_telegram_alert(deal):
             f"📉 Promedio 90 días: ${deal.get('avg_90', deal.get('avg_price', 'N/A'))}\n"
             f"🔗 {deal['url']}"
         )
-    
+
+    dashboard_base_url = os.getenv('DASHBOARD_BASE_URL')
+    if dashboard_base_url and product_id:
+        msg += f"\n🔕 Desactivar: {dashboard_base_url}/?product={product_id}"
+
     import time
     
     # Simple retry mechanism
@@ -130,7 +146,9 @@ def send_telegram_alert(deal):
             
             if response.status_code == 200:
                 logger.info(f"✅ Alerta enviada a Telegram: {deal['title'][:50]}")
-                
+
+                sent_message = response.json().get('result', {})
+
                 # Guardar alerta en DB
                 try:
                     db = SessionLocal()
@@ -141,7 +159,9 @@ def send_telegram_alert(deal):
                         "source": source,
                         "url": deal.get('url'),
                         "title": deal.get('title'),
-                        # "product_id": deal.get('product_id') # Si lo tenemos
+                        "product_id": product_id,
+                        "telegram_message_id": sent_message.get('message_id'),
+                        "telegram_chat_id": target_chat_id,
                     }
                     create_alert(db, alert_data)
                     db.close()

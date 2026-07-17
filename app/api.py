@@ -185,6 +185,13 @@ def update_product(product_id: int, product_update: ProductUpdate, db: Session =
     db.refresh(db_product)
     return db_product
 
+@app.get("/products/{product_id}", response_model=ProductResponse)
+def read_product(product_id: int, db: Session = Depends(get_db)):
+    db_product = crud.get_product(db, product_id)
+    if not db_product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return db_product
+
 @app.get("/products/{product_id}/history", response_model=List[PriceHistoryResponse])
 def read_product_history(product_id: int, db: Session = Depends(get_db)):
     history = crud.get_product_history(db, product_id)

@@ -9,6 +9,7 @@ export class AlertService {
     private readonly telegramToken = process.env.TELEGRAM_TOKEN;
     private readonly telegramChatId = process.env.TELEGRAM_CHAT_ID;
     private readonly telegramHighPriorityChatId = process.env.TELEGRAM_HIGH_PRIORITY_CHAT_ID;
+    private readonly dashboardBaseUrl = process.env.DASHBOARD_BASE_URL;
 
     // Minimum drop threshold
     private readonly MIN_DROP_PCT = parseInt(process.env.ALERT_MIN_DISCOUNT_PCT || '50');
@@ -106,8 +107,8 @@ export class AlertService {
 
                         if (!alreadyAlerted) {
                             this.logger.log(`🔔 Sending alert for ${product.name} (Drop: $${previousPrice} -> $${currentPrice})`);
-                            await this.sendTelegram(product, dropPct, anchorPrice);
-                            await this.saveAlertToDb(product, dropPct, anchorPrice, dbProduct.id);
+                            const sent = await this.sendTelegram(product, dropPct, anchorPrice, dbProduct.id);
+                            await this.saveAlertToDb(product, dropPct, anchorPrice, dbProduct.id, sent?.messageId, sent?.chatId);
                             sentCount++;
                             await new Promise(r => setTimeout(r, 1200));
                         } else {
@@ -127,7 +128,7 @@ export class AlertService {
         }
     }
 
-    private async sendTelegram(product: ScrapedProduct, dropPct: number, oldPrice: number) {
+    private async sendTelegram(product: ScrapedProduct, dropPct: number, oldPrice: number, productId: number): Promise<{ messageId: number, chatId: string } | undefined> {
         // Explicitly filter out 'venta internacional' products
         const titleLower = product.name?.toLowerCase() || '';
         if (titleLower.includes('venta internacional')) {
@@ -137,7 +138,10 @@ export class AlertService {
 
         const isHighPriority = dropPct >= this.HIGH_PRIORITY_PCT;
         const prefix = isHighPriority ? '🚨' : '📉';
-        const msg = `${prefix} ¡BAJADA DE PRECIO EN ${product.source.toUpperCase()}! (${Math.round(dropPct)}% OFF)\n\n📦 ${product.name}\n💰 Nuevo Precio: $${product.current_price.toLocaleString()}\n❌ Antes: $${oldPrice.toLocaleString()}\n🔗 ${product.url}`;
+        let msg = `${prefix} ¡BAJADA DE PRECIO EN ${product.source.toUpperCase()}! (${Math.round(dropPct)}% OFF)\n\n📦 ${product.name}\n💰 Nuevo Precio: $${product.current_price.toLocaleString()}\n❌ Antes: $${oldPrice.toLocaleString()}\n🔗 ${product.url}`;
+        if (this.dashboardBaseUrl) {
+            msg += `\n🔕 Desactivar: ${this.dashboardBaseUrl}/?product=${productId}`;
+        }
 
         // Route to high-priority chat if available and discount >= 75%
         const targetChatId = (isHighPriority && this.telegramHighPriorityChatId)
@@ -145,19 +149,20 @@ export class AlertService {
             : this.telegramChatId;
 
         try {
-            await axios.post(`https://api.telegram.org/bot${this.telegramToken}/sendMessage`, {
+            const res = await axios.post(`https://api.telegram.org/bot${this.telegramToken}/sendMessage`, {
                 chat_id: targetChatId,
                 text: msg
             });
             if (isHighPriority) {
                 this.logger.log(`🚨 HIGH PRIORITY alert sent to priority chat for ${product.name}`);
             }
+            return { messageId: res.data?.result?.message_id, chatId: String(targetChatId) };
         } catch (e) {
             this.logger.error(`Failed to send Telegram message: ${e.message}`);
         }
     }
 
-    private async saveAlertToDb(product: ScrapedProduct, dropPct: number, oldPrice: number, productId: number) {
+    private async saveAlertToDb(product: ScrapedProduct, dropPct: number, oldPrice: number, productId: number, telegramMessageId?: number, telegramChatId?: string) {
         try {
             await this.prisma.alerts.create({
                 data: {
@@ -168,6 +173,8 @@ export class AlertService {
                     source: product.source,
                     url: product.url,
                     title: product.name,
+                    telegram_message_id: telegramMessageId,
+                    telegram_chat_id: telegramChatId ? BigInt(telegramChatId) : undefined,
                 }
             });
         } catch (e) {

@@ -90,6 +90,18 @@ def run_migration():
                 # Sometimes it fails if transaction is aborted
                 connection.rollback()
 
+            # 5. Agregar columnas 'telegram_message_id' y 'telegram_chat_id' a 'alerts'
+            # (permiten mapear una respuesta al mensaje de Telegram de vuelta a la alerta/producto)
+            logger.info("Probando agregar columnas de Telegram a 'alerts'...")
+            try:
+                connection.execute(text("ALTER TABLE alerts ADD COLUMN IF NOT EXISTS telegram_message_id INTEGER;"))
+                # BIGINT: los chat_id de supergrupos/canales de Telegram exceden un INTEGER de 32 bits
+                connection.execute(text("ALTER TABLE alerts ADD COLUMN IF NOT EXISTS telegram_chat_id BIGINT;"))
+                logger.info("✅ Columnas 'telegram_message_id'/'telegram_chat_id' verificadas/agregadas.")
+            except Exception as e:
+                logger.warning(f"⚠️ Aviso al agregar columnas de Telegram: {e}")
+                connection.rollback()
+
     except Exception as e:
         logger.error(f"❌ Error crítico conectando o migrando: {e}")
         logger.info("💡 Asegúrate de que la base de datos esté corriendo y la URL sea correcta.")
