@@ -109,11 +109,25 @@ export default function SephoraView() {
                             >
                                 <div className="flex items-start justify-between gap-2 mb-3">
                                     <h4 className="font-medium text-sm text-slate-200 leading-snug line-clamp-2">{d.name}</h4>
-                                    {d.is_historical_low && (
-                                        <span className="shrink-0 text-[10px] px-2 py-0.5 rounded-full border font-semibold bg-rose-400/10 border-rose-400/30 text-rose-300">
-                                            Historical Low
-                                        </span>
-                                    )}
+                                    <div className="flex items-center gap-1.5 shrink-0">
+                                        {d.is_historical_low && (
+                                            <span className="text-[10px] px-2 py-0.5 rounded-full border font-semibold bg-rose-400/10 border-rose-400/30 text-rose-300">
+                                                Historical Low
+                                            </span>
+                                        )}
+                                        {d.url && (
+                                            <a
+                                                href={d.url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                onClick={e => e.stopPropagation()}
+                                                title="View on Sephora"
+                                                className="p-1 rounded-full text-slate-500 hover:text-rose-300 hover:bg-rose-400/10 transition-colors"
+                                            >
+                                                <ExternalLink size={13} />
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="flex items-end justify-between">
@@ -171,7 +185,21 @@ export default function SephoraView() {
                                     onClick={() => setSelected(p)}
                                     className={`p-3 rounded-xl border cursor-pointer transition-all duration-150 hover:bg-slate-800/60 ${selected?.id === p.id ? 'bg-slate-800/80 border-rose-400/40' : 'border-transparent hover:border-slate-700/40'}`}
                                 >
-                                    <h4 className="font-medium text-sm line-clamp-2 leading-snug text-slate-200">{p.name}</h4>
+                                    <div className="flex items-start justify-between gap-2">
+                                        <h4 className="font-medium text-sm line-clamp-2 leading-snug text-slate-200">{p.name}</h4>
+                                        {p.url && (
+                                            <a
+                                                href={p.url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                onClick={e => e.stopPropagation()}
+                                                title="View on Sephora"
+                                                className="shrink-0 p-1 rounded-full text-slate-500 hover:text-rose-300 hover:bg-rose-400/10 transition-colors"
+                                            >
+                                                <ExternalLink size={12} />
+                                            </a>
+                                        )}
+                                    </div>
                                     <div className="mt-1.5 flex items-center justify-between">
                                         <span className="text-base font-bold text-white tabular-nums">${p.current_price?.toLocaleString()}</span>
                                         <span className="text-[10px] px-2 py-0.5 rounded-full border font-medium bg-rose-400/10 border-rose-400/30 text-rose-400">🌸 Sephora</span>
