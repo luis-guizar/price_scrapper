@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, Send, Menu, X, Bell, BellOff, Edit2 } from 'lucide-react'
 import ProductTable from './components/ProductTable'
 import TelegramModal from './components/TelegramModal'
 import AlertHistory from './components/AlertHistory'
 import SidebarNav from './components/SidebarNav'
+import SephoraView from './components/SephoraView'
+import PriceHistoryChart from './components/PriceHistoryChart'
 import { getSourceBadge } from './utils/sourceConfig'
 
 function App() {
@@ -48,9 +49,16 @@ function App() {
         fetchData()
     }, [])
 
-    // Deep-link support: ?product=<id> opens straight to that product's detail pane
+    // Deep-link support: ?view=sephora opens the Sephora screen; ?product=<id>
+    // opens straight to that product's detail pane. A friend can bookmark
+    // /?view=sephora to land directly on the Sephora trends/deals screen.
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
+
+        if (params.get('view') === 'sephora') {
+            setViewMode('sephora')
+        }
+
         const productId = params.get('product')
         if (!productId) return
 
@@ -401,7 +409,7 @@ function App() {
                             <Menu size={22} />
                         </button>
                         <h2 className="text-xl md:text-2xl font-semibold text-slate-100 tracking-tight truncate">
-                            {viewMode === 'dashboard' ? 'Overview' : viewMode === 'list' ? 'Product Inventory' : 'Alert History'}
+                            {viewMode === 'dashboard' ? 'Overview' : viewMode === 'list' ? 'Product Inventory' : viewMode === 'sephora' ? 'Sephora' : 'Alert History'}
                         </h2>
                     </div>
                     <button
@@ -636,19 +644,7 @@ function App() {
                                         </div>
 
                                         <div className="flex-1 w-full min-h-[300px] h-[320px] lg:h-auto">
-                                            <ResponsiveContainer width="100%" height="100%">
-                                                <LineChart data={history}>
-                                                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                                                    <XAxis dataKey="date" stroke="#94a3b8" fontSize={12} tickCount={5} />
-                                                    <YAxis stroke="#94a3b8" fontSize={12} domain={['auto', 'auto']} tickFormatter={(val) => `$${val}`} />
-                                                    <Tooltip
-                                                        contentStyle={{ backgroundColor: 'rgba(15,23,42,0.95)', borderColor: 'rgba(100,116,139,0.3)', borderRadius: '12px', boxShadow: '0 20px 40px -8px rgba(0,0,0,0.7)', color: '#f1f5f9', fontSize: '13px', padding: '10px 14px' }}
-                                                        itemStyle={{ color: '#93c5fd', fontWeight: '600' }}
-                                                        labelStyle={{ color: '#94a3b8', fontSize: '11px', marginBottom: '4px' }}
-                                                    />
-                                                    <Line type="monotone" dataKey="price" stroke="#60a5fa" strokeWidth={2.5} dot={{ r: 3.5, fill: '#60a5fa', strokeWidth: 0 }} activeDot={{ r: 5.5, fill: '#93c5fd', strokeWidth: 0 }} />
-                                                </LineChart>
-                                            </ResponsiveContainer>
+                                            <PriceHistoryChart data={history} />
                                         </div>
                                     </>
                                 ) : (
@@ -676,6 +672,9 @@ function App() {
                             onPageChange={handlePageChange}
                         />
                     </div>
+                ) : viewMode === 'sephora' ? (
+                    // Sephora Trends & Deals View
+                    <SephoraView />
                 ) : (
                     // Alert History View
                     <div className="h-auto lg:h-[calc(100vh-11rem)]">

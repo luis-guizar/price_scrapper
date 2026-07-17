@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import func
+from sqlalchemy import func, text
 from app.models import Product, PriceHistory, Alert
 from datetime import datetime, timedelta
 import logging
@@ -128,6 +128,46 @@ def update_product_price(db: Session, product: Product, new_price: float):
 
 def get_product_history(db: Session, product_id: int):
     return db.query(PriceHistory).filter(PriceHistory.product_id == product_id).order_by(PriceHistory.timestamp.asc()).all()
+
+def get_source_deals(db: Session, source: str = "sephora",
+                     min_history_count: int = 2, limit: int = 100):
+    """
+    Rank products of a given source by how far the current price sits below its
+    OWN historical prices. Sidesteps the (clamped) original_price anchor by
+    computing discount vs the product's historical min/max/median.
+    Returns products with at least `min_history_count` recorded price points.
+    """
+    sql = text("""
+        SELECT p.id, p.name, p.url, p.sku, p.current_price, p.last_checked,
+               h.min_price, h.max_price, h.median_price, h.history_count,
+               CASE WHEN h.max_price > 0
+                    THEN (h.max_price - p.current_price) / h.max_price * 100
+                    ELSE 0 END AS pct_below_max,
+               CASE WHEN h.median_price > 0
+                    THEN (h.median_price - p.current_price) / h.median_price * 100
+                    ELSE 0 END AS pct_below_median,
+               (p.current_price <= h.min_price) AS is_historical_low
+        FROM products p
+        JOIN (
+            SELECT product_id,
+                   MIN(price) AS min_price,
+                   MAX(price) AS max_price,
+                   PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY price) AS median_price,
+                   COUNT(*) AS history_count
+            FROM price_history
+            GROUP BY product_id
+            HAVING COUNT(*) >= :min_history_count
+        ) h ON h.product_id = p.id
+        WHERE p.source = :source AND p.is_active = true AND p.current_price > 0
+        ORDER BY pct_below_median DESC, pct_below_max DESC
+        LIMIT :limit
+    """)
+    rows = db.execute(sql, {
+        "source": source,
+        "min_history_count": min_history_count,
+        "limit": limit,
+    }).mappings().all()
+    return [dict(r) for r in rows]
 
 def process_products(products: list, db: Session):
     """

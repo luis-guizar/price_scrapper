@@ -87,6 +87,21 @@ class PaginatedResponse(BaseModel):
     limit: int
     pages: int
 
+class DealItem(BaseModel):
+    id: int
+    name: str
+    url: Optional[str]
+    sku: Optional[str]
+    current_price: float
+    min_price: float
+    max_price: float
+    median_price: float
+    history_count: int
+    pct_below_max: float
+    pct_below_median: float
+    is_historical_low: bool
+    last_checked: Optional[datetime]
+
 class AlertResponse(BaseModel):
     id: int
     product_id: Optional[int]
@@ -151,6 +166,22 @@ def read_products(
         "limit": limit,
         "pages": pages
     }
+
+@app.get("/products/deals", response_model=List[DealItem])
+def read_deals(
+    source: str = "sephora",
+    min_history_count: int = 2,
+    limit: int = 100,
+    db: Session = Depends(get_db)
+):
+    """
+    Products ranked by discount vs their OWN historical prices. Used by the
+    Sephora view to surface real, history-proven deals instead of relying on
+    the original_price anchor (which the validator clamps for beauty items).
+    """
+    return crud.get_source_deals(
+        db, source=source, min_history_count=min_history_count, limit=limit
+    )
 
 @app.post("/products", response_model=ProductResponse)
 def create_product(product: ProductCreate, db: Session = Depends(get_db)):

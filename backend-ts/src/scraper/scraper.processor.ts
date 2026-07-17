@@ -88,9 +88,11 @@ export class ScraperProcessor extends WorkerHost {
                 this.logger.log(`▶️ [Job ${job.id}] Sephora: Starting scrape for ${categoryLabel}...`);
                 await job.log(`Starting Sephora scrape: ${categoryLabel}`);
                 const sephoraProducts = await this.sephoraScraper.scrapeCategory(url, progress);
-                if (sephoraProducts && sephoraProducts.length > 0) {
-                    await this.alertService.checkAndSendAlerts(sephoraProducts);
-                }
+                // Sephora is intentionally NOT run through checkAndSendAlerts: the
+                // electronics-tuned alert rules (≥50% off the original_price anchor,
+                // which the beauty price-validator clamps) never fire for it. Sephora
+                // deals are surfaced via the dedicated Sephora view instead, which ranks
+                // products by discount vs their own historical prices.
                 const sephoraElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
                 this.logger.log(`✅ [Job ${job.id}] Sephora: Finished in ${sephoraElapsed}s`);
                 await job.log(`Completed: ${sephoraProducts.length} products in ${sephoraElapsed}s`);

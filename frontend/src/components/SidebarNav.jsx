@@ -1,4 +1,4 @@
-import { LayoutDashboard, List, Activity, Send, TrendingDown } from 'lucide-react'
+import { LayoutDashboard, List, Activity, Send, TrendingDown, Sparkles } from 'lucide-react'
 
 export default function SidebarNav({ viewMode, setViewMode, stats, onBroadcastClick, onNavigate }) {
     const go = (mode) => {
@@ -20,6 +20,12 @@ export default function SidebarNav({ viewMode, setViewMode, stats, onBroadcastCl
                     className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'list' ? 'bg-blue-600/15 text-blue-300 border-blue-500/30 shadow-sm shadow-blue-900/20' : 'text-slate-400 border-transparent hover:bg-slate-800/70 hover:text-slate-200'}`}>
                     <List size={20} />
                     All Products
+                </button>
+                <button
+                    onClick={() => go('sephora')}
+                    className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'sephora' ? 'bg-rose-500/15 text-rose-300 border-rose-400/30 shadow-sm shadow-rose-900/20' : 'text-slate-400 border-transparent hover:bg-slate-800/70 hover:text-slate-200'}`}>
+                    <Sparkles size={20} />
+                    Sephora
                 </button>
             </nav>
 

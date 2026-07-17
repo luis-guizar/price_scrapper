@@ -47,10 +47,16 @@ export const LIVERPOOL_CONFIG = {
     ],
 };
 
+// Sephora MX uses a Constructor.io search API; the search term is the path
+// segment (/search/<term>). Each term is scraped as a separate category so the
+// friend's Sephora view covers makeup, skincare and fragrance — not just blush.
+// Result counts verified live (2026-07-17): blush 153, labiales 239, base 160,
+// corrector 99, perfume 124, serum 336, skincare 1460.
+const SEPHORA_QS = 'c=ciojs-client-bundled-2.72.2&key=key_Y4DWcKVGsCyfyCID&i=0aad6209-0b7e-4efc-a9e6-a1c91a3f4620&s=1&page=1&num_results_per_page=52&filters%5BisExclusiveApp%5D=False';
+const SEPHORA_TERMS = ['blush', 'labiales', 'base', 'corrector', 'perfume', 'serum', 'skincare'];
+
 export const SEPHORA_CONFIG = {
-    urls: [
-        'https://ac.cnstrc.com/search/blush?c=ciojs-client-bundled-2.72.2&key=key_Y4DWcKVGsCyfyCID&i=0aad6209-0b7e-4efc-a9e6-a1c91a3f4620&s=1&page=1&num_results_per_page=52&filters%5BisExclusiveApp%5D=False',
-    ],
+    urls: SEPHORA_TERMS.map(term => `https://ac.cnstrc.com/search/${term}?${SEPHORA_QS}`),
 };
 
 export const MELI_CONFIG = {
