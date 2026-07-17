@@ -1,5 +1,94 @@
 import React, { useState, useEffect } from 'react'
 import { Search, Trash2, ExternalLink, Filter, ChevronLeft, ChevronRight, X, ListFilter, Bell, BellOff, Edit2 } from 'lucide-react'
+import { getSourceBadge } from '../utils/sourceConfig'
+
+function editAnchorPrice(p, onUpdateAnchorPrice) {
+    if (typeof onUpdateAnchorPrice !== 'function') {
+        alert('Edit function not available. Please refresh the page.')
+        return
+    }
+
+    const defaultValue = p.original_price ?? p.current_price ?? ''
+    const promptInput = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, defaultValue)
+    if (promptInput === null || promptInput.trim() === '') return
+
+    // Handle international number formats: replace commas with dots, remove currency symbols, etc.
+    const cleaned = promptInput.trim()
+        .replace(/[^\d.,]/g, '') // Keep digits, commas, dots
+        .replace(/,(\d{3})/g, '$1') // Remove thousand separators (commas between digits)
+        .replace(/,/g, '.') // Convert decimal comma to dot
+
+    // If there are multiple dots, keep only the last one as decimal
+    const parts = cleaned.split('.')
+    const normalized = parts.length > 1
+        ? parts.slice(0, -1).join('') + '.' + parts[parts.length - 1]
+        : cleaned
+
+    const newPrice = parseFloat(normalized)
+    if (!isNaN(newPrice) && newPrice > 0) {
+        onUpdateAnchorPrice(p.id, newPrice)
+    } else {
+        alert("Invalid price format entered. Please enter a valid number (e.g., 1999.99 or 1,999.99).")
+    }
+}
+
+function ProductCard({ p, onDelete, onToggleActive, onUpdateAnchorPrice }) {
+    const badge = getSourceBadge(p.source)
+    return (
+        <div className="p-4">
+            <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                    <h4 className="font-medium text-slate-200 text-sm leading-snug line-clamp-2" title={p.name}>{p.name}</h4>
+                    <p className="text-[11px] text-slate-600 mt-1 font-mono truncate">{p.sku || 'NO-SKU'}</p>
+                </div>
+                <span className={`shrink-0 px-2.5 py-0.5 rounded-full border text-[11px] font-medium tracking-wide ${badge.bg}`}>
+                    {badge.label}
+                </span>
+            </div>
+
+            <div className="mt-3 font-mono">
+                <span className="text-lg font-bold text-white tabular-nums">${p.current_price?.toLocaleString()}</span>
+                {p.original_price && <span className="text-xs text-slate-500 line-through ml-2">${p.original_price?.toLocaleString()}</span>}
+            </div>
+
+            <div className="flex divide-x divide-slate-800/60 -mx-4 -mb-4 mt-3 border-t border-slate-800/60">
+                <button
+                    onClick={() => editAnchorPrice(p, onUpdateAnchorPrice)}
+                    aria-label="Edit anchor price"
+                    className="flex-1 h-11 flex items-center justify-center text-slate-400 active:bg-blue-500/10 active:text-blue-400">
+                    <Edit2 size={17} />
+                </button>
+                <button
+                    onClick={() => onToggleActive(p.id, !p.is_active)}
+                    aria-label={p.is_active ? "Unsubscribe from alerts" : "Subscribe to alerts"}
+                    className={`flex-1 h-11 flex items-center justify-center ${p.is_active ? 'text-slate-400 active:bg-yellow-500/10 active:text-yellow-500' : 'text-red-500 bg-red-500/5'}`}>
+                    {p.is_active ? <Bell size={17} /> : <BellOff size={17} />}
+                </button>
+                <a
+                    href={p.url} target="_blank" rel="noopener noreferrer"
+                    aria-label="Open product page"
+                    className="flex-1 h-11 flex items-center justify-center text-slate-400 active:bg-slate-700/60 active:text-blue-400">
+                    <ExternalLink size={17} />
+                </a>
+                <button
+                    onClick={(e) => onDelete(p.id, e)}
+                    aria-label="Stop tracking"
+                    className="flex-1 h-11 flex items-center justify-center text-slate-400 active:bg-red-500/10 active:text-red-400">
+                    <Trash2 size={17} />
+                </button>
+            </div>
+        </div>
+    )
+}
+
+function EmptyState() {
+    return (
+        <div className="flex flex-col items-center gap-3 py-16">
+            <Search size={32} className="opacity-15 text-slate-600" />
+            <p className="text-slate-500 text-sm">No products found matching criteria.</p>
+        </div>
+    )
+}
 
 export default function ProductTable({ products, onDelete, onToggleActive, onUpdateAnchorPrice, onSearch, pagination, onPageChange, activeFilters }) {
     // Local state for inputs
@@ -94,9 +183,19 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                     </div>
                 </div>
 
-                {/* Advanced Filters Row */}
+                {/* Advanced Filters — bottom sheet on mobile, inline panel on desktop */}
                 {showAdvanced && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-slate-950/40 rounded-xl border border-slate-700/30">
+                  <>
+                    {/* mobile-only scrim */}
+                    <div className="md:hidden fixed inset-0 z-30 bg-black/60" onClick={() => setShowAdvanced(false)} />
+
+                    <div
+                        className="fixed inset-x-0 bottom-0 z-40 max-h-[75vh] overflow-y-auto rounded-t-2xl border-t border-slate-700/50 bg-[#0d1524] p-4
+                                   md:static md:z-auto md:max-h-none md:overflow-visible md:rounded-xl md:border md:border-slate-700/30 md:bg-slate-950/40 md:p-4"
+                        style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))', animation: 'modalSlideIn 0.25s ease-out' }}
+                    >
+                    <div className="md:hidden w-10 h-1 rounded-full bg-slate-700 mx-auto mb-3" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
 
                         {/* Source */}
                         <div className="flex flex-col gap-1">
@@ -188,20 +287,37 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                             )}
                         </div>
 
-                        {/* Clear Button */}
-                        <div className="col-span-1 sm:col-span-2 md:col-span-4 flex justify-end">
+                        {/* Clear / Apply */}
+                        <div className="col-span-1 sm:col-span-2 md:col-span-4 flex items-center justify-between md:justify-end gap-3">
                             <button
                                 onClick={clearFilters}
                                 className="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors"
                             >
                                 <X size={12} /> Clear Filters
                             </button>
+                            <button
+                                onClick={() => { handleSearch(); setShowAdvanced(false) }}
+                                className="md:hidden bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium"
+                            >
+                                Apply Filters
+                            </button>
                         </div>
                     </div>
+                    </div>
+                  </>
                 )}
             </div>
 
-            <div className="overflow-auto flex-1">
+            {/* Mobile: card list */}
+            <div className="md:hidden overflow-y-auto flex-1 divide-y divide-slate-800/60">
+                {products.map(p => (
+                    <ProductCard key={p.id} p={p} onDelete={onDelete} onToggleActive={onToggleActive} onUpdateAnchorPrice={onUpdateAnchorPrice} />
+                ))}
+                {products.length === 0 && <EmptyState />}
+            </div>
+
+            {/* Desktop/tablet: table */}
+            <div className="hidden md:block overflow-auto flex-1">
                 <table className="w-full text-left text-sm">
                     <thead className="bg-[#080f1a] text-slate-500 sticky top-0 z-10 border-b border-slate-700/30">
                         <tr>
@@ -219,17 +335,8 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                     <div className="text-[11px] text-slate-600 mt-1 font-mono">{p.sku || 'NO-SKU'}</div>
                                 </td>
                                 <td className="px-5 py-4">
-                                    <span className={`px-2.5 py-0.5 rounded-full border text-[11px] font-medium tracking-wide
-                                    ${p.source === 'keepa' ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' :
-                                            p.source === 'promodescuentos' ? 'bg-red-600/10 text-red-400 border-red-600/20' :
-                                                p.source === 'officedepot' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
-                                                    p.source === 'cyberpuerta' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
-                                                        p.source === 'soriana' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
-                                                            p.source === 'coppel' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
-                                                                p.source === 'liverpool' ? 'bg-pink-500/10 text-pink-400 border-pink-500/20' :
-                                                                    p.source === 'mercadolibre' ? 'bg-yellow-400/10 text-yellow-500 border-yellow-400/20' :
-                                                                        p.source === 'elektra' ? 'bg-purple-600/10 text-purple-400 border-purple-600/20' : 'bg-slate-700/50 text-slate-400 border-slate-600/30'}`}>
-                                        {p.source || 'Unknown'}
+                                    <span className={`px-2.5 py-0.5 rounded-full border text-[11px] font-medium tracking-wide ${getSourceBadge(p.source).bg}`}>
+                                        {getSourceBadge(p.source).label}
                                     </span>
                                 </td>
                                 <td className="px-5 py-4 font-mono text-white tabular-nums">
@@ -241,40 +348,7 @@ export default function ProductTable({ products, onDelete, onToggleActive, onUpd
                                 <td className="px-5 py-4 text-right">
                                     <div className="flex justify-end gap-2">
                                         <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                console.log('Edit anchor price clicked for product:', p.id);
-                                                console.log('onUpdateAnchorPrice function:', onUpdateAnchorPrice);
-
-                                                if (typeof onUpdateAnchorPrice !== 'function') {
-                                                    alert('Edit function not available. Please refresh the page.');
-                                                    return;
-                                                }
-
-                                                const defaultValue = p.original_price ?? p.current_price ?? '';
-                                                const promptInput = window.prompt(`Enter new anchor price (MXN) for ${p.name}`, defaultValue);
-                                                if (promptInput !== null && promptInput.trim() !== '') {
-                                                    // Handle international number formats: replace commas with dots, remove currency symbols, etc.
-                                                    const cleaned = promptInput.trim()
-                                                        .replace(/[^\d.,]/g, '') // Keep digits, commas, dots
-                                                        .replace(/,(\d{3})/g, '$1') // Remove thousand separators (commas between digits)
-                                                        .replace(/,/g, '.'); // Convert decimal comma to dot
-
-                                                    // If there are multiple dots, keep only the last one as decimal
-                                                    const parts = cleaned.split('.');
-                                                    let normalized = parts.length > 1
-                                                        ? parts.slice(0, -1).join('') + '.' + parts[parts.length - 1]
-                                                        : cleaned;
-
-                                                    const newPrice = parseFloat(normalized);
-                                                    if (!isNaN(newPrice) && newPrice > 0) {
-                                                        console.log(`Updating anchor price for product ${p.id} to ${newPrice}`);
-                                                        onUpdateAnchorPrice(p.id, newPrice);
-                                                    } else {
-                                                        alert("Invalid price format entered. Please enter a valid number (e.g., 1999.99 or 1,999.99).");
-                                                    }
-                                                }
-                                            }}
+                                            onClick={(e) => { e.stopPropagation(); editAnchorPrice(p, onUpdateAnchorPrice) }}
                                             title="Edit anchor price"
                                             className="p-2 hover:bg-blue-500/10 rounded text-slate-400 hover:text-blue-400 transition-colors">
                                             <Edit2 size={16} />

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
-import { LayoutDashboard, ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, List, Send, Menu, X, Bell, BellOff, Edit2, Activity } from 'lucide-react'
+import { ShoppingCart, TrendingDown, Plus, Trash2, Search, ExternalLink, Send, Menu, X, Bell, BellOff, Edit2 } from 'lucide-react'
 import ProductTable from './components/ProductTable'
 import TelegramModal from './components/TelegramModal'
 import AlertHistory from './components/AlertHistory'
+import SidebarNav from './components/SidebarNav'
+import { getSourceBadge } from './utils/sourceConfig'
 
 function App() {
     const [products, setProducts] = useState([])
@@ -14,6 +16,7 @@ function App() {
     const [history, setHistory] = useState([])
     const [showAddModal, setShowAddModal] = useState(false)
     const [showTelegramModal, setShowTelegramModal] = useState(false)
+    const [mobileNavOpen, setMobileNavOpen] = useState(false)
     const [viewMode, setViewMode] = useState('dashboard') // 'dashboard' | 'list' | 'alerts'
     const [pagination, setPagination] = useState({ page: 1, pages: 1, total: 0, limit: 20 })
     const [activeFilters, setActiveFilters] = useState({
@@ -62,6 +65,20 @@ function App() {
             fetchHistory(selectedProduct.id)
         }
     }, [selectedProduct])
+
+    // Lock body scroll while the mobile nav drawer is open
+    useEffect(() => {
+        document.body.style.overflow = mobileNavOpen ? 'hidden' : ''
+        return () => { document.body.style.overflow = '' }
+    }, [mobileNavOpen])
+
+    // Close the mobile nav drawer on Escape
+    useEffect(() => {
+        if (!mobileNavOpen) return
+        const onKey = (e) => e.key === 'Escape' && setMobileNavOpen(false)
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+    }, [mobileNavOpen])
 
     // Fetch dashboard products when filters change
     useEffect(() => {
@@ -316,103 +333,91 @@ function App() {
         }
     };
 
-    // Source badge helpers
-    const sourceConfig = {
-        keepa: { label: 'Amazon', color: 'from-orange-500 to-orange-600', icon: '📦', bg: 'bg-orange-500/10 border-orange-500/30 text-orange-400' },
-        promodescuentos: { label: 'PromoDescuentos', color: 'from-red-600 to-red-700', icon: '🔥', bg: 'bg-red-600/10 border-red-600/30 text-red-400' },
-        officedepot: { label: 'Office Depot', color: 'from-red-400 to-red-500', icon: '🖨️', bg: 'bg-red-500/10 border-red-500/30 text-red-400' },
-        cyberpuerta: { label: 'CyberPuerta', color: 'from-green-500 to-green-600', icon: '💻', bg: 'bg-green-500/10 border-green-500/30 text-green-400' },
-        chedraui: { label: 'Chedraui', color: 'from-orange-400 to-orange-500', icon: '🏬', bg: 'bg-orange-500/10 border-orange-500/30 text-orange-400' },
-        elektra: { label: 'Elektra', color: 'from-purple-500 to-purple-600', icon: '⚡', bg: 'bg-purple-500/10 border-purple-500/30 text-purple-400' },
-        soriana: { label: 'Soriana', color: 'from-red-500 to-red-600', icon: '🛒', bg: 'bg-red-500/10 border-red-500/30 text-red-400' },
-        coppel: { label: 'Coppel', color: 'from-blue-500 to-blue-600', icon: '🔵', bg: 'bg-blue-500/10 border-blue-500/30 text-blue-400' },
-        liverpool: { label: 'Liverpool', color: 'from-pink-500 to-pink-600', icon: '💗', bg: 'bg-pink-500/10 border-pink-500/30 text-pink-400' },
-        mercadolibre: { label: 'MercadoLibre', color: 'from-yellow-400 to-yellow-500', icon: '🤝', bg: 'bg-yellow-400/10 border-yellow-400/30 text-yellow-500' },
-        sephora: { label: 'Sephora', color: 'from-rose-400 to-rose-500', icon: '🌸', bg: 'bg-rose-400/10 border-rose-400/30 text-rose-400' },
-        other: { label: 'Other', color: 'from-slate-500 to-slate-600', icon: '🔗', bg: 'bg-slate-500/10 border-slate-500/30 text-slate-400' },
-    }
-
     return (
-        <div className="min-h-screen bg-[#080f1a] flex text-slate-100 font-sans">
+        <div className="min-h-screen bg-[#080f1a] flex text-slate-100 font-sans overflow-x-hidden">
 
-            {/* Sidebar */}
+            {/* Sidebar (desktop/tablet) */}
             <aside className="w-64 bg-gradient-to-b from-[#0d1524] to-[#080f1a] border-r border-slate-700/40 p-6 flex flex-col hidden md:flex">
                 <h1 className="text-2xl font-bold logo-shimmer mb-8 tracking-tight">
                     PriceTracker
                 </h1>
-
-                <nav className="space-y-2 flex-1">
-                    <button
-                        onClick={() => setViewMode('dashboard')}
-                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'dashboard' ? 'bg-blue-600/15 text-blue-300 border-blue-500/30 shadow-sm shadow-blue-900/20' : 'text-slate-400 border-transparent hover:bg-slate-800/70 hover:text-slate-200'}`}>
-                        <LayoutDashboard size={20} />
-                        Dashboard
-                    </button>
-                    <button
-                        onClick={() => setViewMode('list')}
-                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'list' ? 'bg-blue-600/15 text-blue-300 border-blue-500/30 shadow-sm shadow-blue-900/20' : 'text-slate-400 border-transparent hover:bg-slate-800/70 hover:text-slate-200'}`}>
-                        <List size={20} />
-                        All Products
-                    </button>
-                </nav>
-
-                <div className="space-y-4">
-                    <a
-                        href="/queues/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex items-center gap-3 w-full px-4 py-3 text-slate-400 border border-transparent rounded-xl font-medium hover:bg-slate-800/70 hover:text-slate-200 transition-colors duration-150">
-                        <Activity size={20} />
-                        Queue Monitor
-                    </a>
-                    <button
-                        onClick={() => setShowTelegramModal(true)}
-                        className="flex items-center gap-3 w-full px-4 py-3 bg-slate-800/80 text-slate-200 rounded-xl font-medium border border-slate-600/50 hover:bg-slate-700/80 hover:border-slate-500/50 transition-all duration-150 shadow-sm">
-                        <Send size={18} />
-                        Broadcast Update
-                    </button>
-
-                    <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-700/50">
-                        <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-2.5">Service Status</h3>
-                        <div className="flex items-center gap-2 text-sm text-green-400">
-                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                            API Online
-                        </div>
-                    </div>
-
-                    <button
-                        onClick={() => setViewMode('alerts')}
-                        className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl font-medium border transition-colors ${viewMode === 'alerts' ? 'bg-blue-600/15 text-blue-300 border-blue-500/30 shadow-sm shadow-blue-900/20' : 'text-slate-400 border-transparent hover:bg-slate-800/70 hover:text-slate-200'}`}>
-                        <div className="relative">
-                            <TrendingDown size={20} />
-                            {stats?.alerts_count > 0 && <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>}
-                        </div>
-                        Alert History
-                    </button>
-                </div>
+                <SidebarNav
+                    viewMode={viewMode}
+                    setViewMode={setViewMode}
+                    stats={stats}
+                    onBroadcastClick={() => setShowTelegramModal(true)}
+                />
             </aside>
+
+            {/* Mobile off-canvas nav drawer */}
+            <div
+                className={`fixed inset-0 z-40 md:hidden ${mobileNavOpen ? '' : 'pointer-events-none'}`}
+                aria-hidden={!mobileNavOpen}
+            >
+                <div
+                    className={`absolute inset-0 bg-black/70 backdrop-blur-[2px] transition-opacity duration-300 ${mobileNavOpen ? 'opacity-100' : 'opacity-0'}`}
+                    onClick={() => setMobileNavOpen(false)}
+                />
+                <aside
+                    className={`absolute inset-y-0 left-0 w-72 max-w-[85%] bg-gradient-to-b from-[#0d1524] to-[#080f1a] border-r border-slate-700/40 p-6 flex flex-col shadow-2xl shadow-black/60 transition-transform duration-300 ease-out ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                    style={{
+                        paddingTop: 'max(1.5rem, env(safe-area-inset-top))',
+                        paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))'
+                    }}
+                >
+                    <div className="flex items-center justify-between mb-8">
+                        <h1 className="text-2xl font-bold logo-shimmer tracking-tight">
+                            PriceTracker
+                        </h1>
+                        <button
+                            onClick={() => setMobileNavOpen(false)}
+                            aria-label="Close menu"
+                            className="p-2 -mr-2 text-slate-400 hover:text-white hover:bg-slate-800/70 rounded-lg"
+                        >
+                            <X size={22} />
+                        </button>
+                    </div>
+                    <SidebarNav
+                        viewMode={viewMode}
+                        setViewMode={setViewMode}
+                        stats={stats}
+                        onBroadcastClick={() => setShowTelegramModal(true)}
+                        onNavigate={() => setMobileNavOpen(false)}
+                    />
+                </aside>
+            </div>
 
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto p-4 md:p-10">
 
                 {/* Header */}
-                <header className="flex justify-between items-center mb-8">
-                    <h2 className="text-2xl font-semibold text-slate-100 tracking-tight">
-                        {viewMode === 'dashboard' ? 'Overview' : viewMode === 'list' ? 'Product Inventory' : 'Alert History'}
-                    </h2>
+                <header className="flex justify-between items-center mb-6 md:mb-8 gap-3">
+                    <div className="flex items-center gap-2 min-w-0">
+                        <button
+                            onClick={() => setMobileNavOpen(true)}
+                            aria-label="Open menu"
+                            className="md:hidden -ml-1.5 p-2.5 text-slate-300 hover:text-white hover:bg-slate-800/70 rounded-lg shrink-0"
+                        >
+                            <Menu size={22} />
+                        </button>
+                        <h2 className="text-xl md:text-2xl font-semibold text-slate-100 tracking-tight truncate">
+                            {viewMode === 'dashboard' ? 'Overview' : viewMode === 'list' ? 'Product Inventory' : 'Alert History'}
+                        </h2>
+                    </div>
                     <button
                         onClick={() => setShowAddModal(true)}
-                        className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-semibold transition-all duration-150 shadow-lg shadow-blue-900/40 hover:shadow-glow-blue hover:scale-[1.02] active:scale-[0.97]">
+                        aria-label="Track New Item"
+                        className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-3.5 sm:px-5 py-2.5 rounded-xl font-semibold transition-all duration-150 shadow-lg shadow-blue-900/40 hover:shadow-glow-blue hover:scale-[1.02] active:scale-[0.97] shrink-0">
                         <Plus size={18} />
-                        Track New Item
+                        <span className="hidden sm:inline">Track New Item</span>
                     </button>
                 </header>
 
                 {viewMode === 'dashboard' ? (
                     <>
                         {/* Stats Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div className="bg-[#0d1524] p-6 rounded-2xl border border-slate-700/50 shadow-card hover:shadow-card-md transition-shadow duration-200 relative overflow-hidden">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+                            <div className="bg-[#0d1524] p-5 md:p-6 rounded-2xl border border-slate-700/50 shadow-card hover:shadow-card-md transition-shadow duration-200 relative overflow-hidden">
                                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-indigo-500/40 via-indigo-500/10 to-transparent" />
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="p-3 bg-indigo-500/15 rounded-xl text-indigo-300 shadow-sm shadow-indigo-900/20">
@@ -424,7 +429,7 @@ function App() {
                             </div>
 
                             <div
-                                className="bg-[#0d1524] p-6 rounded-2xl border border-slate-700/50 shadow-card hover:shadow-card-md hover:border-emerald-500/20 cursor-pointer transition-all duration-200 group relative overflow-hidden"
+                                className="bg-[#0d1524] p-5 md:p-6 rounded-2xl border border-slate-700/50 shadow-card hover:shadow-card-md hover:border-emerald-500/20 cursor-pointer transition-all duration-200 group relative overflow-hidden"
                                 onClick={() => setViewMode('alerts')}
                             >
                                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-emerald-500/40 via-emerald-500/10 to-transparent" />
@@ -438,7 +443,7 @@ function App() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[600px]">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 lg:h-[600px]">
 
                             {/* Product List */}
                             <div className="lg:col-span-1 bg-[#0d1524] rounded-2xl border border-slate-700/50 flex flex-col overflow-hidden shadow-card">
@@ -511,7 +516,7 @@ function App() {
                                         />
                                     </div>
                                 </div>
-                                <div className="overflow-y-auto flex-1 p-2 space-y-2">
+                                <div className="overflow-y-auto flex-1 p-2 space-y-2 max-h-[50vh] lg:max-h-none">
                                     {dashboardLoading ? (
                                         <div className="h-full flex flex-col items-center justify-center text-slate-600 py-8">
                                             <div className="animate-spin mb-2">
@@ -589,8 +594,8 @@ function App() {
                                                             {p.original_price && <span className="text-[10px] text-slate-500 line-through">${p.original_price?.toLocaleString()}</span>}
                                                         </div>
                                                     </div>
-                                                    <span className={`text-[10px] px-2 py-0.5 rounded-full border font-medium tracking-wide ${sourceConfig[p.source]?.bg || 'bg-slate-800 border-slate-700 text-slate-500'}`}>
-                                                        {sourceConfig[p.source]?.label || p.source || 'Other'}
+                                                    <span className={`text-[10px] px-2 py-0.5 rounded-full border font-medium tracking-wide ${getSourceBadge(p.source).bg}`}>
+                                                        {getSourceBadge(p.source).label}
                                                     </span>
                                                 </div>
                                             </div>
@@ -630,7 +635,7 @@ function App() {
                                             </div>
                                         </div>
 
-                                        <div className="flex-1 w-full min-h-[300px]">
+                                        <div className="flex-1 w-full min-h-[300px] h-[320px] lg:h-auto">
                                             <ResponsiveContainer width="100%" height="100%">
                                                 <LineChart data={history}>
                                                     <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
@@ -657,9 +662,9 @@ function App() {
 
                         </div>
                     </>
-                ) : (
+                ) : viewMode === 'list' ? (
                     // Product List View
-                    <div className="h-[800px]">
+                    <div className="h-auto lg:h-[calc(100vh-11rem)]">
                         <ProductTable
                             products={products}
                             onDelete={handleDelete}
@@ -671,10 +676,9 @@ function App() {
                             onPageChange={handlePageChange}
                         />
                     </div>
-                )}
-
-                {viewMode === 'alerts' && (
-                    <div className="h-[800px]">
+                ) : (
+                    // Alert History View
+                    <div className="h-auto lg:h-[calc(100vh-11rem)]">
                         <AlertHistory onBack={() => setViewMode('dashboard')} />
                     </div>
                 )}
@@ -722,7 +726,7 @@ function App() {
                                             />
                                             {addSource && (
                                                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                                                    <span className="text-lg">{sourceConfig[addSource]?.icon}</span>
+                                                    <span className="text-lg">{getSourceBadge(addSource).icon}</span>
                                                 </div>
                                             )}
                                         </div>
@@ -730,8 +734,8 @@ function App() {
                                         {/* Source detection badge */}
                                         {addSource && (
                                             <div className="mt-3 flex items-center gap-2" style={{ animation: 'fadeIn 0.2s ease-out' }}>
-                                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border ${sourceConfig[addSource]?.bg}`}>
-                                                    {sourceConfig[addSource]?.icon} {sourceConfig[addSource]?.label}
+                                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border ${getSourceBadge(addSource).bg}`}>
+                                                    {getSourceBadge(addSource).icon} {getSourceBadge(addSource).label}
                                                 </span>
                                                 {addSource === 'mercadolibre' && (
                                                     <span className="text-xs text-emerald-500 flex items-center gap-1">
@@ -814,8 +818,8 @@ function App() {
                                                         <h4 className="font-semibold text-white text-sm leading-snug line-clamp-2">
                                                             {addPreview.name || 'Unknown Product'}
                                                         </h4>
-                                                        <span className={`flex-shrink-0 inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full border ${sourceConfig[addPreview.source]?.bg}`}>
-                                                            {sourceConfig[addPreview.source]?.icon} {sourceConfig[addPreview.source]?.label}
+                                                        <span className={`flex-shrink-0 inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded-full border ${getSourceBadge(addPreview.source).bg}`}>
+                                                            {getSourceBadge(addPreview.source).icon} {getSourceBadge(addPreview.source).label}
                                                         </span>
                                                     </div>
 
