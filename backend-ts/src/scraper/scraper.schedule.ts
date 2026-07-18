@@ -84,9 +84,12 @@ export class ScraperScheduleService {
     );
   }
 
-  // Runs every 2 hours (at HH:12 — offset from other stores). Chedraui VTEX
-  // catalog API; grocery/electronics/toys.
-  @Cron('0 12 */2 * * *')
+  // Runs once daily at 04:12 (off-peak). Chedraui is the heaviest source
+  // (~150 paginated requests per pass on a concurrency-1 queue) and rarely
+  // yields ≥50% alert-grade drops, so it runs as a daily price-history
+  // sampler rather than a deal scanner — running it every 2h piled up the
+  // queue and starved the lighter sources.
+  @Cron('0 12 4 * * *')
   async handleChedrauiCron() {
     this.logger.log('🚀 [CRON] Starting automated full-pass for Chedraui...');
 
