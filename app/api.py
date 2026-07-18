@@ -252,6 +252,10 @@ def _detect_source(url: str) -> str:
         return "elektra"
     elif "coppel.com" in url_lower:
         return "coppel"
+    elif "sears.com.mx" in url_lower:
+        return "sears"
+    elif "costco.com.mx" in url_lower:
+        return "costco"
     return "other"
 
 

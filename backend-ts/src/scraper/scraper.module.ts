@@ -10,6 +10,9 @@ import { CoppelScraper } from './crawlers/coppel.scraper';
 import { LiverpoolScraper } from './crawlers/liverpool.scraper';
 import { MeliScraper } from './crawlers/meli.scraper';
 import { SephoraScraper } from './crawlers/sephora.scraper';
+import { ChedrauiScraper } from './crawlers/chedraui.scraper';
+import { SearsScraper } from './crawlers/sears.scraper';
+import { CostcoScraper } from './crawlers/costco.scraper';
 import { ScraperProcessor } from './scraper.processor';
 import { ScraperScheduleService } from './scraper.schedule';
 import { PriceValidationService } from './services/price-validation.service';
@@ -34,7 +37,7 @@ import { TelegramListenerService } from '../telegram-listener.service';
         }),
     ],
     controllers: [ScraperController],
-    providers: [PrismaService, ProductRepository, PriceValidationService, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ScraperProcessor, ScraperScheduleService, AlertService, TelegramListenerService],
-    exports: [ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper],
+    providers: [PrismaService, ProductRepository, PriceValidationService, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ChedrauiScraper, SearsScraper, CostcoScraper, ScraperProcessor, ScraperScheduleService, AlertService, TelegramListenerService],
+    exports: [ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ChedrauiScraper, SearsScraper, CostcoScraper],
 })
 export class ScraperModule { }

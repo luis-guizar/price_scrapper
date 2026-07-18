@@ -59,6 +59,72 @@ export const SEPHORA_CONFIG = {
     urls: SEPHORA_TERMS.map(term => `https://ac.cnstrc.com/search/${term}?${SEPHORA_QS}`),
 };
 
+// Chedraui MX runs on VTEX; its standard catalog REST API returns clean product
+// JSON (the old persisted-query GraphQL endpoint now 404s, which is why the
+// legacy Python scraper was disabled). Each URL is a category first page; the
+// scraper paginates via _from/_to. Category slugs + counts verified live
+// (2026-07-18): tecnologia 2489, electrodomesticos-y-linea-blanca 1219,
+// jugueteria 3415.
+const CHEDRAUI_CATEGORIES = [
+    'tecnologia',
+    'electrodomesticos-y-linea-blanca',
+    'jugueteria',
+];
+
+export const CHEDRAUI_CONFIG = {
+    baseUrl: 'https://www.chedraui.com.mx',
+    urls: CHEDRAUI_CATEGORIES.map(
+        cat =>
+            `https://www.chedraui.com.mx/api/catalog_system/pub/products/search/${cat}?O=OrderByScoreDESC&_from=0&_to=49`,
+    ),
+};
+
+// Sears MX exposes a public Algolia search key (read from its Next.js config,
+// 2026-07-18). This is a stable JSON API — ban-proof, no HTML parsing. Each
+// "url" is just a search term; the scraper POSTs it to Algolia and paginates.
+// Sears is a marketplace (Grupo Carso), so results include third-party sellers.
+export const SEARS_CONFIG = {
+    baseUrl: 'https://www.sears.com.mx',
+    algolia: {
+        appId: '6M62U1ZBKU',
+        apiKey: '6698ccede119391b5f6db5c39352b1f2',
+        index: 'sears',
+    },
+    urls: [
+        'pantalla',
+        'laptop',
+        'celular',
+        'refrigerador',
+        'lavadora',
+        'audifonos',
+        'smartwatch',
+        'tablet',
+        'consola',
+        'licuadora',
+    ],
+};
+
+// Costco MX runs Spartacus (SAP Commerce); its OCC REST API serves product JSON
+// (base site "mexico"), discovered via browser network capture 2026-07-18. The
+// search response exposes both `price` (current) and `basePrice` (regular/MSRP),
+// so genuine discounts are captured and feed the alert rule. Each "url" is a
+// search term.
+export const COSTCO_CONFIG = {
+    baseUrl: 'https://www.costco.com.mx',
+    urls: [
+        'pantalla',
+        'laptop',
+        'refrigerador',
+        'lavadora',
+        'colchon',
+        'audifonos',
+        'tablet',
+        'freidora',
+        'bicicleta',
+        'llanta',
+    ],
+};
+
 export const MELI_CONFIG = {
     urls: [
         'https://listado.mercadolibre.com.mx/computacion/componentes-pc/tarjetas/tarjetas-video/fabricante-amd/nuevo/gpu-amd_Tienda_all_NoIndex_True#applied_filter_id%3Dofficial_store%26applied_filter_name%3DTiendas+oficiales%26applied_filter_order%3D12%26applied_value_id%3Dall%26applied_value_name%3DSolo+tiendas+oficiales%26applied_value_order%3D1%26applied_value_results%3D58%26is_custom%3Dfalse',

@@ -119,6 +119,10 @@ function App() {
             setAddSource('liverpool')
         } else if (lc.includes('sephora.com.mx')) {
             setAddSource('sephora')
+        } else if (lc.includes('sears.com.mx')) {
+            setAddSource('sears')
+        } else if (lc.includes('costco.com.mx')) {
+            setAddSource('costco')
         } else if (lc.startsWith('http')) {
             setAddSource('other')
         } else {
@@ -504,6 +508,8 @@ function App() {
                                             <option value="liverpool">Liverpool</option>
                                             <option value="mercadolibre">MercadoLibre</option>
                                             <option value="sephora">Sephora</option>
+                                            <option value="sears">Sears</option>
+                                            <option value="costco">Costco</option>
                                             <option value="other">Other</option>
                                         </select>
 
@@ -751,9 +757,12 @@ function App() {
                                                 <span className="text-xs bg-red-500/10 text-red-500 border border-red-500/20 px-2 py-0.5 rounded-md">🖨️ Office Depot</span>
                                                 <span className="text-xs bg-green-500/10 text-green-500 border border-green-500/20 px-2 py-0.5 rounded-md">💻 CyberPuerta</span>
                                                 <span className="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded-md">⚡ Elektra</span>
+                                                <span className="text-xs bg-orange-500/10 text-orange-400 border border-orange-500/20 px-2 py-0.5 rounded-md">🏬 Chedraui</span>
                                                 <span className="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md">🔵 Coppel</span>
                                                 <span className="text-xs bg-pink-500/10 text-pink-400 border border-pink-500/20 px-2 py-0.5 rounded-md">💗 Liverpool</span>
                                                 <span className="text-xs bg-yellow-400/10 text-yellow-500 border border-yellow-400/20 px-2 py-0.5 rounded-md">🤝 MercadoLibre</span>
+                                                <span className="text-xs bg-sky-500/10 text-sky-400 border border-sky-500/20 px-2 py-0.5 rounded-md">🏪 Sears</span>
+                                                <span className="text-xs bg-blue-600/10 text-blue-400 border border-blue-600/20 px-2 py-0.5 rounded-md">📦 Costco</span>
                                             </div>
                                         </div>
 

@@ -6,6 +6,9 @@ import { CoppelScraper } from './crawlers/coppel.scraper';
 import { LiverpoolScraper } from './crawlers/liverpool.scraper';
 import { MeliScraper } from './crawlers/meli.scraper';
 import { SephoraScraper } from './crawlers/sephora.scraper';
+import { ChedrauiScraper } from './crawlers/chedraui.scraper';
+import { SearsScraper } from './crawlers/sears.scraper';
+import { CostcoScraper } from './crawlers/costco.scraper';
 import { AlertService } from '../alert.service';
 import { ScrapeProgress } from './scraper.types';
 
@@ -19,6 +22,9 @@ export class ScraperProcessor extends WorkerHost {
         private readonly liverpoolScraper: LiverpoolScraper,
         private readonly meliScraper: MeliScraper,
         private readonly sephoraScraper: SephoraScraper,
+        private readonly chedrauiScraper: ChedrauiScraper,
+        private readonly searsScraper: SearsScraper,
+        private readonly costcoScraper: CostcoScraper,
         private readonly alertService: AlertService
     ) {
         super();
@@ -96,6 +102,45 @@ export class ScraperProcessor extends WorkerHost {
                 const sephoraElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
                 this.logger.log(`✅ [Job ${job.id}] Sephora: Finished in ${sephoraElapsed}s`);
                 await job.log(`Completed: ${sephoraProducts.length} products in ${sephoraElapsed}s`);
+                return { status: 'completed' };
+            }
+
+            case 'scrape:chedraui': {
+                this.logger.log(`▶️ [Job ${job.id}] Chedraui: Starting scrape for ${categoryLabel}...`);
+                await job.log(`Starting Chedraui scrape: ${categoryLabel}`);
+                const chedrauiProducts = await this.chedrauiScraper.scrapeCategory(url, progress);
+                if (chedrauiProducts && chedrauiProducts.length > 0) {
+                    await this.alertService.checkAndSendAlerts(chedrauiProducts);
+                }
+                const chedrauiElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+                this.logger.log(`✅ [Job ${job.id}] Chedraui: Finished in ${chedrauiElapsed}s`);
+                await job.log(`Completed: ${chedrauiProducts.length} products in ${chedrauiElapsed}s`);
+                return { status: 'completed' };
+            }
+
+            case 'scrape:sears': {
+                this.logger.log(`▶️ [Job ${job.id}] Sears: Starting scrape for ${categoryLabel}...`);
+                await job.log(`Starting Sears scrape: ${categoryLabel}`);
+                const searsProducts = await this.searsScraper.scrapeCategory(url, progress);
+                if (searsProducts && searsProducts.length > 0) {
+                    await this.alertService.checkAndSendAlerts(searsProducts);
+                }
+                const searsElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+                this.logger.log(`✅ [Job ${job.id}] Sears: Finished in ${searsElapsed}s`);
+                await job.log(`Completed: ${searsProducts.length} products in ${searsElapsed}s`);
+                return { status: 'completed' };
+            }
+
+            case 'scrape:costco': {
+                this.logger.log(`▶️ [Job ${job.id}] Costco: Starting scrape for ${categoryLabel}...`);
+                await job.log(`Starting Costco scrape: ${categoryLabel}`);
+                const costcoProducts = await this.costcoScraper.scrapeCategory(url, progress);
+                if (costcoProducts && costcoProducts.length > 0) {
+                    await this.alertService.checkAndSendAlerts(costcoProducts);
+                }
+                const costcoElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+                this.logger.log(`✅ [Job ${job.id}] Costco: Finished in ${costcoElapsed}s`);
+                await job.log(`Completed: ${costcoProducts.length} products in ${costcoElapsed}s`);
                 return { status: 'completed' };
             }
 

@@ -7,6 +7,9 @@ import {
   COPPEL_CONFIG,
   LIVERPOOL_CONFIG,
   SEPHORA_CONFIG,
+  CHEDRAUI_CONFIG,
+  SEARS_CONFIG,
+  COSTCO_CONFIG,
 } from './constants';
 
 @Injectable()
@@ -78,6 +81,55 @@ export class ScraperScheduleService {
 
     this.logger.log(
       `✅ [CRON] Dispatched ${urls.length} Sephora scraping categories.`,
+    );
+  }
+
+  // Runs every 2 hours (at HH:12 — offset from other stores). Chedraui VTEX
+  // catalog API; grocery/electronics/toys.
+  @Cron('0 12 */2 * * *')
+  async handleChedrauiCron() {
+    this.logger.log('🚀 [CRON] Starting automated full-pass for Chedraui...');
+
+    const urls = CHEDRAUI_CONFIG.urls;
+
+    for (const url of urls) {
+      await this.scraperQueue.add('scrape:chedraui', { url });
+    }
+
+    this.logger.log(
+      `✅ [CRON] Dispatched ${urls.length} Chedraui scraping categories.`,
+    );
+  }
+
+  // Runs every hour (at :25). Sears via Algolia search terms.
+  @Cron('0 25 * * * *')
+  async handleSearsCron() {
+    this.logger.log('🚀 [CRON] Starting automated full-pass for Sears...');
+
+    const urls = SEARS_CONFIG.urls;
+
+    for (const url of urls) {
+      await this.scraperQueue.add('scrape:sears', { url });
+    }
+
+    this.logger.log(
+      `✅ [CRON] Dispatched ${urls.length} Sears search terms.`,
+    );
+  }
+
+  // Runs every 2 hours (at HH:48). Costco via Spartacus OCC search terms.
+  @Cron('0 48 */2 * * *')
+  async handleCostcoCron() {
+    this.logger.log('🚀 [CRON] Starting automated full-pass for Costco...');
+
+    const urls = COSTCO_CONFIG.urls;
+
+    for (const url of urls) {
+      await this.scraperQueue.add('scrape:costco', { url });
+    }
+
+    this.logger.log(
+      `✅ [CRON] Dispatched ${urls.length} Costco search terms.`,
     );
   }
 
