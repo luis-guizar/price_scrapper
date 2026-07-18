@@ -1,7 +1,7 @@
 import { Controller, Post } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { OFFICE_DEPOT_CONFIG, COPPEL_CONFIG, LIVERPOOL_CONFIG, MELI_CONFIG, SEPHORA_CONFIG } from './constants';
+import { OFFICE_DEPOT_CONFIG, COPPEL_CONFIG, LIVERPOOL_CONFIG, MELI_CONFIG, SEPHORA_CONFIG, CHEDRAUI_CONFIG, SEARS_CONFIG, COSTCO_CONFIG } from './constants';
 
 @Controller('scraper')
 export class ScraperController {
@@ -85,6 +85,51 @@ export class ScraperController {
 
         return {
             message: 'MercadoLibre full pass triggered',
+            jobCount: urls.length,
+            urls: urls
+        };
+    }
+
+    @Post('test-scrape/chedraui')
+    async triggerChedrauiTestScrape() {
+        const urls = CHEDRAUI_CONFIG.urls;
+
+        for (const url of urls) {
+            await this.scraperQueue.add('scrape:chedraui', { url });
+        }
+
+        return {
+            message: 'Chedraui full pass triggered',
+            jobCount: urls.length,
+            urls: urls
+        };
+    }
+
+    @Post('test-scrape/sears')
+    async triggerSearsTestScrape() {
+        const urls = SEARS_CONFIG.urls;
+
+        for (const url of urls) {
+            await this.scraperQueue.add('scrape:sears', { url });
+        }
+
+        return {
+            message: 'Sears full pass triggered',
+            jobCount: urls.length,
+            urls: urls
+        };
+    }
+
+    @Post('test-scrape/costco')
+    async triggerCostcoTestScrape() {
+        const urls = COSTCO_CONFIG.urls;
+
+        for (const url of urls) {
+            await this.scraperQueue.add('scrape:costco', { url });
+        }
+
+        return {
+            message: 'Costco full pass triggered',
             jobCount: urls.length,
             urls: urls
         };
