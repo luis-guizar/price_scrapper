@@ -2,6 +2,7 @@ services:
   # 1. Base de datos (Persistencia de precios)
   db:
     image: postgres:15-alpine
+    restart: unless-stopped
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -16,10 +17,12 @@ services:
   # 2. Redis (Cola de tareas)
   redis:
     image: redis:alpine
+    restart: unless-stopped
 
   # 3. Tu Worker (El código Python)
   worker:
     build: .
+    restart: unless-stopped
     command: celery -A app.celery_app worker --loglevel=info --concurrency=3
     volumes:
       - .:/code # Montamos el código para desarrollar sin reconstruir
@@ -39,6 +42,7 @@ services:
   # 4. Beat (El cron que agenda las revisiones)
   beat:
     build: .
+    restart: unless-stopped
     command: celery -A app.celery_app beat --loglevel=info
     volumes:
       - .:/code
@@ -53,6 +57,7 @@ services:
   backend-ts:
     command: npx ts-node src/main.ts
     build: ./backend-ts
+    restart: unless-stopped
     volumes:
       - ./backend-ts/src:/app/src
     environment:
@@ -73,6 +78,7 @@ services:
   # 5. API (Homepage Integration)
   api:
     build: .
+    restart: unless-stopped
     command: uvicorn app.api:app --host 0.0.0.0 --port 8000
     volumes:
       - .:/code
@@ -92,6 +98,7 @@ services:
   # 6. Frontend (React/Vite)
   frontend:
     image: node:18-alpine
+    restart: unless-stopped
     working_dir: /app
     volumes:
       - ./frontend:/app
@@ -105,6 +112,7 @@ services:
   # 7. Adminer (Database UI)
   adminer:
     image: adminer
+    restart: unless-stopped
     ports:
       - "8080:8080"
     depends_on:
