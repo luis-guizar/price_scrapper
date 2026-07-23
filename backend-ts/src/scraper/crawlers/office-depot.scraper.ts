@@ -73,7 +73,9 @@ export class OfficeDepotScraper {
             products,
             OFFICE_RULES,
           );
-          await this.productRepository.bulkUpsert(validated);
+          // OD has no MSRP in its feed; keep the highest price ever seen as the
+          // alert anchor so genuine drops can clear the ≥50% rule.
+          await this.productRepository.bulkUpsert(validated, 'max');
           totalScraped += validated.length;
           allProducts.push(...validated);
           await progress?.onProgress?.(totalScraped);

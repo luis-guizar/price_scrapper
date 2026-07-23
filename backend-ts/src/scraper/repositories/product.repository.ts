@@ -13,13 +13,26 @@ export interface ScrapedProduct {
     external_id?: string;
 }
 
+/**
+ * How the `original_price` alert anchor is maintained on upsert.
+ * - 'overwrite' (default): anchor tracks the latest scraped original_price.
+ *   Correct for sources that carry a real MSRP/list price (Costco basePrice,
+ *   Sears/Liverpool list price).
+ * - 'max': anchor is the highest price ever seen. Used by Office Depot, whose
+ *   feed exposes only a single `price` (original_price === current_price), so
+ *   'overwrite' would collapse the anchor to the current price and make the
+ *   ≥50%-off rule impossible to satisfy. Running-max gives OD a "regular price"
+ *   proxy so genuine drops from its own high can alert.
+ */
+export type AnchorStrategy = 'overwrite' | 'max';
+
 @Injectable()
 export class ProductRepository {
     private readonly logger = new Logger(ProductRepository.name);
 
     constructor(private prisma: PrismaService) { }
 
-    async bulkUpsert(products: ScrapedProduct[]) {
+    async bulkUpsert(products: ScrapedProduct[], anchorStrategy: AnchorStrategy = 'overwrite') {
         if (products.length === 0) return;
 
         // Deduplicate products by SKU to prevent conflicts in the same batch
@@ -49,12 +62,19 @@ export class ProductRepository {
             );
         });
 
+        // GREATEST ignores NULLs in Postgres, so a NULL existing anchor still
+        // resolves to the new value on the first 'max' upsert.
+        const anchorAssignment =
+            anchorStrategy === 'max'
+                ? 'original_price = GREATEST(products.original_price, EXCLUDED.original_price)'
+                : 'original_price = EXCLUDED.original_price';
+
         const query = `
       INSERT INTO products (name, url, sku, current_price, original_price, source, last_checked, external_id)
       VALUES ${values.join(', ')}
       ON CONFLICT (sku) DO UPDATE SET
         current_price = EXCLUDED.current_price,
-        original_price = EXCLUDED.original_price,
+        ${anchorAssignment},
         last_checked = NOW(),
         name = EXCLUDED.name
     `;
