@@ -45,6 +45,9 @@ export class ScraperProcessor extends WorkerHost {
                 this.logger.log(`▶️ [Job ${job.id}] Office Depot: Starting scrape for ${categoryLabel}...`);
                 await job.log(`Starting Office Depot scrape: ${categoryLabel}`);
                 const odProducts = await this.officeDepotScraper.scrapeCategory(url, progress);
+                if (odProducts && odProducts.length > 0) {
+                    await this.alertService.checkAndSendAlerts(odProducts);
+                }
                 const odElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
                 this.logger.log(`✅ [Job ${job.id}] Office Depot: Finished in ${odElapsed}s`);
                 await job.log(`Completed: ${odProducts.length} products in ${odElapsed}s`);
