@@ -34,6 +34,7 @@
     "axios": "^1.13.5",
     "bullmq": "^5.69.3",
     "crawlee": "^3.16.0",
+    "ioredis": "^5.9.2",
     "playwright": "^1.58.2",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"

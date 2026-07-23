@@ -18,6 +18,7 @@ import { ScraperScheduleService } from './scraper.schedule';
 import { PriceValidationService } from './services/price-validation.service';
 
 import { AlertService } from '../alert.service';
+import { MonitorService } from '../monitor.service';
 import { TelegramListenerService } from '../telegram-listener.service';
 
 @Module({
@@ -37,7 +38,7 @@ import { TelegramListenerService } from '../telegram-listener.service';
         }),
     ],
     controllers: [ScraperController],
-    providers: [PrismaService, ProductRepository, PriceValidationService, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ChedrauiScraper, SearsScraper, CostcoScraper, ScraperProcessor, ScraperScheduleService, AlertService, TelegramListenerService],
+    providers: [PrismaService, ProductRepository, PriceValidationService, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ChedrauiScraper, SearsScraper, CostcoScraper, ScraperProcessor, ScraperScheduleService, AlertService, MonitorService, TelegramListenerService],
     exports: [ProductRepository, OfficeDepotScraper, CoppelScraper, LiverpoolScraper, MeliScraper, SephoraScraper, ChedrauiScraper, SearsScraper, CostcoScraper],
 })
 export class ScraperModule { }

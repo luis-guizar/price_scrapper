@@ -31,22 +31,32 @@ export class OfficeDepotScraper {
     const categoryLabel = url.split('/').pop()?.substring(0, 20) || 'category';
     this.logger.log(`🚀 Starting Office Depot scrape for: ${categoryLabel}`);
     let totalScraped = 0;
+    let failedRequests = 0;
     const allProducts: ScrapedProduct[] = [];
 
     // Create a unique RequestQueue for this job to ensure isolation
     const uniqueQueueId = `od_${Date.now()}_${Math.random().toString(36).substring(7)}`;
     const requestQueue = await RequestQueue.open(uniqueQueueId);
 
+    const buildPageUrl = (page: number) =>
+      url.includes('?')
+        ? `${url}&page=${page}`
+        : `${url}?q=%3Arelevance&page=${page}`;
+
     const router = createCheerioRouter();
 
-    // Handler for category pages
+    // Handler for category pages.
+    // Pages are enqueued one-at-a-time: a page is only fetched after the
+    // previous one returned products. This stops pagination as soon as a page
+    // is empty (end of catalog) OR fails — so a category that OD's WAF is
+    // tarpitting costs ~1 page's worth of timeout instead of hammering all 10
+    // pages and starving the shared concurrency-1 queue (Liverpool/Sears too).
     router.addDefaultHandler(
       async ({ request, log, body }: CheerioCrawlingContext) => {
         const currentUrl = request.url;
         const pageNumMatch = currentUrl.match(/page=(\d+)/);
-        const pageInfo = pageNumMatch
-          ? `page ${parseInt(pageNumMatch[1]) + 1}`
-          : 'main page';
+        const currentPage = pageNumMatch ? parseInt(pageNumMatch[1]) : 0;
+        const pageInfo = `page ${currentPage + 1}`;
 
         log.info(`📄 Processing ${pageInfo}...`);
 
@@ -67,8 +77,15 @@ export class OfficeDepotScraper {
           totalScraped += validated.length;
           allProducts.push(...validated);
           await progress?.onProgress?.(totalScraped);
+
+          // Only advance to the next page while pages keep yielding products.
+          if (currentPage + 1 < this.maxPages) {
+            await requestQueue.addRequest({
+              url: buildPageUrl(currentPage + 1),
+            });
+          }
         } else {
-          log.warning(`⚠️ No products found on ${pageInfo}`);
+          log.info(`🏁 ${pageInfo} empty — stopping pagination.`);
         }
       },
     );
@@ -77,22 +94,26 @@ export class OfficeDepotScraper {
       requestHandler: router,
       requestQueue,
       maxConcurrency: 1, // Reduced to prevent 30s timeouts and WAF blocks
-      requestHandlerTimeoutSecs: 60,
+      maxRequestRetries: 1, // A tarpitted page won't recover; don't burn 3× on it
+      navigationTimeoutSecs: 20, // Fail a stalled/tarpitted request fast (was 30s default)
+      requestHandlerTimeoutSecs: 45,
+      sameDomainDelaySecs: 1, // Space requests politely to reduce rate-based flagging
+      failedRequestHandler: async ({ request, log }, error) => {
+        failedRequests++;
+        log.warning(
+          `❌ Gave up on ${request.url} after retries: ${error.message}`,
+        );
+      },
     });
 
-    // Enqueue URLs to the specific queue
-    for (let i = 0; i < this.maxPages; i++) {
-      const pageUrl = url.includes('?')
-        ? `${url}&page=${i}`
-        : `${url}?q=%3Arelevance&page=${i}`;
-      await requestQueue.addRequest({ url: pageUrl });
-    }
+    // Seed the first page; the handler enqueues subsequent pages as needed.
+    await requestQueue.addRequest({ url: buildPageUrl(0) });
 
     await crawler.run();
     await requestQueue.drop();
 
     this.logger.log(
-      `✅ Finished: Scraped ${totalScraped} products total for ${categoryLabel}.`,
+      `✅ Finished: Scraped ${totalScraped} products total for ${categoryLabel} (${failedRequests} failed request(s)).`,
     );
     return allProducts;
   }

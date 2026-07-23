@@ -10,6 +10,7 @@ import { ChedrauiScraper } from './crawlers/chedraui.scraper';
 import { SearsScraper } from './crawlers/sears.scraper';
 import { CostcoScraper } from './crawlers/costco.scraper';
 import { AlertService } from '../alert.service';
+import { MonitorService } from '../monitor.service';
 import { ScrapeProgress } from './scraper.types';
 
 @Processor('scraper-tasks', { concurrency: 1 })
@@ -25,7 +26,8 @@ export class ScraperProcessor extends WorkerHost {
         private readonly chedrauiScraper: ChedrauiScraper,
         private readonly searsScraper: SearsScraper,
         private readonly costcoScraper: CostcoScraper,
-        private readonly alertService: AlertService
+        private readonly alertService: AlertService,
+        private readonly monitorService: MonitorService
     ) {
         super();
     }
@@ -44,14 +46,25 @@ export class ScraperProcessor extends WorkerHost {
             case 'scrape:officedepot': {
                 this.logger.log(`▶️ [Job ${job.id}] Office Depot: Starting scrape for ${categoryLabel}...`);
                 await job.log(`Starting Office Depot scrape: ${categoryLabel}`);
-                const odProducts = await this.officeDepotScraper.scrapeCategory(url, progress);
-                if (odProducts && odProducts.length > 0) {
-                    await this.alertService.checkAndSendAlerts(odProducts);
+                try {
+                    const odProducts = await this.officeDepotScraper.scrapeCategory(url, progress);
+                    if (odProducts && odProducts.length > 0) {
+                        await this.alertService.checkAndSendAlerts(odProducts);
+                        // Any category returning products = OD is healthy. This resets
+                        // the failure counter, so the chronically-tarpitted desktop
+                        // category (04-037-0-0) alone never trips the alert.
+                        await this.monitorService.recordSuccess('officedepot');
+                    } else {
+                        await this.monitorService.recordFailure('officedepot', `0 products for ${categoryLabel}`);
+                    }
+                    const odElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+                    this.logger.log(`✅ [Job ${job.id}] Office Depot: Finished in ${odElapsed}s`);
+                    await job.log(`Completed: ${odProducts.length} products in ${odElapsed}s`);
+                    return { status: 'completed' };
+                } catch (e) {
+                    await this.monitorService.recordFailure('officedepot', e.message);
+                    throw e;
                 }
-                const odElapsed = ((Date.now() - startTime) / 1000).toFixed(2);
-                this.logger.log(`✅ [Job ${job.id}] Office Depot: Finished in ${odElapsed}s`);
-                await job.log(`Completed: ${odProducts.length} products in ${odElapsed}s`);
-                return { status: 'completed' };
             }
 
             case 'scrape:coppel': {
