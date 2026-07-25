@@ -15,7 +15,7 @@ export class AlertService {
     // Measured against a trailing baseline, NOT the retailer's self-reported
     // "antes"/MSRP anchor — that anchor is frequently a permanent fiction
     // (e.g. Sears appliances list a ~2x inflated original_price forever).
-    private readonly REAL_DROP_PCT = parseInt(process.env.ALERT_REAL_DROP_PCT || '12');
+    private readonly REAL_DROP_PCT = parseInt(process.env.ALERT_REAL_DROP_PCT || '30');
     // How many recent price_history rows to pull to build the trailing baseline.
     private readonly HISTORY_WINDOW = 8;
     private readonly HIGH_PRIORITY_PCT = 30; // genuine drop % that routes to the priority chat
